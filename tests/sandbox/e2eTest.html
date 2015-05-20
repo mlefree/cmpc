@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <title>Sandbox End to end Test Page</title>
+</head>
+<body ng-app="c4p">
+<div ng-controller="ControllerA">
+    <div id="head">
+        Parent title :
+        <input id="title" type="text" ng-model="title"/><br/>
+        Select a contact index
+        <input id="selIndex" type="number" min="0" max="{{contacts.length - 1}}" ng-model="sel"/> :
+        <p id="selValue">{{contacts[sel].value}}</p><br/>
+    </div>
+    <ul>
+        <li ng-repeat="contact in contacts">
+            Id={{contact.id}} : <input id="contact_{{contact.id}}" type="text" ng-model="contact.value"/>
+            [ <a href="" ng-click="clearContact(contact)">clear</a>
+            | <a href="" ng-click="removeContact(contact)">X</a>]
+            Child title (get parent value but copy it upon any modif not modifying parent title) :
+            <input id="title_{{contact.id}}" type="text" ng-model="title"/>
+        </li>
+        <li>[ <a href="" ng-click="addContact()">add</a> ]</li>
+    </ul>
+</div>
+<div id="ctrlSpace1" ng-controller="noSpaceAndLowerCaseCtrl">
+    <input id="space1" ng-model="name" ng-trim="false" no-space-and-lower-case />
+</div>
+
+<!-- Load jQuery BEFORE Angular otherwise Angular loads its own JQuery lite version -->
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script language="javascript">
+    // Declare app level module which depends on filters, and services
+    var appModule = angular.module('c4p', ['c4p.directives']);
+    var directiveModule = angular.module('c4p.directives', [])
+            .config(function ($compileProvider) {
+                $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
+            });
+
+    // add a4p Sense to our directives
+    //a4p.Sense.declareDirectives(directiveModule);
+    //a4p.Resize.declareDirectives(directiveModule);
+</script>
+<script type="text/javascript" src="../../www/js/directive/fields.js"></script>
+<script language="javascript">
+    appModule.controller('ControllerA', function ($scope) {
+        $scope.title = 'List of contacts';
+        $scope.sel = 0;
+        $scope.nextId = 10;
+        $scope.contacts = [];
+        for (var i = 0; i < $scope.nextId; i++) {
+            $scope.contacts.push({id: i, value: 'Value_' + i});
+        }
+        $scope.addContact = function () {
+            this.contacts.push({id: $scope.nextId, value: 'Value_' + $scope.nextId});
+            $scope.nextId++;
+        };
+
+        $scope.removeContact = function (contactToRemove) {
+            var index = this.contacts.indexOf(contactToRemove);
+            this.contacts.splice(index, 1);
+        };
+
+        $scope.clearContact = function (contact) {
+            contact.value = '';
+        };
+    });
+    appModule.controller('noSpaceAndLowerCaseCtrl', function ($scope) {
+        $scope.name = '';
+    });
+</script>
+
+</body>
+</html>

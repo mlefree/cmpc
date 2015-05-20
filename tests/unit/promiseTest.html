@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+
+    <title>c4p</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <!--  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.3, user-scalable=no, minimum-scale=1.3, maximum-scale=1.3">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.3, maximum-scale=1.3">
+     -->
+    <meta name="viewport" content="width=device-width,  initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="">
+    <meta name="author" content="Apps4Pro">
+
+
+
+
+
+
+</head>
+<body ng-app="c4p" ng-controller="promiseCtrl">
+
+	<div>
+		<button ng-click='startTest()'>test</button><p>{{endTest}}</p>
+	</div>
+
+	<script src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+	<script src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+
+	<script language="javascript">
+		var appModule = angular.module('c4p', []);
+		function promiseCtrl($scope, $q) {
+			$scope.endTest = false;
+			$scope.startTest = function(){
+				console.log('startTest');
+				var deferred = $q.defer();
+				setTimeout(function () {
+
+					console.log('timeout1');
+					doPromise($scope, deferred, $q);
+                }, 1000);
+		        return deferred.promise.then(
+		        	function() {
+		        		console.log('success');
+		        		$scope.endTest = true;
+					},
+		        	function() {
+						console.log('error');
+					});
+			}
+		}
+		function doPromise(scope, deferred, q){
+			setTimeout(function () {
+				console.log('timeout2');
+				var deferredChild = q.defer();
+
+				setTimeout(function () {
+                    a4p.safeApply(scope, function() {
+                        deferredChild.resolve();
+                    });
+                }, 1000);
+		        return deferredChild.promise.then(
+			        	function() {
+			        		console.log('success child');
+                            a4p.safeApply(scope, function() {
+                                deferred.resolve();
+                            });
+						},
+			        	function() {
+							console.log('error child');
+						});
+            }, 1000);
+
+		}
+    </script>
+</body>
+</html>

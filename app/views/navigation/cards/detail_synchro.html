@@ -1,0 +1,46 @@
+
+	<!-- 
+		inputs : 
+			itemSynchro
+	-->
+
+	<i class="pull-right glyphicon glyphicon-caret-right glyphicon-lg" style="-webkit-transform: rotate(45deg);color:green;" 
+		ng-style="{'opacity': itemSynchro.cloud.progress+'%'}"></i>
+
+		
+
+	<div class="progress" style="margin-bottom:0; height:2px; opacity:0.4;"
+		ng-class="{'progress-striped active' : 		(itemSynchro.deleting==1)
+													||(itemSynchro.creating==1)
+													||(itemSynchro.writing==1)
+													||(itemSynchro.reading==1)
+													||(itemSynchro.sharing==1)}">
+		<div class="progress-bar progress-bar-info" role="progressbar" 
+		  		aria-valuenow="{{itemSynchro.cloud.progress}}" aria-valuemin="0" aria-valuemax="100" 
+		  		style="width: {{itemSynchro.cloud.progress}}%">
+		  
+			<!--<i class="glyphicon"
+				ng-class="{
+			        'glyphicon-trash-o'    		: (itemSynchro.deleting > 1),
+			        'glyphicon-bolt' 			: (!itemSynchro.deleting && (itemSynchro.creating > 1)),
+			        'glyphicon-cloud-upload'   	: (!itemSynchro.deleting && !itemSynchro.creating && (itemSynchro.writing > 1)),
+			        'glyphicon-cloud-download' 	: (!itemSynchro.deleting && !itemSynchro.creating && !itemSynchro.writing && (itemSynchro.reading > 1))
+			      }">
+			</i>-->
+		</div>
+		<i style="padding-top: 0.9em;font-size: 0.7em;" class="pull-right glyphicon glyphicon-trash-o" ng-show="itemSynchro.deleting"></i>
+		<i style="padding-top: 0.9em;font-size: 0.7em;" class="pull-right glyphicon glyphicon-bolt" ng-show="itemSynchro.creating"></i>
+		<i style="padding-top: 0.9em;font-size: 0.7em;" class="pull-right glyphicon glyphicon-volume-up" ng-show="itemSynchro.sharing"></i>
+		<i style="padding-top: 0.9em;font-size: 0.7em;" class="pull-right glyphicon glyphicon-cloud-upload" ng-show="itemSynchro.writing"></i>
+		<i style="padding-top: 0.9em;font-size: 0.7em;" class="pull-right glyphicon glyphicon-cloud-download" ng-show="itemSynchro.reading"></i>
+
+	</div>
+
+	
+	deleting : {{itemSynchro.deleting}}<br>
+	creating : {{itemSynchro.creating}}<br>
+	writing : {{itemSynchro.writing}}<br>
+	reading : {{itemSynchro.reading}}<br>
+	sharing : {{itemSynchro.sharing}}<br>
+	cloud : {{itemSynchro.cloud.status}} - {{itemSynchro.cloud.progress}} % {{itemSynchro.cloud.log}} 
+	

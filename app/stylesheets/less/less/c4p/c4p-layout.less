@@ -1,0 +1,170 @@
+
+// Global Mobile optimization
+*:not(input):not(textarea),
+//:not(.form-control),*/
+body,
+html,
+#a4pBody {
+  // prevent touch scroll
+  .c4p-touch-prevent();
+
+  // prevent copy paste, to allow, change 'none' to 'text'
+  .c4p-user-select-none();
+  //.c4p-touch-scroll-no();
+}
+
+html {
+  font-size:80%;
+}
+body{
+  .c4p-fixed-container();
+  background-color: @aside-bg;
+}
+
+
+#a4pBody{
+  .c4p-absolute-container();
+  background-color: @aside-bg;
+}
+
+#a4pPage{
+  padding-top:0px;
+  padding-bottom:0px;
+  //min-height:600px;
+  height:100%;
+  .c4p-background-bg(@body-bg-url, @body-bg);
+  z-index: 5;
+}
+
+.a4p-dot {
+  display: block;
+  .text-overflow();
+}
+
+.a4p-inline-dot {
+  display: inline-block;
+  .text-overflow();
+}
+
+.c4p-click-through {
+  pointer-events:none;
+}
+.c4p-click-intercepted {
+  pointer-events:all;
+}
+
+// To dispose next block on right side (instead of bottom ?)
+.c4p-ltr {
+  position:relative;
+  min-height:1px;
+  float:left;
+}
+
+// To dispose next block on left side (instead of bottom ?)
+.c4p-rtl {
+  position:relative;
+  min-height:1px;
+  float:right;
+}
+
+.c4p-height-full {
+  height:100%;
+}
+
+
+.c4p-container {
+  .c4p-absolute-container();
+
+
+}
+
+.c4p-container-scroll-y {
+  .c4p-touch-scroll-y();
+  position:relative;
+  height:100%;
+  width:100%;
+
+  & > .c4p-container {
+    //bottom:-20px;
+  }
+}
+
+
+.c4p-absolute{
+  position:absolute;
+}
+
+.c4p-invisible {
+  opacity: 0;
+}
+
+.c4p-padding-w-packed {
+  padding-top: @vpad;
+  padding-bottom: @vpad;
+  padding-left: @hpad-packed ;
+  padding-right: @hpad-packed ;
+}
+
+.c4p-padding-h-0 {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: @hpad-packed ;
+  padding-right: @hpad-packed ;
+}
+
+.c4p-hdr-spacer {
+  padding: @vpad 0em @vpad 0em;
+  width: 1px; // not 0 for debug purpose
+}
+
+.c4p-v-spacer {
+  padding-right: 0;
+  padding-left: 0;
+  width: 1px; // not 0 for debug purpose
+}
+
+
+// Viewport
+// -----------------------
+/*
+@-webkit-viewport{
+    user-scalable:  no;
+    initial-scale:  1;
+    maximum-scale:  1;
+    minimum-scale:  1;
+    width:          device-width;
+    height:         device-height;
+}
+@-moz-viewport{
+    user-scalable:  no;
+    initial-scale:  1;
+    maximum-scale:  1;
+    minimum-scale:  1;
+    width:          device-width;
+    height:         device-height;
+}
+@-ms-viewport{
+    user-scalable:  no;
+    initial-scale:  1;
+    maximum-scale:  1;
+    minimum-scale:  1;
+    width:          device-width;
+    height:         device-height;
+}
+@-o-viewport{
+    user-scalable:  no;
+    initial-scale:  1;
+    maximum-scale:  1;
+    minimum-scale:  1;
+    width:          device-width;
+    height:         device-height;
+}
+@viewport{
+    user-scalable:  no;
+    initial-scale:  1;
+    maximum-scale:  1;
+    minimum-scale:  1;
+    width:          device-width;
+    height:         device-height;
+}
+*/

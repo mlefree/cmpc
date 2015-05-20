@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang=en>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <meta name="author" content="Apps4Pro">
+
+    <title>Multi Touch Tracker</title>
+
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+            -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+            -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+            /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        *:not(input):not(textarea) {
+            -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+
+</head>
+<body ng-app="c4p" onload="init()" style="background-color: #000000; margin: 0px;">
+<div ng-controller="docCtrl" touchy-opts="{name:'docCtrl'}"
+     touchy-down="down($event)" touchy-move="move($event)" touchy-up="up($event)"
+     touchy-hold="hold($event)" touchy-stay="stay($event)"
+     touchy-enter="enter($event)" touchy-leave="leave($event)" touchy-out="out($event)">
+    <canvas id="canvas1" width="600" height="500"
+            style="background-color: #333333; border: 1px solid #FF00FF; display: block; position: fixed; bottom:20px; left:20px;"
+            ng-controller="touchyCtrl1" touchy-opts="{name:'touchyCtrl1'}"
+            touchy-down="down($event)" touchy-move="move($event)" touchy-up="up($event)"
+            touchy-hold="hold($event)" touchy-stay="stay($event)"
+            touchy-enter="enter($event)" touchy-leave="leave($event)" touchy-out="out($event)"></canvas>
+    <canvas id="canvas2" width="600" height="500"
+            style="background-color: #113311; border: 1px solid #FFFF00; display: block; position: fixed; top:20px; right:20px;"
+            ng-controller="touchyCtrl2" touchy-opts="{name:'touchyCtrl2'}"
+            touchy-down="down($event)" touchy-move="move($event)" touchy-up="up($event)"
+            touchy-hold="hold($event)" touchy-stay="stay($event)"
+            touchy-enter="enter($event)" touchy-leave="leave($event)" touchy-out="out($event)"></canvas>
+    <div ng-controller="TestCtrl">
+        <div ng-repeat="obj in objs">
+            {{obj.name}}
+            <button just-remove touchy-opts="{name:'justRemove'}"
+                    touchy-down="down($event)" ng-click="justRemove(obj)">Just remove
+            </button>
+        </div>
+        <hr/>
+        <div ng-repeat="obj in objs">
+            {{obj.name}}
+            <button remove-with-fade-in-directive="obj,objs">Remove with fade on directive</button>
+        </div>
+        <hr/>
+        <div ng-repeat="obj in objs">
+            {{obj.name}}
+            <button remove-with-fade-in-controller="1000" ng-click="removeWithFade(obj)">Remove with fade on controller
+            </button>
+        </div>
+
+    </div>
+</div>
+<pre id="log" style="color: #ffffff;">Welcome to the Multi Touch Tracker</pre>
+
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+<script>
+var fps = 30;
+
+function outputObject(offset, input, maxDepth) {
+    var str = "";
+    for (var key in input) {
+        if (!input.hasOwnProperty(key)) continue;
+        if (typeof input[key] === "object") {
+            if (maxDepth > 0) {
+                str += offset + key + " : {\n";
+                str += outputObject(offset + "  ", input[key], maxDepth-1);
+                str += offset + "}\n";
+            } else {
+                str += offset + key + " : [" + typeof(input[key]) + "]\n";
+            }
+        } else {
+            str += offset + key + " : " + input[key] + "\n";
+        }
+    }
+    return str;
+}
+function output(label, input, maxDepth) {
+    var out = document.getElementById("log"), str = "";
+    if (typeof input === "object") {
+        if (maxDepth > 0) {
+            str += "{\n";
+            str += outputObject("  ", input, maxDepth-1);
+            str += "}\n";
+        } else {
+            str += "[" + typeof(input) + "]\n";
+        }
+    } else {
+        str += input + "\n";
+    }
+    //out.innerHTML += (out.innerHTML === "" ? "" : "\n") + label + input_string;
+    //out.innerHTML = label + str;
+    console.log(label + str);
+}
+
+var touchable = (("ontouchstart" in window) || ("createTouch" in document));
+
+var canvas1, ctx1;
+var canvas2, ctx2;
+var touches = [];
+var mouseX = 0, mouseY = 0, mouseTarget = null;
+
+
+function draw() {
+    var touch, clientX, clientY, textX, textY;
+
+    ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    if (touchable && (touches.length > 0)) {
+        for (var i = 0; i < touches.length; i++) {
+            touch = touches[i];
+            clientX = touch.pageX - canvas1.offsetLeft;
+            clientY = touch.pageY - canvas1.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx1.beginPath();
+            ctx1.fillStyle = "yellow";
+            ctx1.fillText("touch target:" + touch.target.localName + "#" + touch.target.id + " id:" + touch.identifier + " x:" + touch.pageX + " y:" + touch.pageY, textX, textY);
+
+            ctx1.beginPath();
+            ctx1.strokeStyle = "green";
+            ctx1.lineWidth = "6";
+            ctx1.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx1.stroke();
+        }
+    } else {
+        if (mouseTarget != null) {
+            clientX = mouseX - canvas1.offsetLeft;
+            clientY = mouseY - canvas1.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx1.beginPath();
+            ctx1.fillStyle = "yellow";
+            ctx1.fillText("mouse target:" + mouseTarget.localName + "#" + mouseTarget.id + " x:" + mouseX + " y:" + mouseY, textX, textY);
+
+            ctx1.beginPath();
+            ctx1.strokeStyle = "green";
+            ctx1.lineWidth = "6";
+            ctx1.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx1.stroke();
+        }
+    }
+    //ctx1.fillText("hello", 0,0);
+
+    if (touchable && (touches.length > 0)) {
+        for (var i = 0; i < touches.length; i++) {
+            touch = touches[i];
+
+            clientX = touch.pageX - canvas2.offsetLeft;
+            clientY = touch.pageY - canvas2.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx2.beginPath();
+            ctx2.fillStyle = "white";
+            ctx2.fillText("touch target:" + touch.target.localName + "#" + touch.target.id + " id:" + touch.identifier + " x:" + touch.pageX + " y:" + touch.pageY, textX, textY);
+
+            ctx2.beginPath();
+            ctx2.strokeStyle = "cyan";
+            ctx2.lineWidth = "6";
+            ctx2.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx2.stroke();
+        }
+    } else {
+        if (mouseTarget != null) {
+            clientX = mouseX - canvas2.offsetLeft;
+            clientY = mouseY - canvas2.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx2.beginPath();
+            ctx2.fillStyle = "white";
+            ctx2.fillText("mouse target:" + mouseTarget.localName + "#" + mouseTarget.id + " x:" + mouseX + " y:" + mouseY, textX, textY);
+
+            ctx2.beginPath();
+            ctx2.strokeStyle = "cyan";
+            ctx2.lineWidth = "6";
+            ctx2.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx2.stroke();
+        }
+    }
+    //ctx2.fillText("hello", 0,0);
+}
+function init() {
+    setupCanvas();
+    //a4p.Touchy.addListenersOn(document);
+    setInterval(draw, 1000 / fps);
+}
+
+function setupCanvas() {
+    canvas1 = document.getElementById('canvas1');
+    //canvas1.width = window.innerWidth;
+    //canvas1.height = window.innerHeight;
+    //output('canvas1 : ', canvas1, 1);
+    //output('ctx1 : ', ctx1, 1);
+    canvas2 = document.getElementById('canvas2');
+
+    ctx1 = canvas1.getContext('2d');
+    ctx1.strokeStyle = "#ffffff";
+    ctx1.lineWidth = 2;
+
+    ctx2 = canvas2.getContext('2d');
+    ctx2.strokeStyle = "#ffffff";
+    ctx2.lineWidth = 2;
+
+    if (touchable) {
+        document.addEventListener('touchstart', onTouchStart, false);
+        document.addEventListener('touchmove', onTouchMove, false);
+        document.addEventListener('touchend', onTouchEnd, false);
+
+        /*
+        document.addEventListener('touchstart', a4p.Touchy.handleTouchStart, false);
+        document.addEventListener('touchmove', a4p.Touchy.handleTouchMove, false);
+        document.addEventListener('touchend', a4p.Touchy.handleTouchEnd, false);
+        document.addEventListener('touchcancel', a4p.Touchy.handleTouchCancel, false);
+        document.addEventListener('touchenter', a4p.Touchy.handleTouchEnter, false);
+        document.addEventListener('touchleave', a4p.Touchy.handleTouchLeave, false);
+        */
+        //window.onorientationchange = resetCanvas;
+        //window.onresize = resetCanvas;
+    }
+    document.addEventListener('mousedown', onMouseStart, false);
+    document.addEventListener('mousemove', onMouseMove, false);
+    document.addEventListener('mouseup', onMouseEnd, false);
+
+    /*
+    document.addEventListener('mousedown', a4p.Touchy.handleMouseDown, false);
+    document.addEventListener('mousemove', a4p.Touchy.handleMouseMove, false);
+    document.addEventListener('mouseup', a4p.Touchy.handleMouseUp, false);
+    document.addEventListener('mouseout', a4p.Touchy.handleMouseOut, false);
+    */
+}
+
+function resetCanvas(e) {
+    // resize the canvas - but remember - this clears the canvas too.
+    //canvas1.width = window.innerWidth;
+    //canvas1.height = window.innerHeight;
+
+    //make sure we scroll to the top left.
+    window.scrollTo(0, 0);
+}
+
+function onMouseStart(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    // Beware : touch.target is the start target (while a mouse.target is the move target)
+    // => to have same behaviour we set target on start.target even for mouse event
+    mouseTarget = e.target;
+    //output('onMouseMove : ', e, 1);
+}
+
+function onMouseMove(e) {
+    e.preventDefault();
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+}
+
+function onMouseEnd(e) {
+    mouseTarget = null;
+}
+
+function onTouchStart(e) {
+    touches = e.touches;
+}
+
+function onTouchMove(e) {
+    // Prevent the browser from doing its default thing (scroll, zoom)
+    e.preventDefault();
+    touches = e.touches;
+}
+
+function onTouchEnd(e) {
+    touches = e.touches;
+}
+
+
+var appModule = angular.module('c4p', ['a4p.directives']);
+
+var directiveModule = angular.module('a4p.directives', []);
+
+function docCtrl($scope) {
+    $scope.down = function (event) {
+        console.log("DOWN docCtrl : " + event.originalEvent.id);
+    };
+    $scope.move = function (event) {
+        console.log("MOVE docCtrl : " + event.originalEvent.id);
+    };
+    $scope.up = function (event) {
+        console.log("UP docCtrl : " + event.originalEvent.id);
+    };
+    $scope.hold = function (event) {
+        console.log("HOLD docCtrl : " + event.originalEvent.id);
+    };
+    $scope.stay = function (event) {
+        //console.log("STAY docCtrl : " + event.originalEvent.id);
+    };
+    $scope.enter = function (event) {
+        console.log("ENTER docCtrl : " + event.originalEvent.id);
+    };
+    $scope.leave = function (event) {
+        console.log("LEAVE docCtrl : " + event.originalEvent.id);
+    };
+    $scope.out = function (event) {
+        console.log("OUT docCtrl : " + event.originalEvent.id);
+    };
+}
+
+function touchyCtrl1($scope) {
+    $scope.x1 = -2;
+    $scope.down = function (event) {
+        console.log("DOWN touchyCtrl1 : " + event.originalEvent.id);
+    };
+    $scope.move = function (event) {
+        console.log("MOVE touchyCtrl1 : " + event.originalEvent.id);
+    };
+    $scope.up = function (event) {
+        console.log("UP touchyCtrl1 : " + event.originalEvent.id);
+    };
+    $scope.hold = function (event) {
+        console.log("HOLD touchyCtrl1 : " + event.originalEvent.id);
+    };
+    $scope.stay = function (event) {
+        //console.log("STAY touchyCtrl1 : " + event.originalEvent.id);
+    };
+    $scope.enter = function (event) {
+        console.log("ENTER touchyCtrl1 : " + event.originalEvent.id);
+    };
+    $scope.leave = function (event) {
+        console.log("LEAVE touchyCtrl1 : " + event.originalEvent.id);
+    };
+    $scope.out = function (event) {
+        console.log("OUT touchyCtrl1 : " + event.originalEvent.id);
+    };
+}
+
+function touchyCtrl2($scope) {
+    $scope.x2 = 0;
+    $scope.down = function (event) {
+        console.log("DOWN touchyCtrl2 : "+ event.originalEvent.id);
+    };
+    $scope.move = function (event) {
+        console.log("MOVE touchyCtrl2 : " + event.originalEvent.id);
+    };
+    $scope.up = function (event) {
+        console.log("UP touchyCtrl2 : " + event.originalEvent.id);
+    };
+    $scope.hold = function (event) {
+        console.log("HOLD touchyCtrl2 : " + event.originalEvent.id);
+    };
+    $scope.stay = function (event) {
+        //console.log("STAY touchyCtrl2 : " + event.originalEvent.id);
+    };
+    $scope.enter = function (event) {
+        console.log("ENTER touchyCtrl2 : " + event.originalEvent.id);
+    };
+    $scope.leave = function (event) {
+        console.log("LEAVE touchyCtrl2 : " + event.originalEvent.id);
+    };
+    $scope.out = function (event) {
+        console.log("OUT touchyCtrl2 : " + event.originalEvent.id);
+    };
+}
+
+directiveModule.directive("justRemove", function() {
+    return function(scope, element, attrs) {
+        /*scope.$on('$destroy', function() {
+            console.log("scope destroyed");
+        });*/
+        // BUG : element not destroyed
+        element.bind("$destroy", function() {
+            console.log("element removed");
+        });
+    };
+});
+
+directiveModule.directive("removeWithFadeInDirective", function() {
+    return function(scope, element, attrs) {
+        element.bind('click', function() {
+            $(element).parent().fadeOut(1000, function() {
+                a4p.safeApply(scope, function() {
+                    var obj = scope.$eval(attrs.removeWithFadeInDirective.split(",")[0]),
+                        array = scope.$eval(attrs.removeWithFadeInDirective.split(",")[1]);
+                    array.splice(obj, 1);
+                });
+            });
+        });
+    };
+});
+
+directiveModule.directive("removeWithFadeInController", function() {
+    return function(scope, element, attrs) {
+        var time = scope.$eval(attrs.removeWithFadeInController);
+        element.bind('click', function() {
+            $(element).parent().fadeOut(time);
+        });
+    };
+});
+
+function TestCtrl($scope) {
+    $scope.works = "YES!";
+    $scope.objs = [
+        {
+        name: "foo"},
+    {
+        name: "bar"},
+    {
+        name: "lol"}
+    ];
+    $scope.justRemove = function(obj) {
+        $scope.objs.splice(obj, 1);
+    };
+    $scope.removeWithFade = function(obj) {
+        setTimeout(function() {
+            $scope.objs.splice(obj, 1);
+        }, 1000);
+    };
+    $scope.down = function (event) {
+        console.log("down");
+    };
+}
+
+</script>
+</body>
+</html>

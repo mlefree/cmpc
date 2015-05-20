@@ -1,0 +1,93 @@
+<!doctype html>
+<!--
+  controller is ctrlDetail
+
+  input : srvNav, linkItemsActionIsPossible, DnD?
+
+  showAsideGroup
+  isDocumentGroup
+  unlinkDialog
+  isDraggable
+
+-->
+
+<div ng-controller="ctrlDetailLinkedObjects">
+  <div class="c4p-waiting"
+      ng-show="detailLinkedObjectsLoadingSpinner"
+      c4p-animateshow="detailLinkedObjectsLoadingSpinner"
+      after-hide="afterDetailLinkedObjectsSpinnerHide()"
+      after-show="afterDetailLinkedObjectsSpinnerShow()">
+      <div ng-include="'partials/spinner.html'"></div>
+  </div>
+
+  <div ng-if="!detailLinkedObjectsLoadingSpinner">
+
+      <div class="c4p-related-card c4p-color-a-gradient1" ng-repeat="group in srvNav.itemRelatedGroupList"
+          ng-show="group.type != 'Plan' && group.type != 'Facet'">
+          <ul class="c4p-related-card-list">
+              <li id="related_{{group.name}}"
+                  class="c4p-related-card-header c4p-color-{{group.colorType}}-dark-iii"
+                  ng-click="showAsideGroup(group,!group.show)">
+                  <span class="glyphicon glyphicon-fw glyphicon-{{group.icon}}"></span>
+                  <span>{{group.name}}</span><span class="c4p-aside-count">{{group.size}}</span>
+                  <span ng-show="isDocumentGroup(group.type) && (srvNav.imageRelatedList.length > 0)"
+                        ng-click="$event.stopPropagation();showGallery();"
+                        class="glyphicon glyphicon-eye-open pull-right"></span>
+              </li>
+              <li ng-repeat="link in srvNav.itemRelatedList[group.type]"
+                  ng-show="group.show"> <!-- ng-hide="srvData.srvSynchroStatus.hasToBeDeleted(link.item)" -->
+                  <div class="row c4p-color-{{group.colorType}}-gradient3 {{{true: 'c4p-related-card-item-1st', false: 'c4p-related-card-item-others'}[$first]}}">
+
+                      <!-- Cards -->
+                      <div class="c4p-related-card-holder" ng-class="{'col-xxs-11' : linkItemsActionIsPossible, 'col-xxs-12' : !linkItemsActionIsPossible}">
+                          <div ng-if="isDraggable">
+                            <span ng-include="'partials/navigation/cards/summarized_card.html'"
+                                  ng-controller="ctrlDragObject"
+                                  ng-init="item = link.item; cardItemColor = 'c4p-color-'+group.colorType; init(item);"
+                                  sense-longdragoverenter="dragOverEnter($event,$element)"
+                                  sense-longdragoverleave="dragOverLeave($event,$element)"
+                                  sense-longdragstart="dragStart($event,$element)"
+                                  sense-longdragmove="dragMove($event,$element)"
+                                  sense-longdragend="dragEnd($event,$element)"
+                                  sense-longdragcancel="dragCancel($event,$element)"></span>
+                          </div>
+                          <div ng-if="!isDraggable">
+                            <span ng-include="'partials/navigation/cards/summarized_card.html'"
+                                  ng-init="item = link.item; cardItemColor = 'c4p-color-'+group.colorType;"></span>
+                          </div>
+
+                      </div>
+
+                      <!-- Actions for links between current object and linked object -->
+                      <div class="col-xxs-1" style="text-align: center;" ng-if="linkItemsActionIsPossible">
+                          <div ng-if="link.linkNames.length == 1">
+                              <div id="{{link.item.id.dbid}}-unlink_" class="btn c4p-color-action-transparent c4p-padding-w-packed"
+                                   ng-click="unlinkDialog(link.linkNames[0], link.item)">
+                                  <span class="c4p-icon-std close">&times;</span>
+                              </div>
+                          </div>
+                          <div class="dropdown" ng-if="link.linkNames.length > 1">
+                              <div id="{{link.item.id.dbid}}-unlink" class="dropdown-toggle btn c4p-color-action-transparent c4p-padding-w-packed" data-toggle="dropdown">
+                                  <span class="c4p-icon-std close">&times;</span>
+                              </div>
+                              <ul class="dropdown-menu c4p-dropdown-menu pull-right c4p-dropdown" aria-labelledby="{{link.item.id.dbid}}-unlink">
+                                  <li>{{translate('htmlViewNlinkItemTextRemoveLink')}}</li>
+                                  <li ng-repeat="linkName in getPossibleLinkActionList(srvNav.item.a4p_type, link.item.a4p_type)"
+                                      ng-show="srvData.isObjectOwnedByUser(link.item) && srvData.isObjectOwnedByUser(srvNav.item)">
+                                      <div class="btn" ng-click="unlinkDialog(linkName, link.item)">
+                                          <span style="vertical-align:top">{{srvLocale.translations.htmlShortLinkName[linkName]}}</span>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+
+                  </div>
+              </li>
+          </ul>
+      </div>
+
+
+  </div><!-- detailLoadingSpinner -->
+
+</div>

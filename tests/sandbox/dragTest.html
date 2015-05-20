@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Drag Example</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body ng-app="drag">
+<span draggable>Drag ME 1</span>
+<span draggable>Drag ME 2</span>
+<span draggable>Drag ME 3</span>
+<span draggable>Drag ME 4</span>
+<span draggable>Drag ME 5</span>
+<span draggable>Drag ME 6</span>
+<span draggable>Drag ME 7</span>
+<span draggable>Drag ME 8</span>
+<span draggable>Drag ME 9</span>
+<span draggable>Drag ME 10</span>
+<span draggable>Drag ME 11</span>
+<span draggable>Drag ME 12</span>
+<span draggable>Drag ME 13</span>
+<span draggable>Drag ME 14</span>
+<span draggable>Drag ME 15</span>
+<span draggable>Drag ME 16</span>
+<span draggable>Drag ME 17</span>
+<span draggable>Drag ME 18</span>
+<span draggable>Drag ME 19</span>
+<span draggable>Drag ME 20</span>
+<span draggable>Drag ME 21</span>
+<span draggable>Drag ME 22</span>
+<span draggable>Drag ME 23</span>
+<span draggable>Drag ME 24</span>
+<span draggable>Drag ME 25</span>
+<span draggable>Drag ME 26</span>
+<span draggable>Drag ME 27</span>
+<span draggable>Drag ME 28</span>
+<span draggable>Drag ME 29</span>
+<span draggable>Drag ME 30</span>
+<span draggable>Drag ME 31</span>
+<span draggable>Drag ME 32</span>
+<span draggable>Drag ME 33</span>
+<span draggable>Drag ME 34</span>
+<span draggable>Drag ME 35</span>
+<span draggable>Drag ME 36</span>
+<script src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script>
+    angular.module('drag', []).
+            directive('draggable', function ($document) {
+                return function (scope, element, attr) {
+                    var startX = 0, startY = 0, x = 0, y = 0;
+                    element.css({
+                        position: 'relative',
+                        border: '1px solid red',
+                        backgroundColor: 'lightgrey',
+                        cursor: 'pointer'
+                    });
+                    element.bind('mousedown', function (event) {
+                        // Prevent default dragging of selected content
+                        event.preventDefault();
+                        startX = event.screenX - x;
+                        startY = event.screenY - y;
+                        $document.bind('mousemove', mousemove);
+                        $document.bind('mouseup', mouseup);
+                    });
+
+                    function mousemove(event) {
+                        y = event.screenY - startY;
+                        x = event.screenX - startX;
+                        element.css({
+                            top: y + 'px',
+                            left: x + 'px'
+                        });
+                    }
+
+                    function mouseup() {
+                        $document.unbind('mousemove', mousemove);
+                        $document.unbind('mouseup', mouseup);
+                    }
+                }
+            });
+</script>
+</body>
+</html>

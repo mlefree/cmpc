@@ -1,0 +1,51 @@
+<!doctype html>
+<!--
+
+	register.html
+
+	controller is
+
+	input :
+
+-->
+<div ng-controller="ctrlConfig" class="">
+	<div id="top" class="">
+		<!-- first column - login form -->
+		<div class="row">
+			<h3 class="col-xxs-12 col-sm-offset-3 col-sm-6 text-center white login-header">
+				{{translate('htmlGuiderPageTitle')}}
+			</h3>
+		</div>
+
+		<form class="form-horizontal" name="loginForm" novalidate  style="min-height: 300px;">
+			<div class="form-group row"><!-- ng-class="{'has-error': loginForm.$invalid}" -->
+
+				<div class="col-xxs-12 col-sm-offset-3 col-sm-6">
+						<c4p-input
+							type="mail"
+							class="form-control"
+							ng-model="configLogin.email"
+							placeholder="{{srvLocale.translations.htmlFormEmailPlaceHolder}}"
+							required
+							ng-disabled="isEditFocused">
+        		</c4p-input>
+				</div>
+			</div>
+
+			<div class="row">
+				<a class="btn btn-primary col-xxs-12 col-sm-offset-3 col-sm-3"
+						ng-click="createAccount()"
+						 ><!-- ng-disabled="isEditFocused" ng-disabled="loginForm.$invalid" -->
+						{{srvLocale.translations.htmlButtonRegister}}
+				</a>
+				<a class="btn btn-link white col-xxs-12 col-sm-3"
+						ng-click="gotoLogin()"
+						><!-- ng-disabled="isEditFocused" -->
+					{{srvLocale.translations.htmlTextAlreadyRegistered}}
+				</a>
+			</div>
+
+		</form>
+
+	</div>
+</div>

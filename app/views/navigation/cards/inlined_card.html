@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- inputs :
+cardItem
+-->
+
+
+<ul class="nav nav-pills" ng-controller="ctrlInlinedObject" ng-init="init(cardItem)">
+
+   <!-- <li style="
+            padding: 0;
+            margin: 0;
+            line-height: 0;">
+        <c4p-thumb width="30" height="30"
+            text="{{itemName}}" indic="{{itemRelationCount}}"
+            icon="glyphicon-{{itemIcon}}" color="{{itemColor}}"
+            url="{{item.thumb_url}}"> test thumb
+        </c4p-thumb>
+    </li>-->
+    <li class="" style="width:90%; text-align: left;">
+        <div ng-show="inlinedItemSecondName">
+            <span class="pull-left a4p-dot" style="width: 75%;">{{inlinedItemName}}</span>
+            <small class="pull-right" style="width: 20%; color: rgb(172, 172, 172);font-size:0.6em;text-align: right;">{{inlinedItemSecondName}}</small>
+        </div>
+        <div ng-hide="inlinedItemSecondName">
+            <span class="pull-left a4p-dot" style="width: 95%;">{{inlinedItemName}}</span>
+        </div>
+    </li>
+
+    <li>
+        <!-- To show if pb -->
+        <span ng-show="(inlinedItem.c4p_synchro.creating || inlinedItem.c4p_synchro.writing || inlinedItem.c4p_synchro.reading || inlinedItem.c4p_synchro.deleting)"
+              class="glyphicon"
+              ng-class="{
+            'glyphicon-trash'    : (inlinedItem.c4p_synchro.deleting > 1),
+            'glyphicon-times-circle' : (!inlinedItem.c4p_synchro.deleting && (inlinedItem.c4p_synchro.creating > 1)),
+            'glyphicon-upload'   : (!inlinedItem.c4p_synchro.deleting && !inlinedItem.c4p_synchro.creating && (inlinedItem.c4p_synchro.writing > 1)),
+            'glyphicon-download' : (!inlinedItem.c4p_synchro.deleting && !inlinedItem.c4p_synchro.creating && !inlinedItem.c4p_synchro.writing && (inlinedItem.c4p_synchro.reading > 1)),
+            'glyphicon-spinner'  : ((inlinedItem.c4p_synchro.deleting == 1) || (inlinedItem.c4p_synchro.creating == 1) || (inlinedItem.c4p_synchro.writing == 1) || (inlinedItem.c4p_synchro.reading == 1)),
+            'glyphicon-spin'          : ((inlinedItem.c4p_synchro.deleting == 1) || (inlinedItem.c4p_synchro.creating == 1) || (inlinedItem.c4p_synchro.writing == 1) || (inlinedItem.c4p_synchro.reading == 1))
+        }"></span>
+    </li>
+</ul>

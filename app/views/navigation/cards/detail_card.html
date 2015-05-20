@@ -1,0 +1,204 @@
+<!doctype html>
+<!--
+		detail_card.html
+		inputs :
+			cardItem, cardGroups, cardItemName, cardHasThumb, cardIsAboutFile, cardIsAboutVideo, cardItemColor
+-->
+
+	<div class="row">
+		<div class="c4p-card-text"
+			ng-class="{'col-xxs-12': !cardHasThumb,'col-xxs-11' : (cardHasThumb && (cardIsAboutFile || cardIsAboutVideo || cardItem.a4p_type == 'Event')),'col-sm-9 col-xxs-11' : (cardHasThumb && !cardIsAboutFile && !cardIsAboutVideo && cardItem.a4p_type != 'Event')}">
+
+			<!-- style="display: block; margin: 0; padding: 0;" -->
+			<div ng-repeat="group in cardGroups" class="col-xxs-12 c4p-size-{{group.size}}">
+
+				<!--{{group.title}} - {{group.name}} - {{$index}}<br>-->
+				<span ng-if="group.name && cardItem.a4p_type != 'Event'" ng-class="{'a4p-dot': (cardIsAboutFile || cardIsAboutVideo)}">{{cardItemName}}</span>
+				<span ng-if="group.name && cardItem.a4p_type == 'Event'" ng-class="{'a4p-dot': (cardIsAboutFile || cardIsAboutVideo)}">{{cardItem.name}}</span>
+				<span ng-if="group.title">{{group.title}}</span>
+
+				<!-- <span ng-show="group.icon" class="icon-large glyphicon glyphicon-{{group.icon}}" ng-class="{'c4p-icon-calendar-allday':allDayEvent}"> </span>
+				<span ng-show="group.icon" ng-hide="$first" class="glyphicon glyphicon-{{group.icon}}"></span>-->
+
+
+				<address ng-if="group.fields.length > 1" class="col-xxs-12">
+					<ul class="list-inline">
+						<li ng-repeat-start="field in group.fields"
+							ng-show="group.icon && $first && field.value && field.value.length"
+							class="">
+							<i 	class="glyphicon glyphicon-fw glyphicon-{{group.icon}}"
+								ng-class="{'c4p-icon-calendar-allday':allDayEvent}"></i>
+						</li>
+						<li ng-repeat-end>
+							<div class="c4p-size-{{field.size}}" ng-include="'partials/navigation/cards/detail_field.html'"></div>
+						</li>
+					</ul>
+				</address>
+
+				<address ng-if="group.fields.length == 1" ng-init="field = group.fields[0]"  class="col-xxs-12">
+					<ul ng-class="{'list-inline': field.type !='textarea', 'list-unstyled': field.type =='textarea'}">
+						<li ng-show="group.icon && field.value && field.value.length"
+							class="">
+							<i 	class="glyphicon glyphicon-fw glyphicon-{{group.icon}}"
+								ng-class="{'c4p-icon-calendar-allday':allDayEvent}"></i>
+						</li>
+						<li>
+							<div class="c4p-size-{{field.size}}" ng-include="'partials/navigation/cards/detail_field.html'"></div>
+						</li>
+					</ul>
+				</address>
+			</div>
+		</div>
+
+
+
+		<!--<div class="c4p-card-thumb pull-right col-sm-2 hidden-xs"
+			ng-if="cardHasThumb && !cardIsAboutFile && !cardIsAboutVideo && cardItem.a4p_type != 'Event'">
+			<c4p-thumb
+				class="pull-right"
+				width="70" height="70"
+				text="{{cardItemName}}" indic="{{itemRelationCount}}"
+				icon="glyphicon-{{itemIcon}}" color="{{cardItemColor}}"
+				url="{{cardItem.thumb_url}}">
+			</c4p-thumb>
+		</div>-->
+
+		<div class="c4p-card-thumb pull-right col-xxs-1"
+			ng-if="cardHasThumb">
+			<div class="pull-right c4p-color-action-transparent"
+				ng-click="doAction('toggleFavorite')">
+				<span class="c4p-icon-std glyphicon c4p-outline-star"
+					ng-class="{'glyphicon-star' : srvData.isTaggedFavorite(cardItem), 'glyphicon-star-o' : !srvData.isTaggedFavorite(cardItem)}">
+				</span>
+			</div>
+		</div>
+
+		<div class="c4p-card-thumb center-block col-xxs-11"
+			ng-if="cardHasThumb && cardItem.a4p_type == 'Event'">
+			<a class="btn"
+					ng-click="gotoMeeting(srvNav.item)"
+					style="background:url('l4p/img/meeting-background.jpg') no-repeat center center;-webkit-background-size: cover; width: 100%;">
+					<img src="l4p/img/logo_meeting_main.png" />
+			</a>
+		</div>
+
+		<div class="c4p-card-thumb center-block col-xxs-11"
+			ng-if="cardHasThumb && cardIsAboutFile && !cardIsAboutVideo && cardItem.a4p_type != 'Event'">
+				<div class="btn c4p-card-thumb-media"
+						ng-class="{'disabled': (actionMap.viewDocument.mustBeCreated)}"
+						ng-click="viewDocument(cardItem)"
+						style="background:url('{{cardItem.thumb_url}}') no-repeat center center;-webkit-background-size: cover;">
+				</div>
+		</div>
+
+		<!-- {{actionMap.viewDocument.disabled}} {{cardItem.id.dbid}}  {{cardItem.thumb_url}} -->
+
+		<div class="c4p-card-thumb center-block col-xxs-11"
+			ng-if="cardHasThumb && cardIsAboutVideo && cardItem.a4p_type != 'Event'">
+				<video controls ng-src="{{cardItem.url}}" class="c4p-card-thumb-media"></video>
+		</div>
+
+		<div  class="c4p-card-progress col-xxs-11 col-xxs-offset-1" ng-if="cardHasThumb">
+			<div style="font-size: 0.5em;margin-bottom: 0;text-align: right;">
+					<span ng-show="cardIsAboutFile && srvNav.item.c4pSynchroStatus.cloud.status == 1">
+						{{srvLocale.translations.htmlMsgFeedbackUploadFileQuestion}}
+						<i 	class="glyphicon glyphicon-question-circle"
+								ng-click="openDialogSendFeedbackReport('Your Praise','UploadFile',srvLocale.translations.htmlMsgFeedbackUploadFile)">
+						</i>
+					</span>
+					<span ng-show="srvNav.item.c4pSynchroStatus.cloud.status == 3">
+						{{srvLocale.translations.htmlTextSynchroStatusOK}}
+					</span>
+						<!--c:{{srvNav.item.c4pSynchroStatus.creating}}
+						r:{{srvNav.item.c4pSynchroStatus.reading}}
+
+						s:{{srvNav.item.c4pSynchroStatus.cloud.status}}
+						l:{{srvNav.item.c4pSynchroStatus.cloud.log}}
+						p:{{srvNav.item.c4pSynchroStatus.cloud.progress}}
+						cd:{{srvNav.item.c4pSynchroStatus.cloud.hasBeenCanceled}}-->
+
+			</div>
+
+		  <!--
+		  ng-if="group.synchro"
+
+		  	<small>Synchro.NEW = 3;
+		    Synchro.QUEUE = 2;
+		    Synchro.NETWORK = 1;
+		    Synchro.NONE = 0;</small>
+
+		                creating 	: c4p.Synchro.NONE,
+		                sharing 	: c4p.Synchro.NONE,
+		                writing 	: c4p.Synchro.NONE,
+		                reading 	: c4p.Synchro.NONE,
+		                deleting 	: c4p.Synchro.NONE,
+
+	        creating <input type="number" min="0" ng-model="cardItem.c4p_synchro.creating" size="4"/> : {{cardItem.c4p_synchro.creating}}<br>
+	        sharing <input type="number" min="0" ng-model="cardItem.c4p_synchro.sharing" size="4"/> : {{cardItem.c4p_synchro.sharing}}<br>
+	        writing <input type="number" min="0" ng-model="cardItem.c4p_synchro.writing" size="4"/> : {{cardItem.c4p_synchro.writing}}<br>
+	        reading <input type="number" min="0" ng-model="cardItem.c4p_synchro.reading" size="4"/> : {{cardItem.c4p_synchro.reading}}<br>
+	        deleting <input type="number" min="0" ng-model="cardItem.c4p_synchro.deleting" size="4"/> : {{cardItem.c4p_synchro.deleting}}<br>
+	        progress <input type="range" min="0" max="100" ng-model="cardItem.c4p_synchro.cloudProgress" />
+			-->
+			<!--
+			<div class="pull-right c4p-card-progress col-xxs-12">
+
+
+				<div ng-init="itemSynchro = cardItem.c4pSynchroStatus"
+					ng-include="'partials/navigation/cards/detail_synchro.html'"></div>
+			</div>
+			-->
+				<!--<div style="background: white;position:absolute;top:0;left:0;right: 25px;height: 25px;"></div>
+				<div style="background: white;position:absolute;top: -25px;right: 0px;width: 35px;height: 25px;-webkit-transform: rotate(-45deg);-webkit-transform-origin: bottom right;"></div>-->
+		</div>
+
+	</div>
+
+	<!--
+		        <div class="table-responsive">
+		            <table class="table">
+		            <tr><td>
+		                <div class="btn btn-sm pull-right c4p-color-action-transparent"
+		                     ng-click="doAction('toggleFavorite')">
+		                   <span class=" c4p-icon-std glyphicon c4p-outline-star"
+		                          ng-class="{'glyphicon-star' : isTaggedFavorite(cardItem), 'glyphicon-star-o' : !isTaggedFavorite(cardItem)}">
+		                   </span>
+		                </div>
+		            </td><td width="70px">
+
+		            	<div ng-if="cardIsAboutFile">
+						    <div class="btn"
+						         ng-class="{'disabled': actionMap.viewDocument.disabled}"
+						         ng-click="doAction('viewDocument')"
+						         style="background: url('{{carItem.thumb_url}}') no-repeat center center; width: 100%; height: 250px; -webkit-background-size: contain;">
+						    </div>
+						</div>
+						<div ng-if="cardIsAboutVideo">
+						    <div style="text-align: center;">
+						        <video controls ng-src="{{carItem.url}}" style="max-width: 100%; height: auto;"></video>
+						    </div>
+						</div>
+						<div ng-if="!cardIsAboutFile && !cardIsAboutVideo">
+			                <c4p-thumb
+			                    width="70" height="70"
+			                    text="{{cardItemName}}" indic="{{itemRelationCount}}"
+			                    icon="glyphicon-{{itemIcon}}" color="{{itemColor}}"
+			                    url="{{carItem.thumb_url}}">
+			                </c4p-thumb>
+		                </div>
+		            </td></tr>
+		            </table>
+		        </div>
+		        -->
+
+
+		<!-- GoogleMap
+		<div c4p-show="srvConfig.c4pConfig.exposeGoogleMap && srvRunning.online && google">
+			<div class="google-map" center="position.coords"
+				zoom="zoomProperty" markers="markersProperty"
+				latitude="clickedLatitudeProperty"
+				longitude="clickedLongitudeProperty" mark-click="true"
+				draggable="true" fit="false" events="eventsProperty"
+				style="height: 300px; width: 100%">
+			</div>
+		</div>-->

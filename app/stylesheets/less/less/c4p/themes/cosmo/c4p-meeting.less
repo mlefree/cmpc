@@ -1,0 +1,91 @@
+
+@sub-header-size: 4em;
+
+// ---------------------------
+//Layout
+.meeting-body {
+  background-image: url("../img/fond.jpg");
+}
+
+.meeting-header {
+  margin: 0; //reset inherited stuff
+  padding: @aside-hf-padding;
+  background-color: black;
+  opacity:  0.5;
+  color: white;
+}
+
+.meeting-aside {
+  background-color: black;
+  color: white;
+  opacity: 0.5;
+}
+
+.meeting-content {
+  padding: 0;
+}
+
+
+// ---------------------------
+// Icon and Icon list
+
+.c4p-icon-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.c4p-icon-list-item {
+  height: @sub-header-size;
+  margin: 0;
+  padding: 0em 0em 0em 0em;
+  list-style: none;
+  text-align: center;
+}
+
+.c4p-meeting-icon {
+  font-size: @icon-size-sm;
+  width: 1.3em;
+  height: 1.2em;
+  padding-top: 0.3em;
+
+  &.disable {
+    opacity: 0.5;
+  }
+}
+
+
+// ---------------------------
+// detail/menu zone
+
+.meeting-container {
+  display: inline-block;
+  z-index: 50;
+}
+
+.meeting-menu-container {
+  -webkit-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow:    4px 4px 8px rgba(0, 0, 0, 0.75);
+  box-shadow:         4px 4px 8px rgba(0, 0, 0, 0.75);
+  z-index: 51;
+}
+
+.meeting-detail {
+  padding: 0.4em;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.meeting-detail-hdr {
+  height: @sub-header-size;
+  padding: @aside-hf-padding;
+  background-color: black;
+  color: white;
+  opacity: 1;
+}
+
+
+
+
+

@@ -1,0 +1,73 @@
+//
+// Input groups - C4P - surcharge
+// --------------------------------------------------
+
+// Base styles
+// -------------------------
+.input-group {
+  //TODO MLE variables on colors
+  border: 1px solid rgb(160, 152, 95);
+  //background: none;
+  //background: rgba(199, 189, 144, 0.24);
+  background : @white;
+  //padding: 0 4px;
+  .form-control{
+    padding-right: 0.4em;
+    padding-left: 0.4em;
+  }
+
+  &.input-group-textarea {
+    border:0;
+    background:transparent;
+  }
+}
+
+.input-group .form-control:first-child,
+.input-group-addon:first-child,
+.input-group-btn:first-child > .btn,
+.input-group-btn:first-child > .btn-group > .btn,
+.input-group-btn:first-child > .dropdown-toggle,
+.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+  background: none;
+  border: none;
+}
+
+.input-group .form-control:last-child,
+.input-group-addon:last-child,
+.input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .btn-group > .btn,
+.input-group-btn:last-child > .dropdown-toggle,
+.input-group-btn:first-child > .btn:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+  background: none;
+  border: none;
+}
+.input-group-addon:last-child {
+  background: none;
+  border: none;
+
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+}
+
+
+.input-group-addon:first-child,
+.input-group-btn:first-child > .btn,
+.input-group-btn:first-child > .btn-group > .btn,
+.input-group-btn:first-child > .dropdown-toggle,
+.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+  background: none;
+  border: none;
+}
+.input-group-addon:first-child {
+  background: none;
+  border: none;
+}
+
+.input-group.input-group-textarea textarea {
+  border: 1px solid rgba(51, 153, 255, 0.4) !important;
+  box-shadow: 0 0 5px rgba(51, 153, 255, 0.4);
+  outline: none;
+}

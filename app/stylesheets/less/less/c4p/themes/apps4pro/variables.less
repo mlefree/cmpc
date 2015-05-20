@@ -1,0 +1,773 @@
+//
+// Variables
+// --------------------------------------------------
+
+@blue:                  #0072B1;
+@blue-dark:             darken(@blue, 20%);
+@green:                 #bdda03;
+@orange:                #febe00;
+@orange-dark:           #cc7700;
+@red:                   #E51400;
+@yellow:                #f0f000;
+@pink:                  #E671B8;
+@purple:                #7B4F9D;
+@lime:                  #8CBF26;
+@magenta:               #FF0097;
+@teal:                  #00ABA9;
+@white:                 #FFFFFF;
+@black:                 #000000;
+
+
+//--------------------------------------------------------------------------------------------
+// Global values for C4P theming
+//--------------------------------------------------------------------------------------------
+// Light bg colors are in [ a - m ]
+@color-a-bg: #808080;@color-a-txt: black;@color-a-lnk: @orange-dark;
+@color-b-bg: #c9a734;@color-b-txt: black;@color-b-lnk: @orange-dark; //hsl(30, 100%, 100%);
+@color-c-bg: #ffd450;@color-c-txt: black;@color-c-lnk: @orange-dark; //hsl(45, 100%, 100%);
+@color-d-bg: #fffb56;@color-d-txt: black;@color-d-lnk: @orange-dark; //hsl(60, 100%, 100%);
+@color-e-bg: #c6ff4a;@color-e-txt: black;@color-e-lnk: @orange-dark; //hsl(75, 100%, 100%);
+@color-f-bg: #a5ff51;@color-f-txt: black;@color-f-lnk: @orange-dark; //hsl(90, 100%, 100%);
+@color-g-bg: #8aff6a;@color-g-txt: black;@color-g-lnk: @orange-dark; //hsl(105, 100%, 100%);
+@color-h-bg: #48ff48;@color-h-txt: black;@color-h-lnk: @orange-dark; //hsl(120, 100%, 100%);
+@color-i-bg: #53ff7e;@color-i-txt: black;@color-i-lnk: @orange-dark; //hsl(135, 100%, 100%);
+@color-j-bg: #AB6BD1;@color-j-txt: black;@color-j-lnk: @orange-dark; //hsl(150, 100%, 100%);
+@color-k-bg: #43ffdc;@color-k-txt: black;@color-k-lnk: @orange-dark; //hsl(165, 100%, 100%);
+@color-l-bg: #4afffd;@color-l-txt: black;@color-l-lnk: @orange-dark; //hsl(180, 100%, 100%);
+@color-m-bg: #2869e6;@color-m-txt: black;@color-m-lnk: @orange-dark; //hsl(195, 100%, 100%);
+// Dark bg colors are in [ n - z ]
+@color-n-bg: #0080ff;@color-n-txt: white;@color-n-lnk: @orange; //hsl(210, 100%, 100%);
+@color-o-bg: #0040ff;@color-o-txt: white;@color-o-lnk: @orange; //hsl(225, 100%, 100%);
+@color-p-bg: #0000ff;@color-p-txt: white;@color-p-lnk: @orange; //hsl(240, 100%, 100%);
+@color-q-bg: #4000ff;@color-q-txt: white;@color-q-lnk: @orange; //hsl(255, 100%, 100%);
+@color-r-bg: #8000ff;@color-r-txt: white;@color-r-lnk: @orange; //hsl(270, 100%, 100%);
+@color-s-bg: #bf00ff;@color-s-txt: white;@color-s-lnk: @orange; //hsl(285, 100%, 100%);
+@color-t-bg: #ff00ff;@color-t-txt: white;@color-t-lnk: @orange; //hsl(300, 100%, 100%);
+@color-u-bg: #ff00bf;@color-u-txt: white;@color-u-lnk: @orange; //hsl(315, 100%, 100%);
+@color-v-bg: #ff0080;@color-v-txt: white;@color-v-lnk: @orange; //hsl(330, 100%, 100%);
+@color-w-bg: #ff0040;@color-w-txt: white;@color-w-lnk: @orange; //hsl(345, 100%, 100%);
+@color-x-bg: #ff0000;@color-x-txt: white;@color-x-lnk: @orange; //hsl(0, 100%, 100%);
+@color-y-bg: #ff4000;@color-y-txt: white;@color-y-lnk: @orange; //hsl(15, 100%, 100%);
+@color-z-bg: #272727;@color-z-txt: white;@color-z-lnk: @orange;
+
+
+@size-2048:#FFCCFF;
+@size-1920:#FF99CC;
+@size-1536:#FF00FF;
+@size-1440:#33FF66;
+@size-1280:#33CC00;
+@size-1080:#336600;
+@size-1024:#00FFFF;
+@size-979:#0099FF;
+@size-800:#0000FF;
+@size-767:#FFFF00;
+@size-640:#FF9900;
+@size-600:#FF0000;
+@size-480:#EEEEEE;
+@size-360:#999999;
+@size-320:#FFFFFF;
+
+@drag-color:#6b86ff;
+@star-color:#f4ad00;
+
+//theme main color gradiant
+
+@grad-darker:            darken(@body-bg, 20%);
+@grad-dark:              darken(@body-bg, 10%);
+@grad:                   @body-bg;
+@grad-light:             lighten(@body-bg, 10%);
+@grad-lighter:           lighten(@body-bg, 20%);
+
+
+@ok-color: @lime;
+@cancel-color: @red;
+
+//header footer padding
+@hpad: 1em;
+@vpad: 0.4em;
+
+@hpad-packed: 0.2em;
+@vpad-packed: 0.1em;
+
+
+
+@icon-size-xs:  1rem;
+@icon-size-sm:  1.5rem;
+@icon-size:     2rem;
+@icon-size-lg:  2.6rem;
+@icon-size-xl:  4rem;
+@icon-size-xxl: 5rem;
+
+
+//---------------------------------------------------
+// side panel
+//---------------------------------------------------
+@aside-bg: black;
+@aside-txt-color: white;
+@aside-hf-padding: @vpad 0;//@vpad @hpad @vpad @hpad;
+@aside-item-padding: 0.40em @hpad;
+@aside-search-header-txt-max-width: 7em;
+@aside-group-separator: 1px solid black;
+@aside-list-font-size: 140%;
+@aside-list-root-txt-padding: 0.5em;
+@aside-list-ftr-padding: 0.41em;
+
+
+//--------------------------------------------------------------------------------------------
+// END OF Global values for C4P
+// -------------------------------------------------------------------------------------------
+
+@body-bg-url:		    'none';
+//@body-bg-url:			"../l4p/img/c4p-background-dark_blue.png";
+//@body-bg-url:			"../l4p/img/c4p-background-light_orange.png";
+@meeting-bg-url:    url('../img/meeting-background.jpg'); //url("../img/meeting-background.jpg") no-repeat center center;
+@login-bg-url:      url('../img/login-background.jpg');
+
+
+@tileWidth:            130px;
+
+// Grays
+// -------------------------
+@gray-darker:            lighten(#000, 13.5%); // #222
+@gray-dark:              lighten(#000, 20%);   // #333
+@gray:                   lighten(#000, 33.5%); // #555
+@gray-light:             lighten(#000, 60%);   // #999
+@gray-lighter:           lighten(#000, 90%); // #eee
+
+
+
+// Brand colors
+// -------------------------
+
+@brand-primary:         #007FFF;
+@brand-success:         #3FB618;
+@brand-warning:         #FF7518;
+@brand-danger:          #FF0039;
+@brand-info:            #9954BB;
+
+// Scaffolding
+// -------------------------
+
+@body-bg:               #D0D0D0;
+@text-color:            black;
+
+
+// Links
+// -------------------------
+
+@link-color:            black;
+@link-hover-color:      darken(@link-color, 15%);
+
+// Typography
+// -------------------------
+
+@font-face {
+    font-family: 'a4pHelveticaNeue';
+    src: url('../font/hn/18925_helveticaneuelt-webfont.eot');
+    src: url('../font/hn/18925_helveticaneuelt-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/hn/18925_helveticaneuelt-webfont.woff') format('woff'),
+         url('../font/hn/18925_helveticaneuelt-webfont.ttf') format('truetype'),
+         url('../font/hn/18925_helveticaneuelt-webfont.svg#helveticaneuelight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+  font-family: 'a4pHelveticaNeueLight';
+  src: url('../font/hn/18921_helveticaneue-webfont.eot');
+    src: url('../font/hn/18921_helveticaneue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/hn/18921_helveticaneue-webfont.woff') format('woff'),
+         url('../font/hn/18921_helveticaneue-webfont.ttf') format('truetype'),
+         url('../font/hn/18921_helveticaneue-webfont.svg#helveticaneueregular') format('svg');
+  font-weight: 600;//normal
+  font-style: normal;
+}
+
+@font-family-sans-serif:  'a4pHelveticaNeue';//"Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       'a4pHelveticaNeue';//Georgia, "Times New Roman", Times, serif;
+@font-family-monospace:   'a4pHelveticaNeue';//Monaco, Menlo, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+
+@font-size-base:          1.25em;
+@font-size-large:         (@font-size-base * 1.25);
+@font-size-small:         (@font-size-base * 0.75);
+
+@line-height-base:        1.25;
+@line-height-computed:    @font-size-base * @line-height-base;
+
+@headings-font-family:    'a4pHelveticaNeue';//@font-family-base;
+@headings-font-weight:    300;
+@headings-line-height:    1.4;
+
+// Iconography
+// -------------------------
+
+@icon-font-path:          "../font/";
+@icon-font-name:          "glyphicons-halflings-regular";
+
+// Components
+// -------------------------
+// Based for em unit
+
+
+@padding-base-vertical:          @vpad;
+@padding-base-horizontal:        @hpad;
+
+@padding-large-vertical:         @vpad * 1.25;
+@padding-large-horizontal:       @hpad * 2;
+
+@padding-small-vertical:         @vpad * 0.3;
+@padding-small-horizontal:       @hpad * 0.75;
+
+@line-height-large:              1.33;
+@line-height-small:              1.5;
+
+@border-radius-base:             0em;
+@border-radius-large:            0em;
+@border-radius-small:            0em;
+
+@component-active-bg:            @brand-primary;
+
+@caret-width-base:               0.3em;
+@caret-width-large:              0.4em;
+
+// Tables
+// -------------------------
+
+@table-cell-padding:                 8px;
+@table-condensed-cell-padding:       5px;
+
+@table-bg:                           @body-bg; // overall background-color
+@table-bg-accent:                    #f9f9f9; // for striping
+@table-bg-hover:                     #f5f5f5;
+@table-bg-active:                    @table-bg-hover;
+
+@table-border-color:                 #ddd; // table and cell border
+
+
+// Buttons
+// -------------------------
+
+@btn-font-weight:                normal;
+
+@btn-default-color:              #fff;
+@btn-default-bg:                 @gray-darker;
+@btn-default-border:             @btn-default-bg;
+
+@btn-primary-color:              @btn-default-color;
+@btn-primary-bg:                 @brand-primary;
+@btn-primary-border:             darken(@btn-primary-bg, 5%);
+
+@btn-success-color:              @btn-default-color;
+@btn-success-bg:                 @brand-success;
+@btn-success-border:             darken(@btn-success-bg, 5%);
+
+@btn-warning-color:              @btn-default-color;
+@btn-warning-bg:                 @brand-warning;
+@btn-warning-border:             darken(@btn-warning-bg, 5%);
+
+@btn-danger-color:               @btn-default-color;
+@btn-danger-bg:                  @brand-danger;
+@btn-danger-border:              darken(@btn-danger-bg, 5%);
+
+@btn-info-color:                 @btn-default-color;
+@btn-info-bg:                    @brand-info;
+@btn-info-border:                darken(@btn-info-bg, 5%);
+
+@btn-link-disabled-color:        @gray-light;
+
+
+// Forms
+// -------------------------
+
+@input-bg:                       #fff;
+@input-bg-disabled:              @gray-lighter;
+
+@input-color:                    @gray;
+@input-border:                   #c5c5c5;
+@input-border-radius:            @border-radius-base;
+@input-border-focus:             #66afe9;
+
+@input-color-placeholder:        @gray-light;
+
+@input-height-base:              (@line-height-computed + (@padding-base-vertical*2));
+@input-height-large:             @line-height-base * 1.25;
+@input-height-small:             @line-height-base * 0.75;
+
+@legend-color:                   @gray-dark;
+@legend-border-color:            #e5e5e5;
+
+@input-group-addon-bg:           @white;
+@input-group-addon-border-color: @white;
+
+
+// Dropdowns
+// -------------------------
+
+@dropdown-bg:                    #fff;
+@dropdown-border:                rgba(0,0,0,.15);
+@dropdown-fallback-border:       #ccc;
+@dropdown-divider-bg:            #e5e5e5;
+
+@dropdown-link-active-color:     #fff;
+@dropdown-link-active-bg:        @component-active-bg;
+
+@dropdown-link-color:            @gray-dark;
+@dropdown-link-hover-color:      #fff;
+@dropdown-link-hover-bg:         @dropdown-link-active-bg;
+
+@dropdown-link-disabled-color:   @gray-light;
+
+@dropdown-header-color:          @gray-light;
+
+@dropdown-caret-color:           #000;
+
+
+// COMPONENT VARIABLES
+// --------------------------------------------------
+
+
+// Z-index master list
+// -------------------------
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+
+@zindex-navbar:            1000;
+@zindex-dropdown:          1000;
+@zindex-popover:           1010;
+@zindex-tooltip:           1030;
+@zindex-navbar-fixed:      1030;
+@zindex-modal-background:  1040;
+@zindex-modal:             1050;
+
+// Media queries breakpoints : xs, sm, md, lg
+// --------------------------------------------------
+
+// Extra small screen / phone
+@screen-xs:                  480px;
+@screen-phone:               @screen-xs;
+
+// Small screen / tablet
+@screen-sm:                  768px;
+@screen-tablet:              @screen-sm;
+
+// Medium screen / desktop
+@screen-md:                  992px;
+@screen-desktop:             @screen-md;
+
+// Large screen / wide desktop
+@screen-lg:                  1200px;
+@screen-lg-desktop:          @screen-lg;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-xxs-max:             (@screen-xs - 1);
+@screen-xs-max:              (@screen-sm - 1);
+@screen-sm-max:              (@screen-md - 1);
+@screen-md-max:              (@screen-lg - 1);
+
+
+// Grid system
+// col-xs used from 0          => each column width is less than 64px (ex: 40px with @screen-xs, 30px with 360px device)
+// col-sm used from @screen-sm => each column width is 64px-82px
+// col-md used from @screen-md => each column width is 82px-100px
+// col-lg used from @screen-lg => each column width is 100px+
+// --------------------------------------------------
+
+// Number of columns in the grid system
+@grid-columns:              12;
+// Padding, to be divided by two and applied to the left and right of all columns
+@grid-gutter-width:         0;
+// Point at which the navbar stops collapsing
+@grid-float-breakpoint:     @screen-tablet;
+
+
+// Navbar
+// -------------------------
+
+// Basics of a navbar
+@navbar-height:                    50px;
+@navbar-margin-bottom:             @line-height-computed;
+@navbar-default-color:             #fff;
+@navbar-default-bg:                rgba(0,0,0,0);//@gray-darker;
+@navbar-default-border:            darken(@navbar-default-bg, 6.5%);
+@navbar-border-radius:             @border-radius-base;
+@navbar-padding-horizontal:        floor(@grid-gutter-width / 2);
+@navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
+
+// Navbar links
+@navbar-default-link-color:                #fff;
+@navbar-default-link-hover-color:          darken(@navbar-default-link-color, 10%);
+@navbar-default-link-hover-bg:             darken(@navbar-default-bg, 10%);
+@navbar-default-link-active-color:         darken(@navbar-default-link-color, 6.5%);
+@navbar-default-link-active-bg:            darken(@navbar-default-bg, 6.5%);
+@navbar-default-link-disabled-color:       #ccc;
+@navbar-default-link-disabled-bg:          transparent;
+
+// Navbar brand label
+@navbar-default-brand-color:               @navbar-default-link-color;
+@navbar-default-brand-hover-color:         @navbar-default-link-hover-color;
+@navbar-default-brand-hover-bg:            @navbar-default-link-hover-bg;
+
+// Navbar toggle
+@navbar-default-toggle-hover-bg:           #ddd;
+@navbar-default-toggle-icon-bar-bg:        #ccc;
+@navbar-default-toggle-border-color:       #ddd;
+
+
+// Inverted navbar
+//
+// Reset inverted navbar basics
+@navbar-inverse-color:                      #fff;
+@navbar-inverse-bg:                         @brand-primary;
+@navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 #fff;
+@navbar-inverse-link-hover-color:           darken(@navbar-inverse-link-color, 10%);
+@navbar-inverse-link-hover-bg:              darken(@navbar-inverse-bg, 10%);
+@navbar-inverse-link-active-color:          darken(@navbar-inverse-link-color, 6.5%);
+@navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 6.5%);
+@navbar-inverse-link-disabled-color:        #ccc;
+@navbar-inverse-link-disabled-bg:           transparent;
+
+// Inverted navbar brand label
+@navbar-inverse-brand-color:                @navbar-inverse-link-color;
+@navbar-inverse-brand-hover-color:          #fff;
+@navbar-inverse-brand-hover-bg:             @navbar-inverse-link-active-bg;
+
+// Inverted navbar search
+// Normal navbar needs no special styles or vars
+@navbar-inverse-search-bg:                  lighten(@navbar-inverse-bg, 25%);
+@navbar-inverse-search-bg-focus:            #fff;
+@navbar-inverse-search-border:              @navbar-inverse-bg;
+@navbar-inverse-search-placeholder-color:   #ccc;
+
+// Inverted navbar toggle
+@navbar-inverse-toggle-hover-bg:            #333;
+@navbar-inverse-toggle-icon-bar-bg:         #fff;
+@navbar-inverse-toggle-border-color:        #333;
+
+
+// Navs
+// -------------------------
+
+@nav-link-padding:                          10px 15px;
+@nav-link-hover-bg:                         @gray-lighter;
+
+@nav-disabled-link-color:                   @gray-light;
+@nav-disabled-link-hover-color:             @gray-light;
+
+@nav-open-link-hover-color:                 #fff;
+@nav-open-caret-border-color:               #fff;
+
+// Tabs
+@nav-tabs-border-color:                     #ddd;
+
+@nav-tabs-link-hover-border-color:          @gray-lighter;
+
+@nav-tabs-active-link-hover-bg:             @body-bg;
+@nav-tabs-active-link-hover-color:          @gray;
+@nav-tabs-active-link-hover-border-color:   #ddd;
+
+@nav-tabs-justified-link-border-color:            #ddd;
+@nav-tabs-justified-active-link-border-color:     @body-bg;
+
+// Pills
+@nav-pills-active-link-hover-bg:            @component-active-bg;
+@nav-pills-active-link-hover-color:         #fff;
+
+
+// Pagination
+// -------------------------
+
+@pagination-bg:                        #fff;
+@pagination-border:                    #ddd;
+
+@pagination-hover-bg:                  @gray-lighter;
+
+@pagination-active-bg:                 @brand-primary;
+@pagination-active-color:              #fff;
+
+@pagination-disabled-color:            @gray-light;
+
+
+// Pager
+// -------------------------
+
+@pager-border-radius:                  @border-radius-base;
+@pager-disabled-color:                 @gray-light;
+
+
+// Jumbotron
+// -------------------------
+
+@jumbotron-padding:              30px;
+@jumbotron-color:                inherit;
+@jumbotron-bg:                   @gray-lighter;
+
+@jumbotron-heading-color:        inherit;
+
+
+// Form states and alerts
+// -------------------------
+
+@state-warning-text:             #fff;
+@state-warning-bg:               @brand-warning;
+@state-warning-border:           darken(spin(@state-warning-bg, -10), 3%);
+
+@state-danger-text:              @red;
+@state-danger-bg:                @brand-danger;
+@state-danger-border:            darken(spin(@state-danger-bg, -10), 3%);
+
+@state-success-text:             #fff;
+@state-success-bg:               @brand-success;
+@state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+
+@state-info-text:                #fff;
+@state-info-bg:                  @brand-info;
+@state-info-border:              darken(spin(@state-info-bg, -10), 7%);
+
+
+// Tooltips
+// -------------------------
+@tooltip-max-width:           200px;
+@tooltip-color:               #fff;
+@tooltip-bg:                  #000;
+
+@tooltip-arrow-width:         5px;
+@tooltip-arrow-color:         @tooltip-bg;
+
+
+// Popovers
+// -------------------------
+@popover-bg:                          #fff;
+@popover-max-width:                   276px;
+@popover-border-color:                rgba(0,0,0,.2);
+@popover-fallback-border-color:       #ccc;
+
+@popover-title-bg:                    darken(@popover-bg, 3%);
+
+@popover-arrow-width:                 10px;
+@popover-arrow-color:                 #fff;
+
+@popover-arrow-outer-width:           (@popover-arrow-width + 1);
+@popover-arrow-outer-color:           rgba(0,0,0,.25);
+@popover-arrow-outer-fallback-color:  #999;
+
+
+// Labels
+// -------------------------
+
+@label-default-bg:            @gray-light;
+@label-primary-bg:            @brand-primary;
+@label-success-bg:            @brand-success;
+@label-info-bg:               @brand-info;
+@label-warning-bg:            @brand-warning;
+@label-danger-bg:             @brand-danger;
+
+@label-color:                 #fff;
+@label-link-hover-color:      #fff;
+
+
+// Modals
+// -------------------------
+@modal-inner-padding:         20px;
+
+@modal-title-padding:         15px;
+@modal-title-line-height:     @line-height-computed;
+
+@modal-content-bg:                             #fff;
+@modal-content-border-color:                   rgba(0,0,0,.2);
+@modal-content-fallback-border-color:          #999;
+
+@modal-backdrop-bg:           #000;
+@modal-header-border-color:   #e5e5e5;
+@modal-footer-border-color:   @modal-header-border-color;
+
+
+// Alerts
+// -------------------------
+@alert-padding:               15px;
+@alert-border-radius:         @border-radius-base;
+@alert-link-font-weight:      bold;
+
+@alert-success-bg:            @state-success-bg;
+@alert-success-text:          @state-success-text;
+@alert-success-border:        @state-success-border;
+
+@alert-info-bg:               @state-info-bg;
+@alert-info-text:             @state-info-text;
+@alert-info-border:           @state-info-border;
+
+@alert-warning-bg:            @state-warning-bg;
+@alert-warning-text:          @state-warning-text;
+@alert-warning-border:        @state-warning-border;
+
+@alert-danger-bg:             @state-danger-bg;
+@alert-danger-text:           @state-danger-text;
+@alert-danger-border:         @state-danger-border;
+
+
+// Progress bars
+// -------------------------
+@progress-bg:                 #ccc;
+@progress-bar-color:          #fff;
+
+@progress-bar-bg:             @brand-primary;
+@progress-bar-success-bg:     @brand-success;
+@progress-bar-warning-bg:     @brand-warning;
+@progress-bar-danger-bg:      @brand-danger;
+@progress-bar-info-bg:        @brand-info;
+
+
+// List group
+// -------------------------
+@list-group-item-margin:      0;
+@list-group-item-padding:     0.1em 0.2em;
+
+@list-group-bg:               @gray-dark;
+@list-group-border:           @body-bg;
+@list-group-border-radius:    @border-radius-base;
+
+@list-group-hover-bg:         #f5f5f5;
+@list-group-active-color:     #fff;
+@list-group-active-bg:        @component-active-bg;
+@list-group-active-border:    @list-group-active-bg;
+
+@list-group-link-color:          #555;
+@list-group-link-heading-color:  #333;
+
+
+// Panels
+// -------------------------
+@panel-bg:                    #fff;
+@panel-inner-border:          #ddd;
+@panel-border-radius:         @border-radius-base;
+@panel-footer-bg:             #f5f5f5;
+
+@panel-default-text:          @gray-dark;
+@panel-default-border:        #ddd;
+@panel-default-heading-bg:    #f5f5f5;
+
+@panel-primary-text:          #fff;
+@panel-primary-border:        @brand-primary;
+@panel-primary-heading-bg:    @brand-primary;
+
+@panel-success-text:          @state-success-text;
+@panel-success-border:        @state-success-border;
+@panel-success-heading-bg:    @state-success-bg;
+
+@panel-warning-text:          @state-warning-text;
+@panel-warning-border:        @state-warning-border;
+@panel-warning-heading-bg:    @state-warning-bg;
+
+@panel-danger-text:           @state-danger-text;
+@panel-danger-border:         @state-danger-border;
+@panel-danger-heading-bg:     @state-danger-bg;
+
+@panel-info-text:             @state-info-text;
+@panel-info-border:           @state-info-border;
+@panel-info-heading-bg:       @state-info-bg;
+
+
+// Thumbnails
+// -------------------------
+@thumbnail-padding:           4px;
+@thumbnail-bg:                @body-bg;
+@thumbnail-border:            #ddd;
+@thumbnail-border-radius:     @border-radius-base;
+
+@thumbnail-caption-color:     @text-color;
+@thumbnail-caption-padding:   9px;
+
+
+// Wells
+// -------------------------
+@well-bg:                     #f5f5f5;
+
+
+// Badges
+// -------------------------
+@badge-color:                 #fff;
+@badge-link-hover-color:      #fff;
+@badge-bg:                    @gray-light;
+
+@badge-active-color:          @link-color;
+@badge-active-bg:             #fff;
+
+@badge-font-weight:           bold;
+@badge-line-height:           1;
+@badge-border-radius:         10px;
+
+
+// Breadcrumbs
+// -------------------------
+@breadcrumb-bg:               #f5f5f5;
+@breadcrumb-color:            #ccc;
+@breadcrumb-active-color:     @gray-light;
+
+
+// Carousel
+// ------------------------
+
+@carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6);
+
+@carousel-control-color:                      #fff;
+@carousel-control-width:                      15%;
+@carousel-control-opacity:                    .5;
+@carousel-control-font-size:                  20px;
+
+@carousel-indicator-active-bg:                #fff;
+@carousel-indicator-border-color:             #fff;
+
+@carousel-caption-color:                      #fff;
+
+
+// Close
+// ------------------------
+@close-color:                 #000;
+@close-font-weight:           bold;
+@close-text-shadow:           0 1px 0 #fff;
+
+
+// Code
+// ------------------------
+@code-color:                  #c7254e;
+@code-bg:                     #f9f2f4;
+
+@pre-bg:                      #f5f5f5;
+@pre-color:                   @gray-dark;
+@pre-border-color:            #ccc;
+@pre-scrollable-max-height:   340px;
+
+// Type
+// ------------------------
+@text-muted:                  @gray-light;
+@abbr-border-color:           @gray-light;
+@headings-small-color:        @gray-light;
+@blockquote-small-color:      beige;//@gray-light;
+@blockquote-font-size:        @font-size-small;//(@font-size-base * 1.25);
+@blockquote-border-color:     @gray-lighter;
+@page-header-border-color:    @gray-lighter;
+
+// Miscellaneous
+// -------------------------
+
+// Hr border color
+@hr-border:                   @gray-lighter;
+
+// Horizontal forms & lists
+@component-offset-horizontal: 180px;
+
+
+// Container sizes
+// --------------------------------------------------
+
+// Small screen / tablet
+@container-tablet:            ((720px + @grid-gutter-width));
+
+// Medium screen / desktop
+@container-desktop:           ((940px + @grid-gutter-width));
+
+// Large screen / wide desktop
+@container-lg-desktop:        ((1140px + @grid-gutter-width));

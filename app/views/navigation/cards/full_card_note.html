@@ -1,0 +1,33 @@
+<!doctype html>
+<!--
+		full_card_note.html
+
+		ctrl :
+			ctrlDetailedObject
+
+		inputs :
+			cardItem, cardGroups, showTitle
+
+		methods:
+			edit(cardItem)
+-->
+
+
+	<div class="row" ng-if="cardItem.a4p_type == 'Note'">
+
+		<div class="col-xxs-12 c4p-form-group">
+
+						<blockquote>
+
+								<c4p-input  warn-var="field.warn"
+														title-var=""
+														ng-model="cardItem.description"
+														type-var="'textarea'"
+														rows="10" cols="20"
+														ng-change="onFieldChanged(field)"
+														ng-disabled="isEditFocused"></c4p-input>
+						</blockquote>
+
+		</div>
+
+</div>

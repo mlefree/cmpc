@@ -1,0 +1,135 @@
+/******************************************************************************
+ Aside Panel List
+******************************************************************************/
+
+// -----------------------------------------------------
+// local variables
+// -----------------------------------------------------
+@aside-item-padding: 0.40em @hpad;
+@aside-search-header-txt-max-width: 7em;
+
+// -----------------------------------------------------
+// classes
+// -----------------------------------------------------
+
+.c4p-footer-aside {
+  background-color: @grad-dark;
+  padding: @aside-hf-padding;
+}
+
+.c4p-footer-pad {
+  //padding-left: @hpad;
+}
+
+
+.c4p-header-root {
+  margin: 0; //reset inherited stuff
+  padding: @aside-hf-padding;
+  color: @link-color;
+  background-color: @grad-dark;
+
+  h4{
+    display: inline;
+    padding: 0;
+    margin: 0;
+    font-size: 1.7em;
+    vertical-align: middle;
+  }
+}
+
+.c4p-bg-aside{
+  background-color: @grad;
+}
+
+.c4p-list-aside{
+  border-style: none;
+  border-color: @grad-darker;
+  background-color: @grad;
+}
+
+.c4p-list-item-aside {
+  padding: @aside-item-padding;
+  border-style: none;
+  font-size: 140%;
+  //background-color: transparent;
+
+  a {
+    text-decoration: none;
+  }
+// Active class on item itself, not parent
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    z-index: 2; // Place active items above their siblings for proper border styling
+    color: @list-group-active-color;
+    background-color: @list-group-active-bg;
+    border-color: @list-group-active-border;
+    color: lighten(@list-group-active-bg, 40%);
+
+  }
+
+  :hover{
+    color: @link-color;
+  }
+}
+
+// c4p-list-item-aside addons
+.c4p-list-hdr-aside {
+  border-top-color: @grad-dark;
+  border-top-style: solid;
+  border-top-width: 0.1em;
+  color : inherit;
+}
+
+.c4p-list-ftr-aside {
+  border-bottom-style: none;
+  border-bottom-width: 0.08em;
+  padding-bottom: 0.41em;
+}
+
+/******************************************************************************
+ Aside Panel list search
+******************************************************************************/
+
+.c4p-search-header-aside {
+  background-color: @grad-light;
+  margin: 0; //reset inherited stuff
+  padding: @aside-hf-padding;
+}
+
+.c4p-search-header-txt-aside {
+  display: -webkit-inline-flex;
+  max-width: @aside-search-header-txt-max-width;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c4p-search-aside{
+  border-style: none;
+  border-color: @list-group-border;
+  background-color: @link-color;
+}
+
+.c4p-search-item-aside {
+  padding: @aside-item-padding;
+  border-style: none;
+  background-color: transparent;
+  color: @gray-darker;
+
+  // Active class on item itself, not parent
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    z-index: 2; // Place active items above their siblings for proper border styling
+    color: @list-group-active-color;
+    background-color: @list-group-active-bg;
+    border-color: @list-group-active-border;
+    color: lighten(@list-group-active-bg, 40%);
+  }
+}
+
+.c4p-config-panel {
+  background-color: @grad-dark;
+}
+

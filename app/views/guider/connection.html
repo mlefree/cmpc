@@ -1,0 +1,68 @@
+<!doctype html>
+<!--
+
+	connection.html
+
+	controller is
+
+	input :
+
+-->
+<div ng-controller="ctrlConfig" class="">
+	<div id="top" class="">
+		<!-- first column - login form -->
+		<div class="row">
+			<h3 class="col-xxs-12 col-sm-offset-3 col-sm-6 text-center white login-header">{{translate('htmlGuiderPageTitle')}}</h3>
+		</div>
+
+
+		<form class="form-horizontal" name="loginForm" style="min-height: 300px;">
+			<div class="form-group row">
+				<div class="col-xxs-12 col-sm-offset-3 col-sm-6">
+						<c4p-input
+							type="mail"
+							class="form-control"
+							ng-model="configLogin.email"
+							placeholder="{{srvLocale.translations.htmlFormEmailPlaceHolder}}"
+							required
+							ng-disabled="isEditFocused">
+            </c4p-input>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-xxs-12 col-sm-offset-3 col-sm-6">
+						<c4p-input
+							class="form-control"
+							ng-model="configLogin.password"
+							placeholder="{{srvLocale.translations.htmlFormPasswordPlaceHolder}}"
+							type="password"
+							required
+							ng-disabled="isEditFocused">
+            </c4p-input>
+          </div>
+      </div>
+
+			<div class="row">
+				<a class="btn btn-primary col-xxs-12 col-sm-offset-3 col-sm-3"
+						ng-click="c4pConnection()"
+						><!-- ng-disabled="isEditFocused" -->
+						{{srvLocale.translations.htmlButtonLogin}}
+				</a>
+				<a class="btn btn-link white col-xxs-12 col-sm-3"
+						ng-click="gotoSlide(pageGuider, slideGuiderRequestPassword)"
+						><!-- ng-disabled="isEditFocused" -->
+					{{srvLocale.translations.htmlButtonPasswordForgotten}}
+				</a>
+			</div>
+			<div class="form-group row">
+				<a class="btn btn-link pull-left white col-xxs-12 col-sm-offset-6 col-sm-3"
+					ng-hide="isEditFocused">
+					<c4p-check ng-model="rememberPassword" readonly="false"></c4p-check>
+					<label>{{translate('htmlGuiderFormStaySignedIn')}}</label>
+				</a>
+			</div>
+
+		</form>
+
+	</div>
+</div>

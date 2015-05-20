@@ -1,0 +1,132 @@
+<!doctype html>
+<!--
+    meeting/main.html
+    inputs :
+      none
+    ctrl :
+      ctrlMeeting
+
+
+
+            <div class="col-xxs-12">
+                <ul class="nav nav-pills">
+                    <li class="">
+                        <a class="btn btn-sm disabled" ng-hide="isReadyForMeeting()">
+                            <img class="c4p-img-icon" src="l4p/img/logo_meeting_.png" />
+                        </a>
+                        <a class="btn btn-sm" ng-click="gotoMeeting(srvNav.item)" ng-show="isReadyForMeeting()">
+                            <img class="c4p-img-icon" src="l4p/img/logo_meeting_.png" />
+                        </a>
+                    </li>
+                    <li ng-include="'partials/navigation/header_back.html'"></li>
+                    <li class="pull-right">
+                      <a class="btn" ng-click="doAction('editItem')">
+                        <span class="c4p-icon-std glyphicon glyphicon-edit"></span>
+                      </a>
+
+                    </li>
+                </ul>
+            </div>
+-->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+
+    <ul class="nav navbar-nav col-xxs-2">
+      <li>
+        <button class="btn btn-default" ng-click="quitMeetingView()"
+              ng-hide="modeLock" ng-disabled="isEditFocused">
+              <!--<h5 class="glyphicon glyphicon-fw glyphicon-chevron-left"></h5>-->
+                <h5><img class="c4p-img-icon" src="l4p/img/logo_meeting_white_reverse.png"></h5>
+        </button>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav col-xxs-8">
+      <li style="width:100%;text-align:center">
+        <a class="btn" ng-show="!itemNameEditable" ng-click="editMeetingTitle()">
+          <h4 style="padding: 0;margin: 0.3em 0;text-transform: capitalize;"><!-- style="margin:0;text-align:center;" -->
+            {{meetingItem.name}}
+          </h4>
+        </a>
+        <div class="" ng-show="itemNameEditable">
+          <!--<input type="text" class="form-control" ng-model="eventItemName">-->
+          <c4p-input title-var=""
+                     ng-model="meetingItem.name"
+                     placeholder=""
+                     type="text"
+                     style="font-size:1.2em;width:100%"
+                     warn-var = ""
+                     required
+                     ng-disabled="isEditFocused"
+                     ng-blur="saveItemName(meetingItem.name);setEditFocusState(false);">
+          </c4p-input>
+        </div>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav col-xxs-2">
+      <!--<li ng-show="itemNameEditable">
+        <button type="submit" class="btn btn-link"
+              ng-click="saveItemName(meetingItem.name)" ng-disabled="isEditFocused">
+            <i class="glyphicon glyphicon-check" ></i>
+        </button>
+      </li>-->
+      <li class="pull-right">
+        <button  class="btn btn-default" ng-hide="modeLock || itemNameEditable"
+            ng-click="meetingCreateNewEmail()">
+            <h5 class="glyphicon glyphicon-fw glyphicon-{{actionMap.createNewEmail.icon}}"></h5>
+        </button>
+
+        <div class="dropdown" ng-show="!itemNameEditable">
+              <!--<a class="btn dropdown-toggle"  ng-disabled="isEditFocused">
+                  <i class="glyphicon glyphicon-caret-down"></i>
+              </a>-->
+
+              <ul class="dropdown-menu dropdown-menu-right">
+                  <!-- style="overflow-x:hidden;"   c4p-dropdown-menu c4p-details-menu-align
+                  <li  class="c4p-color-gradient0"
+                       ng-hide="modeLock"
+                       ng-class="{'disabled': actionMap.createNewNote.disabled}"
+                       ng-click="doAction('createNewNote')">
+                      <span class="c4p-icon-std glyphicon glyphicon-{{actionMap.createNewNote.icon}}"></span>
+                      <span>{{srvLocale.translations.htmlActionName.createNewNote}}</span>
+                  </li>
+                  <li class="c4p-color-gradient0"
+                      ng-hide="modeLock"
+                      ng-class="{'disabled': actionMap.createNewReport.disabled}"
+                      ng-click="doAction('createNewReport')">
+                      <span class="c4p-icon-std glyphicon glyphicon-{{actionMap.createNewReport.icon}}"></span>
+                      <span>{{srvLocale.translations.htmlActionName.createNewReport}}</span>
+                  </li>
+                  <li class="c4p-color-gradient0"
+                      ng-hide="modeLock"
+                      ng-class="{'disabled': actionMap.createNewEmail.disabled}"
+                      ng-click="doAction('createNewEmail')">
+                      <span class="c4p-icon-std glyphicon glyphicon-{{actionMap.createNewEmail.icon}}"></span>
+                      <span>{{srvLocale.translations.htmlActionName.createNewEmail}}</span>
+                  </li>-->
+                  <li class="c4p-color-gradient0"
+                      ng-hide="modeLock"
+                      ng-click="meetingCreateNewEmail()">
+                      <span class="c4p-icon-std glyphicon glyphicon-{{actionMap.createNewEmail.icon}}"></span>
+                      <span>{{srvLocale.translations.htmlActionName.createNewEmail}}</span>
+                  </li>
+
+
+              </ul>
+        </div>
+      </li>
+    </ul>
+
+<!--
+    <ul class="nav navbar-nav col-xxs-2">
+
+      <li class="pull-right" ng-show="plans.length > 0">
+          <button ng-click="togglePresentation();toggleFullScreen()" class="btn btn-link" ng-disabled="isEditFocused">
+              <i class="glyphicon glyphicon-fw"
+                    ng-class="{'glyphicon-play':!isFullScreen, 'glyphicon-stop':isFullScreen}"></i>
+          </button>
+      </li>
+    </ul>
+  -->
+  </div>
+</nav>

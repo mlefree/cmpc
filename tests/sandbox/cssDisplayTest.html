@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+    <!-- http://www.ultra-fluide.com/ressources/xhtml/block-inline.xhtml -->
+    <title>Scroll Test Page</title>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+    <style type="text/css">
+        div.example {
+        	width: 25em;
+        	border: 5px double;
+        	padding: 5px;
+        }
+
+        div.example div {
+        	margin: 0.5em;
+        	padding: 0.5em;
+        }
+
+        .first{
+        	border: 1px solid #cc0000;
+        }
+
+        .second{
+        	border: 1px solid #00cc00;
+        }
+
+        .third{
+        	border: 1px solid #0000cc;
+        }
+
+        #playground select {
+
+        }
+    </style>
+</head>
+<!-- Need to take into account border size of body to keep it inside viewscreen -->
+<body>
+<p>Play around with some display declarations below.</p>
+
+<div class="example" id="playground">
+	<div class="first">
+		<div class="second">
+			<div class="third">
+				<div class="first"></div>
+				<div class="first"></div>
+			</div>
+			<div class="third">
+			</div>
+		</div>
+		<div class="second">
+			<div class="third">
+			</div>
+			<div class="third">
+				<div class="first"></div>
+				<div class="first"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript">
+
+    var displayValues = [
+    	'block',
+    	'inline',
+    	'none',
+    	'inline-block',
+    	'list-item',
+    	'run-in',
+    	'table',
+    	'table-row',
+    	'table-cell'
+    ];
+
+    function init() {
+    	var playGroundSelect = document.createElement('select');
+    	for (var i=0;i<displayValues.length;i++) {
+    		var newOpt = new Option(displayValues[i],displayValues[i])
+    		playGroundSelect.options[playGroundSelect.options.length] = newOpt;
+    	}
+
+    	var testDivs = document.getElementById('playground').getElementsByTagName('div');
+    	for (var i=0;i<testDivs.length;i++) {
+    		var newSel = playGroundSelect.cloneNode(true);
+    		newSel.onchange = changeDisplay;
+    		testDivs[i].insertBefore(newSel,testDivs[i].firstChild);
+    	}
+    }
+
+    function changeDisplay() {
+    	this.parentNode.style.display = this.value;
+    }
+
+    init();
+</script>
+</body>
+</html>

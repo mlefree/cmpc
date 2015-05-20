@@ -1,0 +1,220 @@
+
+
+@sub-header-size: 4em;
+
+
+// ---------------------------
+
+.c4p-meeting-body {
+  .c4p-absolute-container();
+  .c4p-background-bg(@meeting-bg-url, @aside-bg);
+  color: white;
+
+
+  .c4p-container-scroll-y {
+    & > .c4p-container > div {
+      padding-bottom:300px;
+    }
+  }
+
+  & > header{
+    nav {
+      background-color: @aside-bg;
+    }
+  };
+
+  // Meeting Aside
+  & > aside{
+    position:fixed;
+    top: 20%;
+    left: 0;
+    width: 210px;
+    bottom: 10%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index:41;
+
+    &.c4p-meeting-aside-hidden{
+      left : -145px;//-165px;
+      //bottom: 80%;
+      height: 0;//44px;
+    }
+
+    li > a {
+      color: white;
+    }
+
+    nav{
+      position:fixed;
+      width:210px;
+      border: 1px solid @aside-bg;
+      //background: gray;
+      z-index: 42;
+    }
+
+    aside {
+      padding-top: 48px;
+      width: 100%;
+    }
+  };
+
+  // Meeting Container
+  & > div > article{
+    position:absolute;
+    top: 70px;
+    left: 210px;
+    //padding: 20px;
+    right: 0px;
+    bottom:0;
+
+    &.c4p-meeting-article-full{
+      left : 0px;
+    }
+
+
+  };
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (max-width: @screen-sm-min) {
+  .c4p-meeting-body > aside.c4p-meeting-aside-hidden {
+    left: -185px;
+  }
+}
+
+/*
+.c4p-meeting-header {
+  margin: 0; //reset inherited stuff
+  padding: @aside-hf-padding;
+  background-color: rgba(0, 0, 0, 0.95);
+  color: white;
+}
+
+.c4p-meeting-aside {
+  background-color: rgba(0, 0, 0, 0.95);
+  color: white;
+}
+
+.c4p-meeting-content-container{
+  padding: 1em;
+}
+
+.c4p-meeting-content {
+  background-color: white;
+}
+*/
+
+// ---------------------------
+// Icon and Icon list
+
+.c4p-icon-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.c4p-icon-list-item {
+  height: @sub-header-size;
+  margin: 0;
+  padding: 1em 0em 1em 0em;
+  list-style: none;
+  text-align: center;
+}
+
+.c4p-meeting-icon {
+  font-size: @icon-size-sm;
+  width: 1.3em;
+  height: 1.2em;
+  padding-top: 0.3em;
+
+}
+
+// ---------------------------
+// detail/menu zone
+
+.c4p-meeting-container {
+  display: inline-block;
+  z-index: 50;
+}
+
+.c4p-meeting-menu-container {
+   //-webkit-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.75);
+  //-moz-box-shadow:    4px 4px 8px rgba(0, 0, 0, 0.75);
+  //box-shadow:         4px 4px 8px rgba(0, 0, 0, 0.75);
+  z-index: 51;
+}
+
+
+.c4p-meeting-detail {
+  //padding: 1em;
+  //background-color:transparent; // rgba(0, 0, 0, 0.3);
+  //color: white;
+}
+
+.c4p-meeting-detail-hdr {
+  height: @sub-header-size;
+  padding: @aside-hf-padding;
+}
+
+
+.c4p-meeting-list-item {
+  color: rgba(255, 255, 255, 1);
+  .c4p-user-select-none();
+
+  &.active {
+    background-color: rgba(0, 0, 255, 0.4);
+  }
+}
+
+.c4p-meeting-link-obj {
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(128, 128, 128, 0.7);
+  &.inactive {
+    background-color: rgba(0, 0, 0, 0.95);
+  }
+}
+
+.c4p-meeting-plan {
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(128, 128, 128, 0.75);
+
+  &.inactive {
+    background-color: rgba(0, 0, 0, 0.95);
+  }
+}
+
+
+.c4p-meeting-info {
+  text-align: center ;
+  font-size: 1em;
+  font-style: italic;
+  color: gray;
+  padding: 1em;
+  background-color: rgba(200, 200, 200, 1);
+  border-radius: 17px;
+}
+
+
+.c4p-meeting-info-txt {
+  text-align: center ;
+  font-size: 1em;
+  font-style: italic;
+  color: gray;
+  background-color: rgba(200, 200, 200, 1);
+  border-radius: 17px;
+}
+
+
+.c4p-meeting-link-drop {
+  background-color: rgba(128, 128, 128, 0.3);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border: 2px dashed gray;
+
+  &.active{
+      background-color: rgba(128, 128, 128, 0.6);
+  }
+}

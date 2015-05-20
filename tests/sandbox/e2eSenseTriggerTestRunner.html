@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Sandbox End to end Test Runner</title>
+    <script type="text/javascript" src="../lib/angular/angular-a4p-patched-scenario.1.1.4.js" ng-autotest></script>
+    <script>
+        angular.scenario.dsl('jQueryFunction', function() {
+            return function(selector, functionName /*, args */) {
+                var args = Array.prototype.slice.call(arguments, 2);
+                return this.addFutureAction(functionName, function($window, $document, done) {
+                    var $ = $window.$; // jQuery inside the iframe
+                    var elem = $(selector);
+                    if (!elem.length) {
+                        return done('Selector ' + selector + ' did not match any elements.');
+                    }
+                    done(null, elem[functionName].apply(elem, args));
+                });
+            };
+        });
+    </script>
+
+    <!--<script type="text/javascript" src="../lib/jasmine/jasmine-html.js"></script>
+    <script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../lib/jasmine-jquery/jasmine-jquery.js"></script>-->
+
+    <script type="text/javascript" src="../e2e/scenarios_sense.js"></script>
+
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+
+    <title>c4p</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.3, user-scalable=yes, minimum-scale=1.3, maximum-scale=1.3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="">
+    <meta name="author" content="Apps4Pro">
+
+    <link id="c4p-css" href="../../www/l4p/css/theme-cosmo.css" rel="stylesheet" type="text/css">
+
+    <link href="../../www/l4p/css/jquery.noty.css" rel="stylesheet" type="text/css">
+    <link href="../../www/l4p/css/noty_theme_default.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .example-leave-setup, .example-enter-setup {
+          -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+          -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+          -ms-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+          -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+          transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+        }
+
+        .example-enter-setup {
+          opacity:0;
+        }
+        .example-enter-setup.example-enter-start {
+          opacity:1;
+        }
+
+        .example-leave-setup {
+          opacity:1;
+        }
+        .example-leave-setup.example-leave-start {
+          opacity:0;
+        }
+    </style>
+
+    <script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+    <!-- PhoneGap -->
+    <script type="text/javascript">
+    if (a4p.BrowserCapabilities.isAndroid) {
+        document.write('<script type="text/javascript" charset="utf-8" src="../../www/l4p/libs/js/cordova/cordova-2.9.0.js"><\/script>');
+        document.write('<script type="text/javascript" charset="utf-8" src="../../www/l4p/libs/js/cordova-plugins/datePickerPlugin.js"><\/script>');
+    } else if (a4p.BrowserCapabilities.isIDevice) {
+        document.write('<script type="text/javascript" charset="utf-8" src="../../www/l4p/libs/js/cordova/cordova-2.9.0.ios.js"><\/script>');
+        document.write('<script type="text/javascript" charset="utf-8" src="../../www/l4p/libs/js/cordova-plugins/datePickerPlugin.js"><\/script>');
+        document.write('<script type="text/javascript" charset="utf-8" src="../../www/l4p/libs/js/cordova-plugins/calendar.ios.js"><\/script>');
+    }
+    </script>
+
+    <script language="javascript">
+        function Ctrl($scope) {
+            $scope.items = ['settings', 'home', 'other'];
+            $scope.selection = $scope.items[0];
+        }
+    </script>
+
+</head>
+<body ng-app="c4p">
+
+<div ng-controller="Ctrl">
+    <select ng-model="selection" ng-options="item for item in items">
+    </select>
+    <p>selection={{selection}}</p>
+    <hr/>
+    <div c4p-show on="selection == 'home'"
+         ng-animate="{enter: 'example-enter', leave: 'example-leave'}">
+        <div>Home Span</div>
+    </div>
+</div>
+
+<!-- Load jQuery BEFORE Angular otherwise Angular loads its own JQuery lite version -->
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/ui-bootstrap-tpls-0.5.0-c4p.js"></script>
+
+<!-- Google Map -->
+<!--
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&language=en"></script>
+-->
+<script type="text/javascript" src="../../www/js/directive/angular-google-maps.js"></script>
+<!-- JS libs -->
+<!--<script type="text/javascript" src="../../www/l4p/libs/js/iscroll-a4p-patched.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/ga.js"></script>-->
+<script type="text/javascript" src="../../www/l4p/libs/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/md5.js"></script>
+
+<!-- Jquery libs -->
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery-plugins/jquery.noty.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery-plugins/spin.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery-plugins/TimelineJS-master/compiled/js/storyjs-embed.js"></script>
+
+<!-- App -->
+<script type="text/javascript" src="../../www/models/c4p_locale.js"></script>
+<script type="text/javascript" src="../../www/models/c4p_demo.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlAddDialogObject.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlAddAccount.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlAddContact.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlAddRatings.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlDialogConfirm.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlDialogCalendarDay.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlDialogDemoMode.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlDialogICal.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlDupMeeting.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlEditDialogEmail.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlEditDialogErrorReport.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlEditDialogFeed.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlEditDialogFeedback.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlEditDialogNote.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlEditDialogObject.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlFacetSelectedDialog.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlGoToMeetingDialog.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlGuiderDialog.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlInitDialogPinCode.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlModifyDialogPinCode.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlOpenDialogLocked.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlSelectCrmsDialog.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlSelectDialog.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlSelectObjectsDialog.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlShowImage.js"></script>
+<script type="text/javascript" src="../../www/js/controller/dialog/ctrlTimeline.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlAction.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlAside.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlCalendar.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlConfig.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlDetail.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlDetailedObject.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlDetailLink.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlDragObject.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlInlinedObject.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlLinkActions.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlMeeting.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlMeetingElementDrag.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlMeetingElementDrop.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlMeetingObjLinkDrop.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlMeetingRemoveDrop.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlNamedObject.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlNavigation.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlNavObject.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlResponsive.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlSummarizedObject.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlSingleTap.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlTimeline.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlTrashObject.js"></script>
+<script type="text/javascript" src="../../www/js/controller/ctrlViewer.js"></script>
+<script type="text/javascript" src="../../www/js/directive/accordion.js"></script>
+<script type="text/javascript" src="../../www/js/directive/all.js"></script>
+<script type="text/javascript" src="../../www/js/directive/carousel.js"></script>
+<script type="text/javascript" src="../../www/js/directive/fields.js"></script>
+<script type="text/javascript" src="../../www/js/directive/inputs.js"></script>
+<script type="text/javascript" src="../../www/js/directive/navigation.js"></script>
+<script type="text/javascript" src="../../www/js/directive/timeline.js"></script>
+<script type="text/javascript" src="../../www/js/directive/viewer.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvConfig.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvData.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvDataTransfer.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvFacet.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvFileTransfer.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvGuider.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvLink.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvLoad.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvLocale.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvLog.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvModel.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvNav.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvOpenUrl.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvRunning.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvSecurity.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvSynchro.js"></script>
+<script type="text/javascript" src="../../www/js/service/srvTime.js"></script>
+<script type="text/javascript" src="../../www/js/app.js"></script>
+<script type="text/javascript" src="../../www/js/filters.js"></script>
+
+</body>
+</html>

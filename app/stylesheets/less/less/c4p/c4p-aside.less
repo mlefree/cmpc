@@ -1,0 +1,120 @@
+/******************************************************************************
+ Aside Panel List
+******************************************************************************/
+
+// -----------------------------------------------------
+// classes
+// -----------------------------------------------------
+
+
+.c4p-aside-header {
+  //margin: 0; //reset inherited stuff
+  color: @aside-txt-color;
+  //background-color: @aside-bg;
+
+  /*h4{
+    display: inline;
+    padding-left: @aside-list-root-txt-padding;
+    margin: 0;
+    font-size: 1.7em;
+    vertical-align: middle;
+  }*/
+}
+.c4p-aside-footer {
+ // background-color: @aside-bg;
+  color: @aside-txt-color;
+ // padding: @vpad @hpad @vpad 0em;
+}
+
+.c4p-aside-trash {
+  //width:100%;
+}
+
+.c4p-item-root-txt {
+  padding-left: @aside-list-root-txt-padding;
+}
+
+.c4p-bg-aside{
+  background-color: @aside-bg;
+}
+
+.c4p-list-aside{
+  border-style: none;
+}
+
+.c4p-list-item-aside {
+  border-style: none;
+  //font-size: @aside-list-font-size;
+  .c4p-user-select-none();
+
+  a {
+    text-decoration: none;
+  }
+  .btn:first-child{
+    padding-left: 0.3em;
+  }
+
+  .btn:active{
+    -webkit-box-shadow: inset 0 15px 14px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 15px 14px rgba(0, 0, 0, 0.3);
+  }
+
+}
+
+// c4p-list-item-aside addons
+.c4p-list-hdr-aside {
+  border-style: none;
+  color : inherit;
+}
+
+.c4p-list-ftr-aside {
+  border-bottom-style: none;
+  padding-bottom: @aside-list-ftr-padding;
+}
+
+/******************************************************************************
+ Aside Panel list search
+******************************************************************************/
+
+.c4p-search-group-separator {
+  border-top: @aside-group-separator;
+}
+
+
+.c4p-search-header-aside {
+  margin: 0; //reset inherited stuff
+  //padding: @aside-hf-padding;
+}
+
+.c4p-search-aside{
+  border-style: none;
+
+
+  //li {
+  //  margin: 0; //reset inherited stuff
+  //  padding: @aside-hf-padding;
+  //}
+}
+
+.c4p-search-item-aside {
+  padding: @aside-item-padding;
+  border-style: none;
+
+  // Active class on item itself, not parent
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    z-index: 2; // Place active items above their siblings for proper border styling
+  }
+}
+
+.c4p-config-panel {
+  background-color: @body-bg;
+}
+
+.c4p-aside-count {
+  font-size: 0.7em;
+  padding-left:0.3em;
+  padding-right: 0.3em;
+}
+

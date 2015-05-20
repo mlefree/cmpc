@@ -1,0 +1,10 @@
+{
+    "buildDate" : "C4P_BUILD_DATE",
+    "urlBase" : "C4P_URL_BASE",
+    "trustAllHosts" : true,
+    "possibleCrms" : ["ios", "c4p", "sf"],
+    "activeCrms" : ["ios", "c4p"],
+    "config" : {
+        "exposeBetaFunctionalities" : true
+    }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>a4p.thumb tester</title>
+
+    <!--<link rel="stylesheet" type="text/css" href="../../../css/c4p-theme-apps4pro.css">-->
+
+    <script type="text/javascript" src="../../../libs/js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../../build/js/l4p.min.js"></script>
+    
+    <script type="text/javascript">
+        var addThumbCanvas = function (element, texte, number, color, width, height) {
+
+            //var element = $("#thumb")[0];
+            var thumb = new a4p.Thumb(element);
+            thumb.addCanvas(texte, number, color, width, height);
+        };
+        var addThumbDiv = function (element, texte, number, color, width, height) {
+
+            //var element = $("#thumb")[0];
+            var thumb = new a4p.Thumb(element);
+            thumb.addDiv(texte, number, color, width, height);
+        };
+    </script>
+
+</head>
+
+<body>
+    <h1>a4p.thumb tester</h1>
+
+    <h5> Thumb Of : "lighghgh", 3400, "red", 30, 30 </h5>
+    <div id="thumb3"></div>
+    <br>
+    <button onclick='addThumbCanvas(document.getElementById("thumb3"), "lighghgh", 3400, "red", 30, 30)' >add</button>
+
+    <h5> Thumb Of With Div: "lighghgh", 3400, "red", 30, 30 </h5>
+    <div id="thumb5"></div>
+    <br>
+    <button onclick='addThumbDiv(document.getElementById("thumb5"), "lighghgh", 3400, "red", 30, 30)' >add</button>
+
+    <h5> Thumb Of : "iyghghgh i s e z grand supedsd qsdqsdqdsqdq", null , "?", 20, 20 </h5>
+    <div id="thumb4"></div>
+    <br>
+    <button onclick='addThumbCanvas(document.getElementById("thumb4"), "iyghghgh i s e z grand supedsd qsdqsdqdsqdq", null , "?", 20, 20)' >add</button>
+
+    <h5> Thumb Of : "Mat Lep", 4, "blue", 150, 180 </h5>
+    <div id="thumb1"></div>
+    <br>
+    <button onclick='addThumbCanvas(document.getElementById("thumb1"), "Mat Lep", 4, "blue", 150, 180)'>add</button>
+
+    <h5> Thumb Of : "", 400, "red", 250, 100 </h5>
+    <div id="thumb2"></div>
+    <br>
+    <button onclick='addThumbCanvas(document.getElementById("thumb2"), "", 400, "red", 250, 100)' >add</button>
+
+
+</body>
+</html>

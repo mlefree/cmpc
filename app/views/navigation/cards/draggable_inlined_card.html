@@ -1,0 +1,32 @@
+<!--
+     draggable_inlined_item.html used in lists ?
+     inputs:
+          cardItem
+
+
+          ng-class="{
+          'c4p-color-drag-bg' : srvNav.holdItem && (cardItem.id.dbid == srvNav.holdItem.id.dbid),
+          'c4p-hover-drag':srvNav.item && srvConfig.c4pConfig.exposeDraggableHover,
+          'c4p-border-drag':srvNav.item && srvConfig.c4pConfig.exposeDraggableBorder
+
+          sense-opts="{bubble:true, watchRefresh:['srvNav.item', 'srvNav.holdItem']}"
+          }"
+-->
+
+<div ng-controller="ctrlDragObject"
+     ng-init="init(cardItem)"
+     
+     sense-opts="{}"
+     sense-longdragoverenter="dragOverEnter($event,$element)"
+     sense-longdragoverleave="dragOverLeave($event,$element)"
+     sense-longdragstart="dragStart($event,$element)"
+     sense-longdragmove="dragMove($event,$element)"
+     sense-longdragend="dragEnd($event,$element)"
+     sense-longdragcancel="dragCancel($event,$element)"
+     
+     sense-holdstart="holdStart($event,$element)"
+     sense-holdstop="holdStop($event,$element)" >
+
+     <div ng-include="'partials/navigation/cards/inlined_card.html'"></div>
+</div>
+

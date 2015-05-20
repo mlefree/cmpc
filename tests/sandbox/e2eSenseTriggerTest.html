@@ -1,0 +1,472 @@
+<!doctype html>
+<html>
+<head>
+    <title>Sandbox End to end Test Page</title>
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+            -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+            -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+            /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        *:not(input):not(textarea) {
+            -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .scrollZone {
+            height:300px;
+        }
+        .docZone {
+            /*height:400px;*/
+            /*position:absolute;*/
+        }
+    </style>
+</head>
+<body ng-app="c4p">
+<div id="touch1" ng-controller="DragNDropCtrl">
+    <div id="doc1"
+         ng-controller="BasicEvtCtrl"
+         ng-init="init()"
+         sense-opts="{name:'doc1'}"
+         sense-tap="onTap($event)"
+         sense-doubletap="onDoubleTap($event)"
+         sense-holdstart="onHold($event)"
+         sense-touchstart="onTouchStart($event)"
+         sense-touchmove="onTouchMove($event)"
+         sense-touchend="onTouchEnd($event)"
+         sense-mousedown="onMouseStart($event)"
+         sense-mousemove="onMouseMove($event)"
+         sense-mouseup="onMouseEnd($event)">
+        <div id="scrollBox"
+             class="scrollZone"
+             ng-controller="ScrollBoxCtrl"
+             sense-opts="{axeX:'swipe', axeY:'scroll'}"
+             scroll-refresh="allObjs"
+             sense-swipestart="swipeStart($event)"
+             sense-swipepause="swipePause($event)"
+             sense-swipemove="swipeMove($event)"
+             sense-swipeend="swipeEnd($event)"
+             sense-swipecancel="swipeCancel($event)"
+             sense-scrollstart="scrollStart($event)"
+             sense-scrollpause="scrollPause($event)"
+             sense-scrollmove="scrollMove($event)"
+             sense-scrollend="scrollEnd($event)"
+             sense-scrollcancel="scrollCancel($event)">
+            <div id="scroller">
+                <div ng-repeat="obj in allObjs">
+                    {{obj.name}}
+                    <div ng-controller="ImgCtrl" id="{{obj.id}}" ng-init="init(obj)" sense-opts="{name:'{{obj.name}}'}"
+                         sense-holdstart="hold($event)" sense-tap="tap($event)" sense-doubletap="doubleTap($event)"
+                         sense-dragoverenter="dragOverEnter($event)" sense-dragoverleave="dragOverLeave($event)"
+                         sense-dragstart="dragStart($event)" sense-dragmove="dragMove($event)"
+                         sense-dragend="dragEnd($event)" sense-dragcancel="dragCancel($event)">
+                        <img ng-src="{{obj.img}}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="dragBox"
+             height="50px"
+             ng-style="style"
+             ng-controller="DragBoxCtrl">
+            <div ng-repeat="obj in dragObjs">
+                {{obj.name}}
+                <div ng-controller="ImgCtrl" id="{{obj.id}}" ng-init="init(obj)" sense-opts="{name:'{{obj.name}}'}"
+                     sense-holdstart="hold($event)" sense-tap="tap($event)" sense-doubletap="doubleTap($event)"
+                     sense-dragoverenter="dragOverEnter($event)" sense-dragoverleave="dragOverLeave($event)"
+                     sense-dragstart="dragStart($event)" sense-dragmove="dragMove($event)"
+                     sense-dragend="dragEnd($event)" sense-dragcancel="dragCancel($event)">
+                    <img ng-src="{{obj.img}}"/>
+                </div>
+            </div>
+        </div>
+        <div id="dropBox"
+             height="50px"
+             ng-style="style"
+             ng-controller="DropBoxCtrl"
+             sense-dndstart="dndStart($event)"
+             sense-dndend="dndEnd($event)"
+             sense-dndcancel="dndCancel($event)"
+             sense-dropoverenter="dropOverEnter($event)"
+             sense-dropoverleave="dropOverLeave($event)"
+             sense-dropstart="dropStart($event)"
+             sense-dropmove="dropMove($event)"
+             sense-dropend="dropEnd($event)"
+             sense-dropcancel="dropCancel($event)">
+            <div ng-repeat="obj in dropObjs">
+                {{obj.name}}
+                <div ng-controller="ImgCtrl" id="{{obj.id}}" ng-init="init(obj)" sense-opts="{name:'{{obj.name}}'}"
+                     sense-holdstart="hold($event)" sense-tap="tap($event)" sense-doubletap="doubleTap($event)"
+                     sense-dragoverenter="dragOverEnter($event)" sense-dragoverleave="dragOverLeave($event)"
+                     sense-dragstart="dragStart($event)" sense-dragmove="dragMove($event)"
+                     sense-dragend="dragEnd($event)" sense-dragcancel="dragCancel($event)">
+                    <img ng-src="{{obj.img}}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <pre ng-repeat="msg in msgs">{{msg.text}}</pre>
+    </div>
+</div>
+
+
+<!-- Load jQuery BEFORE Angular otherwise Angular loads its own JQuery lite version -->
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+
+<script language="javascript">
+    var appModule = angular.module('c4p', ['a4p.directives']);
+    var directiveModule = angular.module('a4p.directives', []);
+    a4p.Sense.declareDirectives(directiveModule);
+    a4p.Resize.declareDirectives(directiveModule);
+
+    function DragNDropCtrl($scope) {
+        $scope.numMsg = 0;
+        $scope.msgs = [];
+        $scope.allObjs = [
+            {
+                id:"img1",
+                name:"img1",
+                img:'img/a.png'
+            },
+            {
+                id:"img2",
+                name:"img2",
+                img:'img/b.png'
+            },
+            {
+                id:"img3",
+                name:"img3",
+                img:'img/c.png'
+            },
+            {
+                id:"img4",
+                name:"img4",
+                img:'img/d.png'
+            },
+            {
+                id:"img5",
+                name:"img5",
+                img:'img/e.png'
+            }
+        ];
+        $scope.dragObjs = [
+            {
+                id:"img12",
+                name:"img2",
+                img:'img/f.png'
+            },
+            {
+                id:"img13",
+                name:"img3",
+                img:'img/g.png'
+            }
+        ];
+        $scope.dropObjs = [
+            {
+                id:"img21",
+                name:"img1",
+                img:'img/h.png'
+            }
+        ];
+        $scope.clickButton = function() {
+            $scope.log("DragNDropCtrl clickButton");
+        };
+        $scope.log = function (msg) {
+            a4p.safeApply($scope, function() {
+                $scope.msgs.push({id:$scope.numMsg++, text:msg});
+            });
+            console.log('id:'+$scope.numMsg+', text:'+msg);
+        };
+        $scope.removeObj = function (id) {
+            for (var i = $scope.dragObjs.length-1; i >= 0; i--) {
+                var item = $scope.dragObjs[i];
+                if (item.id == id) {
+                    $scope.dragObjs.splice(i, 1);
+                }
+            }
+        };
+        $scope.addObj = function (obj) {
+            $scope.dropObjs.push(obj);
+        };
+    }
+
+    function ScrollBoxCtrl($scope) {
+        $scope.swipeStart = function (event) {
+            $scope.log("ScrollBoxCtrl swipeStart : " + a4pDumpData(event, 1));
+        };
+        $scope.swipePause = function (event) {
+            $scope.log("ScrollBoxCtrl swipePause : " + a4pDumpData(event, 1));
+        };
+        $scope.swipeMove = function (event) {
+            $scope.log("ScrollBoxCtrl swipeMove : " + a4pDumpData(event, 1));
+        };
+        $scope.swipeEnd = function (event) {
+            $scope.log("ScrollBoxCtrl swipeEnd : " + a4pDumpData(event, 1));
+        };
+        $scope.swipeCancel = function (event) {
+            $scope.log("ScrollBoxCtrl swipeCancel : " + a4pDumpData(event, 1));
+        };
+        $scope.scrollStart = function (event) {
+            $scope.log("ScrollBoxCtrl scrollStart : " + a4pDumpData(event, 1));
+        };
+        $scope.scrollPause = function (event) {
+            $scope.log("ScrollBoxCtrl scrollPause : " + a4pDumpData(event, 1));
+        };
+        $scope.scrollMove = function (event) {
+            $scope.log("ScrollBoxCtrl scrollMove : " + a4pDumpData(event, 1));
+        };
+        $scope.scrollEnd = function (event) {
+            $scope.log("ScrollBoxCtrl scrollEnd : " + a4pDumpData(event, 1));
+        };
+        $scope.scrollCancel = function (event) {
+            $scope.log("ScrollBoxCtrl scrollCancel : " + a4pDumpData(event, 1));
+        };
+    }
+
+    function BasicEvtCtrl($scope) {
+        $scope.onTap = function (e) {
+            $scope.log("BasicEvtCtrl onTap : " + a4pDumpData(e, 1));
+            return true;
+        };
+        $scope.onDoubleTap = function (e) {
+            $scope.log("BasicEvtCtrl onDoubleTap : " + a4pDumpData(e, 1));
+            return true;
+        };
+        $scope.onHold = function (e) {
+            $scope.log("BasicEvtCtrl onHold : " + a4pDumpData(e, 1));
+            return true;
+        };
+        $scope.onTouchStart = function (e) {
+            $scope.log("BasicEvtCtrl onTouchStart : " + a4pDumpData(e, 1));
+            return true;
+        };
+        $scope.onTouchMove = function (e) {
+            $scope.log("BasicEvtCtrl onTouchMove : " + a4pDumpData(e, 1));
+            return true;
+        };
+        $scope.onTouchEnd = function (e) {
+            $scope.log("BasicEvtCtrl onTouchEnd : " + a4pDumpData(e, 1));
+            return true;
+        };
+        $scope.onMouseStart = function (e) {
+            $scope.log("BasicEvtCtrl onMouseStart : " + a4pDumpData(e, 1));
+            return true;
+        };
+        $scope.onMouseMove = function (e) {
+            $scope.log("BasicEvtCtrl onMouseMove : " + a4pDumpData(e, 1));
+            return true;
+        };
+        $scope.onMouseEnd = function (e) {
+            $scope.log("BasicEvtCtrl onMouseEnd : " + a4pDumpData(e, 1));
+            return true;
+        };
+    }
+
+    function ImgCtrl($scope) {
+        $scope.proxy = null;
+        $scope.dragElementX = 0;
+        $scope.dragElementY = 0;
+        $scope.proxyover = true;
+
+        function setCursorToMove(scope, event) {
+            scope.proxy = document.createElement('img');
+            scope.proxy.setAttribute('src', 'img/i.png');
+            /*
+            $scope.log('ImgCtrl setCursorToMove : position: fixed; ' +
+                    'top:' + (event.clientY - $scope.dragElementY)+ 'px; ' +
+                    'left:'+ (event.clientX - $scope.dragElementX) + 'px;');
+            */
+            if ($scope.proxyover) {
+                scope.proxy.setAttribute('style', 'border:1px solid green; position: fixed; top:'
+                        + (event.clientY - $scope.dragElementY) + 'px; left:'
+                        + (event.clientX - $scope.dragElementX) + 'px; transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -ms-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -moz-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -webkit-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -o-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg);');
+            } else {
+                scope.proxy.setAttribute('style', 'border:1px solid red; position: fixed; top:'
+                        + (event.clientY - $scope.dragElementY) + 'px; left:'
+                        + (event.clientX - $scope.dragElementX) + 'px; transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -ms-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -moz-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -webkit-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -o-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg);');
+            }
+            document.getElementsByTagName('body')[0].appendChild(scope.proxy);
+        }
+
+        function moveCursor(scope, event) {
+            /*
+            $scope.log('ImgCtrl moveCursor : position: fixed; ' +
+                    'top:' + (event.clientY - $scope.dragElementY)+ 'px; ' +
+                    'left:'+ (event.clientX - $scope.dragElementX) + 'px;');
+            */
+            if ($scope.proxyover) {
+                scope.proxy.setAttribute('style', 'border:1px solid green; position: fixed; top:'
+                        + (event.clientY - $scope.dragElementY) + 'px; left:'
+                        + (event.clientX - $scope.dragElementX) + 'px; transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -ms-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -moz-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -webkit-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -o-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg);');
+            } else {
+                scope.proxy.setAttribute('style', 'border:1px solid red; position: fixed; top:'
+                        + (event.clientY - $scope.dragElementY) + 'px; left:'
+                        + (event.clientX - $scope.dragElementX) + 'px; transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -ms-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -moz-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -webkit-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -o-transform:scale('
+                        + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg);');
+            }
+        }
+
+        function cancelMoveCursor(scope) {
+            scope.proxy.parentNode.removeChild(scope.proxy);
+            scope.proxy = null;
+        }
+
+        $scope.init = function (obj) {
+            $scope.log("ImgCtrl "+obj.id+" init : " + a4pDumpData(obj, 1));
+            //console.log('init ImgCtrl : obj=' + a4pDumpData(obj, 1));
+            $scope.obj = obj;
+        };
+        $scope.hold = function (e) {
+            $scope.log("ImgCtrl "+$scope.obj.id+" hold : " + a4pDumpData(event, 1));
+            //console.log("HOLD ImgCtrl : ");
+        };
+        $scope.tap = function (event) {
+            $scope.log("ImgCtrl "+$scope.obj.id+" tap : " + a4pDumpData(event, 1));
+            //console.log("TAP ImgCtrl : ");
+        };
+        $scope.doubleTap = function (event) {
+            $scope.log("ImgCtrl "+$scope.obj.id+" doubleTap : " + a4pDumpData(event, 1));
+            //console.log("DOUBLE-TAP ImgCtrl : ");
+        };
+
+        $scope.dragOverEnter = function (event) {
+            $scope.log("ImgCtrl "+$scope.obj.id+" dragOverEnter : " + a4pDumpData(event, 1));
+            //console.log("DRAG OVER " + event.nbFinger + " ENTER ImgCtrl : ");
+            $scope.proxyover = true;
+        };
+        $scope.dragOverLeave = function (event) {
+            $scope.log("ImgCtrl "+$scope.obj.id+" dragOverLeave : " + a4pDumpData(event, 1));
+            //console.log("DRAG OVER " + event.nbFinger + " LEAVE ImgCtrl : ");
+            $scope.proxyover = false;
+        };
+        $scope.dragStart = function (event) {
+            $scope.boxLeft = event.clientX - event.elementX;
+            $scope.boxTop = event.clientY - event.elementY;
+            $scope.dragElementX = event.elementX;
+            $scope.dragElementY = event.elementY;
+            event.dataTransfer = {
+                id: $scope.obj.id,
+                name: $scope.obj.name,
+                img: $scope.obj.img
+            };
+            $scope.log("ImgCtrl "+$scope.obj.id+" dragStart : " + a4pDumpData(event, 1));
+            //console.log("DRAG START " + event.nbFinger + " ImgCtrl : " + event.side + ' scale=' + event.scale + ' rotate=' + event.rotate + ' ' + a4pDumpData(event.dataTransfer, 1));
+
+            if (!$scope.proxy) setCursorToMove($scope, event);
+        };
+        $scope.dragMove = function (event) {
+            $scope.log("ImgCtrl "+$scope.obj.id+" dragMove : " + a4pDumpData(event, 1));
+            //console.log("DRAG MOVE "+event.nbFinger+" ImgCtrl : " + event.side + ' scale=' + event.scale + ' rotate=' + event.rotate);
+            if ($scope.proxy) moveCursor($scope, event);
+        };
+
+        $scope.dragEnd = function (event) {
+            $scope.log("ImgCtrl "+$scope.obj.id+" dragEnd : " + a4pDumpData(event, 1));
+            //console.log("DRAG END " + event.nbFinger + " ImgCtrl : " + event.side + ' scale=' + event.scale + ' rotate=' + event.rotate);
+            a4p.safeApply($scope, function() {
+                if ($scope.proxy) cancelMoveCursor($scope);
+                // Move instead of copy
+                $scope.removeObj($scope.obj.id);
+            });
+        };
+
+        $scope.dragCancel = function (event) {
+            $scope.log("ImgCtrl "+$scope.obj.id+" dragCancel : " + a4pDumpData(event, 1));
+            //console.log("DRAG CANCEL " + event.nbFinger + " ImgCtrl : " + event.side + ' scale=' + event.scale + ' rotate=' + event.rotate);
+            if ($scope.proxy) cancelMoveCursor($scope);
+        };
+    }
+
+    function DragBoxCtrl($scope) {
+        $scope.style = {
+            'background-color':'#999999',
+            border:'1px solid white'
+        };
+    }
+
+    function DropBoxCtrl($scope) {
+        $scope.style = {
+            'background-color':'#cccccc',
+            border:'1px solid white'
+        };
+        $scope.dndStart = function (event) {
+            a4p.safeApply($scope, function() {
+                $scope.log("DropBoxCtrl dndStart : " + a4pDumpData(event, 1));
+                $scope.style.border = '1px dashed green';
+            });
+        };
+        $scope.dndEnd = function (event) {
+            a4p.safeApply($scope, function() {
+                $scope.log("DropBoxCtrl dndEnd : " + a4pDumpData(event, 1));
+                $scope.style.border = '1px dashed white';
+            });
+        };
+        $scope.dndCancel = function (event) {
+            a4p.safeApply($scope, function() {
+                $scope.log("DropBoxCtrl dndCancel : " + a4pDumpData(event, 1));
+                $scope.style.border = '1px dashed white';
+            });
+        };
+        $scope.dropOverEnter = function (event) {
+            a4p.safeApply($scope, function() {
+                $scope.log("DropBoxCtrl dropOverEnter : " + a4pDumpData(event, 1));
+                $scope.style.border = '1px solid green';
+            });
+        };
+        $scope.dropOverLeave = function (event) {
+            a4p.safeApply($scope, function() {
+                $scope.log("DropBoxCtrl dropOverLeave : " + a4pDumpData(event, 1));
+                $scope.style.border = '1px solid white';
+            });
+        };
+        $scope.dropStart = function (event) {
+            a4p.safeApply($scope, function() {
+                $scope.log("DropBoxCtrl dropStart : " + a4pDumpData(event, 1));
+            });
+        };
+        $scope.dropMove = function (event) {
+            a4p.safeApply($scope, function() {
+                $scope.log("DropBoxCtrl dropMove : " + a4pDumpData(event, 1));
+            });
+        };
+        $scope.dropEnd = function (event) {
+            a4p.safeApply($scope, function() {
+                $scope.log("DropBoxCtrl dropEnd : " + a4pDumpData(event, 1));
+                $scope.addObj(event.dataTransfer);
+            });
+        };
+        $scope.dropCancel = function (event) {
+            $scope.log("DropBoxCtrl dropCancel : " + a4pDumpData(event, 1));
+        };
+    }
+</script>
+
+</body>
+</html>

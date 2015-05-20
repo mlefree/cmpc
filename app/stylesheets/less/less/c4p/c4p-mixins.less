@@ -1,0 +1,133 @@
+
+
+/***********************************************************************
+ * C4P Mixins
+ */
+
+
+.c4p-absolute-container(){
+  padding : 0;// !important;
+  margin : 0;// !important;
+  position: absolute !important;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+}
+
+.c4p-fixed-container(){
+  padding : 0;// !important;
+  margin : 0;// !important;
+  position: fixed !important;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+
+// Transition
+// ------------------
+.c4p-transition_(@effect : all, @time : 1s, @curve : linear){
+  -moz-transition: @effect @time @curve;
+  -webkit-transition: @effect @time @curve;
+  -o-transition: @effect @time @curve;
+  transition: @effect @time @curve;
+
+  -webkit-transform: translateZ(0);
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+}
+
+
+// User select
+// For selecting text on the page
+.c4p-user-select-none() {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none; // IE10+
+       -o-user-select: none;
+          user-select: none;
+};
+
+
+// Prevent touch effect (ex: glass magnificient ...)
+.c4p-touch-prevent() {
+  -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+  -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+  -webkit-user-modify: none;
+  -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+  /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+  //-webkit-highlight: none;
+  //-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+}
+// Scroll touch
+.c4p-touch-scroll-no() {
+  -webkit-overflow-scrolling: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  overflow: hidden;
+}
+.c4p-touch-scroll-y() {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+  //overflow: scroll; //test ?
+}
+
+
+
+.c4p-background-image (@url) when (isurl(@url)) {
+  background-image: @url;
+ }
+ .c4p-background-color (@color) when (iscolor(@color)) {
+  background-color: @color;
+ }
+
+.c4p-background-bg (@url: false, @color: false){
+  .c4p-background-image(@url);
+  .c4p-background-color(@color);
+  background-position: center;
+  background-attachment: scroll ;//fixed;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+ }
+
+
+ /// Filters
+
+
+.c4p-blur(@blurSize : 5px) {
+  -webkit-filter: blur(@blurSize);
+  -moz-filter:    blur(@blurSize);
+  -o-filter:      blur(@blurSize);
+  -ms-filter:     blur(@blurSize);
+  filter:         blur(@blurSize);
+}
+
+.c4p-sepia(@sepiaPercent : 100%) {
+  -webkit-filter: sepia(@sepiaPercent);
+  -moz-filter:    sepia(@sepiaPercent);
+  -o-filter:      sepia(@sepiaPercent);
+  -ms-filter:     sepia(@sepiaPercent);
+  filter:         sepia(@sepiaPercent);
+}
+.c4p-opacity(@opacityPercent : 0%) {
+  -webkit-filter: opacity(@opacityPercent);
+  -moz-filter:    opacity(@opacityPercent);
+  -o-filter:      opacity(@opacityPercent);
+  -ms-filter:     opacity(@opacityPercent);
+  filter:         opacity(@opacityPercent);
+}
+
+.c4p-filters(@blurSize : 5px, @opacityPercent : 30%, @sepiaPercent : 100%) {
+
+  -webkit-filter:   opacity(@opacityPercent) blur(@blurSize) sepia(@sepiaPercent);
+  -moz-filter:      opacity(@opacityPercent) blur(@blurSize) sepia(@sepiaPercent);
+  -o-filter:        opacity(@opacityPercent) blur(@blurSize) sepia(@sepiaPercent);
+  -ms-filter:       opacity(@opacityPercent) blur(@blurSize) sepia(@sepiaPercent);
+  filter:           opacity(@opacityPercent) blur(@blurSize) sepia(@sepiaPercent);
+}

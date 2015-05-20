@@ -1,0 +1,126 @@
+<!doctype html>
+<!--
+    navigation/dialog/dialogCalendarDay.html
+    inputs :
+      none
+    ctrl :
+      ctrlCalendar
+-->
+
+<!-- Headers -->
+<div class="modal-header row c4p-color-gradient0">
+
+        <div class="col-xxs-12">
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills">
+              <li class="" style="max-width:80%">
+                <a class="btn disabled">
+                    <h5 class="a4p-dot">{{calendarDayCasualName}} {{calendarDayFullName}}</h5>
+                </a>
+              </li>
+              <li class="pull-right">
+                <a class="btn" ng-click="close()">
+                  <span class="c4p-icon-std">&times;</span>
+                </a>
+              </li>
+            </ul>
+        </div>
+</div>
+
+
+
+<div class="modal-body row c4p-container-scroll-y">
+    <div class="col-xxs-12 col-sm-8 col-sm-offset-2">
+
+          <!-- No event -->
+          <div class="row c4p-details"
+              ng-show="(calendarSelectedDay.eventsAllDay.length == 0) && (calendarSelectedDay.events.length == 0) ">
+              <div class="btn-block well well-sm" style="border-radius: 1em;">
+                  <a  class="btn"
+                      style="white-space:normal"
+                      ng-click="close()">
+                      <span class="pull-right close">&times;</span>
+                      <span>
+                      {{srvLocale.translations.htmlCalendarDayTextNoEvent}}
+                      </span>
+                  </a>
+              </div>
+          </div>
+
+          <!-- Multiple days events -->
+          <ul class="nav nav-pills" ng-show="calendarSelectedDay.eventsAllDay.length">
+              <li class="">
+                <a class="btn disabled">{{srvLocale.translations.htmlCalendarDayTextAllDayEvent}}</a>
+              </li>
+          </ul>
+          <ul class="row nav nav-pills nav-stacked" ng-if="calendarSelectedDay.eventsAllDay.length">
+              <!--<li class="c4p-details  c4p-color-a-gradient2">
+                  <span class="">{{srvLocale.translations.htmlCalendarDayTextAllDayEvent}}</span>
+              </li>-->
+              <li ng-repeat="item in calendarSelectedDay.eventsAllDay"
+                  class="col-xxs-12">
+
+                  <!--  well c4p-details  c4p-color-b-gradient2<div ng-include="'partials/navigation/cards/summarized_card.html'"></div>-->
+
+                  <table class="table c4p-table-calendar-next">
+                    <tbody>
+                      <tr>
+                          <td class="" colspan="6">
+                            <div  style="position: relative;  width: 100%;height: 100%;"
+                                    ng-include="'partials/navigation/cards/summarized_card.html'"></div>
+                          </td>
+
+                          <td style="position:relative;">
+                            <a class="btn btn-primary" ng-click="gotoMeeting(item)">
+                                <img class="c4p-img-icon" src="l4p/img/logo_meeting_white.png" style="margin-top:20px;">
+                            </a>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+              </li>
+          </ul>
+
+
+
+
+
+          <!-- This day events -->
+          <ul class="nav nav-pills" ng-show="calendarSelectedDay.events.length">
+              <li class="">
+                <a class="btn disabled">{{srvLocale.translations.htmlCalendarDayTextEvents}}</a>
+              </li>
+          </ul>
+          <ul class="row nav nav-pills nav-stacked" ng-if="calendarSelectedDay.events.length">
+              <!--<li class="c4p-details  c4p-color-a-gradient2">
+                  <span class="">{{srvLocale.translations.htmlCalendarDayTextEvents}}</span>
+              </li>-->
+              <li ng-repeat="item in calendarSelectedDay.events"
+                  class="col-xxs-12">
+                  <!-- well c4p-details  c4p-color-b-gradient3 <div ng-include="'partials/navigation/cards/summarized_card.html'"></div>-->
+
+                  <table class="table c4p-table-calendar-next">
+                    <tbody>
+                      <tr>
+                          <td class="" colspan="6">
+                            <div  style="position: relative;  width: 100%;height: 100%;"
+                                    ng-include="'partials/navigation/cards/summarized_card.html'"></div>
+                          </td>
+
+                          <td style="position:relative;">
+                            <a class="btn btn-primary" ng-click="gotoMeeting(item)">
+                                <img class="c4p-img-icon" src="l4p/img/logo_meeting_white.png" style="margin-top:20px;">
+                            </a>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+              </li>
+          </ul>
+
+
+    </div>
+</div>

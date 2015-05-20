@@ -1,0 +1,80 @@
+<!doctype html>
+<!--
+    main : template_email.html
+    inputs :
+      none
+    ctrl :
+      ctrlMeeting & ctrlMeetingEmail
+-->
+
+
+<div ng-controller="ctrlMeetingEmail">
+
+    <div id="c4pMeetingEmailToExport">
+      <table style="font-family:Verdana,sans-serif;font-size:12px;color:#374953;min-width:550px; width:100%; background:white;">
+        <tbody>
+
+          <tr>
+          <td align="left" style="color:#fff;font-size:20px;padding:0.5em 1em;background: linear-gradient(to right, black, rgb(189, 154, 93));">
+            <span>{{meetingItem.name}}</span>
+          </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+
+          <tr><td>
+          <table ng-repeat="meetingEmailPlan in meetingEmailPlans" style="width:100%; background:white;">
+            <tr><td align="left" style="font-size:16px;padding:0.5em 1em;border-bottom:1px solid;">
+              <span>{{meetingEmailPlan.pos+1}} . {{meetingEmailPlan.title}}</span>
+            </td></tr>
+            <tr><td align="right">
+              <i>{{meetingEmailPlan.itemName}}</i>
+            </td></tr>
+
+            <tr><td align="left">
+            <table style="width:100%;font-size:14px; background:white;">
+            <tbody>
+
+            <tr width="100%"><td>
+              <p ng-bind-html="meetingEmailPlan.noteHtml"></p>
+            </td></tr>
+            <tr><td>&nbsp;</td></tr>
+
+            </tbody>
+            </table>
+            </td></tr>
+            <tr><td>&nbsp;</td></tr>
+          </table>
+          </td></tr>
+
+
+          <tr><td align="left" style="color:#fff;padding:0.5em 1em;background: linear-gradient(to right, black, rgb(189, 154, 93));">
+            <strong>{{meetingEmailUserName}}</strong><br><br>
+            <a href="mailto:{{meetingEmailUserEmail}}" style="color:#fff" target="_blank">{{meetingEmailUserEmail}}</a>
+          </td></tr>
+          <tr><td>&nbsp;</td></tr>
+
+
+          <tr>
+          <td align="right" style="font-size:10px;">
+
+            <a href="http://www.apps4pro.com/_goodlink.php?login={{meetingEmailUserEmail}}&amp;app=c4p__&amp;re=1" style="color:#374953;text-decoration:none" target="_blank">
+            <img src="https://pbs.twimg.com/profile_images/412639591946911744/p2s1CTvs.png" alt="Apps4Pro" style="border:none;outline:none;text-decoration:none;width:15px;min-height:15px">
+            <span>made with apps4pro.com</span>
+            </a>
+            <img src="http://www.apps4pro.com/_goodlink.php?login={{meetingEmailUserEmail}}&amp;app=c4p__&amp;re=0" height="1px" width="1px">
+
+          </td></tr>
+          <tr><td>&nbsp;</td></tr>
+
+
+        </tbody>
+      </table>
+    </div>
+
+
+
+    <div c4p-animateshow="meetingEmailHasBeenInitialized"
+        after-show="afterMeetingEmailHasBeenInitialized()">
+    </div>
+
+</div>

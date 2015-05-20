@@ -1,0 +1,73 @@
+/*!
+ * Ratings
+ */
+
+
+
+.c4p-angular-ratings {
+	direction: rtl;
+	font-size: @line-height-computed * 0.7;
+	float: left;
+	//padding: 0;
+	margin: 0;
+	/*overflow: hidden;
+	*zoom: 1;
+	list-style: none;
+	padding: 0;
+	margin: 0; */
+}
+.c4p-angular-ratings li {
+	//	float: left;
+	/*	width: 20px;
+		height: 20px;
+		margin: 1px;
+		text-indent: -500000em;*/
+}
+
+.c4p-angular-ratings li.star {
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	line-height: @line-height-computed * 0.7;
+}
+
+.c4p-angular-ratings li.star:before{
+	content: "\f006";
+	padding-right: 5px;
+	//color: #999;
+}
+
+
+.c4p-angular-ratings li.star.selected,
+.c4p-angular-ratings li.star.selected:before,
+.c4p-angular-ratings li.star.over,
+.c4p-angular-ratings li.star.over:before,
+.c4p-angular-ratings li.star:hover:before,
+.c4p-angular-ratings li.star:hover ~ li.star:before {
+	cursor: pointer;
+	content: "\f005";
+	color: #e3cf7a !important;
+}
+
+
+.c4p-angular-ratings li.star.readonly,
+.c4p-angular-ratings li.star.readonly:before,
+.c4p-angular-ratings li.star.readonly.selected,
+.c4p-angular-ratings li.star.readonly.selected:before,
+.c4p-angular-ratings li.star.readonly.over,
+.c4p-angular-ratings li.star.readonly.over:before,
+.c4p-angular-ratings li.star.readonly:hover:before,
+.c4p-angular-ratings li.star.readonly:hover ~ li.star.readonly:before{
+
+	//content: "\f005"!important;
+	//color: #e3cf7a !important;
+}
+
+/*
+#examples .rating span.star:hover:before,
+#examples .rating span.star:hover ~ span.star:before {
+content: "\f005";
+color: #e3cf7a;
+}*/
+

@@ -1,0 +1,22 @@
+<!doctype html>
+<!--
+		full_card_video.html
+
+		ctrl :
+			ctrlDetailedObject
+
+		inputs :
+			cardItem, cardGroups, showTitle
+
+		methods:
+			edit(cardItem)
+-->
+
+
+	<div class="row" ng-if="cardItem.a4p_type == 'Document'">
+
+						<div class="c4p-card-full-thumb center-block col-xxs-12">
+								<video controls ng-src="{{cardItem.url}}" class="c4p-card-thumb-media"></video>
+						</div>
+
+</div>

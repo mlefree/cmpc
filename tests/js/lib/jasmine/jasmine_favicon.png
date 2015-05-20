@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>
+  tcjr / bootstrap-dojo 
+  / source  / test / jasmine-1.1.0 / jasmine_favicon.png
+ &mdash; Bitbucket
+</title>
+  <link rel="icon" type="image/png" href="https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/img/favicon.png">
+  <meta id="bb-canon-url" name="bb-canon-url" content="https://bitbucket.org">
+  
+  
+<link rel="stylesheet" href="https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/compressed/css/7117da994e1a.css" type="text/css" />
+
+  <!--[if IE]><link rel="stylesheet" href="https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/css/aui/aui-ie.css" media="all"><![endif]-->
+  <!--[if IE 9]><link rel="stylesheet" href="https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/css/aui/aui-ie9.css" media="all"><![endif]-->
+  <!--[if IE]><link rel="stylesheet" href="https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/css/aui-overrides-ie.css" media="all"><![endif]-->
+  <meta name="description" content=""/>
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Bitbucket" />
+  
+  <link href="/tcjr/bootstrap-dojo/rss" rel="alternate nofollow" type="application/rss+xml" title="RSS feed for bootstrap-dojo" />
+
+</head>
+<body class="aui-layout production ">
+<script type="text/javascript" src="https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/compressed/js/e98deabf8a2e.js"></script>
+<div id="page">
+  <div id="wrapper">
+    
+    <header id="header" role="banner">
+      <nav class="aui-header aui-dropdown2-trigger-group" role="navigation">
+        <div class="aui-header-inner">
+          <div class="aui-header-primary">
+            <h1 class="aui-header-logo aui-header-logo-bitbucket">
+              <a href="/" class="aui-nav-imagelink">
+                <span class="aui-header-logo-device">Bitbucket</span>
+              </a>
+            </h1>
+            <script id="repo-dropdown-template" type="text/html">
+  
+
+[[#hasViewed]]
+  <div class="aui-dropdown2-section">
+    <strong class="viewed">Recently viewed</strong>
+    <ul class="aui-list-truncate">
+      [[#viewed]]
+        <li class="[[#is_private]]private[[/is_private]][[^is_private]]public[[/is_private]] repository">
+          <a href="[[url]]" title="[[owner]]/[[name]]" class=" aui-icon-container">
+            <img class="repo-avatar size16" src="[[{avatar}]]" alt="[[owner]]/[[name]] avatar"/>
+            [[owner]] / [[name]]
+          </a>
+        </li>
+      [[/viewed]]
+    </ul>
+  </div>
+[[/hasViewed]]
+[[#hasUpdated]]
+<div class="aui-dropdown2-section">
+  <strong class="updated">Recently updated</strong>
+  <ul class="aui-list-truncate">
+    [[#updated]]
+    <li class="[[#is_private]]private[[/is_private]][[^is_private]]public[[/is_private]] repository">
+      <a href="[[url]]" title="[[owner]]/[[name]]" class=" aui-icon-container">
+        <img class="repo-avatar size16" src="[[{avatar}]]" alt="[[owner]]/[[name]] avatar"/>
+        [[owner]] / [[name]]
+      </a>
+    </li>
+    [[/updated]]
+  </ul>
+</div>
+[[/hasUpdated]]
+
+</script>
+            <ul role="menu" class="aui-nav">
+              
+                <li>
+                  <a href="/plans">
+                    Pricing &amp; Signup
+                  </a>
+                </li>
+              
+            </ul>
+          </div>
+          <div class="aui-header-secondary">
+            <ul role="menu" class="aui-nav">
+              <li>
+                <form action="/repo/all" method="get" class="aui-quicksearch">
+                  <label for="search-query" class="assistive">owner/repository</label>
+                  <input  id="search-query" class="search" type="text" placeholder="owner/repository" name="name">
+                </form>
+              </li>
+              <li>
+                <a class="aui-dropdown2-trigger"aria-controls="header-help-dropdown" aria-owns="header-help-dropdown"
+                   aria-haspopup="true" data-container="#header .aui-header-inner" href="#header-help-dropdown">
+                  <span class="aui-icon aui-icon-small aui-iconfont-help">Help</span><span class="aui-icon-dropdown"></span>
+                </a>
+                <nav id="header-help-dropdown" class="aui-dropdown2 aui-style-default aui-dropdown2-in-header" aria-hidden="true">
+                  <div class="aui-dropdown2-section">
+                    <ul>
+                      <li><a href="https://confluence.atlassian.com/display/BITBUCKET/bitbucket+Documentation+Home" target="_blank">Documentation</a></li>
+                      <li><a href="https://confluence.atlassian.com/display/BITBUCKET/bitbucket+101" target="_blank">Bitbucket 101</a></li>
+                      <li><a href="https://confluence.atlassian.com/display/BBKB/Bitbucket+Knowledge+Base+Home" target="_blank">Knowledge Base</a></li>
+                    </ul>
+                  </div>
+                  <div class="aui-dropdown2-section">
+                    <ul>
+                      <li><a href="https://answers.atlassian.com/tags/bitbucket/" target="_blank">Bitbucket on Atlassian Answers</a></li>
+                      <li><a href="/support">Support</a></li>
+                    </ul>
+                  </div>
+                </nav>
+              </li>
+              
+                <li id="user-options">
+                  <a href="/account/signin/?next=/tcjr/bootstrap-dojo/src/25d5d0cd49b2/test/jasmine-1.1.0/jasmine_favicon.png%3Fat%3Ddevelop" class="aui-nav-link login-link">Log In</a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+      <header id="account-warning" role="banner"
+              class="aui-message-banner warning ">
+        <div class="center-content">
+          <span class="aui-icon aui-icon-warning"></span>
+          <span class="message">
+            
+          </span>
+        </div>
+      </header>
+    
+      <header id="aui-message-bar">
+        
+      </header>
+    
+    
+  <header id="repo-warning" role="banner" class="aui-message-banner warning">
+    <div class="center-content">
+      <span class="aui-icon aui-icon-warning"></span>
+      <span class="message">
+      </span>
+    </div>
+  </header>
+  <script id="repo-warning-template" type="text/html">
+  
+
+
+
+
+  This repository's ownership is pending transfer to <a href="/[[username]]">[[username]]</a>.
+  Visit the <a href="/tcjr/bootstrap-dojo/admin/transfer">transfer repository page</a> to view more details.
+
+
+</script>
+  <header id="repo-header" class="subhead row">
+    <div class="center-content">
+      <div class="repo-summary">
+        <a class="repo-avatar-link" href="/tcjr/bootstrap-dojo">
+          <span class="repo-avatar-container size64">
+  <img alt="bootstrap-dojo" src="https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/img/language-avatars/js_64.png"/>
+</span>
+
+          
+        </a>
+        <h1><a class="repo-link" href="/tcjr/bootstrap-dojo">bootstrap-dojo</a></h1>
+        <ul class="repo-metadata clearfix">
+          <li>
+            <a class="user" href="/tcjr">
+              <span class="icon user">User Icon</span>
+              <span>tcjr</span>
+            </a>
+          </li>
+          
+          
+          <li class="social">
+            <a class="follow" id="repo-follow"
+               rel="nofollow"
+               href="/tcjr/bootstrap-dojo/follow">
+              <span class="icon follow">Follow Icon</span>
+              <span class="text">Follow</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+      <div id="repo-toolbar" class="bb-toolbar">
+        
+        <div class="aui-buttons">
+          <a id="repo-clone-button" class="aui-button aui-style" href="https://bitbucket.org/tcjr/bootstrap-dojo.git">
+            <span class="icon clone">Clone Icon</span>
+            <span>Clone</span>
+            <span class="aui-icon-dropdown"></span>
+          </a>
+          <a id="fork-button" class="aui-button aui-style"
+             href="/tcjr/bootstrap-dojo/fork">
+            <span class="icon fork">Fork Icon</span>
+            <span>Fork</span>
+          </a>
+        </div>
+        <div class="aui-buttons">
+          <a id="compare-button" class="aui-button aui-style"
+             href="/tcjr/bootstrap-dojo/compare">
+            <span class="icon compare">Compare Icon</span>
+            <span>Compare</span>
+          </a>
+          <a id="pull-request-button" class="aui-button aui-style"
+             href="/tcjr/bootstrap-dojo/pull-request/new">
+            <span class="icon pull-request">Pull Request Icon</span>
+            <span>Pull Request</span>
+          </a>
+        </div>
+        
+        
+
+<div id="repo-clone-dialog" class="clone-dialog hidden">
+  
+<div class="clone-url">
+  <div class="aui-buttons">
+    <a href="https://bitbucket.org/tcjr/bootstrap-dojo.git"
+       class="aui-button aui-style aui-dropdown2-trigger" aria-haspopup="true"
+       aria-owns="clone-url-dropdown-header">
+      <span class="dropdown-text">HTTPS</span>
+    </a>
+    <div id="clone-url-dropdown-header" class="aui-dropdown2 aui-style-default">
+      <ul class="aui-list-truncate">
+        <li>
+          <a href="https://bitbucket.org/tcjr/bootstrap-dojo.git"
+            
+              data-command="git clone https://bitbucket.org/tcjr/bootstrap-dojo.git"
+            
+            class="item-link https">HTTPS
+          </a>
+        </li>
+        <li>
+          <a href="ssh://git@bitbucket.org/tcjr/bootstrap-dojo.git"
+            
+              data-command="git clone git@bitbucket.org:tcjr/bootstrap-dojo.git"
+            
+            class="item-link ssh">SSH
+          </a>
+        </li>
+      </ul>
+    </div>
+    <input type="text" readonly="readonly" value="git clone https://bitbucket.org/tcjr/bootstrap-dojo.git">
+  </div>
+  
+  <p>Need help cloning? Visit
+     <a href="https://confluence.atlassian.com/x/cgozDQ" target="_blank">Bitbucket 101</a>.</p>
+  
+</div>
+
+  
+  
+  <div class="clone-in-sourcetree"
+       data-https-url="https://bitbucket.org/tcjr/bootstrap-dojo.git"
+       data-ssh-url="ssh://git@bitbucket.org/tcjr/bootstrap-dojo.git">
+    <p><button class="aui-button aui-style aui-button-primary">Clone in SourceTree</button></p>
+
+    <p><a href="http://www.sourcetreeapp.com" target="_blank">SourceTree</a>
+       is a free Mac client by Atlassian for Git, Mercurial and Subversion.</p>
+  </div>
+  
+</div>
+
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </header>
+  <nav id="repo-tabs" class="aui-navbar aui-navbar-roomy">
+    <div class="aui-navbar-inner">
+      <ul class="aui-nav aui-nav-horizontal">
+        
+          <li>
+            <a href="/tcjr/bootstrap-dojo/overview" id="repo-overview-link">Overview</a>
+          </li>
+        
+        
+          <li class="aui-nav-selected">
+            <a href="/tcjr/bootstrap-dojo/src" id="repo-source-link">Source</a>
+          </li>
+        
+        
+          <li>
+            <a href="/tcjr/bootstrap-dojo/changesets" id="repo-commits-link">
+              Commits
+            </a>
+          </li>
+        
+        
+          <li>
+            <a href="/tcjr/bootstrap-dojo/pull-requests" id="repo-pullrequests-link">
+              Pull Requests
+              
+                
+              
+            </a>
+          </li>
+        
+          <li id="issues-tab" class="
+            
+              hidden
+            
+          ">
+            <a href="/tcjr/bootstrap-dojo/issues?status=new&amp;status=open" id="repo-issues-link">
+              Issues
+              
+                
+              
+            </a>
+          </li>
+          <li id="wiki-tab" class="
+              
+                hidden
+              
+            ">
+            <a href="/tcjr/bootstrap-dojo/wiki" id="repo-wiki-link">Wiki</a>
+          </li>
+        
+          <li>
+          <a href="/tcjr/bootstrap-dojo/downloads" id="repo-downloads-link">
+            Downloads
+            
+              
+            
+          </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </nav>
+
+    <div id="content" role="main">
+      
+  <div id="repo-content">
+    
+  <div id="source-container">
+    
+
+
+
+<header id="source-path">
+  
+  <div class="labels labels-csv">
+    
+      <div class="aui-buttons">
+        <button data-branches-tags-url="/api/1.0/repositories/tcjr/bootstrap-dojo/branches-tags"
+                class="aui-button aui-style branch-dialog-trigger" title="develop">
+          
+            
+              <span class="branch icon">Branch</span>
+            
+            <span class="name">develop</span>
+          
+          <span class="aui-icon-dropdown"></span>
+        </button>
+      </div>
+    
+  </div>
+  
+  
+    <div class="view-switcher">
+      <div class="aui-buttons">
+        
+          <a href="/tcjr/bootstrap-dojo/src/25d5d0cd49b2/test/jasmine-1.1.0/jasmine_favicon.png?at=develop"
+             class="aui-button aui-style pjax-trigger active">
+            Source
+          </a>
+          <a href="/tcjr/bootstrap-dojo/diff/test/jasmine-1.1.0/jasmine_favicon.png?diff2=25d5d0cd49b2&at=develop"
+             class="aui-button aui-style pjax-trigger "
+             title="Diff to previous change">
+            Diff
+          </a>
+          <a href="/tcjr/bootstrap-dojo/history-node/25d5d0cd49b2/test/jasmine-1.1.0/jasmine_favicon.png?at=develop"
+             class="aui-button aui-style pjax-trigger ">
+            History
+          </a>
+        
+      </div>
+    </div>
+  
+  <h1>
+    <a href="/tcjr/bootstrap-dojo/src/25d5d0cd49b2?at=develop"
+       class="pjax-trigger" title="[u&#39;test&#39;, u&#39;jasmine-1.1.0&#39;, u&#39;jasmine_favicon.png&#39;]">bootstrap-dojo</a> /
+    
+      
+        
+          
+            <a href="/tcjr/bootstrap-dojo/src/25d5d0cd49b2/test?at=develop"
+               class="pjax-trigger">test</a> /
+          
+        
+      
+    
+      
+        
+          
+            <a href="/tcjr/bootstrap-dojo/src/25d5d0cd49b2/test/jasmine-1.1.0?at=develop"
+               class="pjax-trigger">jasmine-1.1.0</a> /
+          
+        
+      
+    
+      
+        
+          <span>jasmine_favicon.png</span>
+        
+      
+    
+  </h1>
+  
+    
+    
+  
+  <div class="clearfix"></div>
+</header>
+
+
+  
+    <div id="source-view">
+      <div class="toolbar">
+        <div class="primary">
+          <div class="aui-buttons">
+            
+              <button id="file-history-trigger" class="aui-button aui-style changeset-info"
+                      data-changeset="c3db12eabd2de8053fb046cc347a23a4fa846d20"
+                      data-path="test/jasmine-1.1.0/jasmine_favicon.png"
+                      data-current="25d5d0cd49b21ca01f2a23d6f4f8f936fbfe333a">
+                
+                   
+
+<img class="avatar avatar16" src="https://secure.gravatar.com/avatar/f3364dde2a6ff12806b748197505321e?d=https%3A%2F%2Fdwz7u9t8u8usb.cloudfront.net%2Fm%2F7c4bf412a394%2Fimg%2Fdefault_avatar%2F16%2Fuser_blue.png&amp;s=16" alt="Tom Carter avatar" />
+<span class="changeset-hash">25d5d0c</span>
+<time datetime="2012-04-10T21:56:59+00:00" class="timestamp"></time>
+<span class="aui-icon-dropdown"></span>
+
+                
+              </button>
+            
+          </div>
+        </div>
+          <div class="secondary">
+            
+            <div class="aui-buttons">
+              
+              <a href="/tcjr/bootstrap-dojo/full-commit/25d5d0cd49b2/test/jasmine-1.1.0/jasmine_favicon.png" class="aui-button aui-style"
+                 title="View full commit 25d5d0c">Full Commit</a>
+              
+              <a href="/tcjr/bootstrap-dojo/raw/25d5d0cd49b21ca01f2a23d6f4f8f936fbfe333a/test/jasmine-1.1.0/jasmine_favicon.png"
+                 class="aui-button aui-style">Raw</a>
+            </div>
+          </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    
+      <div id="inline-image">
+        <p>
+          
+            test/jasmine-1.1.0/jasmine_favicon.png is an image.
+          
+        </p>
+        <p>
+          <a href="/tcjr/bootstrap-dojo/raw/25d5d0cd49b21ca01f2a23d6f4f8f936fbfe333a/test/jasmine-1.1.0/jasmine_favicon.png" class="show-image">View image</a>
+        </p>
+      </div>
+    
+  
+
+
+  <script id="source-changeset" type="text/html">
+  
+
+<a href="/tcjr/bootstrap-dojo/src/[[raw_node]]/test/jasmine-1.1.0/jasmine_favicon.png?at=develop"
+   class="[[#selected]]highlight[[/selected]]"
+   data-hash="[[node]]">
+  [[#author.username]]
+    <img class="avatar avatar16" src="[[author.avatar]]"/>
+    <span class="author" title="[[raw_author]]">[[author.display_name]]</span>
+  [[/author.username]]
+  [[^author.username]]
+    <img class="avatar avatar16" src="https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/img/default_avatar/16/user_blue.png"/>
+    <span class="author unmapped" title="[[raw_author]]">[[author]]</span>
+  [[/author.username]]
+  <time datetime="[[utctimestamp]]" data-title="true">[[utctimestamp]]</time>
+  <span class="message">[[message]]</span>
+</a>
+
+</script>
+
+
+<div class="mask"></div>
+
+
+
+  <script id="branch-dialog-template" type="text/html">
+  
+
+<div class="tabbed-filter-widget branch-dialog">
+  <div class="tabbed-filter">
+    <input placeholder="Filter Branches" class="filter-box" autosave="branch-dropdown-773367" type="text">
+    [[^ignoreTags]]
+      <div class="aui-tabs horizontal-tabs aui-tabs-disabled filter-tabs">
+        <ul class="tabs-menu">
+          <li class="menu-item active-tab"><a href="#branches">Branches</a></li>
+          <li class="menu-item"><a href="#tags">Tags</a></li>
+        </ul>
+      </div>
+    [[/ignoreTags]]
+  </div>
+  
+    <div class="tab-pane active-pane" id="branches" data-filter-placeholder="Filter Branches">
+      <ol class="filter-list">
+        <li class="empty-msg">No matching branches</li>
+        [[#branches]]
+          [[#hasMultipleHeads]]
+            [[#heads]]
+              <li class="comprev filter-item">
+                <a href="/tcjr/bootstrap-dojo/src/[[changeset]]/test/jasmine-1.1.0/jasmine_favicon.png?at=[[safeName]]" title="[[name]]">
+                  [[name]] ([[shortChangeset]])
+                </a>
+              </li>
+            [[/heads]]
+          [[/hasMultipleHeads]]
+          [[^hasMultipleHeads]]
+            <li class="comprev filter-item">
+              <a href="/tcjr/bootstrap-dojo/src/[[changeset]]/test/jasmine-1.1.0/jasmine_favicon.png?at=[[safeName]]" title="[[name]]">
+                [[name]]
+              </a>
+            </li>
+          [[/hasMultipleHeads]]
+        [[/branches]]
+      </ol>
+    </div>
+    <div class="tab-pane" id="tags" data-filter-placeholder="Filter Tags">
+      <ol class="filter-list">
+        <li class="empty-msg">No matching tags</li>
+        [[#tags]]
+          <li class="comprev filter-item">
+            <a href="/tcjr/bootstrap-dojo/src/[[changeset]]/test/jasmine-1.1.0/jasmine_favicon.png?at=[[safeName]]" title="[[name]]">
+              [[name]]
+            </a>
+          </li>
+        [[/tags]]
+      </ol>
+    </div>
+  
+</div>
+
+</script>
+
+
+
+  </div>
+
+  </div>
+
+    </div>
+  </div>
+  <footer id="footer" role="contentinfo">
+    <section class="footer-body">
+      <ul>
+        <li><a href="http://blog.bitbucket.org">Blog</a></li>
+        <li><a href="//bitbucket.org/site/master/issues/new">Report a Bug</a></li>
+        <li><a href="/support">Support</a></li>
+        <li><a href="http://confluence.atlassian.com/display/BITBUCKET">Documentation</a></li>
+        <li><a href="http://confluence.atlassian.com/x/IYBGDQ">API</a></li>
+        <li><a href="http://groups.google.com/group/bitbucket-users">Forum</a></li>
+        <li><a href="http://status.bitbucket.org/">Server Status</a></li>
+        <li><a href="http://www.atlassian.com/hosted/terms.jsp">Terms of Service</a></li>
+        <li><a href="http://www.atlassian.com/about/privacy.jsp">Privacy Policy</a></li>
+      </ul>
+    </section>
+  </footer>
+</div>
+
+<script type="text/javascript" src="https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/compressed/js/895c40a10981.js"></script>
+
+<!-- This script exists purely for the benefit of our selenium tests -->
+<script>
+  setTimeout(function () {
+    BB.JsLoaded = true;
+  }, 3000);
+</script>
+
+
+
+<script>
+  (function (window) {
+    BB.images = {
+      invitation: 'https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/img/icons/fugue/card_address.png',
+      noAvatar: 'https://dwz7u9t8u8usb.cloudfront.net/m/7c4bf412a394/img/default_avatar/16/user_blue.png'
+    };
+    BB.user = {"isKbdShortcutsEnabled": true, "isSshEnabled": false, "isAuthenticated": false};
+    BB.repo || (BB.repo = {});
+    
+      BB.repo.id = 773367;
+      
+      
+        BB.repo.language = 'javascript';
+        BB.repo.pygmentsLanguage = 'javascript';
+      
+      
+        BB.repo.slug = 'bootstrap\u002Ddojo';
+      
+      
+        BB.repo.owner = {};
+        BB.repo.owner.username = 'tcjr';
+      
+      // Coerce `BB.repo` to a string to get
+      // "davidchambers/mango" or whatever.
+      BB.repo.toString = function () {
+        return BB.cname ? this.slug : '{owner.username}/{slug}'.format(this);
+      }
+      
+        BB.changeset = '25d5d0cd49b21ca01f2a23d6f4f8f936fbfe333a'
+      
+      
+    
+    window.setInterval(BB.localize, 60 * 1000);
+    BB.localize();
+
+  })(window);
+</script>
+
+
+
+<script>
+    // Bitbucket Google Analytics
+    (function (window) {
+        // Track the main pageview to the Bitbucket GA account.
+        BB.gaqPush(['_trackPageview']);
+        // Track the main pageview to the Atlassian GA account.
+        BB.gaqPush(['atl._trackPageview']);
+
+        
+
+
+        
+
+        // Include GA commands from sub-templates
+        
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            ga.setAttribute('async', 'true');
+            document.documentElement.firstChild.appendChild(ga);
+        }());
+    })(window);
+</script>
+
+
+
+
+</body>
+</html>

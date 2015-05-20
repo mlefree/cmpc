@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+<head>
+    <!-- http://www.ultra-fluide.com/ressources/xhtml/block-inline.xhtml -->
+    <title>Layout End to end Test Page</title>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+            -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+            -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+            /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        *:not(input):not(textarea) {
+            -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        html
+        {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            color: #FFF;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            color: #FFF;
+            display: flex; /* see help at http://openweb.eu.org/articles/css3-flexbox-layout-module */
+            display: -webkit-flex; /* OK chrome 21 */
+            flex-direction: column; /* direction : column ou row */
+            -webkit-flex-direction: column;
+            flex-wrap: nowrap; /* wrapping : wrap, nowrap et wrap-reverse */
+            -webkit-flex-wrap: nowrap;
+            justify-content: space-between; /* axe principal : flex-start, flex-end, center, space-between et space-around */
+            -webkit-justify-content: space-between;
+            align-items: stretch; /* axe secondaire : flex-start, flex-end, center, baseline, stretch */
+            -webkit-align-items: stretch;
+            /*border-style: solid;
+            border-width: 2px;
+            border-color: red;*/
+        }
+
+        body[orient="portrait"] {
+            background: #FF0000;
+        }
+
+        body[orient="landscape"] {
+            background: #000;
+        }
+
+        #entetePage, #piedsPage {
+            margin: 0;
+            background: #ccc;
+            text-align: center;
+        }
+
+        #entetePage h1, #piedsPage h1 {
+            margin: 0;
+        }
+
+        #bandeau {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background-color: #666;
+            /*text-align: left;*/
+        }
+
+        #bandeau li {
+            list-style-type: none;
+            display: inline;
+        }
+
+        #bandeau li:nth-child(2) {
+            background-color: #363;
+        }
+
+        #bandeau li:nth-child(3) {
+            background-color: #633;
+        }
+
+        #bandeau li a {
+            padding-left: 5px;
+            padding-right: 5px;
+            color: #fff;
+            text-decoration: none;
+            border-right: 1px solid #fff;
+        }
+
+        #bandeau li a:hover {
+            background: #383;
+        }
+
+        #corpsPage {
+            flex: 1; /* flex-grow flex-shrink flex-basis */
+            -webkit-flex: 1;
+        }
+
+        #corpsPageScroller {
+            display: flex; /* see help at http://openweb.eu.org/articles/css3-flexbox-layout-module */
+            display: -webkit-flex; /* OK chrome 21 */
+            flex-direction: row; /* direction : column ou row */
+            -webkit-flex-direction: row;
+            flex-wrap: wrap; /* wrapping : wrap, nowrap et wrap-reverse */
+            -webkit-flex-wrap: wrap;
+            justify-content: space-between; /* axe principal : flex-start, flex-end, center, space-between et space-around */
+            -webkit-justify-content: space-between;
+            align-items: stretch; /* axe secondaire : flex-start, flex-end, center, baseline, stretch */
+            -webkit-align-items: stretch;
+        }
+
+        #leftSide {
+            flex: 1 150px; /* flex-grow flex-shrink flex-basis */
+            -webkit-flex: 1 150px;
+            margin: 0;
+            padding: 0;
+            background: #fcc;
+            overflow: hidden;
+            min-height: 150px;
+        }
+
+        #leftSideScroller {
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
+
+        #rigthSide {
+            flex: 2 250px; /* flex-grow flex-shrink flex-basis */
+            -webkit-flex: 2 250px;
+            margin: 0;
+            padding: 0;
+            background: #cfc;
+            overflow: hidden;
+            min-height: 150px;
+        }
+
+        #rigthSideScroller {
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
+
+        #leftSide blockquote {
+            color: green;
+        }
+    </style>
+</head>
+<body ng-app="c4p">
+<!-- MAIS il faut une structure xml UNIQUE avec un balisage semantique -->
+<div id="entetePage">
+    <h1>header</h1>
+    <ul id="bandeau">
+        <li>
+            <a href="accueil.php" id="accueil" title="accueil">
+                <span>Accueil</span>
+            </a>
+        </li>
+        <li>
+            <a href="presentation.php" id="presentation" title="Présentation">
+                <span>Présentation</span>
+            </a>
+        </li>
+        <li>
+            <a href="contact.php" id="contact" title="contact">
+                <span>Contact</span>
+            </a>
+        </li>
+        <li>
+            <a href="news.php" id="news" title="News">
+                <span>News</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="corpsPage"
+     sense-opts="{name:'e2eLayoutTest_corpsPage', axeX:'swipe', axeY:'scroll'}"
+     resize-opts="{name:'e2eLayoutTest_corpsPage'}">
+    <div id="corpsPageScroller"
+         sense-opts="{name:'e2eLayoutTest_corpsPageScroller'}"
+         resize-opts="{name:'e2eLayoutTest_corpsPageScroller'}"
+         resizecss-height="getResizePathValue('e2eLayoutTest_corpsPage', '', 'offsetHeight')">
+        <div id="leftSide"
+             sense-opts="{name:'e2eLayoutTest_leftSide', axeX:'swipe', axeY:'scroll'}"
+             resize-opts="{name:'e2eLayoutTest_leftSide'}"
+             resizecss-height="getResizePathValue('e2eLayoutTest_corpsPage', '', 'offsetHeight')">
+            <div id="leftSideScroller">
+                <blockquote class="citationscelebres">
+                    Ce n'est pas parce qu'en hiver on dit
+                    « fermez la porte, il fait froid dehors »,
+                    qu'il fait moins froid dehors quand la porte est fermée.
+                </blockquote>
+                <blockquote class="poemes">
+                    Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
+                </blockquote>
+                <blockquote class="citationscelebres">
+                    Une heure assis à côté d'une jolie femme semble durer une minute.
+                    Une minute assis sur un four brûlant semble durer une heure.
+                    C'est ça la relativité.
+                </blockquote>
+            </div>
+        </div>
+        <div id="rigthSide"
+             sense-opts="{name:'e2eLayoutTest_rigthSide', axeX:'swipe', axeY:'scroll'}"
+             resize-opts="{name:'e2eLayoutTest_rigthSide'}"
+             resizecss-height="getResizePathValue('e2eLayoutTest_corpsPage', '', 'offsetHeight')">
+            <div id="rigthSideScroller">
+                <blockquote class="citationscelebres">
+                    Ce n'est pas parce qu'en hiver on dit
+                    « fermez la porte, il fait froid dehors »,
+                    qu'il fait moins froid dehors quand la porte est fermée.
+                </blockquote>
+                <blockquote class="poemes">
+                    Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
+                </blockquote>
+                <blockquote class="citationscelebres">
+                    Une heure assis à côté d'une jolie femme semble durer une minute.
+                    Une minute assis sur un four brûlant semble durer une heure.
+                    C'est ça la relativité.
+                </blockquote>
+                <blockquote class="poemes">
+                    Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
+                </blockquote>
+                <blockquote class="citationscelebres">
+                    Ce n'est pas parce qu'en hiver on dit
+                    « fermez la porte, il fait froid dehors »,
+                    qu'il fait moins froid dehors quand la porte est fermée.
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="piedsPage">
+    <h1>footer</h1>
+</div>
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+<script language="javascript">
+    var appModule = angular.module('c4p', ['a4p.directives']);
+    var directiveModule = angular.module('a4p.directives', []);
+    a4p.Sense.declareDirectives(directiveModule);
+    a4p.Resize.declareDirectives(directiveModule);
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+    <!-- http://www.ultra-fluide.com/ressources/xhtml/block-inline.xhtml -->
+    <title>Icon Center Test Page</title>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link id="c4p-css" href="../../www/l4p/css/c4p-theme-cosmo.css" rel="stylesheet" type="text/css">
+
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+            -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+            -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+            /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        *:not(input):not(textarea) {
+            -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            color: #FFF;
+            border-style: solid;
+            border-width: 2px;
+            border-color: red;
+            position:relative;
+        }
+
+        body[orient="portrait"] {
+            background: #FF0000;
+        }
+
+        body[orient="landscape"] {
+            background: #000;
+        }
+
+    </style>
+</head>
+<!-- Need to take into account border size of body to keep it inside viewscreen -->
+<body ng-app="c4p">
+
+<p>Icone centree V et H avec pointeur</p>
+<div ng-style="{width:'80px', height:'80px', line-height:'80px'}"
+     style="background-color:grey;cursor: pointer;">
+    <div style="text-align:center;"><span class="c4p-icon-std c4p-v-align-middle glyphicon glyphicon-link"></span></div>
+</div>
+
+<p>Icone centree V et H avec texte en bas a droite</p>
+<div ng-style="{width:'80px', height:'80px', line-height:'80px'}" style="background-color:blue;color:white;position:relative;">
+    <div style="text-align:center;"><span class="icon-large glyphicon glyphicon-user"></span></div>
+    <span style="position:absolute;bottom:0;right:0;line-height: normal;">15</span>
+</div>
+
+<p>Icone centree H avec texte en bas a droite</p>
+<div ng-style="{width:'80px', height:'80px'}" style="background-color:blue;color:white;">
+    <div style="text-align:center;"><span class="c4p-icon-std glyphicon glyphicon-user"></span></div>
+    <div style="text-align:right;"><span>15</span></div>
+</div>
+
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+<script language="javascript">
+    var appModule = angular.module('c4p', ['a4p.directives']);
+    var directiveModule = angular.module('a4p.directives', []);
+    a4p.Sense.declareDirectives(directiveModule);
+    a4p.Resize.declareDirectives(directiveModule);
+</script>
+</body>
+</html>

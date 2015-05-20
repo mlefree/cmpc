@@ -1,0 +1,40 @@
+<!doctype html>
+<!--
+		full_card.html
+
+		ctrl :
+			ctrlDetailedObject
+
+		inputs :
+			item
+
+		methods:
+			edit(cardItem)
+-->
+
+
+<div ng-if="item != null">
+	<div ng-switch="item.a4p_type">
+					<div ng-switch-when="Note">
+						<div ng-repeat="card in cards">
+							<div ng-if="$first" ng-init="cardItem = item; cardGroups = card.groups" class="c4p-card" ng-include="'partials/navigation/cards/full_card_note.html'"></div>
+						</div>
+					</div>
+
+					<div ng-switch-when="Document">
+						<div ng-if="isVideo">
+							<div ng-repeat="card in cards">
+								<div ng-if="$first" ng-init="cardItem = item; cardGroups = card.groups" class="c4p-card" ng-include="'partials/navigation/cards/full_card_video.html'"></div>
+							</div>
+						</div>
+							<div ng-if="!isVideo">
+								<div ng-repeat="card in cards">
+									<div ng-if="$first" ng-init="cardItem = item; cardGroups = card.groups" class="c4p-card" ng-include="'partials/navigation/cards/full_card_picture.html'"></div>
+								</div>
+							</div>
+					</div>
+
+					<div ng-switch-default>...
+					</div>
+	</div>
+</div>

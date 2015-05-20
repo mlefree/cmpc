@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+    <!-- http://www.ultra-fluide.com/ressources/xhtml/block-inline.xhtml -->
+    <title>Layout2 End to end Test Page</title>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+    <link id="c4p-css" href="../../www/l4p/css/theme-bootstrap.css" rel="stylesheet" type="text/css">
+    <!--<link id="c4p-css" href="../../www/l4p/css/theme-cosmo.css" rel="stylesheet" type="text/css">-->
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+            -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+            -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+            /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        *:not(input):not(textarea) {
+            -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        body[orient="portrait"] {
+            background: #ff6;
+        }
+
+        body[orient="landscape"] {
+            background: #6ff;
+        }
+
+        #entetePage, #piedsPage {
+            width: 100%;
+            margin: 0;
+            text-align: center;
+        }
+
+        #entetePage {
+            background: #ccc;
+        }
+
+        #piedsPage {
+            background: transparent;
+        }
+
+        #entetePage h1, #piedsPage h1 {
+            margin: 0;
+        }
+
+        #bandeau {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background-color: #666;
+            /*text-align: left;*/
+        }
+
+        #bandeau li {
+            list-style-type: none;
+            display: inline;
+        }
+
+        #bandeau li:nth-child(2) {
+            background-color: #363;
+        }
+
+        #bandeau li:nth-child(3) {
+            background-color: #633;
+        }
+
+        #bandeau li a {
+            padding-left: 5px;
+            padding-right: 5px;
+            color: #fff;
+            text-decoration: none;
+            border-right: 1px solid #fff;
+        }
+
+        #bandeau li a:hover {
+            background: #383;
+        }
+
+        #corpsPage {
+            overflow: hidden;
+        }
+
+        #leftSide {
+            margin: 0;
+            padding: 0;
+            background: #fcc;
+            overflow: hidden;
+            min-height: 150px;
+        }
+
+        #leftSideScroller {
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
+
+        #rigthSide {
+            margin: 0;
+            padding: 0;
+            background: #cfc;
+            overflow: hidden;
+            min-height: 150px;
+        }
+
+        #rigthSideScroller {
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
+
+        #leftSide blockquote {
+            color: green;
+        }
+
+        #rigthSide blockquote {
+            color: red;
+        }
+    </style>
+</head>
+<!--
+<body ng-app="c4p" class="container" resize-opts="{name:'e2eLayoutTest2_body'}">
+...
+<div id="corpsPageScroller" class="row" ...>
+<div id="leftSide" class="col-xs-12 col-sm-6">...</div>
+<div id="rigthSide" class="col-xs-12 col-sm-6">...</div>
+</div>
+</body>
+-->
+<body ng-app="c4p" resize-opts="{name:'e2eLayoutTest2_c4pBody'}">
+<!-- MAIS il faut une structure xml UNIQUE avec un balisage semantique -->
+<div class="container">
+    <div class="row" resize-opts="{name:'e2eLayoutTest2_thead'}">
+        <div id="entetePage" class="col-xs-12">
+            <h1>header</h1>
+            <ul id="bandeau">
+                <li>
+                    <a href="accueil.php" id="accueil" title="accueil">
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="presentation.php" id="presentation" title="Présentation">
+                        <span>Présentation</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="contact.php" id="contact" title="contact">
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="news.php" id="news" title="News">
+                        <span>News</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="page"
+         class="row"
+         resize-opts="{name:'e2eLayoutTest2_page'}"
+         resizecss-height="getResizePathValue('e2eLayoutTest2_c4pBody', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest2_thead', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest2_tfoot', '', 'offsetHeight')">
+        <div id="corpsPage"
+             class="col-xs-12"
+             sense-opts="{name:'e2eLayoutTest2_corpsPage', axeX:'swipe', axeY:'scroll'}"
+             resize-opts="{name:'e2eLayoutTest2_corpsPage'}"
+             resizecss-height="getResizePathValue('e2eLayoutTest2_page', '', 'offsetHeight')">
+            <div id="corpsPageScroller"
+                 class="row"
+                 resize-opts="{name:'e2eLayoutTest2_corpsPageScroller'}">
+                <div id="leftSide"
+                     class="col-xs-6"
+                     sense-opts="{name:'e2eLayoutTest2_leftSide', axeX:'swipe', axeY:'scroll'}"
+                     resize-opts="{name:'e2eLayoutTest2_leftSide'}"
+                     resizecss-height="getResizePathValue('e2eLayoutTest2_corpsPage', '', 'offsetHeight')">
+                    <div id="leftSideScroller">
+                        <blockquote class="citationscelebres">
+                            Ce n'est pas parce qu'en hiver on dit
+                            « fermez la porte, il fait froid dehors »,
+                            qu'il fait moins froid dehors quand la porte est fermée.
+                        </blockquote>
+                        <blockquote class="poemes">
+                            Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
+                        </blockquote>
+                        <blockquote class="citationscelebres">
+                            Une heure assis à côté d'une jolie femme semble durer une minute.
+                            Une minute assis sur un four brûlant semble durer une heure.
+                            C'est ça la relativité.
+                        </blockquote>
+                    </div>
+                </div>
+                <div id="rigthSide"
+                     class="col-xs-6"
+                     sense-opts="{name:'e2eLayoutTest2_rigthSide', axeX:'swipe', axeY:'scroll'}"
+                     resize-opts="{name:'e2eLayoutTest2_rigthSide'}"
+                     resizecss-height="getResizePathValue('e2eLayoutTest2_corpsPage', '', 'offsetHeight')">
+                    <div id="rigthSideScroller">
+                        <blockquote class="citationscelebres">
+                            Ce n'est pas parce qu'en hiver on dit
+                            « fermez la porte, il fait froid dehors »,
+                            qu'il fait moins froid dehors quand la porte est fermée.
+                        </blockquote>
+                        <blockquote class="poemes">
+                            Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
+                        </blockquote>
+                        <blockquote class="citationscelebres">
+                            Une heure assis à côté d'une jolie femme semble durer une minute.
+                            Une minute assis sur un four brûlant semble durer une heure.
+                            C'est ça la relativité.
+                        </blockquote>
+                        <blockquote class="poemes">
+                            Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
+                        </blockquote>
+                        <blockquote class="citationscelebres">
+                            Ce n'est pas parce qu'en hiver on dit
+                            « fermez la porte, il fait froid dehors »,
+                            qu'il fait moins froid dehors quand la porte est fermée.
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" resize-opts="{name:'e2eLayoutTest2_tfoot'}">
+        <div id="piedsPage" class="col-xs-12">
+            <h1>footer</h1>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+<script language="javascript">
+    var appModule = angular.module('c4p', ['a4p.directives']);
+    var directiveModule = angular.module('a4p.directives', []);
+    a4p.Sense.declareDirectives(directiveModule);
+    a4p.Resize.declareDirectives(directiveModule);
+</script>
+</body>
+</html>

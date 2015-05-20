@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=620">
+<title>HTML5 Demo: Drag and drop</title>
+<style>
+body {
+    font: normal 16px/20px "Helvetica Neue", Helvetica, sans-serif;
+    background: rgb(237, 237, 236);
+    margin: 0;
+    margin-top: 40px;
+    padding: 0;
+}
+
+section, header, footer {
+    display: block;
+}
+
+#wrapper {
+    width: 600px;
+    margin: 0 auto;
+    background: #fff repeat-x center bottom;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border-top: 1px solid #fff;
+    padding-bottom: 76px;
+}
+
+h1 {
+    padding-top: 10px;
+}
+
+h2 {
+    font-size: 100%;
+    font-style: italic;
+}
+
+header,
+article > *,
+footer > * {
+    margin: 20px;
+}
+
+footer > * {
+    margin: 20px;
+    color: #999;
+}
+
+#status {
+    padding: 5px;
+    color: #fff;
+    background: #ccc;
+}
+
+#status.fail {
+    background: #c00;
+}
+
+#status.success {
+    background: #0c0;
+}
+
+#status.offline {
+    background: #c00;
+}
+
+#status.online {
+    background: #0c0;
+}
+
+    /*footer #built:hover:after {
+      content: '...quickly';
+    }
+    */
+[contenteditable]:hover:not(:focus) {
+    outline: 1px dotted #ccc;
+}
+
+abbr {
+    border-bottom: 0;
+}
+
+abbr[title] {
+    border-bottom: 1px dotted #ccc;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+#promo {
+    font-size: 90%;
+    background: #333 no-repeat left center;
+    display: block;
+    color: #efefef;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0px 20px 0px 260px;
+    border: 5px solid #006;
+    height: 160px;
+}
+
+#promo:hover {
+    border-color: #00f;
+}
+
+#ih5 {
+    font-size: 90%;
+    background: #442C0D no-repeat left center;
+    display: block;
+    color: #F7FCE4;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 1px 20px 1px 260px;
+    border: 5px solid #904200;
+}
+
+#ih5:hover {
+    border-color: #CF6D3B;
+}
+
+#ffad section {
+    padding: 20px;
+}
+
+#ffad p {
+    margin: 10px 10px 10px 100px;
+}
+
+#ffad img {
+    border: 0;
+    float: left;
+    display: block;
+    margin: 14px 14px 0;
+}
+
+#ffad .definition {
+    font-style: italic;
+    font-family: Georgia, Palatino, Palatino Linotype, Times, Times New Roman, serif;
+}
+
+#ffad .url {
+    text-decoration: underline;
+}
+
+button, input {
+    font-size: 16px;
+    padding: 3px;
+    margin-left: 5px;
+}
+
+#view-source {
+    display: none;
+}
+
+body.view-source {
+    margin: 0;
+    background: #fff;
+    padding: 20px;
+}
+
+body.view-source > * {
+    display: none;
+}
+
+body.view-source #view-source {
+    display: block !important;
+    margin: 0;
+}
+
+#demos {
+    width: 560px;
+    border-collapse: collapse;
+}
+
+#demos .demo {
+    padding: 5px;
+}
+
+#demos a {
+    color: #00b;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+#demos a:hover {
+    text-decoration: underline;
+}
+
+#demos tbody tr {
+    border-top: 1px solid #DCDCDC;
+}
+
+#demos .demo p {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+#demos .support {
+    width: 126px;
+}
+
+.support span {
+    cursor: pointer;
+    overflow: hidden;
+    float: left;
+    display: block;
+    height: 16px;
+    width: 16px;
+    text-indent: -9999px;
+    margin-right: 5px;
+}
+
+.support span.selected {
+    outline: 1px dashed #75784C;
+}
+
+.support span.safari {
+    background-position: 0 0;
+}
+
+.support span.chrome {
+    background-position: 16px 0;
+}
+
+.support span.firefox {
+    background-position: 32px 0;
+}
+
+.support span.ie {
+    background-position: 48px 0;
+}
+
+.support span.opera {
+    background-position: 64px 0;
+}
+
+.support span.nightly {
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
+}
+
+.support span.none {
+    opacity: 0.1;
+    filter: alpha(opacity = 10);
+}
+
+#demos .tags {
+    width: 140px;
+}
+
+.tags span {
+    font-size: 11px;
+    color: #6E724E;
+    padding: 2px 5px;
+    border: 1px solid #D7D999;
+    background: #FFFFC6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.tags span:hover,
+.tags span.selected {
+    border: 1px solid #75784C;
+    background: #FF7;
+    color: #333521;
+}
+
+#tags span {
+    margin-right: 2px;
+}
+
+#tags {
+    font-size: 14px;
+}
+
+#html5badge {
+    /*  display: none;*/
+    margin-left: -30px;
+    border: 0;
+}
+
+#html5badge img {
+    border: 0;
+}
+
+.support span.yourbrowser {
+    width: 16px;
+    height: 16px;
+    background: none;
+}
+
+#carbonads-container {
+    position: fixed;
+    margin-left: 620px;
+    margin-top: -2px;
+}
+
+    /** Pretty printing styles. Used with prettify.js. */
+pre {
+    font-size: 14px;
+}
+
+.str {
+    color: #080;
+}
+
+.kwd {
+    color: #008;
+}
+
+.com {
+    color: #800;
+}
+
+.typ {
+    color: #606;
+}
+
+.lit {
+    color: #066;
+}
+
+.pun {
+    color: #660;
+}
+
+.pln {
+    color: #000;
+}
+
+.tag {
+    color: #008;
+}
+
+.atn {
+    color: #606;
+}
+
+.atv {
+    color: #080;
+}
+
+.dec {
+    color: #606;
+}
+
+</style>
+</head>
+<body>
+<section id="wrapper">
+<header>
+    <h1>Drag and drop</h1>
+</header>
+
+<style type="text/css">
+    li {
+        list-style: none;
+    }
+
+    li a {
+        text-decoration: none;
+        color: #000;
+        margin: 10px;
+        width: 150px;
+        border: 3px dashed #999;
+        background: #eee;
+        padding: 10px;
+        display: block;
+    }
+
+    *[draggable=true] {
+        -moz-user-select: none;
+        -khtml-user-drag: element;
+        cursor: move;
+    }
+
+    *:-khtml-drag {
+        background-color: rgba(238, 238, 238, 0.5);
+    }
+
+    li a:hover:after {
+        content: ' (drag me)';
+    }
+
+    ul {
+        margin-left: 200px;
+        min-height: 300px;
+    }
+
+    li.over {
+        border-color: #333;
+        background: #ccc;
+    }
+
+    #bin {
+        background: #999 top right no-repeat;
+        height: 250px;
+        width: 166px;
+        float: left;
+        border: 5px solid #000;
+        position: relative;
+        margin-top: 0;
+    }
+
+    #bin.over {
+        background: #c93 top left no-repeat;
+    }
+
+    #bin p {
+        font-weight: bold;
+        text-align: center;
+        position: absolute;
+        bottom: 20px;
+        width: 166px;
+        font-size: 32px;
+        color: #fff;
+        text-shadow: #000 2px 2px 2px;
+    }
+</style>
+<article>
+    <p>Drag the list items over the dustbin, and drop them to have the bin eat the item</p>
+
+    <div id="bin"></div>
+    <ul>
+        <li><a id="one" href="#">one</a></li>
+        <li><a href="#" id="two">two</a></li>
+        <li><a href="#" id="three">three</a></li>
+        <li><a href="#" id="four">four</a></li>
+        <li><a href="#" id="five">five</a></li>
+    </ul>
+</article>
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script>
+    function simulateTouchEvents(oo, bIgnoreChilds) {
+        if (!$(oo)[0]) {
+            return false;
+        }
+
+        if (!window.__touchTypes) {
+            window.__touchTypes = {touchstart:'mousedown', touchmove:'mousemove', touchend:'mouseup'};
+            window.__touchInputs = {INPUT:1, TEXTAREA:1, SELECT:1, OPTION:1, 'input':1, 'textarea':1, 'select':1, 'option':1};
+        }
+
+        $(oo).bind('touchstart touchmove touchend', function (ev) {
+            var bSame = (ev.target == this);
+            if (bIgnoreChilds && !bSame) {
+                return;
+            }
+
+            var b = (!bSame && ev.target.__ajqmeclk); // Get if object is already tested or input type
+            var e = ev.originalEvent;
+            if (b === true || !e.touches || e.touches.length > 1 || !window.__touchTypes[e.type]) {
+                return;
+            } //allow multi-touch gestures to work
+
+            var oEv = ( !bSame && typeof b != 'boolean') ? $(ev.target).data('events') : false;
+            var b = (!bSame) ?
+                    (ev.target.__ajqmeclk = oEv ?
+                            (oEv['click'] || oEv['mousedown'] || oEv['mouseup'] || oEv['mousemove']) :
+                            false ) :
+                    false;
+
+            if (b || window.__touchInputs[ev.target.tagName]) {
+                return;
+            } //allow default clicks to work (and on inputs)
+
+            // https://developer.mozilla.org/en/DOM/event.initMouseEvent for API
+            var touch = e.changedTouches[0], newEvent = document.createEvent("MouseEvent");
+            newEvent.initMouseEvent(window.__touchTypes[e.type], true, true, window, 1,
+                    touch.screenX, touch.screenY,
+                    touch.clientX, touch.clientY, false,
+                    false, false, false, 0, null);
+
+            touch.target.dispatchEvent(newEvent);
+            e.preventDefault();
+            ev.stopImmediatePropagation();
+            ev.stopPropagation();
+            ev.preventDefault();
+        });
+        return true;
+    }
+
+    var addEvent = (function () {
+        if (document.addEventListener) {
+            return function (el, type, fn) {
+                if (el && el.nodeName || el === window) {
+                    el.addEventListener(type, fn, false);
+                } else if (el && el.length) {
+                    for (var i = 0; i < el.length; i++) {
+                        addEvent(el[i], type, fn);
+                    }
+                }
+            };
+        } else {
+            return function (el, type, fn) {
+                if (el && el.nodeName || el === window) {
+                    el.attachEvent('on' + type, function () {
+                        return fn.call(el, window.event);
+                    });
+                } else if (el && el.length) {
+                    for (var i = 0; i < el.length; i++) {
+                        addEvent(el[i], type, fn);
+                    }
+                }
+            };
+        }
+    })();
+
+    function touchHandler(event) {
+        var touches = event.changedTouches,
+                first = touches[0],
+                type = "";
+
+        switch (event.type) {
+            case "touchstart":
+                type = "mousedown";
+                break;
+            case "touchmove":
+                type = "mousemove";
+                break;
+            case "touchend":
+                type = "mouseup";
+                break;
+            default:
+                return;
+        }
+        var simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent(type, true, true, window, 1,
+                first.screenX, first.screenY,
+                first.clientX, first.clientY, false,
+                false, false, false, 0/*left*/, null);
+
+        first.target.dispatchEvent(simulatedEvent);
+        event.preventDefault();
+    }
+
+    function initTouch() {
+        document.addEventListener("touchstart", touchHandler, true);
+        document.addEventListener("touchmove", touchHandler, true);
+        document.addEventListener("touchend", touchHandler, true);
+        document.addEventListener("touchcancel", touchHandler, true);
+    }
+
+    initTouch();
+
+    var eat = ['yum!', 'gulp', 'burp!', 'miam'];
+    var yum = document.createElement('p');
+    var msie = /*@cc_on!@*/0;
+    yum.style.opacity = 1;
+
+    var links = document.querySelectorAll('li > a'), el = null;
+    for (var i = 0; i < links.length; i++) {
+        el = links[i];
+
+        el.setAttribute('draggable', 'true');
+        /*el.draggable({
+         revert:true // to reset item location.
+         });*/
+
+        addEvent(el, 'dragstart', function (e) {
+            e.dataTransfer.effectAllowed = 'copy'; // only dropEffect='copy' will be dropable
+            e.dataTransfer.setData('Text', this.id); // required otherwise doesn't work
+        });
+    }
+
+    var bin = document.querySelector('#bin');
+
+    addEvent(bin, 'dragover', function (e) {
+        if (e.preventDefault) e.preventDefault(); // allows us to drop
+        this.className = 'over';
+        e.dataTransfer.dropEffect = 'copy';
+        return false;
+    });
+
+    // to get IE to work
+    addEvent(bin, 'dragenter', function (e) {
+        this.className = 'over';
+        return false;
+    });
+
+    addEvent(bin, 'dragleave', function () {
+        this.className = '';
+    });
+
+    addEvent(bin, 'drop', function (e) {
+        if (e.stopPropagation) e.stopPropagation(); // stops the browser from redirecting...why???
+
+        var el = document.getElementById(e.dataTransfer.getData('Text'));
+
+        el.parentNode.removeChild(el);
+
+        // stupid nom text + fade effect
+        bin.className = '';
+        yum.innerHTML = eat[parseInt(Math.random() * eat.length)];
+
+        var y = yum.cloneNode(true);
+        bin.appendChild(y);
+
+        setTimeout(function () {
+            var t = setInterval(function () {
+                if (y.style.opacity <= 0) {
+                    if (msie) { // don't bother with the animation
+                        y.style.display = 'none';
+                    }
+                    clearInterval(t);
+                } else {
+                    y.style.opacity -= 0.1;
+                }
+            }, 50);
+        }, 250);
+
+        return false;
+    });
+
+    /*bin.droppable({
+     drop: function( event, ui ) {
+     $(ui.draggable).remove(); // Remove the div we were dragging.
+     $(this).css({'border':'#777 dashed 3px','background':'#eee'});
+     // resetting CSS styles for Drop area.
+     },
+     over: function(event, ui) {
+     $(this).css({'border':'#a33 dashed 3px','background':'#faa'});
+     // Creating an effect on dragging over the Drop area.
+     },
+     out: function (event, ui){
+     $(this).css({'border':'#777 dashed 3px','background':'#eee'});
+     // resetting CSS styles for Drop area.
+     }
+     });*/
+
+</script>
+</section>
+</body>
+</html>

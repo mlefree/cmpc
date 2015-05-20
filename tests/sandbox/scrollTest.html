@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+<head>
+    <!-- http://www.ultra-fluide.com/ressources/xhtml/block-inline.xhtml -->
+    <title>Scroll Test Page</title>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+            -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+            -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+            /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        *:not(input):not(textarea) {
+            -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            color: #FFF;
+            border-style: solid;
+            border-width: 2px;
+            border-color: red;
+            position:relative;
+        }
+
+        body[orient="portrait"] {
+            background: #FF0000;
+        }
+
+        body[orient="landscape"] {
+            background: #000;
+        }
+
+        #entetePage, #piedsPage {
+            margin: 0;
+            background: #ccc;
+            text-align: center;
+        }
+
+        #entetePage h1, #piedsPage h1 {
+            margin: 0;
+        }
+
+        #bandeau {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background-color: #666;
+            /*text-align: left;*/
+        }
+
+        #bandeau li {
+            list-style-type: none;
+            display: inline;
+        }
+
+        #bandeau li:nth-child(2) {
+            background-color: #363;
+        }
+
+        #bandeau li:nth-child(3) {
+            background-color: #633;
+        }
+
+        #bandeau li:nth-child(4) {
+            background-color: #336;
+        }
+
+        #bandeau li a {
+            padding-left: 5px;
+            padding-right: 5px;
+            color: #fff;
+            text-decoration: none;
+            border-right: 1px solid #fff;
+        }
+
+        #bandeau li a:hover {
+            background: #383;
+        }
+
+        #corpsPage {
+        }
+
+        #leftSide {
+            margin: 0;
+            padding: 0;
+            background: #fcc;
+            position:relative;
+            float:left;
+            width:50%;
+        }
+
+        #leftSideScroller {
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
+
+        #rightSide {
+            margin: 0;
+            padding: 0;
+            background: #cfc;
+            position:relative;
+            float:left;
+            width:50%;
+        }
+
+        #rightSideScroller {
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
+
+        #leftSide blockquote {
+            color: green;
+        }
+    </style>
+</head>
+<!-- Need to take into account border size of body to keep it inside viewscreen -->
+<body ng-app="c4p"
+      ng-style="{height:(getResizeHeight() - 4)+'px', width:(getResizeWidth() - 4)+'px'}"
+      ng-controller="navigationCtrl"
+      resize-opts="{name:'e2eLayoutTest_body'}">
+<div id="entetePage"
+     resize-opts="{name:'e2eLayoutTest_entetePage'}">
+    <h1>header</h1>
+    <ul id="bandeau">
+        <li>
+            <a href="accueil.php" id="accueil" title="accueil">
+                <span>Accueil</span>
+            </a>
+        </li>
+        <li>
+            <a href="presentation.php" id="presentation" title="Présentation">
+                <span>Présentation</span>
+            </a>
+        </li>
+        <li>
+            <a href="contact.php" id="contact" title="contact">
+                <span>Contact</span>
+            </a>
+        </li>
+        <li>
+            <a href="news.php" id="news" title="News">
+                <span>News</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="corpsPage"
+     resize-opts="{name:'e2eLayoutTest_corpsPage'}"
+     resizecss-height="getResizePathValue('e2eLayoutTest_body', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_entetePage', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_piedsPage', '', 'offsetHeight')">
+    <div id="leftSide"
+         sense-opts="{name:'e2eLayoutTest_leftSide', axeX:'swipe', axeY:'scroll'}"
+         resize-opts="{name:'e2eLayoutTest_leftSide'}"
+         resizecss-height="getResizePathValue('e2eLayoutTest_body', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_entetePage', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_piedsPage', '', 'offsetHeight')">
+        <div id="leftSideScroller">
+            <blockquote class="citationscelebres">
+                Ce n'est pas parce qu'en hiver on dit
+                « fermez la porte, il fait froid dehors »,
+                qu'il fait moins froid dehors quand la porte est fermée.
+            </blockquote>
+            <blockquote class="poemes">
+                Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
+            </blockquote>
+            <blockquote class="citationscelebres">
+                Une heure assis à côté d'une jolie femme semble durer une minute.
+                Une minute assis sur un four brûlant semble durer une heure.
+                C'est ça la relativité.
+            </blockquote>
+        </div>
+    </div>
+    <div id="rightSide"
+         sense-opts="{name:'e2eLayoutTest_rightSide', axeX:'swipe', axeY:'scroll'}"
+         resize-opts="{name:'e2eLayoutTest_rightSide'}"
+         resizecss-height="getResizePathValue('e2eLayoutTest_body', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_entetePage', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_piedsPage', '', 'offsetHeight')">
+        <div id="rightSideScroller">
+            <blockquote class="citationscelebres">
+                Ce n'est pas parce qu'en hiver on dit
+                « fermez la porte, il fait froid dehors »,
+                qu'il fait moins froid dehors quand la porte est fermée.
+            </blockquote>
+            <blockquote class="poemes">
+                Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
+            </blockquote>
+            <blockquote class="citationscelebres">
+                Une heure assis à côté d'une jolie femme semble durer une minute.
+                Une minute assis sur un four brûlant semble durer une heure.
+                C'est ça la relativité.
+            </blockquote>
+            <blockquote class="poemes">
+                Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
+            </blockquote>
+            <blockquote class="citationscelebres">
+                Ce n'est pas parce qu'en hiver on dit
+                « fermez la porte, il fait froid dehors »,
+                qu'il fait moins froid dehors quand la porte est fermée.
+            </blockquote>
+        </div>
+    </div>
+</div>
+<div id="piedsPage"
+     resize-opts="{name:'e2eLayoutTest_piedsPage'}">
+    <h1>footer</h1>
+</div>
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+<script language="javascript">
+    var appModule = angular.module('c4p', ['a4p.directives']);
+    var directiveModule = angular.module('a4p.directives', []);
+    a4p.Sense.declareDirectives(directiveModule);
+    a4p.Resize.declareDirectives(directiveModule);
+
+    function navigationCtrl($scope) {
+    }
+    navigationCtrl.$inject = ['$scope'];
+
+</script>
+</body>
+</html>

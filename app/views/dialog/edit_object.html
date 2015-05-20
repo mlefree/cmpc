@@ -1,0 +1,294 @@
+<!doctype html>
+<!--
+
+  edit_object.html
+
+  controller is
+
+  input :
+
+-->
+<div ng-controller="ctrlEditFocus">
+    <!-- Headers -->
+    <div class="modal-header col-xxs-12 c4p-color-gradient0">
+
+              <!-- Nav tabs -->
+              <ul class="nav nav-pills">
+                  <li class="hidden-xs" ng-hide="removeEnabled">
+                    <a class="btn disabled">
+                        <h5>{{srvLocale.translations.htmlTitleNewObject[objectTypeLocale]}}</h5>
+                    </a>
+                  </li>
+                  <li class="hidden-xs" ng-show="removeEnabled">
+                    <a class="btn disabled">
+                        <h5>{{srvLocale.translations.htmlTitleEditObject[objectTypeLocale]}}</h5>
+                    </a>
+                  </li>
+                  <li ng-show="removeEnabled">
+                      <a  class="btn c4p-color-cancel-transparent" ng-click="remove()" ng-disabled="isEditFocused">
+                          <span class="glyphicon glyphicon-trash-o"></span>
+                      </a>
+                  </li>
+
+          <!-- temporary deactivation : waiting for more infos to import ?
+          <div class="btn c4p-color-action-transparent"
+               ng-show="hasOpenImportAccountDialog"
+               ng-click="openImportAccountDialog()">
+              <span class="c4p-icon-std glyphicon glyphicon-download"></span>
+          </div>
+          <div class="btn c4p-color-action-transparent"
+               ng-show="hasOpenImportEventDialog"
+               ng-click="openImportEventDialog()">
+              <span class="c4p-icon-std glyphicon glyphicon-download"></span>
+          </div>
+          -->
+
+
+                  <li class="pull-right">
+                      <a class="btn" ng-click="close()">
+                        <span class="">&times;</span>
+                      </a>
+                  </li>
+                  <li class="pull-right">
+                      <a class="btn" ng-click="submit()">
+                          <div ng-class="{'c4p-color-ok-transparent' : objectValidated, 'c4p-color-cancel-transparent' : !objectValidated}">
+                            <span class="glyphicon glyphicon-check"></span>
+                          </div>
+                      </a>
+                  </li>
+                  <li class="pull-right" ng-show="hasOpenImportContactDialog && !removeEnabled">
+                      <a  class="btn btn-link" ng-click="openImportContactDialog()" ng-disabled="isEditFocused">
+                            <span>{{srvLocale.translations.htmlDialogTextImport}}</span>
+                      </a>
+                  </li>
+
+              </ul>
+  </div>
+
+  <!-- Header
+  <div class="row" resize-opts="{}">
+      <div class="c4p-dialog-header c4p-color-gradient0" >
+          <div class="btn c4p-padding-w-packed c4p-color-action-transparent">
+              <span>{{srvLocale.translations.htmlTypeName[objectTypeLocale]}}</span>
+          </div>
+          <div class="btn c4p-color-action-transparent"
+               ng-show="hasOpenImportContactDialog"
+               ng-click="openImportContactDialog()">
+              <span class="c4p-icon-std glyphicon glyphicon-download"></span>
+          </div>
+          <div class="btn c4p-color-cancel-transparent" ng-show="removeEnabled" ng-click="remove()">
+              <span class="c4p-icon-std glyphicon glyphicon-trash"></span>
+          </div>
+
+          <div class="btn disabled c4p-padding-w-packed">
+              <div class="c4p-icon-std glyphicon">&nbsp;</div>
+          </div>
+
+          <div class="pull-right" ng-hide="false">
+              <div class="btn c4p-padding-w-packed c4p-stroke"
+                   ng-click="submit()" style="display: inline-block"
+                      ng-class="{'c4p-color-ok-transparent' : objectValidated, 'c4p-color-cancel-transparent' : !objectValidated}">
+                  <span class="c4p-icon-std glyphicon glyphicon-ok"></span>
+              </div>
+
+              &nbsp;
+              <div class="btn c4p-padding-w-packed c4p-color-cancel-transparent c4p-stroke"
+                   ng-click="close()" style="display: inline-block">
+                  <span class="c4p-icon-std glyphicon glyphicon-times-circle"></span>
+              </div>
+          </div>
+      </div>
+  </div>
+   -->
+
+   <!-- c4p-dialog-bg"
+       resizecss-height="(responsivePageHeight() -getPathValue('previousElementSibling', 'offsetHeight'))*0.9"
+
+
+       sense-opts="{axeY:'scroll', watchRefresh:'objectLastChange', init: 'setSenseScroller($sense)'}"
+           sense-scrollopts="{scrollbarClass:'c4p-scrollbar', pageSelector: 'marker', momentum:0}"
+           sense-afterscrollend="onSenseScrollEnd($event)"
+           style="height: 100%"-->
+
+
+
+  <div class="hidden-xs col-sm-4 c4p-color-gradient0"
+      style="position: absolute;right: 0;top: 70px; z-index: 1052;" >
+      <div class="" >
+          <ul class="nav nav-tabs nav-stacked">
+              <li class="" ng-repeat="group in objectGroups">
+                  <a  class="btn btn-link"
+                      ng-click="editScrollTo('group_'+$index)"
+                      ng-disabled="isEditFocused"
+                      ng-class="{'c4p-field-error-message': (group.warn.length > 0)}"
+                      style="text-align: left;">{{group.title}}</a>
+              </li>
+          </ul>
+      </div>
+  </div>
+
+  <div class="modal-body col-xxs-12 col-sm-8 c4p-color-gradient0">
+      <!-- Body -->
+      <div class="c4p-container-scroll-y">
+      <div class="c4p-container">
+          <form class="">
+              <marker ng-repeat="group in objectGroups" ng-init="groupIndex = $index">
+                  <div class="well c4p-form-group" ng-class-even="'c4p-color-a-gradient1'" ng-class-odd="'c4p-color-gradient0'">
+                      <h5 id="group_{{groupIndex}}" class="c4p-form-group-title">{{group.title}}</h5>
+                      <fieldset id="field_{{groupIndex}}_{{$index}}" ng-repeat="field in group.groupFields">
+                          <c4p-input  warn-var="field.warn"
+                                      title-var="field.title"
+                                      ng-model="object[field.key]"
+                                      type-var="field.type"
+                                      options-var="field.optionList"
+                                      rows="5" cols="20"
+                                      ng-change="onFieldChanged(field)"
+                                      ng-disabled="isEditFocused"></c4p-input>
+                      </fieldset>
+                  </div>
+              </marker>  <!--
+              <div class="row">
+                Vertical Filler to let scroll inuts while virtual keyboard is masking almost all te screen
+                  <div class="col-xs-12" ng-style="{minHeight:responsivePageHeight()+'px'}"></div>
+              </div>-->
+          </form>
+      </div>
+      </div>
+
+
+      <!-- Side panel style="position: fixed;right: 0;top: 70px;"   style="position: fixed; width:200px;"
+      z-index: 1051; hidden-xs
+      <div class="col-sm-4" style="position: fixed;right: 0;top: 70px; z-index: 1052;" >
+          <ul class="nav nav-tabs nav-stacked" style="position: fixed; width:200px;">
+              <li class=""
+                  ng-repeat="group in objectGroups"
+                  ng-click="editScrollTo('group_'+$index)">
+                  <a ng-class="{'c4p-field-error-message': (group.warn.length > 0)}">{{group.title}}</a>
+              </li>
+          </ul>
+      </div> -->
+
+      <!-- Side panel
+      <div class="hidden-xs col-sm-4 c4p-color-a-gradient{{objectGroups.length}}"
+           sense-opts="{axeY:'scroll', watchRefresh:'objectLastChange'}"
+           sense-scrollopts="{scrollbarClass:'c4p-scrollbar'}"
+           style="height: 100%">
+          <ul class="col-xxs-12 c4p-dialog-menu c4p-color-a-gradient{{objectGroups.length}}">
+              <li class="c4p-dialog-menu-item c4p-color-a-gradient{{$index+1}}"
+                  ng-repeat="group in objectGroups"
+                  ng-class="{'active': pageY == $index}"
+                  ng-click="setSenseScrollerPageY($index)">
+                  <span ng-class="{'c4p-field-error-message': (group.warn.length > 0)}">{{group.title}}</span>
+              </li>
+          </ul>
+      </div>
+
+      <div class="col-md-3">
+          <div class="bs-docs-sidebar hidden-print affix" role="complementary" style="">
+            <ul class="nav bs-docs-sidenav">
+
+                <li class="">
+                  <a href="#js-overview">Overview</a>
+                  <ul class="nav">
+                    <li><a href="#js-individual-compiled">Individual or compiled</a></li>
+                    <li class=""><a href="#js-data-attrs">Data attributes</a></li>
+                    <li class=""><a href="#js-programmatic-api">Programmatic API</a></li>
+                    <li class=""><a href="#js-noconflict">No conflict</a></li>
+                    <li class=""><a href="#js-events">Events</a></li>
+                  </ul>
+                </li>
+                <li class=""><a href="#transitions">Transitions</a></li>
+                <li class="">
+                  <a href="#modals">Modal</a>
+                  <ul class="nav">
+                    <li class=""><a href="#modals-examples">Examples</a></li>
+                    <li><a href="#modals-sizes">Sizes</a></li>
+                    <li><a href="#modals-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#dropdowns">Dropdown</a>
+                  <ul class="nav">
+                    <li><a href="#dropdowns-examples">Examples</a></li>
+                    <li><a href="#dropdowns-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#scrollspy">Scrollspy</a>
+                  <ul class="nav">
+                    <li><a href="#scrollspy-examples">Examples</a></li>
+                    <li><a href="#scrollspy-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#tabs">Tab</a>
+                  <ul class="nav">
+                    <li><a href="#tabs-examples">Examples</a></li>
+                    <li><a href="#tabs-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#tooltips">Tooltip</a>
+                  <ul class="nav">
+                    <li><a href="#tooltips-examples">Examples</a></li>
+                    <li><a href="#tooltips-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#popovers">Popover</a>
+                  <ul class="nav">
+                    <li><a href="#popovers-examples">Examples</a></li>
+                    <li><a href="#popovers-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#alerts">Alert</a>
+                  <ul class="nav">
+                    <li><a href="#alerts-examples">Examples</a></li>
+                    <li><a href="#alerts-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#buttons">Button</a>
+                  <ul class="nav">
+                    <li><a href="#buttons-examples">Examples</a></li>
+                    <li><a href="#buttons-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#collapse">Collapse</a>
+                  <ul class="nav">
+                    <li><a href="#collapse-examples">Examples</a></li>
+                    <li><a href="#collapse-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li class="">
+                  <a href="#carousel">Carousel</a>
+                  <ul class="nav">
+                    <li class=""><a href="#carousel-examples">Examples</a></li>
+                    <li class=""><a href="#carousel-usage">Usage</a></li>
+                  </ul>
+                </li>
+                <li class="active">
+                  <a href="#affix">Affix</a>
+                  <ul class="nav">
+                    <li class=""><a href="#affix-examples">Examples</a></li>
+                    <li class="active"><a href="#affix-usage">Usage</a></li>
+                  </ul>
+                </li>
+
+
+            </ul>
+            <div data-spy="affix" data-offset-top="60" data-offset-bottom="200">
+                ...
+            </div>
+
+            <a class="back-to-top" href="#top">
+              Back to top
+            </a>
+          </div>
+        </div>-->
+
+  </div>
+
+</div>

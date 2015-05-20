@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang=en>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <meta name="author" content="Apps4Pro">
+
+    <title>Carousel Tester</title>
+
+    <style type="text/css">
+    * {
+        -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+        -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+        -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+        /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+    *:not(input):not(textarea) {
+        -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    </style>
+    <link id="c4p-css" href="../../www/l4p/css/theme-cosmo.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+    <script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+    <script type="text/javascript" src="../../www/l4p/libs/js/angular/ui-bootstrap-tpls-0.5.0-c4p.js"></script>
+    <script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+    <script>
+    var appModule = angular.module('c4p', ['a4p.directives', 'ui.bootstrap', 'a4p.bootstrap.carousel']);
+    var directiveModule = angular.module('a4p.directives', []);
+    a4p.Sense.declareDirectives(directiveModule);
+    a4p.Resize.declareDirectives(directiveModule);
+
+    /**
+     * Patched version of ui-bootstrap
+     */
+    angular.module("a4p/carousel/carousel.html", []).run(["$templateCache", function ($templateCache) {
+        $templateCache.put("a4p/carousel/carousel.html",
+                "<div ng-mouseenter=\"pause()\" ng-mouseleave=\"play()\" class=\"carousel\" sense-opts=\"{name:'slide', axeX:'scroll', axeY:'swipe'}\" sense-scrollend=\"scrollEnd($event)\">" +
+                        "<div class=\"carousel-inner\" ng-transclude></div>" +
+                        "    <a sense-tap=\"prev()\" class=\"carousel-control left\">&lsaquo;</a>" +
+                        "    <a sense-tap=\"next()\" class=\"carousel-control right\">&rsaquo;</a>" +
+                        "</div>" +
+                        "");
+    }]);
+
+    angular.module("a4p/carousel/slide.html", []).run(["$templateCache", function ($templateCache) {
+        $templateCache.put("a4p/carousel/slide.html",
+                "<div ng-class=\"{" +
+                        "    'active': leaving || (active && !entering)," +
+                        "    'prev': (next || active) && direction=='prev'," +
+                        "    'next': (next || active) && direction=='next'," +
+                        "    'right': direction=='prev'," +
+                        "    'left': direction=='next'" +
+                        "  }\" class=\"item\" ng-transclude></div>" +
+                        "");
+    }]);
+
+    angular.module('a4p.bootstrap.carousel', ['ui.bootstrap.transition', 'a4p/carousel/carousel.html', 'a4p/carousel/slide.html'])
+            .controller('A4PCarouselController', ['$scope', '$transition', '$q', function ($scope, $transition, $q) {
+        var self = this,
+                slides = self.slides = [],
+                currentIndex = -1,
+                currentTimeout, isPlaying;
+        self.currentSlide = null;
+
+        /* direction: "prev" or "next" */
+        self.select = function (nextSlide, direction) {
+            var nextIndex = slides.indexOf(nextSlide);
+            //Decide direction if it's not given
+            if (a4p.isUndefined(direction)) {
+                direction = nextIndex > currentIndex ? "next" : "prev";
+            }
+            if (nextSlide && nextSlide !== self.currentSlide) {
+                if ($scope.$currentTransition) {
+                    $scope.$currentTransition.cancel();
+                    //Timeout so ng-class in template has time to fix classes for finished slide
+                    setTimeout(goNext);
+                } else {
+                    goNext();
+                }
+            }
+            function goNext() {
+                //If we have a slide to transition from and we have a transition type and we're allowed, go
+                if (self.currentSlide && angular.isString(direction) && !$scope.noTransition && nextSlide.$element) {
+                    //We shouldn't do class manip in here, but it's the same weird thing bootstrap does. need to fix sometime
+                    nextSlide.$element.addClass(direction);
+                    nextSlide.$element[0].offsetWidth = nextSlide.$element[0].offsetWidth; //force reflow
+
+                    //Set all other slides to stop doing their stuff for the new transition
+                    angular.forEach(slides, function (slide) {
+                        angular.extend(slide, {direction:'', entering:false, leaving:false, active:false});
+                    });
+                    angular.extend(nextSlide, {direction:direction, active:true, entering:true});
+                    angular.extend(self.currentSlide || {}, {direction:direction, leaving:true});
+
+                    $scope.$currentTransition = $transition(nextSlide.$element, {});
+                    //We have to create new pointers inside a closure since next & current will change
+                    (function (next, current) {
+                        $scope.$currentTransition.then(
+                                function () {
+                                    transitionDone(next, current);
+                                },
+                                function () {
+                                    transitionDone(next, current);
+                                }
+                        );
+                    }(nextSlide, self.currentSlide));
+                } else {
+                    transitionDone(nextSlide, self.currentSlide);
+                }
+                self.currentSlide = nextSlide;
+                currentIndex = nextIndex;
+                //every time you change slides, reset the timer
+                restartTimer();
+            }
+
+            function transitionDone(next, current) {
+                angular.extend(next, {direction:'', active:true, leaving:false, entering:false});
+                angular.extend(current || {}, {direction:'', active:false, leaving:false, entering:false});
+                $scope.$currentTransition = null;
+            }
+        };
+
+        /* Allow outside people to call indexOf on slides array */
+        self.indexOfSlide = function (slide) {
+            return slides.indexOf(slide);
+        };
+
+        $scope.scrollEnd = function(event) {
+            console.log('scrollEnd ' + event.side);
+            if (event.side == 'left') $scope.prev(); else $scope.next();
+        };
+
+        $scope.next = function () {
+            var newIndex = (currentIndex + 1) % slides.length;
+            return self.select(slides[newIndex], 'next');
+        };
+
+        $scope.prev = function () {
+            var newIndex = currentIndex - 1 < 0 ? slides.length - 1 : currentIndex - 1;
+            return self.select(slides[newIndex], 'prev');
+        };
+
+        $scope.$watch('interval', restartTimer);
+        function restartTimer() {
+            if (currentTimeout) {
+                clearTimeout(currentTimeout);
+            }
+            function go() {
+                if (isPlaying) {
+                    $scope.next();
+                    restartTimer();
+                } else {
+                    $scope.pause();
+                }
+            }
+
+            var interval = +$scope.interval;
+            if (!isNaN(interval) && interval >= 0) {
+                currentTimeout = setTimeout(go, interval);
+            }
+        }
+
+        $scope.play = function () {
+            if (!isPlaying) {
+                isPlaying = true;
+                restartTimer();
+            }
+        };
+        $scope.pause = function () {
+            isPlaying = false;
+            if (currentTimeout) {
+                clearTimeout(currentTimeout);
+            }
+        };
+
+        self.addSlide = function (slide, element) {
+            slide.$element = element;
+            slides.push(slide);
+            //if this is the first slide or the slide is set to active, select it
+            if (slides.length === 1 || slide.active) {
+                self.select(slides[slides.length - 1]);
+                if (slides.length == 1) {
+                    $scope.play();
+                }
+            } else {
+                slide.active = false;
+            }
+        };
+
+        self.removeSlide = function (slide) {
+            //get the index of the slide inside the carousel
+            var index = slides.indexOf(slide);
+            slides.splice(index, 1);
+            if (slides.length > 0 && slide.active) {
+                if (index >= slides.length) {
+                    self.select(slides[index - 1]);
+                } else {
+                    self.select(slides[index]);
+                }
+            }
+        };
+    }]).directive('a4pCarousel', [function () {
+        return {
+            restrict:'EA',
+            transclude:true,
+            replace:true,
+            controller:'A4PCarouselController',
+            require:'a4pCarousel',
+            templateUrl:'a4p/carousel/carousel.html',
+            scope:{
+                interval:'=',
+                noTransition:'='
+            }
+        };
+    }]).directive('a4pSlide', [function () {
+        return {
+            require:'^a4pCarousel',
+            restrict:'EA',
+            transclude:true,
+            replace:true,
+            templateUrl:'a4p/carousel/slide.html',
+            scope:{
+                active:'='
+            },
+            link:function (scope, element, attrs, carouselCtrl) {
+                carouselCtrl.addSlide(scope, element);
+                //when the scope is destroyed then remove the slide from the current slides array
+                scope.$on('$destroy', function () {
+                    carouselCtrl.removeSlide(scope);
+                });
+
+                scope.$watch('active', function (active) {
+                    if (active) {
+                        carouselCtrl.select(scope);
+                    }
+                });
+            }
+        };
+    }]);
+
+
+    function CarouselDemoCtrl($scope) {
+        $scope.myInterval = 5000;
+        $scope.slides = [
+            {image:'http://placekitten.com/200/200', text:'Kitten.'},
+            {image:'http://placekitten.com/225/200', text:'Kitty!'},
+            {image:'http://placekitten.com/250/200', text:'Cat.'},
+            {image:'http://placekitten.com/275/200', text:'Feline!'}
+        ];
+        $scope.addSlide = function () {
+            $scope.slides.push({
+                image:'http://placekitten.com/' + (200 + 25 * Math.floor(Math.random() * 4)) + '/200',
+                text:['More', 'Extra', 'Lots of', 'Surplus'][Math.floor(Math.random() * 4)] + ' ' +
+                        ['Cats', 'Kittys', 'Felines', 'Cutes'][Math.floor(Math.random() * 4)]
+            });
+        };
+    }
+    </script>
+</head>
+<body ng-app="c4p" style="background-color: #000000; margin: 0px;">
+
+<pre id="log" style="color: #ffffff;">Welcome to the Carousel Tester</pre>
+
+<div ng-controller="CarouselDemoCtrl">
+    <a4p-carousel interval="myInterval">
+        <a4p-slide ng-repeat="slide in slides" active="slide.active">
+            <img ng-src="{{slide.image}}" style="margin:auto;">
+
+            <div class="carousel-caption">
+                <h4>Slide {{$index}}</h4>
+
+                <p>{{slide.text}}</p>
+            </div>
+        </a4p-slide>
+    </a4p-carousel>
+    <div class="row">
+        <div class="col-xs-6">
+            <ul>
+                <li ng-repeat="slide in slides">
+                    <button class="btn btn-xs" ng-class="{'btn-info': !slide.active, 'btn-success': slide.active}"
+                            ng-disabled="slide.active" sense-tap="slide.active = true">select
+                    </button>
+                    {{$index}}: {{slide.text}}
+                </li>
+            </ul>
+            <a class="btn" sense-tap="addSlide()">Add Slide</a>
+        </div>
+        <div class="col-xs-6">
+            Interval, in milliseconds: <input type="number" ng-model="myInterval" /> <br/>Enter a negative number to stop
+            the interval.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>l4p jasmine spec runner</title>
+
+    <link rel="shortcut icon" type="image/png" href="lib/jasmine/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="lib/jasmine/jasmine.css">
+
+
+    <script type="text/javascript" src="../../libs/js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../libs/js/angular/angular.min.1.1.4.js"></script>
+    <script type="text/javascript" src="../../libs/js/angular/angular-resource.min.1.1.4.js"></script>
+    <script type="text/javascript" src="../../libs/js/angular/ui-bootstrap-tpls-0.5.0-c4p.js"></script>
+    <script type="text/javascript" src="../../libs/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../libs/js/jquery-plugins/jquery.noty.js"></script>
+    <script type="text/javascript" src="../../libs/js/jquery-plugins/spin.js"></script>
+    <script type="text/javascript" src="../../libs/js/md5.js"></script>
+
+    <script type="text/javascript" src="lib/jasmine/jasmine.js"></script>
+    <script type="text/javascript" src="lib/jasmine/jasmine-html.js"></script>
+    <script type="text/javascript" src="lib/jasmine-jquery/jasmine-jquery.js"></script>
+   <!-- <script type="text/javascript" src="lib/blanket/blanket.min.js"> </script>
+    <script type="text/javascript" src="lib/blanket/jasmine-blanket.js"></script>
+    <script type="text/javascript" src="lib/jasmine-jstd-adapter/JasmineAdapter.js"></script>-->
+    <script type="text/javascript" src="lib/angular/angular-mocks.1.1.4.js"></script>
+
+
+    <!-- include source files here... 
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.browser.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.log.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.all.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.array.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.perf.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.file.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.analytics.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.storage.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.stringFormat.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.hex.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.utf8.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.base64.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.sha1.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.aes.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.json.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.xml.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.taskReceiver.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.taskSender.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.moveDrawer.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.moveInterpolator.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.bezierDrawer.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.bezierInterpolator.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.gestureDrawer.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.gestureInterpolator.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.pointSampler.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.resize.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/a4p/a4p.sense.js"></script>
+    <script type="text/blanket" data-cover src="../../src/js/c4p/c4p.model.js"></script>
+    -->
+    <script type="text/javascript" data-cover src="../../build/js/l4p.min.js"></script>
+    
+
+    <!-- include spec files here... -->
+    <script type="text/javascript" src="unit/testTest.js"></script>
+    <script type="text/javascript" src="unit/a4p/a4pSpec.js"></script>
+    <script type="text/javascript" src="unit/a4p/a4p.senseSpec.js"></script>
+    <script type="text/javascript" src="unit/c4p/c4pSpec.js"></script>
+
+    <script type="text/javascript">
+        (function () {
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 1000;
+
+            var htmlReporter = new jasmine.HtmlReporter();
+
+            jasmineEnv.addReporter(htmlReporter);
+
+            jasmineEnv.specFilter = function (spec) {
+                return htmlReporter.specFilter(spec);
+            };
+
+            var currentWindowOnload = window.onload;
+
+            window.onload = function () {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                execJasmine();
+            };
+
+            function execJasmine() {
+                jasmineEnv.execute();
+            }
+
+        })();
+    </script>
+
+</head>
+
+<body>
+</body>
+</html>

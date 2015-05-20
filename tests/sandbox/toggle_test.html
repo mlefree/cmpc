@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+<head>
+
+<title>Toogle perf tester</title>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+<meta name="viewport"
+	content="width=device-width, height=device-height, initial-scale=1.3, user-scalable=yes, minimum-scale=1.3, maximum-scale=1.3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="">
+<meta name="author" content="Apps4Pro">
+
+<link id="c4p-css" href="../../www/l4p/css/theme-cosmo.css" rel="stylesheet" type="text/css">
+
+<style>
+.shadow {
+    background-color: red;
+}
+
+.column {
+    float: left;
+    width: 200px;
+    height: 800px;
+    border-width: 1px;
+    border-style: dotted;
+    border-color: black;
+    margin: 5px;
+    padding: 5px;
+    overflow: scroll;
+}
+
+.item-selected {
+    background-color: gray;
+}
+
+.item-selected>span {
+    opacity: 1;
+    -webkit-transition: opacity .3s ease-in-out;
+    -moz-transition: opacity .3s ease-in-out;
+    -ms-transition: opacity .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
+    background-color: red;
+}
+
+.item-not-selected {
+    background-color: none;
+}
+
+.item-not-selected>span {
+    opacity: 0;
+    -webkit-transition: opacity .3s ease-in-out;
+    -moz-transition: opacity .3s ease-in-out;
+    -ms-transition: opacity .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
+    background-color: none;
+}
+</style>
+
+</head>
+<body ng-app="c4p">
+    <div ng-controller="ControllerA">
+        <div class="column">
+            <div ng-repeat="i in list" id="{{i}}"
+                bg-toggle="selectedItem" ng-click="toggle(i)">
+                <span> &gt;&gt; </span> Firstname Name{{i}}
+            </div>
+        </div>
+        <div class="column">
+            <div ng-repeat="i in listB" id="{{i}}"
+                bg-toggle-bis="highlightedItem" ng-click="toggle(i)"
+                ng-controller="ControllerToggle">
+                <span> &gt;&gt; </span> Firstname Name{{i}}
+            </div>
+        </div>
+
+        <div class="column">
+            <div ng-repeat="i in listC" id="{{i}}" bg-toggle-sense>
+                <span class="glyphicon glyphicon-ok"></span> Firstname Name{{i}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Load jQuery BEFORE Angular otherwise Angular loads its own JQuery lite version -->
+    <script src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+    <script src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+    <script src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+    <script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+    <script language="javascript">
+
+
+        var mod = angular.module('c4p', [ 'c4p.directive' ]);
+        var dirmod = angular.module('c4p.directive', []);
+
+        //-------------------------------------------------------------------------------------
+        //
+        //-------------------------------------------------------------------------------------
+        dirmod.directive('bgToggle', function() {
+            return {
+                restrict : 'A',
+                link : function(scope, element, attrs) {
+
+                    var exp = attrs.bgToggle;
+                    var id = attrs.id;
+
+                    scope.$watch(exp, function(value) {
+                        if (value == id) {
+                            element.removeClass("item-not-selected");
+                            element.addClass("item-selected");
+
+                        } else {
+                            element.removeClass("item-selected");
+                            element.addClass("item-not-selected");
+                        }
+                    });
+                }
+            }
+        });
+
+        //-------------------------------------------------------------------------------------
+        //
+        //-------------------------------------------------------------------------------------
+        dirmod.directive('bgToggleBis', function() {
+            return {
+                restrict : 'A',
+                link : function(scope, element, attrs) {
+
+                    var exp = attrs.bgToggleBis;
+
+                    scope.$watch(exp, function(value) {
+                        if (value) {
+                            element.removeClass("item-not-selected");
+                            element.addClass("item-selected");
+
+                        } else {
+                            element.removeClass("item-selected");
+                            element.addClass("item-not-selected");
+                        }
+                    });
+                }
+            }
+        });
+
+        //-------------------------------------------------------------------------------------
+        //
+        //-------------------------------------------------------------------------------------
+        dirmod.directive('bgToggleSense', function() {
+            return {
+                restrict : 'A',
+                link : function(scope, element, attrs) {
+
+                    element.bind('mousedown', toggle);
+                    var highlightedItem = false;
+                    element.addClass("item-not-selected");
+
+                    function toggle() {
+                        highlightedItem = !highlightedItem;
+
+                        if (highlightedItem) {
+                            element.removeClass("item-not-selected");
+                            element.addClass("item-selected");
+                        } else {
+                            element.removeClass("item-selected");
+                            element.addClass("item-not-selected");
+                        }
+                    }
+                }
+            }
+        });
+
+        //-------------------------------------------------------------------------------------
+        //
+        //-------------------------------------------------------------------------------------
+        mod.controller('ControllerToggle', function($scope) {
+            $scope.highlightedItem = false;
+
+            $scope.toggle = function(i) {
+                $scope.highlightedItem = !$scope.highlightedItem;
+            };
+        });
+
+        //-------------------------------------------------------------------------------------
+        //
+        //-------------------------------------------------------------------------------------
+        // mod.controller('ControllerToggleSense', function($scope) {
+        //     $scope.highlightedItem = false;
+
+        //     $scope.toggle = function(i) {
+        //         $scope.highlightedItem = !$scope.highlightedItem;
+
+        //         if ($scope.highlightedItem) {
+        //             element.removeClass("item-not-selected");
+        //             element.addClass("item-selected");
+        //         } else {
+        //             element.removeClass("item-selected");
+        //             element.addClass("item-not-selected");
+        //         }
+
+        //     };
+        // });
+
+        //-------------------------------------------------------------------------------------
+        //
+        //-------------------------------------------------------------------------------------
+        mod.controller('ControllerA', function($scope) {
+
+            $scope.toggle = function(i) {
+
+                $scope.selectedItem = i;
+                console.log("toggle " + i);
+            };
+
+            var i;
+            $scope.list = [];
+            for (i = 0; i < 1500; i++) {
+                $scope.list.push(i);
+            }
+
+            $scope.listB = [];
+            for (i = 1500; i < 3000; i++) {
+                $scope.listB.push(i);
+            }
+
+            $scope.listC = [];
+            for (i = 3000; i < 4500; i++) {
+                $scope.listC.push(i);
+            }
+
+            $scope.selectedItem = 0;
+
+        });
+    </script>
+
+</body>
+</html>

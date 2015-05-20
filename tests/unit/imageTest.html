@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<!-- type="file" and multiple do not work on Android -->
+<!--<input id="file" type="file" multiple />-->
+<input id="file" type="file" />
+<div id="prev"></div>
+
+<!-- test of JPEG dataUrl
+<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD//gATQ3JlYXRlZCB3aXRoIEdJTVD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAQABADAREAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB2ACn/8QAFxABAQEBAAAAAAAAAAAAAAAAACEBQf/aAAgBAQABBQKONr//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AR//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAVEAEBAAAAAAAAAAAAAAAAAAAgIf/aAAgBAQAGPwKj/8QAGxAAAgIDAQAAAAAAAAAAAAAAAREAITFBUXH/2gAIAQEAAT8hsySuGmtvcxo55DHqf//aAAwDAQACAAMAAAAQgk//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/EB//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/EB//xAAZEAEBAQEBAQAAAAAAAAAAAAABEQAhMWH/2gAIAQEAAT8QCsAQR+6QHknXl3HVY2VhYDE5Hf/Z"></img>
+-->
+
+<form action="https://192.168.1.9/c4ph5/www/c4p_upload.php" enctype="multipart/form-data" method="post">
+    <p>Type some text (if you like): <input type="text" name="textline" size="30" /></p>
+    <p>photoName : <input type="text" name="file" size="20" value="name" /></p>
+    <p>transactionId : <input type="text" name="transactionId" size="20" value="transacId0123456789" /></p>
+    <p>object_id : <input type="text" name="object_id" size="20" value="devent001" /></p>
+    <p>sendmail ? : <input type="text" name="sendmail" size="10" value="false" /></p>
+    <p>user_email : <input type="text" name="user_email" size="30" value="demo@apps4pro.com" /></p>
+    <p>fileName : <input type="text" name="fileName" size="30" value="name.jpg" /></p>
+    <p>fileType : <input type="text" name="fileType" size="5" value="jpg" /></p>
+    <p>fileWsid : <input type="text" name="fileWsid" size="5" value="1" /></p>
+    <p>fileNames : <input type="text" name="fileNames" size="30" value="name.jpg" /></p>
+    <p>fileTypes : <input type="text" name="fileTypes" size="5" value="jpg" /></p>
+    <p>fileWsids : <input type="text" name="fileWsids" size="5" value="1" /></p>
+    <p>Please specify a file : <input type="file" name="datafile" size="40" /></p>
+    <div><input type="submit" value="Send" /></div>
+</form>
+
+<script>
+var fileInput = document.querySelector('#file');
+var prev = document.querySelector('#prev');
+
+fileInput.onchange = function() {
+
+    var files = this.files;
+    var filesLen = files.length;
+    var allowedImageTypes = ['png', 'jpg', 'jpeg', 'gif'];
+    var allowedTextTypes = ['txt', 'log'];
+
+    for (var i = 0 ; i < filesLen ; i++) {
+        var fileName = files[i].name;
+        var fileNames = files[i].name.split('.');
+        var fileExt = fileNames[fileNames.length - 1];
+
+        // Alert sur le contenu du fichier
+        if (allowedTextTypes.indexOf(fileExt) != -1) {
+            var reader = new FileReader();
+            // Lecture du contenu de fichier
+            reader.onload = function() {
+                alert('Contenu du fichier "' + fileName + '" :\n\n' + reader.result);
+            };
+            reader.readAsText(files[i]);
+        }
+
+        // Previsualisation de fichier image
+        if (allowedImageTypes.indexOf(fileExt) != -1) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var imgElement = document.createElement('img');
+                imgElement.style.maxWidth = '150px';
+                imgElement.style.maxHeight = '150px';
+                imgElement.src = this.result;
+                prev.appendChild(imgElement);
+            };
+            reader.readAsDataURL(files[i]);
+        }
+    }
+
+};
+</script>
+
+</body>
+</html>

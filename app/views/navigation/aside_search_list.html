@@ -1,0 +1,46 @@
+<!doctype html>
+<!--
+    aside_search_list.html
+
+    ctrl :
+      ctrlAsideSearch
+
+    inputs :
+        listItem
+
+        ng-init="init(listItem.object)"
+        ng-controller="ctrlAsideItem"
+        sense-shorttap="selectItem(firstSingleTap(listItem.object.id.dbid),false)"
+ -->
+
+
+    <div id="aside_{{listItem.object.id.dbid}}"
+        ng-class="{
+        'c4p-color-{{getFacetColor(srvFacet.getFirstFacet())}}':srvNav.item && (listItem.object.id.dbid == srvNav.item.id.dbid),
+        'active':srvNav.item && (listItem.object.id.dbid == srvNav.item.id.dbid)}"
+        ng-click="selectItem(listItem.object, respOnePageFormat)"
+        ng-hide="srvData.srvSynchroStatus.hasToBeDeleted(listItem.object) || (listItem.object.a4p_type == 'Document' && listItem.object.email)"
+        >
+        <!-- ng-click="firstSingleTap(listItem.object, selectItem, true)"
+          sense-opts="{name:'search-others-{{$index}}', bubble:true, watchRefresh:['srvNav.item', 'srvNav.holdItem']}"
+          sense-doubletap="firstSingleTap(listItem.object, selectItem, true)" -->
+
+        <div class="row">
+            <div class="btn col-xxs-12" ng-class="{active: singleTapFocusId == listItem.object.id.dbid}">
+                <ul class="nav nav-pills">
+
+                    <li class="" style="width:100%">
+                        <div ng-init="cardItem = listItem.object"
+                            ng-include="'partials/navigation/cards/draggable_inlined_card.html'">
+                        </div>
+                    </li>
+                    <!--<li class="" style="width:10%">
+                        <div ng-show="singleTapFocusId == listItem.object.id.dbid"
+                            class="glyphicon glyphicon-fw glyphicon-chevron-right c4p-color-action-aside-transparent"></div>
+                    </li>-->
+
+                </ul>
+            </div>
+        </div>
+
+    </div>

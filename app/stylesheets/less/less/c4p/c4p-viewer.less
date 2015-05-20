@@ -1,0 +1,43 @@
+/*!
+ *  C4P Viewer
+ */
+
+.c4p-viewer {
+  //background-color: rgba(128, 128, 128, 0.5);
+  //background-color: transparent;
+  z-index: 200;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .toggle-mode-button {
+    position: absolute;
+    top: 0.2em;
+    right:0.2em;
+    padding: 0;
+    margin:0;
+    cursor: pointer;
+    .c4p-color-action-transparent;
+  }
+}
+
+.c4p-viewer-fullscreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(128, 128, 128, 1);
+}
+
+.c4p-viewer-windowed {
+  position: relative;
+}
+
+/*!
+ * TODO: define background color
+ */
+.c4p-viewer-current-document {
+  background-color: rgba(128, 128, 128, 0.5);
+}

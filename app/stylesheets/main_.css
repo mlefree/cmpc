@@ -1,0 +1,216 @@
+/*
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select:none;
+
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -webkit-user-modify: none;
+  -webkit-text-size-adjust: none;
+
+}
+
+body {
+    position: fixed ! important;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:0;
+    margin:0;
+    background:white;
+    color:#333;
+    font-family:Helvetica;
+
+    overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-user-modify: none;
+    -webkit-text-size-adjust: none;
+}
+*/
+
+
+.panel-heading a:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\e114";
+  float: right;
+  color: grey;
+}
+.panel-heading a.collapsed:after {
+  content: "\e080";
+}
+article{
+  padding-top:50px;
+  padding-bottom:50px;
+}
+
+
+
+/*
+We're using CSS transitions for when
+the enter and move events are triggered
+for the element that has the .repeated-item
+class
+*/
+.repeated-item.ng-enter, .repeated-item.ng-move {
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+/*
+The ng-enter-active and ng-move-active
+are where the transition destination properties
+are set so that the animation knows what to
+animate.
+*/
+.repeated-item.ng-enter.ng-enter-active,
+.repeated-item.ng-move.ng-move-active {
+  opacity:1;
+}
+
+/*
+We're using CSS keyframe animations for when
+the leave event is triggered for the element
+that has the .repeated-item class
+*/
+.repeated-item.ng-leave {
+  -webkit-animation:0.5s my_animation;
+  -moz-animation:0.5s my_animation;
+  -o-animation:0.5s my_animation;
+  animation:0.5s my_animation;
+}
+
+@keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+/*
+Unfortunately each browser vendor requires
+its own definition of keyframe animation code...
+*/
+@-webkit-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-moz-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-o-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+slider {
+  display:     block;
+  position:    relative;
+  height:      30px;
+  width:       200px;
+}
+slider span.bar {
+  height:     50%;
+  z-index:    0;
+  background: #eee;
+  left:       0;
+  top:        25%;
+  cursor:     pointer;
+}
+slider span.bar.selection, slider span.bar.unselected {
+}
+slider span.bar.selection {
+  background: #0a0;
+  opacity:    0.5;
+}
+slider span.bar.unselected {
+  width:      auto;
+  background: #a00;
+  opacity:    0.5;
+}
+slider span.pointer {
+  cursor:           pointer;
+  width:            15px;
+  top:              0;
+  bottom:           0;
+  background-color: #00a;
+}
+slider span.pointer:hover {
+}
+slider span.pointer.active {
+}
+slider span.bubble {
+  font-size:   0.7em;
+  line-height: 1.4em;
+  font-family: sans-serif;
+  text-align:  center;
+  text-shadow: none;
+  top:         -1.3em;
+  cursor:      pointer;
+}
+slider span.bubble.selection, slider span.bubble.limit {
+  top: 25%;
+}
+slider span.bubble.selection {
+}
+slider span.bubble.limit {
+}
+slider span.bubble.low, slider span.bubble.high {
+}
+
+#slider-container {
+  -webkit-touch-callout: none;
+  -webkit-user-select:   none;
+  -khtml-user-select:    none;
+  -moz-user-select:      -moz-none;
+  -ms-user-select:       none;
+  user-select:           none;
+}
+
+
+
+/*
+
+animation
+
+*/
+
+.rotate-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  margin:-60px 0 0 -60px;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

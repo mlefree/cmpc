@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <title>c4p theme bootstrap</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <meta name="viewport" content="width=device-width,  initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="">
+    <meta name="author" content="Apps4Pro">
+
+    <link href="../../www/l4p/css/theme-bootstrap.css" rel="stylesheet" type="text/css">
+
+</head>
+<body ng-app="c4p" class="container">
+
+<div ng-include="'theme.html'"></div>
+
+<!-- Load jQuery BEFORE Angular otherwise Angular loads its own JQuery lite version -->
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/bootstrap/bootstrap.min.js"></script>
+
+<script language="javascript">
+    var appModule = angular.module('c4p', []);
+</script>
+
+</body>
+</html>

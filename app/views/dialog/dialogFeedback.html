@@ -1,0 +1,167 @@
+<!doctype html>
+<!--
+
+  DialogFeedback
+
+-->
+
+<div ng-controller="ctrlEditFocus">
+
+  <div class="modal-header row c4p-color-gradient0">
+
+          <div class="col-xxs-12">
+              <ul class="nav nav-pills">
+                <li class="active" ng-show="IsQuestionActive()">
+                  <a class="btn" data-toggle="tab" ng-click="toggleQuestion()" ng-disabled="isEditFocused">
+                      <!--<h5>{{srvLocale.translations.htmlGuiderNeedHelp}}</h5>-->
+                  </a>
+                </li>
+                <li class="pull-right">
+                  <a ng-click="close()" class="btn" ng-disabled="isEditFocused">
+                      <span class="">&times;</span>
+                  </a>
+                </li>
+              </ul>
+          </div>
+  </div>
+
+
+  <div class="modal-body row c4p-color-gradient0">
+      <div class="c4p-container-scroll-y">
+      <div class="c4p-container">
+
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div class="tab-pane fade in" id="home" ng-class="{active:!IsQuestionActive()}"
+                        ng-controller="ctrlGuiderDialog">
+
+                    <div class="row">
+                      <!--<div class="col-xxs-8 col-xxs-offset-2 col-sm-4 col-sm-offset-4">
+                        <button class="btn btn-link disabled col-xxs-6" disabled>{{getIdSlideActive() + 1}} / {{guider_slides.length}}</button>
+                        <button class="btn btn-link col-xxs-6" ng-click="next()" ng-show="(getIdSlideActive() + 1) < guider_slides.length">
+                            {{srvLocale.translations.htmlButtonNext}} &nbsp; <i class="glyphicon glyphicon-angle-right"></i>
+                        </button>
+                        <button class="btn btn-primary col-xxs-6" ng-click="close()" ng-hide="(getIdSlideActive() + 1) < guider_slides.length">
+                            {{srvLocale.translations.htmlButtonGotIt}}
+                        </button>
+                      </div>-->
+                      <div class="col-xxs-12" ng-hide="(getIdSlideActive() + 1) < guider_slides.length">
+                        <button class='btn btn-primary col-xxs-8 col-xxs-offset-2 col-sm-4 col-sm-offset-4'
+                              ng-click='closeFeedback()'>
+                              {{srvLocale.translations.htmlButtonGotIt}}
+                        </button>
+                        <h1> &nbsp;</h1>
+                        <button class='btn btn-warning col-xxs-8 col-xxs-offset-2 col-sm-4 col-sm-offset-4'
+                              data-toggle="tab" ng-click="toggleQuestion()">
+                              {{srvLocale.translations.htmlGuiderNeedHelp}}
+                        </button>
+                        <h1> &nbsp;</h1>
+                        <button class='btn btn-link col-xxs-8 col-xxs-offset-2 col-sm-4 col-sm-offset-4'
+                              ng-click="first()">
+                              <i class="glyphicon glyphicon-angle-left"></i>
+                              {{srvLocale.translations.htmlGuiderBegin}}
+                        </button>
+
+                      </div>
+
+                      <button class="btn btn-link col-xxs-1" style="height: 500px;">
+                          &nbsp;
+                      </button>
+                      <a4p-carousel class="col-xxs-10 c4p-full-height" interval="guider_interval"  style="padding-top:10px">
+                        <a4p-slide ng-repeat="slide in guider_slides" active="slide.active">
+                              <!--<div class="c4p-full-height center-block" style="position:relative;height:350px;">
+                                <div class="center-block carousel-caption" ng-bind-html="to_trusted(slide.text)"></div>
+                                <img class="center-block" ng-src="{{slide.image}}">
+                              </div>-->
+                              <div class="col-xxs-12">
+                                <span class="col-xxs-12" style="text-align:center"
+                                    ng-bind-html="to_trusted(slide.text)"></span>
+                                <img class="col-xxs-12" src="{{slide.image}}" />
+                        </a4p-slide>
+                      </a4p-carousel>
+                      <button class="btn btn-link col-xxs-1" style="height: 500px;"
+                          ng-click="next()" ng-show="(getIdSlideActive() + 1) < guider_slides.length">
+                          <i class="glyphicon glyphicon-angle-right glyphicon-2x"></i>
+                      </button>
+                <!--
+                    <a4p-carousel interval="myInterval">
+                        <a4p-slide ng-repeat="slide in slides" active="slide.active">
+                            <img ng-src="{{slide.image}}" style="margin:auto;">
+
+                            <div class="carousel-caption">
+                                <h4>Slide {{$index}}</h4>
+
+                                <p>{{slide.text}}</p>
+                            </div>
+                        </a4p-slide>
+                    </a4p-carousel>
+                -->
+                    </div>
+
+  <!--
+                      sense-opts="{name:'dialogFeedback', axeY:'scroll'}"
+                      sense-scrollopts="{scrollbarClass:'c4p-scrollbar'}"
+                      resizecss-height="responsivePageHeight() *0.7"
+                      style="position:relative; width:100%;overflow-y:scroll"
+                      ontouchmove="a4pAllowMove(event)" onscroll="a4pAllowMove(event)" -->
+                  </div>
+                  <div class="tab-pane fade in" id="question"  ng-class="{active:IsQuestionActive()}">
+
+                    <div class="container">
+                      <div class="row" >
+                          <h5 class="col-xxs-12 col-sm-6 col-sm-offset-3">{{srvLocale.translations.htmlMsgFeedbackEmail}}</h5>
+                          <!-- Email if unknown -->
+                          <div class="col-xxs-12 col-sm-6 col-sm-offset-3" ng-show="feedback.emailRequired">
+                              <c4p-input title-var="srvLocale.translations.htmlMsgFeedbackContactEmpty"
+                                         ng-model="feedback.email"
+                                         placeholder="{{srvLocale.translations.htmlFormEmailPlaceHolder}}"
+                                         type="mail"
+                                         style="width:100%"
+                                         warn-var = "feedback.email"
+                                         required
+                                         ng-disabled="isEditFocused">
+                              </c4p-input>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <!-- Phone if unknown -->
+                          <div class="col-xxs-12 col-sm-6 col-sm-offset-3" ng-show="feedback.emailRequired">
+                              <c4p-input title-var="srvLocale.translations.htmlMsgFeedbackPhone"
+                                         ng-model="feedback.phone"
+                                         placeholder="{{srvLocale.translations.htmlFormPhonePlaceHolder}}"
+                                         type="tel"
+                                         style="width:100%"
+                                         ng-disabled="isEditFocused">
+                              </c4p-input>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <!-- Message -->
+                          <div class="col-xxs-12 col-sm-6 col-sm-offset-3">
+                              <c4p-input ng-model="feedback.message"
+                                         placeholder="{{srvLocale.translations.htmlFormMessagePlaceHolder}}"
+                                         type="textarea"
+                                         rows="20" cols="20"
+                                         style="width:100%"
+                                         ng-disabled="isEditFocused">
+                              </c4p-input>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <a class="btn btn-success col-xxs-12 col-sm-3 col-sm-offset-6"
+                             data-dismiss="modal"
+                             ng-class="{disabled : (feedback.emailRequired && !feedback.email) }"
+                             ng-click="submit()" ng-disabled="isEditFocused">
+                              {{srvLocale.translations.htmlButtonSend}}
+                          </a>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+      </div>
+      </div>
+  </div>
+</div>

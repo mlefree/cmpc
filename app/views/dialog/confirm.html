@@ -1,0 +1,80 @@
+<!doctype html>
+<!--
+    confirm.html
+    inputs :
+      none
+    ctrl :
+      ctrlDialogConfirm
+
+-->
+
+<!-- no header .. just a backdrop -->
+
+<div ng-controller="ctrlResponsive"
+    resize-beforewindow="responsiveBeforeWindowSizeChanged()"
+    class="row modal-body c4p-vertical-container">
+    <div class="c4p-dialog c4p-vertical-align">
+
+                  <div class="container c4p-modal-confirm-container col-xxs-12 col-sm-6 col-sm-offset-3">
+                    <!-- Headers -->
+                    <div class="row">
+                      <div class="c4p-dialog-header">
+
+                          <div class="col-xxs-12">
+                              <ul class="nav nav-pills">
+                                <li style="width:100%">
+                                  <a class="btn disabled" data-toggle="tab">
+                                      <h5 style="white-space:normal">{{text}}</h5>
+                                  </a>
+                                </li>
+
+
+                                <li class="pull-right">
+                                  <a class="btn c4p-color-cancel-transparent" ng-click="close()">
+                                      <span class="c4p-icon-std">&times;</span>
+                                  </a>
+                                </li>
+
+                                <li class="pull-right">
+                                  <a class="btn c4p-color-ok-transparent c4p-stroke" ng-click="submit()">
+                                    <span class="c4p-icon-std glyphicon glyphicon-check"></span>
+                                  </a>
+                                </li>
+
+                              </ul>
+                          </div>
+
+
+                      </div>
+                    </div>
+
+                    <!-- Confirm core -->
+                    <div class="row" ng-show="{{textArray.length}}">
+                      <div class="col-xxs-12 c4p-modal-confirm-cont"
+                           sense-opts="{axeY:'scroll'}"
+                           sense-scrollopts="{scrollbarClass:'c4p-scrollbar'}">
+                          <div class="container">
+                              <div class="c4p-form-group c4p-color-a-gradient1">
+
+                                      <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                          <tr ng-repeat="item in textArray">
+                                            <td>
+                                            <ul class="nav nav-pills">
+                                                <li  style="max-width:{{responsivePageWidth() - 50}}px; width:80%;">
+                                                  <a class="btn disabled a4p-dot" style="text-align:left;">{{item}}</a></li>
+                                            </ul>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+
+                  </div>
+
+    </div>
+</div>

@@ -1,0 +1,423 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="en">
+
+    <META name="description"
+          content="Javascript Draw Bezier Curve and Curve through points Demo: jsDraw2D Javascript Graphics Library">
+    <TITLE>Javascript Draw Bezier Curve & Curve through points Demo: jsDraw2D</TITLE>
+    <style>
+        * {
+        	margin: 0;
+        	padding: 0;
+        }
+        a {
+        	color: #36C;
+        }
+        a:hover {
+        	color: #06F;
+        }
+        body {
+        	background: #E7E7E7;
+        	color: #444;
+        	font: normal 62.5% "Lucida Sans Unicode",sans-serif;
+        	margin: 0;
+        }
+        input {
+        	color: #555;
+        	font: normal 1.1em "Lucida Sans Unicode",sans-serif;
+        }
+        p, ul {
+        	font-size: 1.2em;
+        }
+        h2 {
+        	font-size: 1.4em;
+        	margin-bottom: 4px;
+        }
+        h1 {
+        	font-size: 1.2em;
+        	margin-bottom: 4px;
+        }
+        h1, h2, h3 {
+        	color: #367EA6;
+        	padding-top: 6px;
+        }
+
+        input.search {
+            background: #E0691A no-repeat;
+            border: 0px none;
+            width: 65px;
+            color: #FFF;
+            cursor: pointer; font-style:normal; font-variant:normal; font-weight:bold; font-size:0.95em; font-family:Arial, Sans-Serif; margin-left:0; margin-right:15px; margin-top:0; margin-bottom:0px; padding-left:0; padding-right:0; padding-top:4px; padding-bottom:4px
+        }
+
+        input.calculate {
+            background: #E0691A no-repeat;
+            border: 0px none;
+            width: 265px;
+            color: #FFF;
+            cursor: pointer; font-style:normal; font-variant:normal; font-weight:bold; font-size:0.95em; font-family:Arial, Sans-Serif; margin-left:0; margin-right:15px; margin-top:0; margin-bottom:0px; padding-left:0; padding-right:0; padding-top:4px; padding-bottom:4px
+        }
+
+        .container {
+            background: #FAFAFA;
+        	margin: 0 auto;
+        	padding-bottom: 6px;
+        	border:1px solid #A1A1A1;
+        }
+        .header {
+        	background-color: #ffffff;
+        	/*background: url(img/header.gif) repeat-x;*/
+        }
+
+        .title h1 {
+        	height: 100px;
+        	margin-bottom: 8px;
+        	margin-left: 8px;
+        }
+
+        .main {
+        	clear: both;
+        	padding: 8px 18px;
+        }
+
+        .grarybg
+        {
+            padding-left:12px;
+        	background: #EEE;
+        	font-size: 1.2em;
+        	border: 1px solid #E5E5E5;
+        	margin-bottom: 8px;
+        }
+        .grarybg h1 {
+        	color: #666;
+        	font-size: 1em;
+        	height: 20px;
+        }
+
+        .grarybg ul {
+
+        	margin: 0;
+        	padding: 0;
+        }
+        .grarybg li {
+        	list-style:none;
+        	border-top: none;
+        	margin: 0px;
+
+        }
+        .grarybg a {
+        	color:#4283B9;
+        	padding: 3px 6px 3px 14px;
+        	text-decoration: none;
+
+        }
+        .grarybg a:hover {
+        	color: #111;
+        }
+
+        .content {
+        }
+        .content .section {
+        	padding: 6px 12px;
+        	border: 1px solid #EEE;
+        	background: #FFF;
+        	margin-bottom: 8px;
+        }
+        .content .descr {
+        	color: #333;
+        	margin-bottom: 6px;
+        }
+        .content li {
+        	list-style:circle ;
+        	margin-left: 18px;
+        }
+
+        /* search form */
+        form {
+        	padding: 0 0 6px 8px;
+        }
+        .styled {
+        	border: 1px solid #DDD;
+        	padding: 4px;
+        }
+
+        /* javascript source */
+        .jscode	{
+        	border: 1px solid #999999;
+        	background: #EEE;
+        	color: #336600;
+        	padding: 10px 10px 10px 10px;
+        	font: normal 9pt courier new;
+        }
+
+        /* footer */
+        .footer {
+        	background: #FFF;
+        	border: 1px solid #EEE;
+        	color: #666;
+        	font-size: 1.1em;
+        	margin: 0 auto;
+        	text-align: center;
+        	padding: 6px;
+        	width: 720px;
+        }
+        .footer a {
+        	color: #36C;
+        	text-decoration: none;
+        }
+        .footer a:hover {
+        	color: #06F;
+        	text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="main">
+
+        <div class="content">
+
+            <div class="section">
+
+                <table>
+                    <tr>
+                        <td valign="top">
+                            <div id="canvas"
+                                 style="overflow:hidden;position:relative;width:600px;height:370px;border:#999999 1px solid;"></div>
+                            <p>Time required to draw:<b><span id="timems"></span></b>&nbsp;milliseconds</p>
+                        </td>
+                        <td valign="top" style="padding-left:10px">
+                            <p>
+                            <table>
+                                <tr>
+                                    <td><b>Pen Width:</b></td>
+                                    <td><input id="penwidth" type="text" value="1" size="20"/></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Color:</b></td>
+                                    <td><input id="color" type="text" value="#0000ff" size="20"/></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Tension:</b></td>
+                                    <td><input id="tension" type="text" value="0" size="20" onblur="CheckTension();"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            </p><br> <input style="font-weight:bold" type="button" value="Draw Curve"
+                                            onclick="drawCurve();"/> <br><br> <input style="font-weight:bold"
+                                                                                     type="button"
+                                                                                     value="Draw Closed Curve"
+                                                                                     onclick="drawClosedCurve();"/> <br><br>
+                            <input style="font-weight:bold" type="button" value="Draw Bezier (Cubic/Poly)"
+                                   onclick="drawPolyBezier();"/> <br><br> <input style="font-weight:bold" type="button"
+                                                                                 value="Fill Closed Curve"
+                                                                                 onclick="fillClosedCurve();"/> <br><br>
+                            <input style="font-weight:bold" type="button" value="Clear Canvas"
+                                   onclick="clearCanvas();"/> <br><br> <input style="font-weight:bold" type="button"
+                                                                              value="Clear Previous Points Set"
+                                                                              onclick="clearPreviousPoints();"/>
+                            <br><br>
+
+                            <p><b>Points Data (for bug reporting):</b></p><br> <textarea style="height:50px;width:250px"
+                                                                                         id="txt" rows="1"
+                                                                                         cols="20"></textarea><br>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <p><b>How to use the Demo application:</b></p>
+                <ul>
+                    <li>Click anywhere inside the drawing canvas above to plot a point.</li>
+                    <li>Plot as many number of points as you wish and click any one of the "Draw Curve", "Draw Closed
+                        Curve", "Draw Bezier (Cubic/Poly)" or "Fill Closed Curve" buttons on right side
+                    </li>
+                    <li>Check the output with various parameters like tension, pen width and color. Please note that
+                        tension parameter is not applicable for Bezier curve.
+                    </li>
+                    <li>"Clear Canvas" button is to clear the canvas completely.</li>
+                    <li>"Clear Previous Points Set" button is to clear the old set of points from the memory only. For
+                        next drawing only newly plotted set of points will be used but old diagrams will remain on the
+                        canvas only.
+                    </li>
+                    <li>If you find some bug/defect in the demo application, please report the bug with "Points Data".
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="l4p/libs/js/jsdraw/jsDraw2D_Uncompressed.js"></script>
+<script language="javascript" type="text/javascript">
+    var canvasDiv = document.getElementById("canvas");
+    var gr = new jsGraphics(canvasDiv);
+    var penWidth;
+    var col;
+    var pen;
+    var d1, d2;
+    var msdiv = document.getElementById("timems");
+    setPenColor(true);
+
+    var points = new Array();
+
+    var ie = false;
+    if (document.all)
+        ie = true;
+
+    if (!ie) {
+        //canvasDiv.captureEvents(Event.MOUSEMOVE);
+        //canvasDiv.captureEvents(Event.CLICK);
+    }
+
+    canvasDiv.onmousemove = getMouseXY;
+    canvasDiv.onclick = drawPoint;
+
+    var mouseX = 0;
+    var mouseY = 0;
+
+    //Get mouse position
+    function getMouseXY(e) {
+        if (ie) {
+            mouseX = event.clientX + document.body.parentElement.scrollLeft;
+            mouseY = event.clientY + document.body.parentElement.scrollTop;
+        } else {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+        }
+
+        if (mouseX < 0) {
+            mouseX = 0
+        }
+        if (mouseY < 0) {
+            mouseY = 0
+        }
+
+        mouseX = mouseX - canvasDiv.offsetLeft;
+        mouseY = mouseY - canvasDiv.offsetTop;
+
+        return true;
+    }
+
+    function setPenColor(noAlert) {
+        if (document.getElementById("color").value != "")
+            col = new jsColor(document.getElementById("color").value);
+        else
+            col = new jsColor("blue");
+
+        if (document.getElementById("penwidth").value != "")
+            penWidth = document.getElementById("penwidth").value;
+
+        if (!isNaN(penWidth))
+            pen = new jsPen(col, penWidth);
+        else
+            pen = new jsPen(col, 1);
+
+        if (!noAlert) {
+            if (points.length == 0) {
+                alert("Please click at any location on the blank canvas at left side to plot the points!");
+                return false;
+            }
+            else if (points.length == 1) {
+                alert("2 or more points are required to draw any curve! Please plot more points by clicking at any location on the blank canvas at left side.");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function drawPoint() {
+        gr.fillRectangle(new jsColor("green"), new jsPoint(mouseX - 6, mouseY - 6), 6, 6);
+        points[points.length] = new jsPoint(mouseX - 3, mouseY - 3);
+    }
+
+    function drawCurve() {
+        if (!setPenColor())
+            return;
+        var ten = document.getElementById("tension").value;
+        d1 = (new Date()).getTime();
+        gr.drawCurve(pen, points, ten);
+        d2 = (new Date()).getTime();
+        msdiv.innerHTML = (d2 - d1);
+        showPoints();
+        //points=new Array();
+    }
+
+    function drawClosedCurve() {
+        if (!setPenColor())
+            return;
+        var ten = document.getElementById("tension").value;
+        d1 = (new Date()).getTime();
+        gr.drawClosedCurve(pen, points, ten);
+        d2 = (new Date()).getTime();
+        msdiv.innerHTML = (d2 - d1);
+        showPoints();
+        //points=new Array();
+    }
+
+    function drawPolyBezier() {
+        if (!setPenColor())
+            return;
+
+        if (points.length == 4) {
+            d1 = (new Date()).getTime();
+            gr.drawBezier(pen, points);
+        }
+        else {
+            d1 = (new Date()).getTime();
+            gr.drawPolyBezier(pen, points);
+        }
+        d2 = (new Date()).getTime();
+        msdiv.innerHTML = (d2 - d1);
+        showPoints();
+        //points=new Array();
+    }
+
+    function fillClosedCurve() {
+        if (!setPenColor())
+            return;
+        var ten = document.getElementById("tension").value;
+        d1 = (new Date()).getTime();
+        gr.fillClosedCurve(col, points, ten);
+        d2 = (new Date()).getTime();
+        msdiv.innerHTML = (d2 - d1);
+        showPoints();
+        //points=new Array();
+    }
+
+    function clearCanvas() {
+        gr.clear();
+        points = new Array();
+    }
+
+    function clearPreviousPoints() {
+        points = new Array();
+    }
+
+    function CheckTension() {
+        var ten = document.getElementById("tension").value;
+        if (!isNaN(ten)) {
+            if (ten > 10)
+                document.getElementById("tension").value = 10;
+            else if (ten < -10)
+                document.getElementById("tension").value = -10;
+        }
+    }
+
+    function showPoints() {
+        var txt = document.getElementById("txt");
+        txt.innerHTML = "";
+        for (var i = 0; i < points.length; i++) {
+            txt.innerHTML = txt.innerHTML + "new jsPoint(" + points[i].x + "," + points[i].y + "),";
+        }
+    }
+</script>
+</body>
+
+</html>

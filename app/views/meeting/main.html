@@ -1,0 +1,51 @@
+<!doctype html>
+<!--
+    meeting/main.html
+    inputs :
+      none
+    ctrl :
+      ctrlNavigation
+-->
+<div ng-controller="ctrlAction" ng-init="watchSrvNav()">
+    <div ng-controller="ctrlEditFocus">
+        <div ng-controller="ctrlMeeting" class="c4p-meeting-body" style="height:{{responsivePageHeight()}}px">
+
+            <header ng-include="'partials/meeting/header.html'"></header>
+
+            <aside id="c4p-meeting-side-do-not-use-deprecated"
+                  ng-class="{'c4p-meeting-aside-hidden' : !showMeetingAside}"
+                  ng-include="'partials/meeting/meeting_aside.html'">
+            </aside>
+
+            <!-- Email Building @ template-->
+            <div class="c4p-waiting"
+                ng-if="meetingLaunchEmail"
+                c4p-animateshow="meetingLaunchEmailLoading"
+                after-show="afterMeetingLaunchEmailShow()">
+                <div ng-include="'partials/spinner.html'"></div>
+            </div>
+            <div ng-if="!meetingLaunchEmailLoading" style="display:none;"> <!--   position:absolute;top:100px;left:200px;;z-index:1300; -->
+              <div ng-include="'partials/email/meeting.html'"></div>
+            </div>
+
+
+            <div class="c4p-waiting"
+                ng-show="meetingLoadingSpinner"
+                c4p-animateshow="meetingLoadingSpinner"
+                after-hide="afterMeetingSpinnerHide()"
+                after-show="afterMeetingSpinnerShow()">
+                <div ng-include="'partials/spinner.html'"></div>
+            </div>
+
+            <div ng-controller="ctrlViewer" ng-if="!meetingLoadingSpinner">
+              <article id="c4p-meeting-page-do-not-use-deprecated"
+                    ng-class="{'c4p-meeting-article-full' : !showMeetingAside}"
+                    ng-include="''+meetingCurrentPanel">
+              </article>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

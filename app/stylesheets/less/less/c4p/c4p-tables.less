@@ -1,0 +1,183 @@
+// C4P Tables, used in Calendar
+// --------------------------------------------------
+
+.c4p-hour-disabled {
+  //background: @grad;
+}
+
+.c4p-hour-selected {
+  border: @red;
+}
+
+
+.c4p-label-calendar {
+  background-color: transparent;// TODO: do not opacity at 0
+  color: lighten(@gray, 20%);
+}
+
+.c4p-label-calendar-light {
+  background-color: transparent;// TODO: do not opacity at 0
+  color: @gray-light;
+}
+
+.c4p-label-calendar-dark {
+  background-color: transparent;// TODO: do not opacity at 0
+  color: @gray-dark;
+}
+
+
+.c4p-label-calendar-notallday {
+  background-color: white;
+}
+
+.c4p-label-calendar-notallday-inverse {
+  background-color: @color-b-bg;
+}
+
+.c4p-label-calendar-all-day {
+  background-color: lighten(@color-b-bg, 10%);
+}
+
+.c4p-label-calendar-day {
+  //background-color: @color-b-bg;
+  background-color: transparent;
+  color:darken(@color-b-bg,30%);
+}
+
+.c4p-label-calendar-hour {
+  //color defined in html
+}
+
+.c4p-icon-calendar-allday {
+  color: @link-color;
+}
+
+// Tables
+// --------------------------------------------------
+
+table, .table {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none;
+  th, td {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none;
+  }
+  th {
+    vertical-align: center;
+    text-align: center;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    margin: 0
+  }
+}
+
+.c4p-table-layout {
+  background-color: @table-bg;
+  th, td {
+    background-color: @table-bg;
+  }
+}
+
+.c4p-table-cell {
+  div > div:first-child {
+    //border-right: 1px solid lighten(@grad-light, 30%);
+  }
+}
+
+.c4p-table-calendar-month {
+  //  background: transparent;// BEWARE : opacity is not set in basic colors, so transparency is still active
+  color: @grad-dark;
+  border: none;
+  th {
+    background-color: @grad-darker;
+    border: 1px solid @grad;
+  }
+  td {
+    background-color: white;
+    border: 1px solid @grad;
+  }
+  th,td {
+    &.c4p-cell-initial {
+      .c4p-label-calendar {
+        color: white;
+        background-color: darken(white, 20%);
+      }
+    }
+    &.c4p-cell-selected {
+      border: 2px @color-b-bg solid;
+    }
+    &.c4p-cell-weekend {
+      background-color: darken(white, 5%);
+    }
+    &.c4p-cell-disabled {
+      .c4p-label-calendar {
+        color: lighten(@grad-light, 20%);
+      }
+      .c4p-label-calendar-dark {
+        color: lighten(@grad-dark, 20%);
+      }
+      .c4p-label-calendar-allday {
+        background-color: lighten(@link-color, 20%);
+      }
+    }
+
+  }
+  thead:first-child tr:first-child th {
+    border: 1px solid @grad-dark;
+  }
+  th.empty, thead:first-child tr:first-child th.empty {
+    background-color: @table-bg;
+    border: none;
+  }
+  th.disabled, td.disabled {
+    background-color: @link-color;
+  }
+}
+
+
+
+
+
+.c4p-table-calendar-next {
+  //  background: transparent;// BEWARE : opacity is not set in basic colors, so transparency is still active
+  color: @grad-dark;
+  border: none;
+  table-layout: fixed;
+  width:  100%;
+
+  td {
+    background-color: lighten(@color-b-bg, 40%);
+    border: 1px solid @grad;
+  }
+
+  td {
+    .btn {
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      border:none;
+
+      span {
+         position:absolute;
+         top:35%;
+         left:30%;
+      }
+    }
+    .btn-primary {
+        background-color: @color-b-bg;
+    }
+  }
+
+  th {
+    background-color: white;
+    border: none;
+  }
+  th.disabled, td.disabled {
+    background-color: @link-color;
+  }
+}

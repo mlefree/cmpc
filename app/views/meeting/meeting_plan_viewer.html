@@ -1,0 +1,52 @@
+<!doctype html>
+<!--
+    meeting_plan_viewer.html
+    inputs :
+      none
+    ctrl :
+      ctrlMeeting
+-->
+
+<!-- Meeting Content -->
+<div class="c4p-container-scroll-y" style="overflow-x: hidden;">
+  <div class="c4p-container">
+    <div  class="col-xxs-12 col-sm-8 col-sm-offset-2"
+          style="min-width:300px;">
+
+        <div ng-if="isPresentationOn">
+
+          <!--  <div class="c4p-viewer center-block"
+                 ng-class="{'c4p-viewer-fullscreen':isFullScreen, 'c4p-viewer-windowed':!isFullScreen}">
+                <div ng-style="{width:getViewerWidth()+'px', height:getViewerHeight()+px}"
+                     resize-opts="{name:'meeting_ctrlViewerContent'}"
+                     sense-opts="{name:'meeting_ctrlViewerContent', axeX:'swipe', axeY:'', init:'setSensePanel($sense);', watchRefresh:'isFullScreen'}"
+                     sense-scrollopts="{scrollbarClass:'c4p-scrollbar', wheelAction:'zoom', zoom: true, momentum: 0, zoomMin: 1, zoomMax: 10}"
+                     sense-swipeend="onDocumentSwipe($event)">
+                        <c4p-viewer-content obj-var="documentObject"></c4p-viewer-content>
+                </div>
+                <div ng-click="togglePresentation();toggleFullScreen()" ng-show="plans.length > 0" class="toggle-mode-button">
+                    <span class="c4p-icon-std glyphicon c4p-stroke"
+                          ng-class="{'glyphicon-play':!isFullScreen, 'glyphicon-stop':isFullScreen}"></span>
+                </div>
+            </div> -->
+            <div ng-include="'partials/meeting/meeting_object_viewer.html'"></div>
+        </div>
+
+
+        <div ng-if="!isPresentationOn">
+            <div ng-include="'partials/meeting/meeting_object_editor.html'"></div>
+        </div>
+        <!--
+        <div ng-switch-default>
+            <c4p-input
+                    ng-model="srvNav.item.description"
+                    type="textarea"
+                    rows="20">
+            </c4p-input>
+        </div>
+        -->
+
+        
+    </div>
+  </div>
+</div>

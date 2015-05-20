@@ -1,0 +1,25 @@
+<!doctype html>
+<!--
+		full_card_picture.html
+
+		ctrl :
+			ctrlDetailedObject
+
+		inputs :
+			cardItem, cardGroups, showTitle
+
+		methods:
+			edit(cardItem)
+-->
+
+
+	<div class="row" ng-if="cardItem.a4p_type == 'Document'">
+
+						<div class="c4p-card-full-thumb center-block col-xxs-12">
+									<div class="btn c4p-card-thumb-media"
+											ng-click="viewDocument(cardItem)"
+											style="background:url('{{cardItem.thumb_url}}') no-repeat center center;-webkit-background-size: cover;">
+									</div>
+						</div>
+
+</div>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+    <head>
+
+        <title>c4p.sandbox.design</title>
+
+       
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+        <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1, maximum-scale=1, user-scalable=no">
+
+       
+        <link href="../../../mobile/l4p/css/c4p-theme-apps4pro.min.css" rel="stylesheet" type="text/css" id="c4p-css">
+        <script src="../../../mobile/js/c4p.client.js" type="text/javascript" ></script>
+     
+        <script language="javascript">
+            function Ctrl($scope) {
+                $scope.items = ['settings', 'home', 'other'];
+                $scope.selection = $scope.items[0];
+                
+                // Test RegExp
+                $scope.myExp = "na";
+                $scope.myExpResult = "na";
+                $scope.setRegExp = function() {
+                    //var myRegexp = /(^?\send?)/g;
+                    var myRegexp = /((\s|\d|[a-z])* chapter)/i;
+                    //var myExp = "super test and at the end end"
+                    var classWithoutOnair = $scope.myExp.match(myRegexp);
+                    if (classWithoutOnair && classWithoutOnair[1]) $scope.myExpResult = classWithoutOnair[1];
+                };
+            }
+
+                       
+        </script>
+
+    </head>
+    <body ng-app="c4p">
+
+        <div ng-controller="Ctrl">
+            
+            <h1>myExpResult={{myExpResult}}</h1>
+            <input ng-model="myExp" ng-change="setRegExp()"/><br>
+            
+            <select ng-model="selection" ng-options="item for item in items">
+            </select>
+            <p>selection={{selection}}</p>
+            <hr/>
+            <div c4p-show on="selection == 'home'"
+                 ng-animate="{enter: 'example-enter', leave: 'example-leave'}">
+                <div>Home Span</div>
+            </div>
+        </div>
+
+    </body>
+</html>

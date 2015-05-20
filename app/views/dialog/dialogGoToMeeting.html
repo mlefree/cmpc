@@ -1,0 +1,95 @@
+<!doctype html>
+<!--
+
+  dialogGoToMeeting.html
+
+  controller is ctrlGoToMeetingDialog
+
+  input :
+
+-->
+
+
+<!-- Headers -->
+<div class="modal-header col-xxs-12 c4p-color-gradient0">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-pills">
+        <li class="hidden-xs">
+          <a class="btn disabled">
+              <h5>{{srvLocale.translations.htmlGotoMeeting}}</h5>
+          </a>
+        </li>
+
+        <li class="pull-right">
+            <a class="btn" ng-click="close()" ng-disabled="isEditFocused">
+              <span class="">&times;</span>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+
+
+<div class="modal-body col-xxs-12 c4p-color-gradient0">
+  <!-- Body -->
+  <div class="c4p-container-scroll-y">
+    <div class="c4p-container">
+
+      <div class="col-xxs-12">
+          <!--  <h5>
+            <i class="glyphicon glyphicon-coffee" style="padding-right: 30px;"></i>
+            {{srvLocale.translations.htmlGotoMeetingUnderConstruction}} {{isDemo}}
+          </h5> -->
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <tr><td>
+                <ul class="nav nav-pills">
+                    <li><a class="btn disabled" style="text-align:left">{{srvLocale.translations.htmlCreateEmptyMeeting}}</a></li>
+                    <li class="pull-right">
+                      <a class="btn" ng-click="createNewMeeting()">
+                          <i class="glyphicon glyphicon-chevron-right"></i>
+                      </a>
+                    </li>
+                </ul>
+              </td></tr>
+              <tr><td>
+                <ul class="nav nav-pills">
+                    <li><a class="btn disabled" style="text-align:left">{{srvLocale.translations.htmlGotoMeetingWith}}</a></li>
+                    <li  style="width:50%"><a class="btn disabled a4p-dot" style="text-align:left;">{{itemName}}</a></li>
+                    <li class="pull-right">
+                      <a class="btn" ng-click="createNewMeeting(item)">
+                          <i class="glyphicon glyphicon-chevron-right"></i>
+                      </a>
+                    </li>
+                </ul>
+              </td></tr>
+              <tr><td>
+
+                <ul class="nav nav-pills" ng-show="relatedEvents.length">
+                    <li><a class="btn disabled" style="text-align:left">{{srvLocale.translations.htmlUseExistingMeeting}}</a></li>
+                </ul>
+
+
+                <ul class="nav nav-pills" ng-show="relatedEvents.length">
+                    <li>
+                      <a class="btn" style="text-align:left">
+                        <select class="form-control" ng-model="selectedEvent" ng-options="e.name for e in relatedEvents"></select>
+                      </a>
+                    </li>
+                    <li class="pull-right">
+                      <a class="btn" ng-click="gotoMeeting()">
+                          <i class="glyphicon glyphicon-chevron-right"></i>
+                      </a>
+                    </li>
+                </ul>
+              </td></tr>
+
+            </table>
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>

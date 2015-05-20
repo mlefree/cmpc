@@ -1,0 +1,160 @@
+<!doctype html>
+<!--
+    meeting_object_editor_table.html
+    inputs :
+      none
+    ctrl :
+      ctrlViewer > ctrlMeeting
+-->
+
+<div class="c4p-meeting-content-container" ng-swipe-left="gotoPreviousMeetingPlan()" ng-swipe-right="gotoNextMeetingPlan()">
+  <div class="c4p-meeting-content">
+
+      <div class="row">
+          <div class="col-xxs-10 col-xxs-offset-1">
+              <h4 style="text-transform: capitalize;text-align:center;"
+                  ng-show="!meetingPlanTitleEditable"
+                  ng-disabled="isEditFocused"
+                  ng-click="meetingPlanTitle = selectedMeetingPlan.title;editMeetingPlanTitle()">
+                  {{selectedMeetingPlan.pos+1}} . {{selectedMeetingPlan.title}}
+              </h4>
+
+              <div class="col-xxs-12" ng-show="meetingPlanTitleEditable">
+                <!--<input type="text" class="form-control" ng-model="meetingPlanTitle">-->
+                <c4p-input title-var=""
+                           ng-model="selectedMeetingPlan.title"
+                           placeholder=""
+                           type="text"
+                           style="width:100%"
+                           warn-var = ""
+                           required
+                           ng-disabled="isEditFocused"
+                           ng-blur="saveMeetingPlanTitle(selectedMeetingPlan.title);setEditFocusState(false);">
+                </c4p-input>
+              </div>
+
+              <!--<div  class="col-xxs-2 btn"
+                    ng-show="meetingPlanTitleEditable"
+                    ng-click="saveMeetingPlanTitle(selectedMeetingPlan.title)"
+                    ng-disabled="isEditFocused">
+                  <i class="glyphicon glyphicon-check" ></i>
+              </div>-->
+          </div>
+      </div>
+
+
+
+      <div class="row" style="position:relative" ng-controller="ctrlDragObject">
+
+          <div class="col-xxs-10 col-xxs-offset-1">
+
+              <!-- big devices : table pop -->
+              <div class="hidden-xs box">
+                <div class="trigger" ng-click="meetingPopTable()" ></div>
+                <div class="popcircle">
+                  <ul id="pops">
+
+
+                    <li ng-repeat="attendee in meetingContactsAsAttendee track by $index"
+                        ng-controller="ctrlMeetingAttendeeDrag"
+                        ng-init="initMeetingAttendeeDrag(attendee)"
+                        sense-longdragoverenter="dragOverEnter($event,$element)"
+                        sense-longdragoverleave="dragOverLeave($event,$element)"
+                        sense-longdragstart="setDragMeetingElementIdx($index); meetingAttendeeDragStart($event,$element)"
+                        sense-longdragmove="dragMove($event,$element)"
+                        sense-longdragend="dragEnd($event,$element)"
+                        sense-longdragcancel="dragCancel($event,$element)"
+
+                        sense-holdstart="holdStart($event,$element)"
+                        sense-holdstop="holdStop($event,$element)">
+
+                      <a class="btn">
+                        <span>{{attendee.first_name}} {{attendee.last_name}}</span><br>
+                        <i style="text-transform: none;font-size: 0.7em;">{{attendee.email}}</i>
+                      </a>
+                      <a style="float:right;height:40px;width:40px;padding:20px;color:white;" ng-click="meetingEditAttendeePopUp(attendee)">
+                        <i class="glyphicon glyphicon-edit"></i>
+                      </a>
+
+                    </li>
+
+
+
+                    <li class="empty"><!--
+                        ng-class="{'active' : dropOver, 'enabled' : dropIsEnable}"
+                        ng-controller="ctrlMeetingAttendeeDrop"
+                        sense-dndstart="dndStart($event)"
+                        sense-dropoverenter="dropOverEnter($event,$element)"
+                        sense-dropoverleave="dropOverLeave($event,$element)"
+                        sense-dropend="dropEnd($event,$element, $index)"
+                    -->
+                       <a class="btn" ng-click="meetingAddAttendeePopUp()">
+                         <div>
+                           <i class="glyphicon glyphicon-user"></i><br>
+                           <i class="glyphicon glyphicon-plus"></i>
+                         </div>
+                       </a>
+                     </li>
+
+                  </ul>
+                </div>
+              </div>
+
+              <!-- small devices : attendee list -->
+              <div class="visible-xs">
+                <ul class="nav nav-pills nav-stacked">
+
+
+                    <li ><!--
+                        ng-class="{'active' : dropOver, 'enabled' : dropIsEnable}"
+                        ng-controller="ctrlMeetingAttendeeDrop"
+                        sense-dndstart="dndStart($event)"
+                        sense-dropoverenter="dropOverEnter($event,$element)"
+                        sense-dropoverleave="dropOverLeave($event,$element)"
+                        sense-dropend="dropEnd($event,$element, $index)"
+                    -->
+                       <a class="btn btn-primary" ng-click="meetingAddAttendeePopUp()">
+                         <div>
+                           <i class="glyphicon glyphicon-user"></i><br>
+                           <i class="glyphicon glyphicon-plus"></i>
+                         </div>
+                       </a>
+                     </li>
+
+                    <li ng-repeat="attendee in meetingContactsAsAttendee track by $index"
+                        ng-controller="ctrlMeetingAttendeeDrag"
+                        ng-init="initMeetingAttendeeDrag(attendee)"
+                        sense-longdragoverenter="dragOverEnter($event,$element)"
+                        sense-longdragoverleave="dragOverLeave($event,$element)"
+                        sense-longdragstart="setDragMeetingElementIdx($index); meetingAttendeeDragStart($event,$element)"
+                        sense-longdragmove="dragMove($event,$element)"
+                        sense-longdragend="dragEnd($event,$element)"
+                        sense-longdragcancel="dragCancel($event,$element)"
+
+                        sense-holdstart="holdStart($event,$element)"
+                        sense-holdstop="holdStop($event,$element)">
+
+                      <a class="btn btn-info" style="text-align:left;" ng-click="meetingEditAttendeePopUp(attendee)">
+                        <span>{{attendee.first_name}} {{attendee.last_name}}</span><br>
+                        <small>{{attendee.email}}</small><br>
+                        <i class="glyphicon glyphicon-edit"></i>
+                      </a>
+
+                    </li>
+                </ul>
+              </div>
+
+          </div>
+
+
+
+      </div>
+
+
+      <!--<div class="row">
+          <div class="col-xxs-12" ng-controller="ctrlDetailedObject" ng-init="init(currentMeetingNote)"
+                ng-include="'partials/navigation/cards/full_card.html'"></div>
+      </div>-->
+
+  </div>
+</div>

@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+<head>
+    <!-- http://www.ultra-fluide.com/ressources/xhtml/block-inline.xhtml -->
+    <title>Scroll Test Page</title>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+            -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+            -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+            /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        *:not(input):not(textarea) {
+            -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            color: #FFF;
+            border-style: solid;
+            border-width: 2px;
+            border-color: red;
+            position:relative;
+        }
+
+        body[orient="portrait"] {
+            background: #FF0000;
+        }
+
+        body[orient="landscape"] {
+            background: #000;
+        }
+
+        #entetePage, #piedsPage {
+            margin: 0;
+            background: #ccc;
+            text-align: center;
+        }
+
+        #entetePage h1, #piedsPage h1 {
+            margin: 0;
+        }
+
+        #bandeau {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background-color: #666;
+            /*text-align: left;*/
+        }
+
+        #bandeau li {
+            list-style-type: none;
+            display: inline;
+        }
+
+        #bandeau li:nth-child(2) {
+            background-color: #363;
+        }
+
+        #bandeau li:nth-child(3) {
+            background-color: #633;
+        }
+
+        #bandeau li:nth-child(4) {
+            background-color: #336;
+        }
+
+        #bandeau li a {
+            padding-left: 5px;
+            padding-right: 5px;
+            color: #fff;
+            text-decoration: none;
+            border-right: 1px solid #fff;
+        }
+
+        #bandeau li a:hover {
+            background: #383;
+        }
+
+        #corpsPage {
+        }
+
+        #leftSide {
+            margin: 0;
+            padding: 0;
+            background: #fcc;
+            position:relative;
+            float:left;
+            width:50%;
+        }
+
+        #leftSideScroller {
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+
+        #rightSide {
+            margin: 0;
+            padding: 0;
+            background: #cfc;
+            position:relative;
+            float:left;
+            width:50%;
+        }
+
+        #rightSideScroller {
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+
+        #leftSide blockquote {
+            color: green;
+        }
+
+        .empty_cell {
+            margin: 0;
+            padding: 0;
+            border-width: 0;
+            display: inline-block;
+            background-color: transparent;
+            width: 20px;
+            height: 20px;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .day_cell {
+            margin: 0;
+            padding: 0;
+            border-width: 0;
+            display: inline-block;
+            background-color: gold;
+            width: 20px;
+            height: 20px;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .week_cell {
+            margin: 0;
+            padding: 0;
+            border-width: 0;
+            display: inline-block;
+            background-color: dodgerblue;
+            width: 170px;
+            height: 20px;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .month_cell {
+            margin: 0;
+            padding: 0;
+            border-width: 0;
+            display: inline-block;
+            background-color: fuchsia;
+            width: 170px;
+            height: 20px;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .week_line {
+            margin: 0;
+            padding: 0;
+            border-width: 0;
+            display: inline-block;
+            background-color: grey;
+            width: 520px;
+            height: 20px;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<!-- Need to take into account border size of body to keep it inside viewscreen -->
+<body ng-app="c4p"
+      ng-style="{height:(getResizeHeight() - 4)+'px', width:(getResizeWidth() - 4)+'px'}"
+      ng-controller="navigationCtrl"
+      resize-opts="{name:'e2eLayoutTest_body'}">
+<div id="entetePage"
+     resize-opts="{name:'e2eLayoutTest_entetePage'}">
+    <h1>header</h1>
+    <ul id="bandeau">
+        <li>
+            <a ng-click="setViewType('day')">
+                <span>Daily</span>
+            </a>
+        </li>
+        <li>
+            <a ng-click="setViewType('week')">
+                <span>Weekly</span>
+            </a>
+        </li>
+        <li>
+            <a ng-click="setViewType('month')">
+                <span>Monthly</span>
+            </a>
+        </li>
+        <li>
+            <a ng-click="setViewType('year')">
+                <span>Yearly</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="corpsPage"
+     resize-opts="{name:'e2eLayoutTest_corpsPage'}"
+     resizecss-height="getResizePathValue('e2eLayoutTest_body', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_entetePage', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_piedsPage', '', 'offsetHeight')">
+    <div id="leftSide"
+         sense-opts="{name:'e2eLayoutTest_leftSide', axeX:'swipe', axeY:'scroll'}"
+         resize-opts="{name:'e2eLayoutTest_leftSide'}"
+         resizecss-height="getResizePathValue('e2eLayoutTest_body', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_entetePage', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_piedsPage', '', 'offsetHeight')">
+        <div id="leftSideScroller">
+            <!-- list of events -->
+            <div ng-switch="viewType">
+                <div ng-switch-when="day"></div>
+                <div ng-switch-when="week"></div>
+                <div ng-switch-when="month"></div>
+                <div ng-switch-when="year"></div>
+            </div>
+        </div>
+    </div>
+    <div id="rightSide"
+         sense-opts="{name:'e2eLayoutTest_rightSide', axeX:'swipe', axeY:'scroll'}"
+         sense-scrollopts="{y:-560, momentum:300}"
+         resize-opts="{name:'e2eLayoutTest_rightSide'}"
+         resizecss-height="getResizePathValue('e2eLayoutTest_body', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_entetePage', '', 'offsetHeight') -getResizePathValue('e2eLayoutTest_piedsPage', '', 'offsetHeight')">
+        <div id="rightSideScroller">
+            <!-- day/week/month/year agenda -->
+            <div ng-switch="viewType">
+                <div ng-switch-when="day"></div>
+                <div ng-switch-when="week"></div>
+                <div ng-switch-when="month"></div>
+                <div ng-switch-when="year" ng-controller="yearCtrl"
+                     sense-loop call-apply="true" on-element-move="onElementMove($side, $nb)">
+                    <div class="{{weekLine.class}}" ng-repeat="weekLine in weekLines">
+                        <div class="{{month.class}}" ng-repeat="month in weekLine.months">
+                            <div class="{{day.class}}" ng-repeat="day in month.days">{{day.text}}</div>
+                            <span ng-hide="month.days">{{month.text}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="piedsPage"
+     resize-opts="{name:'e2eLayoutTest_piedsPage'}">
+    <h1>footer</h1>
+</div>
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+<script language="javascript">
+    var appModule = angular.module('c4p', ['a4p.directives']);
+    var directiveModule = angular.module('a4p.directives', []);
+    a4p.Sense.declareDirectives(directiveModule);
+    a4p.Resize.declareDirectives(directiveModule);
+
+    function navigationCtrl($scope) {
+        $scope.viewType = 'year';
+        $scope.setViewType = function (viewType) {
+            $scope.viewType = viewType;
+        };
+    }
+    navigationCtrl.$inject = ['$scope'];
+
+    function yearCtrl($scope) {
+        var monthIdx=0;
+        $scope.now = new Date();
+        var year = $scope.now.getFullYear()-1;
+        $scope.weekLines = [];
+
+        // Year N-1
+        for (var quarterIdx=0; quarterIdx<4; quarterIdx++) {
+            for (var lineIdx=0; lineIdx<7; lineIdx++) {
+                $scope.weekLines.push(weekLine(year, quarterIdx, lineIdx));
+            }
+        }
+        // Year N
+        year++;
+        for (var quarterIdx=0; quarterIdx<4; quarterIdx++) {
+            for (var lineIdx=0; lineIdx<7; lineIdx++) {
+                $scope.weekLines.push(weekLine(year, quarterIdx, lineIdx));
+            }
+        }
+        // Year N+1
+        year++;
+        for (var quarterIdx=0; quarterIdx<4; quarterIdx++) {
+            for (var lineIdx=0; lineIdx<7; lineIdx++) {
+                $scope.weekLines.push(weekLine(year, quarterIdx, lineIdx));
+            }
+        }
+
+        function weekLine(year, quarterIdx, lineIdx) {
+            var monthIdx=0;
+            var weekLine = {class:'week_line', year:year, month:1+quarterIdx*3, quarterIdx:quarterIdx, lineIdx:lineIdx, months:[]};
+            var daysLine;
+            var day;
+            if (lineIdx == 0) {
+                // Month names
+                for (monthIdx=0; monthIdx<3; monthIdx++) {
+                    weekLine.months.push({class:'month_cell', text:(1+quarterIdx*3+monthIdx)+'/'+year});
+                }
+            } else {
+                for (monthIdx=0; monthIdx<3; monthIdx++) {
+                    var lastDate = a4pLastDayOfMonth(year, 1+quarterIdx*3+monthIdx).getDate();
+                    var firstDay = a4pFirstDayOfMonth(year, 1+quarterIdx*3+monthIdx).getDay() || 7;// 1 monday, ..., 7 sunday
+                    daysLine = [];
+                    for (dayIdx=2; dayIdx<9; dayIdx++) {
+                        day = dayIdx+(7*(lineIdx-1))-firstDay;
+                        if ((day < 1) || (day > lastDate)) {
+                            // Empty day_cell
+                            daysLine.push({class:'empty_cell', text:''})
+                        } else {
+                            daysLine.push({class:'day_cell', text:day})
+                        }
+                    }
+                    weekLine.months.push({class:'week_cell', days:daysLine});
+                }
+            }
+            return weekLine;
+        }
+
+        $scope.onElementMove = function(side, nb) {
+            var year;
+            var quarterIdx;
+            var lineIdx;
+            if (side == 'top') {
+                // Go to past
+                for (var i=nb;i>0;i--) {
+                    year = $scope.weekLines[0].year;
+                    quarterIdx = $scope.weekLines[0].quarterIdx;
+                    lineIdx = $scope.weekLines[0].lineIdx - 1;
+                    if (lineIdx < 0) {
+                        lineIdx += 7;
+                        quarterIdx--;
+                        if (quarterIdx < 0) {
+                            quarterIdx += 4;
+                            year--;
+                        }
+                    }
+                    $scope.weekLines.splice(0, 0, weekLine(year, quarterIdx, lineIdx));
+                    $scope.weekLines.splice($scope.weekLines.length-1, 1);
+                }
+            } else if (side == 'bottom') {
+                // Go to future
+                for (var i=nb;i>0;i--) {
+                    year = $scope.weekLines[$scope.weekLines.length-1].year;
+                    quarterIdx = $scope.weekLines[$scope.weekLines.length-1].quarterIdx;
+                    lineIdx = $scope.weekLines[$scope.weekLines.length-1].lineIdx + 1;
+                    if (lineIdx >= 7) {
+                        lineIdx -= 7;
+                        quarterIdx++;
+                        if (quarterIdx >= 4) {
+                            quarterIdx -= 4;
+                            year++;
+                        }
+                    }
+                    $scope.weekLines.push(weekLine(year, quarterIdx, lineIdx));
+                    $scope.weekLines.splice(0, 1);
+                }
+            } else if (side == 'left') {
+            } else if (side == 'right') {
+            }
+        }
+    }
+    yearCtrl.$inject = ['$scope'];
+
+</script>
+</body>
+</html>

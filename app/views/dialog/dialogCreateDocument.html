@@ -1,0 +1,84 @@
+
+<!doctype html>
+<!--
+
+  Aside Search
+
+-->
+
+
+<!-- Headers -->
+<div class="modal-header row c4p-color-gradient0">
+
+        <div class="col-xxs-12">
+            <ul class="nav nav-pills">
+              <li class="hidden-xs">
+                <a class="btn btn-disabled">
+                    <h5>{{srvLocale.translations.htmlTitleNewObject.Document}}</h5>
+                </a>
+              </li>
+              <li class="pull-right">
+                <a ng-click="close()" class="btn" ng-disabled="isEditFocused">&times;</a>
+              </li>
+            </ul>
+        </div>
+</div>
+
+
+<div class="modal-body row c4p-color-gradient0">
+    <div class="c4p-container-scroll-y">
+    <div class="c4p-container">
+
+
+          <div class="col-xxs-8 col-xxs-offset-2">
+
+              <ul class="nav nav-pills nav-stacked">
+                <li>
+                  <a class="btn c4p-gray" ng-click="closeAndTakePicture()" style="text-align: left;white-space:normal;">
+                      <span class="glyphicon-stack">
+                        <i class="glyphicon glyphicon-camera glyphicon-stack-1x"></i>
+                      </span>
+                      <small>
+                        {{srvLocale.translations.htmlCreateDocumentTakePicture}}
+                      </small>
+                  </a>
+                </li>
+                <li>
+                  <a  class="btn c4p-gray" ng-click="close()" style="text-align: left;white-space:normal;">
+                      <span class="glyphicon-stack">
+                        <i class="glyphicon glyphicon-download glyphicon-stack-1x"></i>
+                      </span>
+                      <small>
+                        {{srvLocale.translations.htmlCreateDocumentImportOpenWith}}
+                      </small>
+                  </a>
+                </li>
+              </ul>
+              <!--
+              <div class="btn-group btn-group-justified btn-block">
+                  <a class="btn close"
+                    ng-click="closeAndTakePicture()"
+                    style="padding-bottom:0;padding-top:0;">
+                        <span class="glyphicon-stack">
+                          <i class="glyphicon glyphicon-camera glyphicon-stack-1x"></i>
+                        </span>
+                  </a>
+              </div>
+              <div class="btn-block well well-sm" style="border-radius: 1em;" >
+                  <a  class="btn c4p-gray"
+                      ng-click="close()"
+                      style="white-space:normal">
+                      <span class="c4p-size-smaller">
+                        {{detailGetHtmlLinkHowTo}}
+                        Todo MLE : Use "Open with ..." link you will find in your Google Drive or other prefred app.<br>
+                        You can import what ever file as document.
+                      </span>
+                  </a>
+              </div>
+            -->
+          </div>
+
+
+    </div>
+    </div>
+</div>

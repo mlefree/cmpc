@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang=en>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <meta name="author" content="Apps4Pro">
+
+    <title>Multi Touch Tracker</title>
+
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+            -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+            -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+            /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        *:not(input):not(textarea) {
+            -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body ng-app="c4p" onload="init()" style="background-color: #000000; margin: 0px;">
+<!--
+<div id="doc1" ng-controller="DocCtrl" ng-init="init()" sense-opts="{name:'doc1'}"
+     sense-holdstart="onHold($event)" sense-tap="onTap($event)" sense-doubletap="onDoubleTap($event)"
+     sense-touchstart="onTouchStart($event)" sense-touchmove="onTouchMove($event)" sense-touchend="onTouchEnd($event)"
+     sense-mousedown="onMouseStart($event)" sense-mousemove="onMouseMove($event)" sense-mouseup="onMouseEnd($event)"
+     sense-dragstart="dragStart($event)" sense-dragmove="dragMove($event)"
+     sense-dragend="dragEnd($event)" sense-dragcancel="dragCancel($event)">
+</div>
+-->
+<div id="doc1" ng-controller="DocCtrl" ng-init="init()" sense-opts="{name:'doc1'}"
+     sense-touchstart="onTouchStart($event)" sense-touchmove="onTouchMove($event)" sense-touchend="onTouchEnd($event)"
+     sense-mousedown="onMouseStart($event)" sense-mousemove="onMouseMove($event)" sense-mouseup="onMouseEnd($event)">
+    <canvas id="calque" width="1920" height="1280"
+            style="background-image: none; background-color: transparent; border: 3px solid #0000ff; position:fixed; top:0px; left:0px;" ></canvas>
+    <canvas id="canvas1" width="400" height="500"
+            style="background-color: transparent; border: 1px solid #FF00FF; display: block; position: fixed; bottom:10px; left:100px;"></canvas>
+    <canvas id="canvas2" width="400" height="500"
+            style="background-color: transparent; border: 1px solid #FFFF00; display: block; position: fixed; top:30px; right:100px;"></canvas>
+    <div id="dragBox" ng-controller="DragBoxCtrl" width="80" height="100%"
+         sense-dropoverenter="dropOverEnter($event)" sense-dropoverleave="dropOverLeave($event)"
+         sense-dropstart="dropStart($event)" sense-dropmove="dropMove($event)"
+         sense-dropend="dropEnd($event)" sense-dropcancel="dropCancel($event)"
+         sense-swipestart="swipeStart($event)" sense-swipepause="swipePause($event)"
+         sense-swipemove="swipeMove($event)" sense-swipeend="swipeEnd($event)" sense-swipecancel="swipeCancel($event)"
+         sense-scrollstart="scrollStart($event)" sense-scrollpause="scrollPause($event)"
+         sense-scrollmove="scrollMove($event)" sense-scrollend="scrollEnd($event)" sense-scrollcancel="scrollCancel($event)"
+         sense-opts="{name:'dragBox', axeX:'swipe', axeY:'scroll'}" ng-style="style">
+        <div>
+            <div ng-repeat="obj in objs">
+                {{obj.name}}
+                <div ng-controller="ImgCtrl" id="{{obj.id}}" ng-init="init(obj)" sense-opts="{name:'{{obj.name}}'}"
+                     sense-holdstart="hold($event)" sense-tap="tap($event)" sense-doubletap="doubleTap($event)"
+                     sense-dragoverenter="dragOverEnter($event)" sense-dragoverleave="dragOverLeave($event)"
+                     sense-dragstart="dragStart($event)" sense-dragmove="dragMove($event)"
+                     sense-dragend="dragEnd($event)" sense-dragcancel="dragCancel($event)">
+                    <img ng-src="{{obj.img}}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dropBox" ng-controller="DropBoxCtrl" width="80" height="100%"
+         sense-dropoverenter="dropOverEnter($event)" sense-dropoverleave="dropOverLeave($event)"
+         sense-dropstart="dropStart($event)" sense-dropmove="dropMove($event)"
+         sense-dropend="dropEnd($event)" sense-dropcancel="dropCancel($event)"
+         sense-swipestart="swipeStart($event)" sense-swipepause="swipePause($event)"
+         sense-swipemove="swipeMove($event)" sense-swipeend="swipeEnd($event)" sense-swipecancel="swipeCancel($event)"
+         sense-scrollstart="scrollStart($event)" sense-scrollpause="scrollPause($event)"
+         sense-scrollmove="scrollMove($event)" sense-scrollend="scrollEnd($event)" sense-scrollcancel="scrollCancel($event)"
+         sense-opts="{name:'dropBox', axeX:'swipe', axeY:'scroll'}" ng-style="style">
+        <div>
+            <div ng-repeat="obj in objs">
+                {{obj.name}}
+                <div ng-controller="ImgCtrl" id="{{obj.id}}" ng-init="init(obj)" sense-opts="{name:'{{obj.name}}'}"
+                     sense-holdstart="hold($event)" sense-tap="tap($event)" sense-doubletap="doubleTap($event)"
+                     sense-dragoverenter="dragOverEnter($event)" sense-dragoverleave="dragOverLeave($event)"
+                     sense-dragstart="dragStart($event)" sense-dragmove="dragMove($event)"
+                     sense-dragend="dragEnd($event)" sense-dragcancel="dragCancel($event)">
+                    <img ng-src="{{obj.img}}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<pre id="log" style="color: #ffffff;">Welcome to the Multi Touch Tracker</pre>
+
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+<script>
+var touches = [];
+var mouseX = 0, mouseY = 0, mouseFrom = null, mouseTarget = null;
+var fps = 30;
+var canvas0, ctx0;
+var canvas1, ctx1;
+var canvas2, ctx2;
+
+var appModule = angular.module('c4p', ['a4p.directives']);
+var directiveModule = angular.module('a4p.directives', []);
+a4p.Sense.declareDirectives(directiveModule);
+a4p.Resize.declareDirectives(directiveModule);
+
+function draw() {
+    var touch, clientX, clientY, textX, textY;
+
+    ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    if (a4p.Sense.hasTouch && (touches.length > 0)) {
+        for (var i = 0; i < touches.length; i++) {
+            touch = touches[i];
+            clientX = touch.pageX - canvas1.offsetLeft;
+            clientY = touch.pageY - canvas1.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx1.beginPath();
+            ctx1.fillStyle = "yellow";
+            ctx1.fillText("touch target:" + touch.target.localName + "#" + touch.target.id
+                    + " id:" + touch.identifier + " x:" + touch.pageX + " y:" + touch.pageY, textX, textY);
+
+            ctx1.beginPath();
+            ctx1.strokeStyle = "green";
+            ctx1.lineWidth = "6";
+            ctx1.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx1.stroke();
+        }
+    } else {
+        if (mouseTarget != null) {
+            clientX = mouseX - canvas1.offsetLeft;
+            clientY = mouseY - canvas1.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx1.beginPath();
+            ctx1.fillStyle = "yellow";
+            if (mouseFrom != null) {
+                ctx1.fillText("mouse from:" + mouseFrom.localName + "#" + mouseFrom.id
+                        + " to:" + mouseTarget.localName + "#" + mouseTarget.id
+                        + " x:" + mouseX + " y:" + mouseY, textX, textY);
+            } else {
+                ctx1.fillText("mouse to:" + mouseTarget.localName + "#" + mouseTarget.id
+                        + " x:" + mouseX + " y:" + mouseY, textX, textY);
+            }
+
+            ctx1.beginPath();
+            ctx1.strokeStyle = "green";
+            ctx1.lineWidth = "6";
+            ctx1.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx1.stroke();
+        }
+    }
+    //ctx1.fillText("hello", 0,0);
+
+    if (a4p.Sense.hasTouch && (touches.length > 0)) {
+        for (var i = 0; i < touches.length; i++) {
+            touch = touches[i];
+
+            clientX = touch.pageX - canvas2.offsetLeft;
+            clientY = touch.pageY - canvas2.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx2.beginPath();
+            ctx2.fillStyle = "white";
+            ctx2.fillText("touch target:" + touch.target.localName + "#" + touch.target.id
+                    + " id:" + touch.identifier + " x:" + touch.pageX + " y:" + touch.pageY, textX, textY);
+
+            ctx2.beginPath();
+            ctx2.strokeStyle = "cyan";
+            ctx2.lineWidth = "6";
+            ctx2.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx2.stroke();
+        }
+    } else {
+        if (mouseTarget != null) {
+            clientX = mouseX - canvas2.offsetLeft;
+            clientY = mouseY - canvas2.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx2.beginPath();
+            ctx2.fillStyle = "white";
+            if (mouseFrom != null) {
+                ctx2.fillText("mouse from:" + mouseFrom.localName + "#" + mouseFrom.id
+                        + " to:" + mouseTarget.localName + "#" + mouseTarget.id
+                        + " x:" + mouseX + " y:" + mouseY, textX, textY);
+            } else {
+                ctx2.fillText("mouse to:" + mouseTarget.localName + "#" + mouseTarget.id
+                        + " x:" + mouseX + " y:" + mouseY, textX, textY);
+            }
+
+            ctx2.beginPath();
+            ctx2.strokeStyle = "cyan";
+            ctx2.lineWidth = "6";
+            ctx2.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx2.stroke();
+        }
+    }
+    //ctx2.fillText("hello", 0,0);
+}
+function init() {
+    setupCanvas();
+    setInterval(draw, 1000 / fps);
+}
+
+function setupCanvas() {
+    canvas0 = document.getElementById('calque');
+    //canvas0.width = window.innerWidth;
+    //canvas0.height = window.innerHeight;
+    ctx0 = canvas0.getContext('2d');
+    ctx0.strokeStyle = "#33ff00";
+    ctx0.lineWidth = 5;
+
+    canvas1 = document.getElementById('canvas1');
+    ctx1 = canvas1.getContext('2d');
+    ctx1.strokeStyle = "#ffffff";
+    ctx1.lineWidth = 2;
+
+    canvas2 = document.getElementById('canvas2');
+    ctx2 = canvas2.getContext('2d');
+    ctx2.strokeStyle = "#ffffff";
+    ctx2.lineWidth = 2;
+}
+
+function resetCanvas(e) {
+    // resize the canvas - but remember - this clears the canvas too.
+    //canvas1.width = window.innerWidth;
+    //canvas1.height = window.innerHeight;
+
+    //make sure we scroll to the top left.
+    window.scrollTo(0, 0);
+}
+
+function GestureRecognizer() {
+
+    var compassRightOrder = ['E', 'SE', 'S', 'SW', 'W', 'NW', 'N', 'NE'];
+    var compassLeftOrder = ['W', 'SW', 'S', 'SE', 'E', 'NE', 'N', 'NW'];
+
+    function rotateRight(fromCompass, toCompass, min, max) {
+        if (a4p.isUndefined(min)) min = 1;
+        if (a4p.isUndefined(max)) max = 5;
+        var pattern = '';
+        var i = 0;
+        while ((i < 8) && (compassRightOrder[i] != fromCompass)) i++;
+        pattern += '( ' + compassRightOrder[i] + '){' + min + ',' + max + '}';
+        i++;
+        var n = 0;
+        while ((n < 8) && (compassRightOrder[(i + n) % 8] != toCompass)) {
+            pattern += '( ' + compassRightOrder[(i + n) % 8] + '){' + min + ',' + max + '}';
+            n++;
+        }
+        pattern += '( ' + compassRightOrder[(i + n) % 8] + '){' + min + ',' + max + '}';
+        return pattern;
+    }
+
+    function rotateLeft(fromCompass, toCompass, min, max) {
+        if (a4p.isUndefined(min)) min = 1;
+        if (a4p.isUndefined(max)) max = 5;
+        var pattern = '';
+        var i = 0;
+        while ((i < 8) && (compassLeftOrder[i] != fromCompass)) i++;
+        pattern += '( ' + compassLeftOrder[i] + '){' + min + ',' + max + '}';
+        i++;
+        var n = 0;
+        while ((n < 8) && (compassLeftOrder[(i + n) % 8] != toCompass)) {
+            pattern += '( ' + compassLeftOrder[(i + n) % 8] + '){' + min + ',' + max + '}';
+            n++;
+        }
+        pattern += '( ' + compassLeftOrder[(i + n) % 8] + '){' + min + ',' + max + '}';
+        return pattern;
+    }
+
+    function anyCompass(min, max) {
+        if (a4p.isUndefined(min)) min = 0;
+        if (a4p.isUndefined(max)) max = 2;
+        return '( [NSWE][WE]?){' + min + ',' + max + '}';
+    }
+
+    var patternUn = new RegExp('^( E){0,2}( NE| N){1,10}' + anyCompass() + '( SW| S){1,15}$');
+    var patternDeux = new RegExp('^' + rotateRight('W', 'NW', 0) + rotateRight('N', 'S') + '( SW){1,15}( SE| SW| S){0,3}' + anyCompass() + '( E){1,15}$');
+    var patternTrois = new RegExp('^( NE){0,5}' + rotateRight('E', 'W', 0) + anyCompass() + rotateRight('E', 'W') + '$');
+    var patternQuatre = new RegExp('^( SW| S){1,10}' + anyCompass() + '( NE| E){1,10}' + anyCompass() + '( SW| S){1,10}$');
+    var patternCinq = new RegExp('^( W){1,15}( SW| SE| S){1,15}' + anyCompass() + rotateRight('E', 'W') + '( NW){0,5}$');
+    var patternSix = new RegExp('^( SW){1,15}' + rotateLeft('S', 'W') + '( SW){0,5}$');
+    var patternSept = new RegExp('^( E){1,10}' + anyCompass() + '( SW| S){1,15}$');
+    var patternHuit = new RegExp('^' + rotateLeft('W', 'SE') + '( E){0,5}' + rotateRight('SE', 'NE') + '( E){0,5}' + rotateLeft('NE', 'W') + '$');
+    var patternNeuf = new RegExp('^' + rotateLeft('W', 'NE') + '( N){0,5}' + anyCompass() + '( SW| SE| S){1,15}' + rotateRight('SW', 'W') + '( NW){0,5}$');
+    var patternZero = new RegExp('^( NW){0,5}' + rotateLeft('W', 'W') + '( SW){0,5}$');
+
+    this.gesture = '';
+    this.begin = function () {
+        console.log("GestureRecognizer begin");
+        this.gesture = '';
+        this.firstX = null;
+    };
+
+    this.add = function (point) {
+        this.gesture = this.gesture + ' ' + point.compass;
+        if (this.firstX == null) {
+            this.firstX = point.x;
+            this.firstY = point.y;
+        } else {
+            this.lastX = point.x;
+            this.lastY = point.y;
+        }
+    };
+
+    this.end = function () {
+        console.log("GestureRecognizer end : " + this.gesture);
+
+        var d2 = (this.firstX - this.lastX) * (this.firstX - this.lastX) + (this.firstY - this.lastY) * (this.firstY - this.lastY);
+        console.log('d2=' + d2);
+        if (d2 < 1000) {
+            if (patternHuit.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 8');
+            } else if (patternZero.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 0');
+            }
+        } else {
+            if (patternUn.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 1');
+            } else if (patternDeux.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 2');
+            } else if (patternTrois.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 3');
+            } else if (patternQuatre.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 4');
+            } else if (patternCinq.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 5');
+            } else if (patternSix.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 6');
+            } else if (patternSept.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 7');
+            } else if (patternNeuf.test(this.gesture)) {
+                console.log('GestureRecognizer recognized : 9');
+            }
+        }
+    };
+}
+
+function DocCtrl($scope) {
+    $scope.nbSample = 0;
+
+    $scope.init = function () {
+        console.log("DocCtrl.init()");
+        var gestureRecognizer = new GestureRecognizer();
+
+        //$scope.drawer = new a4p.BezierDrawer(document.getElementById('calque'));
+        //$scope.interpolator = new a4p.BezierInterpolator(0.33);
+
+        //$scope.drawer = new a4p.GestureDrawer(document.getElementById('calque'));
+        //$scope.interpolator = new a4p.GestureInterpolator();
+
+        $scope.drawer = new a4p.MoveDrawer(document.getElementById('calque'));
+        $scope.interpolator = new a4p.MoveInterpolator(0.33);
+
+        $scope.interpolator.addListener($scope.drawer);
+        $scope.interpolator.addListener(gestureRecognizer);
+
+        $scope.sampler = new a4p.PointSampler(30, 10);
+        $scope.sampler.addListener($scope.interpolator);
+    };
+
+    $scope.onMouseStart = function (e) {
+        console.log("onMouseStart");
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        // Beware : touch.target is the start target (while a mouse.target is the move target)
+        // => to have same behaviour we set target on start.target even for mouse event
+        mouseTarget = e.target;
+        mouseFrom = e.target;
+        $scope.nbSample = 0;
+        $scope.sampler.beginSample();
+        return true;
+    };
+
+    $scope.onMouseMove = function (e) {
+        //e.preventDefault();
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        mouseTarget = e.target;
+
+        // Sampling source points
+        $scope.sampler.addSample(e.clientX, e.clientY, (new Date()).getTime());
+        $scope.nbSample++;
+        return true;
+    };
+
+    $scope.onMouseEnd = function (e) {
+        console.log("onMouseEnd");
+        mouseTarget = e.target;
+        mouseFrom = null;
+        setTimeout(function () {
+            mouseTarget = null;
+        }, 1000);
+
+        $scope.sampler.addSample(e.clientX, e.clientY, (new Date()).getTime());
+        $scope.nbSample++;
+        $scope.sampler.endSample();
+        /*
+         console.log('stats: nb=' +$scope.interpolator.size()
+         + ' angle=' + $scope.sampler.stats.angle
+         + ' lg=' + $scope.sampler.stats.lg
+         + ' timeout='+ $scope.sampler.stats.timeout);
+         */
+        return true;
+    };
+
+    $scope.onTouchStart = function (e) {
+        console.log("onTouchStart");
+        touches = e.touches;
+        return true;
+    };
+
+    $scope.onTouchMove = function (e) {
+        // Prevent the browser from doing its default thing (scroll, zoom)
+        //e.preventDefault();
+        touches = e.touches;
+        return true;
+    };
+
+    $scope.onTouchEnd = function (e) {
+        console.log("onTouchEnd");
+        touches = e.touches;
+        return true;
+    };
+}
+
+function ImgCtrl($scope) {
+    $scope.proxy = null;
+    $scope.dragElementX = 0;
+    $scope.dragElementY = 0;
+    $scope.proxyover = true;
+
+    function setCursorToMove(scope, event) {
+        /*
+         scope.oldCursor = 'auto';
+         var style = document.getElementsByTagName('body')[0].getAttribute('style');
+         var styleArray = style.split(";");
+         var found = false;
+         for (var i=styleArray.length - 1; i >= 0; i--) {
+         var attrArray = styleArray[i].split(":");
+         if (attrArray[0] == 'cursor') {
+         scope.oldCursor = attrArray[1];
+         attrArray[1] = 'move';
+         styleArray[i] = attrArray.join(':');
+         style = styleArray.join(';');
+         found = true;
+         break;
+         }
+         }
+         if (!found) {
+         style = style + "cursor:move";
+         }
+         document.getElementsByTagName('body')[0].setAttribute('style', style+';');
+         */
+        scope.proxy = document.createElement('img');
+        scope.proxy.setAttribute('src', '../../www/img/newslider.png');
+        if ($scope.proxyover) {
+            scope.proxy.setAttribute('style', 'border:1px solid green; position: fixed; top:'
+                    + (event.clientY - $scope.dragElementY) + 'px; left:'
+                    + (event.clientX - $scope.dragElementX) + 'px; transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -ms-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -moz-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -webkit-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -o-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg);');
+        } else {
+            scope.proxy.setAttribute('style', 'border:1px solid red; position: fixed; top:'
+                    + (event.clientY - $scope.dragElementY) + 'px; left:'
+                    + (event.clientX - $scope.dragElementX) + 'px; transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -ms-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -moz-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -webkit-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -o-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg);');
+        }
+        document.getElementsByTagName('body')[0].appendChild(scope.proxy);
+    }
+
+    function moveCursor(scope, event) {
+        /**/
+        if ($scope.proxyover) {
+            scope.proxy.setAttribute('style', 'border:1px solid green; position: fixed; top:'
+                    + (event.clientY - $scope.dragElementY) + 'px; left:'
+                    + (event.clientX - $scope.dragElementX) + 'px; transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -ms-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -moz-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -webkit-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -o-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg);');
+        } else {
+            scope.proxy.setAttribute('style', 'border:1px solid red; position: fixed; top:'
+                    + (event.clientY - $scope.dragElementY) + 'px; left:'
+                    + (event.clientX - $scope.dragElementX) + 'px; transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -ms-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -moz-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -webkit-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg); -o-transform:scale('
+                    + event.scale + ') rotate(' + event.rotate * 180 / Math.PI + 'deg);');
+        }
+    }
+
+    function cancelMoveCursor(scope) {
+        /*
+         var style = document.getElementsByTagName('body')[0].getAttribute('style');
+         var styleArray = style.split(";");
+         for (var i=styleArray.length - 1; i >= 0; i--) {
+         var attrArray = styleArray[i].split(":");
+         if (attrArray[0] == 'cursor') {
+         attrArray[1] = scope.oldCursor;
+         styleArray[i] = attrArray.join(':');
+         style = styleArray.join(';');
+         document.getElementsByTagName('body')[0].setAttribute('style', style+';');
+         return;
+         }
+         }
+         */
+        scope.proxy.parentNode.removeChild(scope.proxy);
+        scope.proxy = null;
+    }
+
+    $scope.init = function (obj) {
+        console.log('init ImgCtrl : obj=' + a4pDumpData(obj, 1));
+        $scope.obj = obj;
+    };
+    $scope.hold = function (e) {
+        console.log("HOLD ImgCtrl : ");
+    };
+    $scope.tap = function (event) {
+        console.log("TAP ImgCtrl : ");
+    };
+    $scope.doubleTap = function (event) {
+        console.log("DOUBLE-TAP ImgCtrl : ");
+    };
+
+    $scope.dragOverEnter = function (event) {
+        console.log("DRAG OVER " + event.nbFinger + " ENTER ImgCtrl : ");
+        $scope.proxyover = true;
+    };
+    $scope.dragOverLeave = function (event) {
+        console.log("DRAG OVER " + event.nbFinger + " LEAVE ImgCtrl : ");
+        $scope.proxyover = false;
+    };
+    $scope.dragStart = function (event) {
+        $scope.dragElementX = event.elementX;
+        $scope.dragElementY = event.elementY;
+        event.dataTransfer = {
+            id: $scope.obj.id,
+            name: $scope.obj.name,
+            img: $scope.obj.img
+        };
+        console.log("DRAG START " + event.nbFinger + " ImgCtrl : " + event.side + ' scale=' + event.scale + ' rotate=' + event.rotate + ' ' + a4pDumpData(event.dataTransfer, 1));
+
+        if (!$scope.proxy) setCursorToMove($scope, event);
+    };
+    $scope.dragMove = function (event) {
+        //console.log("DRAG MOVE "+event.nbFinger+" ImgCtrl : " + event.side + ' scale=' + event.scale + ' rotate=' + event.rotate);
+        if ($scope.proxy) moveCursor($scope, event);
+    };
+
+    $scope.dragEnd = function (event) {
+        console.log("DRAG END " + event.nbFinger + " ImgCtrl : " + event.side + ' scale=' + event.scale + ' rotate=' + event.rotate);
+        a4p.safeApply($scope, function() {
+            if ($scope.proxy) cancelMoveCursor($scope);
+            // Move instead of copy
+            $scope.removeObj($scope.obj.id);
+        });
+    };
+
+    $scope.dragCancel = function (event) {
+        console.log("DRAG CANCEL " + event.nbFinger + " ImgCtrl : " + event.side + ' scale=' + event.scale + ' rotate=' + event.rotate);
+        if ($scope.proxy) cancelMoveCursor($scope);
+    };
+}
+
+function DragBoxCtrl($scope) {
+    $scope.insertLast = true;
+    $scope.style = {
+        'background-color': '#999999',
+        border: '1px solid white',
+        display: 'block',
+        position: 'fixed',
+        top: '30px',
+        left: '10px',
+        bottom: '10px'
+    };
+    $scope.objs = [
+        {
+            id: "img1",
+            name: "img1",
+            img: '../../www/img/aslider.png'
+        },
+        {
+            id: "img2",
+            name: "img2",
+            img: '../../www/img/bslider.png'
+        },
+        {
+            id: "img3",
+            name: "img3",
+            img: '../../www/img/cslider.png'
+        },
+        {
+            id: "img4",
+            name: "img4",
+            img: '../../www/img/aslider.png'
+        },
+        {
+            id: "img5",
+            name: "img5",
+            img: '../../www/img/cslider.png'
+        }
+    ];
+    $scope.removeObj = function (id) {
+        a4p.safeApply($scope, function() {
+            for (var i = $scope.objs.length - 1; i >= 0; i--) {
+                var item = $scope.objs[i];
+                if (item.id == id) {
+                    $scope.objs.splice(i, 1);
+                }
+            }
+        });
+    };
+    $scope.dropOverEnter = function (event) {
+        a4p.safeApply($scope, function() {
+            $scope.style.border = '1px solid green';
+        });
+    };
+    $scope.dropOverLeave = function (event) {
+        a4p.safeApply($scope, function() {
+            $scope.style.border = '1px solid white';
+        });
+    };
+    $scope.dropStart = function (event) {
+        console.log("DROP-START DragBoxCtrl :");
+    };
+    $scope.dropMove = function (event) {
+    };
+    $scope.dropEnd = function (event) {
+        console.log("DROP-END DragBoxCtrl : " + a4pDumpData(event.dataTransfer, 1));
+        a4p.safeApply($scope, function() {
+            if ($scope.insertLast) {
+                $scope.objs.push({
+                    id: event.dataTransfer.id,
+                    name: event.dataTransfer.name,
+                    img: event.dataTransfer.img
+                });
+            } else {
+                $scope.objs.splice(0, 0, {
+                    id: event.dataTransfer.id,
+                    name: event.dataTransfer.name,
+                    img: event.dataTransfer.img
+                });
+            }
+        });
+    };
+    $scope.dropCancel = function (event) {
+        console.log("DROP-CANCEL DragBoxCtrl :");
+    };
+
+    $scope.swipeStart = function (event) {
+        console.log("SWIPE-START DragBoxCtrl : " + event.side);
+    };
+    $scope.swipePause = function (event) {
+        console.log("SWIPE-PAUSE DragBoxCtrl : " + event.side);
+    };
+    $scope.swipeMove = function (event) {
+        //console.log("SWIPE-MOVE DragBoxCtrl : " + event.side);
+    };
+    $scope.swipeEnd = function (event) {
+        console.log("SWIPE-END DragBoxCtrl : " + event.side);
+    };
+    $scope.swipeCancel = function (event) {
+        console.log("SWIPE-CANCEL DragBoxCtrl : " + event.side);
+    };
+    $scope.scrollStart = function (event) {
+        console.log("SCROLL-START DragBoxCtrl : " + event.side);
+    };
+    $scope.scrollPause = function (event) {
+        console.log("SCROLL-PAUSE DragBoxCtrl : " + event.side);
+    };
+    $scope.scrollMove = function (event) {
+        //console.log("SCROLL-MOVE DragBoxCtrl : " + event.side);
+    };
+    $scope.scrollEnd = function (event) {
+        console.log("SCROLL-END DragBoxCtrl : " + event.side);
+    };
+    $scope.scrollCancel = function (event) {
+        console.log("SCROLL-CANCEL DragBoxCtrl : " + event.side);
+    };
+}
+
+function DropBoxCtrl($scope) {
+    $scope.insertLast = true;
+    $scope.style = {
+        'background-color': '#cccccc',
+        border: '1px solid white',
+        display: 'block',
+        position: 'fixed',
+        top: '30px',
+        right: '10px',
+        bottom: '10px'
+    };
+    $scope.objs = [
+        {
+            id: "img6",
+            name: "img6",
+            img: '../../www/img/cslider.png'
+        },
+        {
+            id: "img7",
+            name: "img7",
+            img: '../../www/img/cslider.png'
+        }
+    ];
+    $scope.removeObj = function (id) {
+        a4p.safeApply($scope, function() {
+            for (var i = $scope.objs.length - 1; i >= 0; i--) {
+                var item = $scope.objs[i];
+                if (item.id == id) {
+                    $scope.objs.splice(i, 1);
+                }
+            }
+        });
+    };
+    $scope.dropOverEnter = function (event) {
+        a4p.safeApply($scope, function() {
+            $scope.style.border = '1px solid green';
+        });
+    };
+    $scope.dropOverLeave = function (event) {
+        a4p.safeApply($scope, function() {
+            $scope.style.border = '1px solid white';
+        });
+    };
+    $scope.dropStart = function (event) {
+        console.log("DROP-START DropBoxCtrl : ");
+    };
+    $scope.dropMove = function (event) {
+    };
+    $scope.dropEnd = function (event) {
+        console.log("DROP-END DropBoxCtrl : " + a4pDumpData(event.dataTransfer, 1));
+        a4p.safeApply($scope, function() {
+            if ($scope.insertLast) {
+                $scope.objs.push({
+                    id: event.dataTransfer.id,
+                    name: event.dataTransfer.name,
+                    img: event.dataTransfer.img
+                });
+            } else {
+                $scope.objs.splice(0, 0, {
+                    id: event.dataTransfer.id,
+                    name: event.dataTransfer.name,
+                    img: event.dataTransfer.img
+                });
+            }
+        });
+    };
+    $scope.dropCancel = function (event) {
+        console.log("DROP-CANCEL DropBoxCtrl : ");
+    };
+
+    $scope.swipeStart = function (event) {
+        console.log("SWIPE-START DropBoxCtrl : " + event.side);
+    };
+    $scope.swipePause = function (event) {
+        console.log("SWIPE-PAUSE DropBoxCtrl : " + event.side);
+    };
+    $scope.swipeMove = function (event) {
+        //console.log("SWIPE-MOVE DropBoxCtrl : " + event.side);
+    };
+    $scope.swipeEnd = function (event) {
+        console.log("SWIPE-END DropBoxCtrl : " + event.side);
+    };
+    $scope.swipeCancel = function (event) {
+        console.log("SWIPE-CANCEL DropBoxCtrl : " + event.side);
+    };
+    $scope.scrollStart = function (event) {
+        console.log("SCROLL-START DropBoxCtrl : " + event.side);
+    };
+    $scope.scrollPause = function (event) {
+        console.log("SCROLL-PAUSE DropBoxCtrl : " + event.side);
+    };
+    $scope.scrollMove = function (event) {
+        //console.log("SCROLL-MOVE DropBoxCtrl : " + event.side);
+    };
+    $scope.scrollEnd = function (event) {
+        console.log("SCROLL-END DropBoxCtrl : " + event.side);
+    };
+    $scope.scrollCancel = function (event) {
+        console.log("SCROLL-CANCEL DropBoxCtrl : " + event.side);
+    };
+}
+
+</script>
+</body>
+</html>

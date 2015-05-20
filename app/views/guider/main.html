@@ -1,0 +1,41 @@
+<!doctype html>
+<!--
+  ctrl :  ctrlConfig ?
+
+-->
+<div class="c4p-login-body c4p-container" ng-controller="ctrlEditFocus" style="height:{{responsivePageHeight()}}px">
+    <header ng-include="'partials/guider/header.html'"></header>
+    <section class="c4p-container-scroll-y"
+        resizecss-height="responsivePageHeight() -getResizePathValue('guider_header', '', 'offsetHeight') -getResizePathValue('guider_footer', '', 'offsetHeight')">
+            <!--
+            resizecss-height="responsivePageHeight() -getResizePathValue('guider_header', '', 'offsetHeight') -getResizePathValue('guider_footer', '', 'offsetHeight')"
+
+            resize-opts="{name:'guider_index_a4pPage_scroll_container'}"
+            sense-opts="{name:'guider_index', axeY:'scroll', watchRefresh:'slide'}"
+            sense-scrollopts="{scrollbarClass:'c4p-scrollbar'}" -->
+            <div class="c4p-container">
+                <!--{{responsivePageHeight()}} - {{getResizeHeight()}} - {{getResizePathValue('guider_header', '', 'offsetHeight')}} - {{getResizePathValue('guider_footer', '', 'offsetHeight')}}-->
+                <div ng-switch on="getSlideFromGuider()" class="col-xxs-12 c4p-animate-switch-container">
+
+                    <div ng-switch-when="connection" class="c4p-animate-switch" >
+                		<div ng-include="'partials/guider/connection.html'"></div>
+                	</div>
+                	<div ng-switch-when="validation" class="col-xxs-12 c4p-animate-switch" >
+                		<div ng-include="'partials/guider/validation.html'"></div>
+               	    </div>
+                	<div ng-switch-when="requestPassword" class="col-xxs-12 c4p-animate-switch" >
+                		<div ng-include="'partials/guider/requestPassword.html'"></div>
+                	</div>
+                	<div ng-switch-when="validationReceiveRes" class="col-xxs-12 c4p-animate-switch" >
+                		<div ng-include="'partials/guider/validationReceiveRes.html'"></div>
+                	</div>
+                    <div ng-switch-default class="col-xxs-12 c4p-animate-switch" >
+                        <div ng-include="'partials/guider/register.html'"></div>
+                    </div>
+
+                </div>
+            </div>
+    </section>
+    <footer ng-include="'partials/guider/footer.html'"></footer>
+
+</div>

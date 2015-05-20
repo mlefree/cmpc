@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang=en>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <meta name="author" content="Apps4Pro">
+
+    <title>Multi Touch Tracker</title>
+
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+            -webkit-user-drag: none; /* IMPORTANT : prevent Chrome to drag by itself */
+            -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+            /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        *:not(input):not(textarea) {
+            -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body ng-app="c4p" onload="init()" style="background-color: #000000; margin: 0px;">
+<!--
+<div id="doc1" ng-controller="DocCtrl" ng-init="init()" sense-opts="{name:'doc1'}"
+     sense-holdstart="onHold($event)" sense-tap="onTap($event)" sense-doubletap="onDoubleTap($event)"
+     sense-touchstart="onTouchStart($event)" sense-touchmove="onTouchMove($event)" sense-touchend="onTouchEnd($event)"
+     sense-mousedown="onMouseStart($event)" sense-mousemove="onMouseMove($event)" sense-mouseup="onMouseEnd($event)"
+     sense-dragstart="dragStart($event)" sense-dragmove="dragMove($event)"
+     sense-dragend="dragEnd($event)" sense-dragcancel="dragCancel($event)">
+</div>
+-->
+<h1 style="color: #ffffff;">Log of sense events in console log</h1>
+<div id="doc1" ng-controller="DocCtrl" ng-init="init()" sense-opts="{name:'doc1', axeY:'swipe', callApply:true}"
+     sense-touchstart="onTouchStart($event)" sense-touchmove="onTouchMove($event)" sense-touchend="onTouchEnd($event)"
+     sense-mousedown="onMouseStart($event)" sense-mousemove="onMouseMove($event)" sense-mouseup="onMouseEnd($event)"
+     sense-swipestart="swipeStart($event)" sense-swipepause="swipePause($event)"
+     sense-swipemove="swipeMove($event)" sense-swipeend="swipeEnd($event)" sense-swipecancel="swipeCancel($event)"
+     sense-scrollstart="scrollStart($event)" sense-scrollpause="scrollPause($event)"
+     sense-scrollmove="scrollMove($event)" sense-scrollend="scrollEnd($event)" sense-scrollcancel="scrollCancel($event)"
+     sense-holdstart="hold($event)" sense-tap="tap($event)" sense-doubletap="doubleTap($event)"
+     sense-dragoverenter="dragOverEnter($event)" sense-dragoverleave="dragOverLeave($event)"
+     sense-dragstart="dragStart($event)" sense-dragmove="dragMove($event)"
+     sense-dragend="dragEnd($event)" sense-dragcancel="dragCancel($event)"
+     style="width:100%; height:100%;">
+    <canvas id="calque" ng-controller="CalqueCtrl" sense-opts="{name:'calque', callApply:true}" width="800" height="600"
+            style="background-image: none; background-color: black; border: 3px solid #0000ff; position:fixed; top:50px; left:50px;"
+            >
+    </canvas>
+    <!--<canvas id="calque" ng-controller="CalqueCtrl" sense-opts="{name:'calque', callApply:true}" width="800" height="600"
+            style="background-image: none; background-color: black; border: 3px solid #0000ff; position:fixed; top:50px; left:50px;"
+            sense-dropoverenter="dropOverEnter($event)" sense-dropoverleave="dropOverLeave($event)"
+            sense-dropstart="dropStart($event)" sense-dropmove="dropMove($event)"
+            sense-dropend="dropEnd($event)" sense-dropcancel="dropCancel($event)"
+            >
+    </canvas>-->
+</div>
+<script type="text/javascript" src="../../www/l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/angular/angular-resource.min.1.1.4.js"></script>
+<script type="text/javascript" src="../../www/l4p/libs/js/l4p.min.js"></script>
+<script>
+var touches = [];
+var mouseX = 0, mouseY = 0, mouseFrom = null, mouseTarget = null;
+var fps = 30;
+var canvas0, ctx0;
+
+var appModule = angular.module('c4p', ['a4p.directives']);
+var directiveModule = angular.module('a4p.directives', []);
+a4p.Sense.declareDirectives(directiveModule);
+a4p.Resize.declareDirectives(directiveModule);
+
+function init() {
+    setupCanvas();
+    setInterval(draw, 1000 / fps);
+}
+
+function draw() {
+    var touch, clientX, clientY, textX, textY;
+
+    ctx0.clearRect(0, 0, canvas0.width, canvas0.height);
+    if (a4p.Sense.hasTouch && (touches.length > 0)) {
+        for (var i = 0; i < touches.length; i++) {
+            touch = touches[i];
+            clientX = touch.pageX - canvas0.offsetLeft;
+            clientY = touch.pageY - canvas0.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx0.beginPath();
+            ctx0.fillStyle = "white";
+            ctx0.fillText("touch target:" + touch.target.localName + "#" + touch.target.id
+                    + " id:" + touch.identifier + " x:" + touch.pageX + " y:" + touch.pageY, textX, textY);
+
+            ctx0.beginPath();
+            ctx0.strokeStyle = "cyan";
+            ctx0.lineWidth = "6";
+            ctx0.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx0.stroke();
+        }
+    } else {
+        if (mouseTarget != null) {
+            clientX = mouseX - canvas0.offsetLeft;
+            clientY = mouseY - canvas0.offsetTop;
+            textX = clientX + 40;
+            textY = clientY - 40;
+
+            ctx0.beginPath();
+            ctx0.fillStyle = "white";
+            if (mouseFrom != null) {
+                ctx0.fillText("mouse from:" + mouseFrom.localName + "#" + mouseFrom.id
+                        + " to:" + mouseTarget.localName + "#" + mouseTarget.id
+                        + " x:" + mouseX + " y:" + mouseY, textX, textY);
+            } else {
+                ctx0.fillText("mouse to:" + mouseTarget.localName + "#" + mouseTarget.id
+                        + " x:" + mouseX + " y:" + mouseY, textX, textY);
+            }
+
+            ctx0.beginPath();
+            ctx0.strokeStyle = "cyan";
+            ctx0.lineWidth = "6";
+            ctx0.arc(clientX, clientY, 40, 0, Math.PI * 2, true);
+            ctx0.stroke();
+        }
+    }
+    //ctx0.fillText("hello", 0,0);
+}
+
+function setupCanvas() {
+    canvas0 = document.getElementById('calque');
+    //canvas0.width = window.innerWidth;
+    //canvas0.height = window.innerHeight;
+    ctx0 = canvas0.getContext('2d');
+    ctx0.strokeStyle = "#ffffff";
+    ctx0.lineWidth = 2;
+}
+
+function resetCanvas(e) {
+    // resize the canvas - but remember - this clears the canvas too.
+    //canvas0.width = window.innerWidth;
+    //canvas0.height = window.innerHeight;
+
+    //make sure we scroll to the top left.
+    window.scrollTo(0, 0);
+}
+
+function DocCtrl($scope) {
+    $scope.nbSample = 0;
+
+    $scope.init = function () {
+        //$scope.drawer = new a4p.BezierDrawer(document.getElementById('calque'));
+        //$scope.interpolator = new a4p.BezierInterpolator(0.33);
+
+        //$scope.drawer = new a4p.GestureDrawer(document.getElementById('calque'));
+        //$scope.interpolator = new a4p.GestureInterpolator();
+
+        $scope.drawer = new a4p.MoveDrawer(document.getElementById('calque'));
+        $scope.interpolator = new a4p.MoveInterpolator(0.33);
+
+        $scope.interpolator.addListener($scope.drawer);
+
+        $scope.sampler = new a4p.PointSampler(30, 10);
+        $scope.sampler.addListener($scope.interpolator);
+    };
+
+    $scope.onTouchStart = function (e) {
+        console.log("touchstart "+e.touches[0].pageX+" "+e.touches[0].pageY);
+
+        touches = e.touches;
+        $scope.nbSample = 0;
+        $scope.sampler.beginSample();
+        return true;
+    };
+
+    $scope.onTouchMove = function (e) {
+        console.log("touchmove "+e.touches[0].pageX+" "+e.touches[0].pageY);
+
+        // Prevent the browser from doing its default thing (scroll, zoom)
+        //e.preventDefault();
+        touches = e.touches;
+        // Sampling source points
+        $scope.sampler.addSample(e.clientX, e.clientY, (new Date()).getTime());
+        $scope.nbSample++;
+        return true;
+    };
+
+    $scope.onTouchEnd = function (e) {
+        console.log("touchend "+e.touches[0].pageX+" "+e.touches[0].pageY);
+
+        touches = e.touches;
+        $scope.sampler.addSample(e.clientX, e.clientY, (new Date()).getTime());
+        $scope.nbSample++;
+        $scope.sampler.endSample();
+        return true;
+    };
+
+    // TODO onTouchCancel
+
+    $scope.onMouseStart = function (e) {
+        console.log("mousedown "+e.clientX+" "+e.clientY);
+
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        // Beware : touch.target is the start target (while a mouse.target is the move target)
+        // => to have same behaviour we set target on start.target even for mouse event
+        mouseTarget = e.target;
+        mouseFrom = e.target;
+        $scope.nbSample = 0;
+        $scope.sampler.beginSample();
+        return true;
+    };
+
+    $scope.onMouseMove = function (e) {
+        console.log("mousemove "+e.clientX+" "+e.clientY);
+
+        //e.preventDefault();
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        mouseTarget = e.target;
+
+        // Sampling source points
+        $scope.sampler.addSample(e.clientX, e.clientY, (new Date()).getTime());
+        $scope.nbSample++;
+        return true;
+    };
+
+    $scope.onMouseEnd = function (e) {
+        console.log("mouseup "+e.clientX+" "+e.clientY);
+
+        mouseTarget = e.target;
+        mouseFrom = null;
+        setTimeout(function () {
+            mouseTarget = null;
+        }, 1000);
+
+        $scope.sampler.addSample(e.clientX, e.clientY, (new Date()).getTime());
+        $scope.nbSample++;
+        $scope.sampler.endSample();
+        /*
+         console.log('stats: nb=' +$scope.interpolator.size()
+         + ' angle=' + $scope.sampler.stats.angle
+         + ' lg=' + $scope.sampler.stats.lg
+         + ' timeout='+ $scope.sampler.stats.timeout);
+         */
+        return true;
+    };
+
+    $scope.swipeStart = function (event) {
+        console.log("swipe-start "+event.side);
+
+    };
+    $scope.swipePause = function (event) {
+        console.log("swipe-pause "+event.side);
+
+    };
+    $scope.swipeMove = function (event) {
+        console.log("swipe-move "+event.side);
+
+    };
+    $scope.swipeEnd = function (event) {
+        console.log("swipe-end "+event.side);
+
+    };
+    $scope.swipeCancel = function (event) {
+        console.log("swipe-cancel "+event.side);
+
+    };
+
+    $scope.scrollStart = function (event) {
+        console.log("scroll-start "+event.side);
+
+    };
+    $scope.scrollPause = function (event) {
+        console.log("scroll-pause "+event.side);
+
+    };
+    $scope.scrollMove = function (event) {
+        console.log("swipe-move "+event.side);
+
+    };
+    $scope.scrollEnd = function (event) {
+        console.log("scroll-end "+event.side);
+
+    };
+    $scope.scrollCancel = function (event) {
+        console.log("scroll-cancel "+event.side);
+
+    };
+
+    $scope.hold = function (event) {
+        console.log("hold "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.tap = function (event) {
+        console.log("tap "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.doubleTap = function (event) {
+        console.log("double-tap "+event.clientX+" "+event.clientY);
+
+    };
+
+    $scope.dragOverEnter = function (event) {
+        console.log("drag-over-enter "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dragOverLeave = function (event) {
+        console.log("drag-over-leave "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dragStart = function (event) {
+        console.log("drag-start "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dragMove = function (event) {
+        console.log("drag-move "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dragEnd = function (event) {
+        console.log("drag-end "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dragCancel = function (event) {
+        console.log("drag-cancel "+event.clientX+" "+event.clientY);
+
+    };
+}
+
+function CalqueCtrl($scope) {
+    $scope.dropOverEnter = function (event) {
+        console.log("drop-over-enter "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dropOverLeave = function (event) {
+        console.log("drop-over-leave "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dropStart = function (event) {
+        console.log("drop-start "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dropMove = function (event) {
+        console.log("drop-move "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dropEnd = function (event) {
+        console.log("drop-end "+event.clientX+" "+event.clientY);
+
+    };
+    $scope.dropCancel = function (event) {
+        console.log("drop-cancel "+event.clientX+" "+event.clientY);
+
+    };
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+
+<ul class="nav nav-pills"  resize-opts="{name:'guider_footer'}">
+	<li>
+		<a class="btn btn-link" ng-click="doubleSetDemo(true)" ng-disabled="isEditFocused">
+			<span style="color: grey;font-size: 50%;">
+			    <span app-version></span><span> {{srvConfig.c4pBuildDate}} {{srvConfig.c4pConfigEnv}}</span>
+			    <span ng-show="srvConfig.c4pConfig.exposeBetaFunctionalities">Beta</span>
+			</span>
+		</a>
+	</li>
+	<li class="pull-right">
+		<a class="btn pull-right" 
+			ng-click="openDialogSendFeedbackReport('Login Feedback')" 
+			ng-hide="isEditFocused" 
+			ng-disabled="isEditFocused"
+			c4p-waiting-click>
+			<span class="c4p-icon-std glyphicon glyphicon-question"></span>
+		</a>
+	</li>
+</ul>
