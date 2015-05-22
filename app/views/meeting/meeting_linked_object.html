@@ -9,7 +9,7 @@
 
         <!-- N+1 object groups -->
         <div ng-class="{'c4p-click-through' : isEditFocused}">
-          <div ng-init="isDraggable = true" ng-include="'partials/navigation/view_n_2_links_list.html'"></div>
+          <div ng-init="isDraggable = true" ng-include="'views/navigation/view_n_2_links_list.html'"></div>
         </div>
 
 <!--
@@ -89,7 +89,7 @@
                         ng-class="{active: (link.item == documentObject)}">
                         <div class="row  {{{true: 'c4p-related-card-item-1st', false: 'c4p-related-card-item-others'}[$first]}}">
                             <div class="col-xxs-11 c4p-related-card-holder">
-                                <span ng-include="'partials/meeting/meeting_draggable_summarized_item.html'"
+                                <span ng-include="'views/meeting/meeting_draggable_summarized_item.html'"
                                       ng-init="item = link.item"></span>
                             </div>
                             <div class="col-xxs-1 c4p-related-card-holder">

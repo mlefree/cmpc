@@ -176,10 +176,11 @@ function ctrlMeetingEmail($scope, $modal, $timeout, $sce, $q, srvData, srvConfig
     };
 
 
-
-
     // INIT
     $scope.initMeetingEmail();
 
 }
-ctrlMeetingEmail.$inject = ['$scope', '$modal', '$timeout', '$sce', '$q', 'srvData', 'srvConfig', 'srvNav', 'srvLocale', 'srvAnalytics', 'srvLog'];
+
+
+angular.module('crtl.meetingEmail', []).controller('ctrlMeetingEmail', ctrlMeetingEmail);
+//ctrlMeetingEmail.$inject = ['$scope', '$modal', '$timeout', '$sce', '$q', 'srvData', 'srvConfig', 'srvNav', 'srvLocale', 'srvAnalytics', 'srvLog'];

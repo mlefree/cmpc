@@ -35,7 +35,6 @@ function ctrlNavObject($scope, srvNav, srvConfig) {
         srvNav.cancelListener($scope.navListener);
     });
 }
-ctrlNavObject.$inject = ['$scope', 'srvNav', 'srvConfig'];
 
-
-
+angular.module('crtl.navObject', []).controller('ctrlNavObject', ctrlNavObject);
+//ctrlNavObject.$inject = ['$scope', 'srvNav', 'srvConfig'];

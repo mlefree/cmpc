@@ -374,7 +374,7 @@ function ctrlDetail($scope, $timeout, $modal, version, srvData, srvFacet, srvLoc
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-dialog',
                 controller: 'ctrlEditDialogObject',
-                templateUrl: 'partials/dialog/edit_object.html',
+                templateUrl: 'views/dialog/edit_object.html',
                 resolve: {
                     srvData: function () {
                         return $scope.srvData;
@@ -589,7 +589,7 @@ function ctrlDetail($scope, $timeout, $modal, version, srvData, srvFacet, srvLoc
                         backdrop: false,
                         windowClass: 'modal c4p-modal-full c4p-dialog',
                         controller: 'ctrlEditDialogObject',
-                        templateUrl: 'partials/dialog/edit_object.html',
+                        templateUrl: 'views/dialog/edit_object.html',
                         resolve: {
                             srvData: function () {
                                 return srvData;
@@ -625,12 +625,12 @@ function ctrlDetail($scope, $timeout, $modal, version, srvData, srvFacet, srvLoc
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () { return srvFacet; };
             resolve.addedOrganizers = function () { return addedOrganizers; };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () { return menus; };
         }
         dialogOptions.resolve = resolve;
@@ -914,4 +914,6 @@ function ctrlDetail($scope, $timeout, $modal, version, srvData, srvFacet, srvLoc
 	}
 	*/
 }
-ctrlDetail.$inject = ['$scope', '$timeout', '$modal', 'version', 'srvData', 'srvFacet', 'srvLocale', 'srvLink', 'srvNav', 'srvConfig'];
+
+angular.module('crtl.detail', []).controller('ctrlDetail', ctrlDetail);
+//ctrlDetail.$inject = ['$scope', '$timeout', '$modal', 'version', 'srvData', 'srvFacet', 'srvLocale', 'srvLink', 'srvNav', 'srvConfig'];

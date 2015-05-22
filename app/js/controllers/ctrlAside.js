@@ -22,7 +22,7 @@ function ctrlAside($scope,$location,$anchorScroll, $timeout, $q, srvFacet, srvLo
     $scope.srvNav = srvNav;
 
     $scope.asideRootMenuUp = true; // ((asideInputs.itemSearchQuery.length == 0) && (srvFacet.filterFacets.length == 0));
-  
+
 
     //$scope.asideSearchScroller = null;
     $scope.asideCategoryName = null;
@@ -86,7 +86,7 @@ function ctrlAside($scope,$location,$anchorScroll, $timeout, $q, srvFacet, srvLo
                         backdrop: false,
                         windowClass: 'modal c4p-modal-small',
                         controller: 'ctrlDialogCreateDocument',
-                        templateUrl: 'partials/dialog/dialogCreateDocument.html',
+                        templateUrl: 'views/dialog/dialogCreateDocument.html',
                         resolve: {
                               srvLocale: function () {return srvLocale;}
                         }
@@ -177,7 +177,7 @@ function ctrlAside($scope,$location,$anchorScroll, $timeout, $q, srvFacet, srvLo
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-modal-image',
                 controller: 'ctrlShowImage',
-                templateUrl: 'partials/dialog/dialogShowImage.html',
+                templateUrl: 'views/dialog/dialogShowImage.html',
                 resolve: {
                     imageData: function () {
                         return srvNav.imageRelatedList;
@@ -274,4 +274,7 @@ function ctrlAside($scope,$location,$anchorScroll, $timeout, $q, srvFacet, srvLo
 
 
 }
-ctrlAside.$inject = ['$scope', '$location','$anchorScroll', '$timeout', '$q', 'srvFacet', 'srvLocale', 'srvData', 'srvAnalytics', 'srvNav', 'version'];
+
+
+angular.module('crtl.aside', []).controller('ctrlAside', ctrlAside);
+//ctrlAside.$inject = ['$scope', '$location','$anchorScroll', '$timeout', '$q', 'srvFacet', 'srvLocale', 'srvData', 'srvAnalytics', 'srvNav', 'version'];

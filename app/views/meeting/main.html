@@ -10,11 +10,11 @@
     <div ng-controller="ctrlEditFocus">
         <div ng-controller="ctrlMeeting" class="c4p-meeting-body" style="height:{{responsivePageHeight()}}px">
 
-            <header ng-include="'partials/meeting/header.html'"></header>
+            <header ng-include="'views/meeting/header.html'"></header>
 
             <aside id="c4p-meeting-side-do-not-use-deprecated"
                   ng-class="{'c4p-meeting-aside-hidden' : !showMeetingAside}"
-                  ng-include="'partials/meeting/meeting_aside.html'">
+                  ng-include="'views/meeting/meeting_aside.html'">
             </aside>
 
             <!-- Email Building @ template-->
@@ -22,10 +22,10 @@
                 ng-if="meetingLaunchEmail"
                 c4p-animateshow="meetingLaunchEmailLoading"
                 after-show="afterMeetingLaunchEmailShow()">
-                <div ng-include="'partials/spinner.html'"></div>
+                <div ng-include="'views/spinner.html'"></div>
             </div>
             <div ng-if="!meetingLaunchEmailLoading" style="display:none;"> <!--   position:absolute;top:100px;left:200px;;z-index:1300; -->
-              <div ng-include="'partials/email/meeting.html'"></div>
+              <div ng-include="'views/email/meeting.html'"></div>
             </div>
 
 
@@ -34,7 +34,7 @@
                 c4p-animateshow="meetingLoadingSpinner"
                 after-hide="afterMeetingSpinnerHide()"
                 after-show="afterMeetingSpinnerShow()">
-                <div ng-include="'partials/spinner.html'"></div>
+                <div ng-include="'views/spinner.html'"></div>
             </div>
 
             <div ng-controller="ctrlViewer" ng-if="!meetingLoadingSpinner">

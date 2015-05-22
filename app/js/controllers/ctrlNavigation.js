@@ -1,6 +1,6 @@
 
 
-function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll, $http, $modal, $sce, version,
+function ctrlNavigation($scope, $q, $timeout, $location, $window, $anchorScroll, $http, $modal, $sce, version,
                         srvLoad, srvLocalStorage, srvFileStorage, srvAnalytics, srvConfig,
                         srvLog, srvLocale, srvData, srvRunning, srvSecurity,
                         srvSynchro, srvQueue, cordovaReady, srvLink, srvNav, srvGuider, srvFacet, srvOpenUrl) {
@@ -169,8 +169,8 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
      * Asynchronous initialization of this controller
      * @returns {promise} Return the promise which will be resolved upon end of initialization
      */
-    $scope.initNavigationCtrl = function() {
-        a4p.InternalLog.log('navigationCtrl', 'init() launched by AngularJS');
+    $scope.initctrlNavigation = function() {
+        a4p.InternalLog.log('ctrlNavigation', 'init() launched by AngularJS');
         var deferred = $q.defer();
 
         // Prevent multiple calls to this function
@@ -185,7 +185,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
 
         // We must wait for dom, cache & cordova ready before initializing this controller because cache can provoque a document.reload()
         var startApplication = function() {
-            a4p.InternalLog.log('navigationCtrl', 'startApplication() launched by cordovaReady');
+            a4p.InternalLog.log('ctrlNavigation', 'startApplication() launched by cordovaReady');
             var msg = "Initializing Local Storage ...";	// cannot use srvLocale, not already loaded.
 
             a4p.safeApply($scope, function() {
@@ -510,7 +510,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                     backdrop: false,
                     windowClass: 'modal c4p-modal-small c4p-modal-goto-meeting',
                     controller: 'ctrlGoToMeetingDialog',
-                    templateUrl: 'partials/dialog/dialogGoToMeeting.html',
+                    templateUrl: 'views/dialog/dialogGoToMeeting.html',
                     resolve: {
                         item: function() {
                             return item;
@@ -1612,7 +1612,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-modal-confirm',
                 controller: 'ctrlDialogConfirm',
-                templateUrl: 'partials/dialog/confirm.html',
+                templateUrl: 'views/dialog/confirm.html',
                 resolve: {
                     text: function () {
                         return text;
@@ -1639,7 +1639,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-modal-confirm',
                 controller: 'ctrlInitDialogPinCode',
-                templateUrl: 'partials/dialog/pin_init.html',
+                templateUrl: 'views/dialog/pin_init.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -1659,7 +1659,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-modal-confirm',
                 controller: 'ctrlModifyDialogPinCode',
-                templateUrl: 'partials/dialog/pin_modify.html',
+                templateUrl: 'views/dialog/pin_modify.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -1684,7 +1684,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-modal-confirm',
                 controller: 'ctrlOpenDialogLocked',
-                templateUrl: 'partials/dialog/pin_locked.html',
+                templateUrl: 'views/dialog/pin_locked.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -1711,7 +1711,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: true,
                 windowClass: 'modal c4p-modal-full c4p-modal-confirm',
                 controller: 'ctrlDialogConfirm',
-                templateUrl: 'partials/dialog/message.html',
+                templateUrl: 'views/dialog/message.html',
                 resolve: {
                     text: function () {
                         return text;
@@ -1736,7 +1736,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-modal-image',
                 controller: 'ctrlShowImage',
-                templateUrl: 'partials/dialog/dialogShowImage.html',
+                templateUrl: 'views/dialog/dialogShowImage.html',
                 resolve: {
                     imageData: function() {
                         return imageObject;
@@ -1754,7 +1754,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-large c4p-dialog',
                 controller: 'ctrlEditDialogObject',
-                templateUrl: 'partials/dialog/edit_object.html',
+                templateUrl: 'views/dialog/edit_object.html',
                 resolve: {
                     srvData: function () {
                         return srvData;
@@ -1848,7 +1848,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop : false,
                 windowClass: 'modal c4p-modal-large c4p-dialog',
                 controller: 'ctrlEditDialogNote',
-                templateUrl: 'partials/dialog/dialogNote.html',
+                templateUrl: 'views/dialog/dialogNote.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -1951,7 +1951,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop : false,
                 windowClass: 'modal c4p-modal-large c4p-dialog',
                 controller: 'ctrlEditDialogNote',
-                templateUrl: 'partials/dialog/dialogNote.html',
+                templateUrl: 'views/dialog/dialogNote.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -2038,7 +2038,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-large c4p-dialog',
                 controller: 'ctrlEditDialogFeedback',
-                templateUrl: 'partials/dialog/dialogFeedback.html',
+                templateUrl: 'views/dialog/dialogFeedback.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -2315,7 +2315,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-modal-mail c4p-dialog',
                 controller: 'ctrlEditDialogEmail',
-                templateUrl: 'partials/dialog/dialogEmail.html',
+                templateUrl: 'views/dialog/dialogEmail.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -2391,7 +2391,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-large c4p-modal-mail c4p-dialog',
                 controller: 'ctrlEditDialogEmail',
-                templateUrl: 'partials/dialog/dialogEmailV2.html',
+                templateUrl: 'views/dialog/dialogEmailV2.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -2476,7 +2476,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-modal-mail c4p-dialog',
                 controller: 'ctrlEditDialogFeed',
-                templateUrl: 'partials/dialog/dialogFeed.html',
+                templateUrl: 'views/dialog/dialogFeed.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -2530,7 +2530,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
         var dialogOptions = {
             backdrop: false,
             controller: 'ctrlEditDialogEmail',
-            templateUrl: 'partials/dialog/dialogEmail.html'
+            templateUrl: 'views/dialog/dialogEmail.html'
         };
         var title;
         if (item.email.emailType == 'share') {
@@ -2614,7 +2614,7 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
                 backdrop : false,
                 windowClass: 'modal c4p-modal-large c4p-dialog',
                 controller: 'ctrlEditDialogNote',
-                templateUrl: 'partials/dialog/dialogNote.html',
+                templateUrl: 'views/dialog/dialogNote.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -2771,13 +2771,13 @@ function navigationCtrl($scope, $q, $timeout, $location, $window, $anchorScroll,
     // Initialization
     // ------------------------
 
-    $scope.initNavigationCtrl();
+    $scope.initctrlNavigation();
 
 }
 
 
-
-navigationCtrl.$inject = ['$scope', '$q', '$timeout', '$location', '$window', '$anchorScroll', '$http', '$modal', '$sce' , 'version',
-    'srvLoad', 'srvLocalStorage', 'srvFileStorage', 'srvAnalytics', 'srvConfig',
-    'srvLog', 'srvLocale', 'srvData', 'srvRunning', 'srvSecurity',
-    'srvSynchro', 'srvQueue', 'cordovaReady', 'srvLink', 'srvNav', 'srvGuider', 'srvFacet', 'srvOpenUrl'];
+angular.module('crtl.navigation', []).controller('ctrlNavigation', ctrlNavigation);
+//ctrlNavigation.$inject = ['$scope', '$q', '$timeout', '$location', '$window', '$anchorScroll', '$http', '$modal', '$sce' , 'version',
+//    'srvLoad', 'srvLocalStorage', 'srvFileStorage', 'srvAnalytics', 'srvConfig',
+//    'srvLog', 'srvLocale', 'srvData', 'srvRunning', 'srvSecurity',
+//    'srvSynchro', 'srvQueue', 'cordovaReady', 'srvLink', 'srvNav', 'srvGuider', 'srvFacet', 'srvOpenUrl'];

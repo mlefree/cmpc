@@ -461,7 +461,7 @@ describe('Demo Visitor', function () {
 //                    // action
 //                	element(c4p.E2e.linkModalSubmit).click();
 //                    // checks
-//                    expect(element('div[ng-include="\'partials/meeting/index.html\'"]').count()).toBe(1);
+//                    expect(element('div[ng-include="\'views/meeting/index.html\'"]').count()).toBe(1);
 //                    expect(element('.c4p-n-title').text()).toMatch('TestAddEvent');
 //                });
 //

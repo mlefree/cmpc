@@ -1,6 +1,6 @@
 
 // Declare app level module which depends on filters, and services
-angular.module('myAngularApp.config', [])
+angular.module('c4p.config', [])
 
 .constant('appName', 'Cleanator MayBib')
 .constant('appVersion', '15.05.12')

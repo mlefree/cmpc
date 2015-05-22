@@ -17,7 +17,7 @@
             class="col-xxs-12 c4p-height-full"
              ng-style="{width:(responsiveAsideWidth()+ responsiveToolbarWidth())+'px'}"
              resize-opts="{name:'navigation_ctrlAside'}"
-             ng-include="'partials/navigation/aside_root.html'">
+             ng-include="'views/navigation/aside_root.html'">
         </div>
     </div>
 
@@ -29,7 +29,7 @@
              class="c4p-click-intercepted"
              ng-style="{height:(responsivePageHeight() - 44)+'px', width:responsiveAsideWidth()+'px'}"
              style="position: relative;" >
-             <div ng-include="'partials/navigation/aside_search.html'"></div>
+             <div ng-include="'views/navigation/aside_search.html'"></div>
         </div>
     </div>
 
@@ -50,7 +50,7 @@
                      ng-style="{height:(responsivePageHeight() - 44)+'px', width:responsiveAsideWidth()+'px'}"
                      resize-opts="{name:'navigation_translucent'}"
                      ontouchstart="a4pBlockMove(event)">
-                    <div ng-include="'partials/navigation/translucent_panel.html'">
+                    <div ng-include="'views/navigation/translucent_panel.html'">
                     </div>
                 </div>
 
@@ -58,19 +58,19 @@
                     <div ng-switch on="getSlideFromNavIndex()">
                         <div ng-switch-when="config">
                             <div ng-controller="ctrlConfig"
-                                 ng-include="'partials/navigation/config.html'"
+                                 ng-include="'views/navigation/config.html'"
                                  ng-style="{width:(responsiveMainWidth() + (!responsiveIsOnePageFormat() * responsiveRelatedWidth()))+'px'}">
                             </div>
                         </div>
                         <div ng-switch-when="calendar">
                             <div ng-controller="ctrlCalendar"
-                                 ng-include="'partials/navigation/calendar.html'"
+                                 ng-include="'views/navigation/calendar.html'"
                                  ng-style="{width:(responsiveMainWidth() + (!responsiveIsOnePageFormat() * responsiveRelatedWidth()))+'px'}">
                             </div>
                         </div>
                         <div ng-switch-default>
                             <div ng-controller="ctrlDetail"
-                                 ng-include="'partials/navigation/view_n.html'"
+                                 ng-include="'views/navigation/view_n.html'"
                                  ng-style="{width:(responsiveDetailWidth() + responsiveRelatedWidth())+'px'}">
                             </div>
                         </div>

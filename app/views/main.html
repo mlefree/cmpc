@@ -12,20 +12,20 @@
       resize-opts="{name:'a4pBody'}"
       resize-beforewindow="responsiveBeforeWindowSizeChanged()">
 
-      <div ng-controller="navigationCtrl"> <!--  ng-init="initNavigationCtrl()" -->
+      <div ng-controller="ctrlNavigation"> <!--  ng-init="initctrlNavigation()" -->
 
         <div ng-if="!respIsComputing">
-          <div class="container" ng-class="{'c4p-backdrop-blur':isBlurOn}" ng-switch="page">
+          <div class="container" ng-class="{'c4p-backdrop-blur':isBlurOn}" ng-switch="getPage()">
 
-            <div class="row" ng-switch-when="navigation"><div ng-include="'partials/navigation/main.html'"></div></div>
-            <div class="row" ng-switch-when="guider"><div ng-include="'partials/guider/main.html'" ></div></div>
-            <div class="row" ng-switch-when="meeting"><div ng-include="'partials/meeting/main.html'" ></div></div>
-            <div class="row" ng-switch-when="timeline"><div ng-include="'partials/timeline/main.html'" ></div></div>
+            <div class="row" ng-switch-when="navigation"><div ng-include="'views/navigation/main.html'"></div></div>
+            <div class="row" ng-switch-when="guider"><div ng-include="'views/guider/main.html'" ></div></div>
+            <div class="row" ng-switch-when="meeting"><div ng-include="'views/meeting/main.html'" ></div></div>
+            <div class="row" ng-switch-when="timeline"><div ng-include="'views/timeline/main.html'" ></div></div>
             <div ng-switch-default>
               <h5 style="color: gray; text-align: center; opacity:0.2;">...</h5>
             </div>
 
-            <!--<div class="row"><div ng-include="'partials/meeting/main.html'" ></div></div>-->
+            <!--<div class="row"><div ng-include="'views/meeting/main.html'" ></div></div>-->
 
           </div>
 
@@ -34,7 +34,7 @@
           <c4p-spinner id="c4p-waiting-spinner"
               ng-show="isSpinnerActive || !respIsReady"
               class="c4p-waiting c4p-waiting-black c4p-click-intercepted">
-            <div ng-include="'partials/spinner.html'"></div>
+            <div ng-include="'views/spinner.html'"></div>
           </c4p-spinner>
 
         </div>

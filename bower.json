@@ -10,6 +10,7 @@
     "angular-route": "^1.3.x",
     "angular-loader": "^1.3.x",
     "angular-gestures": "^0.2.x",
+    "angular-md5": "^0.1.x",
     "bootstrap": "^3.3.x",
     "jquery": "^1.9.x",
     "angular-touch": "^1.3.x",
@@ -18,7 +19,11 @@
     "angular-animate": "^1.3.x",
     "angular-cookies": "^1.3.x",
     "angular-sanitize": "^1.3.x",
-    "angular-chart.js": "^0.3.x"
+    "angular-chart.js": "^0.3.x",
+    "angular-bootstrap": "^0.13.x",
+    "noty":"^2.3.x",
+    "autosize":"^3.0.x",
+    "popcircle":"^1.0.x"
   },
   "devDependencies": {
     "pouchdb": "^3.3.x",

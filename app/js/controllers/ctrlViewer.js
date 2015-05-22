@@ -179,4 +179,7 @@ function ctrlViewer($scope, srvData, srvNav, srvLocale) {
     };
 
 }
-ctrlViewer.$inject = ['$scope', 'srvData', 'srvNav', 'srvLocale'];
+
+
+angular.module('crtl.viewer', []).controller('ctrlViewer', ctrlViewer);
+//ctrlViewer.$inject = ['$scope', 'srvData', 'srvNav', 'srvLocale'];

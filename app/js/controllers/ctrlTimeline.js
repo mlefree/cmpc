@@ -141,4 +141,7 @@ function ctrlTimeline($scope, srvData, version) {
     $scope.initTimeline();
 
 };
-ctrlTimeline.$inject = ['$scope','srvData','version'];
+
+
+angular.module('crtl.timeline', []).controller('ctrlTimeline', ctrlTimeline);
+//ctrlTimeline.$inject = ['$scope','srvData','version'];

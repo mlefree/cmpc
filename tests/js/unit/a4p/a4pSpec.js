@@ -2657,7 +2657,7 @@ describe('a4p', function () {
                 runs(function () {
                     end = false;
                     error = null;
-                    // Pictures taken in NavigationCtrl or MeetingCtrl during controllerSpec.js tests
+                    // Pictures taken in ctrlNavigation or MeetingCtrl during controllerSpec.js tests
                     fs.deleteFullDir('/a4p/c4p', function () {
                         end = true;
                     }, function (message) {

@@ -24,5 +24,6 @@ function ctrlDetailLink($scope, srvData, srvLocale, srvNav) {
         }
    	};
 }
-ctrlDetailLink.$inject = ['$scope', 'srvData', 'srvLocale', 'srvNav'];
 
+angular.module('crtl.detailLink', []).controller('ctrlDetailLink', ctrlDetailLink);
+//ctrlDetailLink.$inject = ['$scope', 'srvData', 'srvLocale', 'srvNav'];

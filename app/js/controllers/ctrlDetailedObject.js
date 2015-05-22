@@ -356,4 +356,5 @@ function ctrlDetailedObject($scope, $sce, srvLocale, srvData, srvNav, srvLink, s
     // }
 }
 
-ctrlDetailedObject.$inject = ['$scope', '$sce', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig', 'srvAnalytics'];
+angular.module('crtl.detailedObject', []).controller('ctrlDetailedObject', ctrlDetailedObject);
+//ctrlDetailedObject.$inject = ['$scope', '$sce', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig', 'srvAnalytics'];

@@ -561,7 +561,7 @@ function ctrlCalendar($scope, $timeout, version, srvAnalytics, srvLocale, srvTim
                     backdrop: true,
                     windowClass: 'modal c4p-modal-large c4p-dialog',
                     controller: 'ctrlDialogCalendarDay',
-                    templateUrl: 'partials/dialog/dialogCalendarDay.html',
+                    templateUrl: 'views/dialog/dialogCalendarDay.html',
                     resolve: {
                         srvLocale: function () {
                             return $scope.srvLocale;
@@ -768,7 +768,7 @@ function ctrlCalendar($scope, $timeout, version, srvAnalytics, srvLocale, srvTim
                     backdrop: false,
                     windowClass: 'modal c4p-modal-large c4p-dialog',
                     controller: 'ctrlEditDialogObject',
-                    templateUrl: 'partials/dialog/edit_object.html',
+                    templateUrl: 'views/dialog/edit_object.html',
                     resolve: {
                         srvData: function () {
                             return $scope.srvData;
@@ -903,4 +903,5 @@ function ctrlCalendar($scope, $timeout, version, srvAnalytics, srvLocale, srvTim
 
 }
 
-ctrlCalendar.$inject = ['$scope','$timeout', 'version', 'srvAnalytics', 'srvLocale', 'srvTime', 'srvConfig'];
+angular.module('crtl.calendar', []).controller('ctrlCalendar', ctrlCalendar);
+//ctrlCalendar.$inject = ['$scope','$timeout', 'version', 'srvAnalytics', 'srvLocale', 'srvTime', 'srvConfig'];

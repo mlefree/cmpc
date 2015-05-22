@@ -49,8 +49,7 @@ function ctrlDetailLinkedObjects($scope, $timeout, srvFacet, srvLocale, srvData,
       }
     });
 
-
-
-
 }
-ctrlDetailLinkedObjects.$inject = ['$scope', '$timeout', 'srvFacet', 'srvLocale', 'srvData', 'srvNav', 'version'];
+
+angular.module('crtl.detailLinkedObjects', []).controller('ctrlDetailLinkedObjects', ctrlDetailLinkedObjects);
+//ctrlDetailLinkedObjects.$inject = ['$scope', '$timeout', 'srvFacet', 'srvLocale', 'srvData', 'srvNav', 'version'];

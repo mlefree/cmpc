@@ -84,10 +84,12 @@ function ctrlMeetingRemoveDrop($scope, srvLocale, srvData, srvNav, srvLink, srvC
         // remove the attendee from meeting
         a4p.safeApply($scope, function() {
           $scope.removeMeetingAttendee(obj);
-        });  
+        });
       }
     };
 
 
 }
-ctrlMeetingRemoveDrop.$inject = ['$scope', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig'];
+
+angular.module('crtl.meetingRemoveDrop', []).controller('ctrlMeetingRemoveDrop', ctrlMeetingRemoveDrop);
+//ctrlMeetingRemoveDrop.$inject = ['$scope', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig'];

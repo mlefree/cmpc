@@ -126,7 +126,7 @@
                                             <span ng-switch-when="time"><span>{{srvLocale.formatDate(item, 'shortTime')}}</span></span>
                                             <span ng-switch-when="number"><span>{{item | c4pNumber}}</span></span>
                                             <span ng-switch-when="rating"><span
-                                                    ng-include="'partials/navigation/cards/4_rating_ro2.html'"
+                                                    ng-include="'views/navigation/cards/4_rating_ro2.html'"
                                                     style="padding:0 10px;"></span></span>
                                             <span ng-switch-default><span>{{item}}</span></span>
                                         </span>
@@ -150,7 +150,7 @@
                                         <span ng-switch-when="time"><span>{{srvLocale.formatDate(field.value, 'shortTime')}}</span></span>
                                         <span ng-switch-when="number"><span>{{field.value | c4pNumber}}</span></span>
                                         <span ng-switch-when="rating"><span ng-init="item = field.value"
-                                                                            ng-include="'partials/navigation/cards/4_rating_ro2.html'"
+                                                                            ng-include="'views/navigation/cards/4_rating_ro2.html'"
                                                                             style="padding:0 10px;"></span></span>
                                         <span ng-switch-default><span>{{field.value}}</span></span>
                                     </span>

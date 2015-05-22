@@ -204,7 +204,7 @@ function ctrlQuickEditDialogObject($scope, $location, $anchorScroll, srvData, sr
                 backdrop: true,
                 windowClass: 'modal c4p-modal-full c4p-modal-confirm',
                 controller: 'ctrlDialogConfirm',
-                templateUrl: 'partials/dialog/message.html',
+                templateUrl: 'views/dialog/message.html',
                 resolve: {
                     text: function () {
                         return srvLocale.translations.htmlMsgObjectInvalid;
@@ -336,7 +336,7 @@ function ctrlQuickEditDialogObject($scope, $location, $anchorScroll, srvData, sr
         $scope.openDialogFct({
                 windowClass: 'modal c4p-modal-full c4p-modal-confirm',
                 controller: 'ctrlDialogConfirm',
-                templateUrl: 'partials/dialog/confirm.html',
+                templateUrl: 'views/dialog/confirm.html',
                 resolve: {
                     text: function () {
                         return text;
@@ -739,7 +739,7 @@ function ctrlQuickEditDialogObject($scope, $location, $anchorScroll, srvData, sr
                         backdrop: true,
                         windowClass: 'modal c4p-modal-left c4p-modal-search',
                         controller: 'ctrlAddAccount',
-                        templateUrl: 'partials/dialog/dialogAddAccount.html',
+                        templateUrl: 'views/dialog/dialogAddAccount.html',
                         resolve: {
                             srvLocale: function () {
                                 return $scope.srvLocale;
@@ -865,7 +865,7 @@ function ctrlQuickEditDialogObject($scope, $location, $anchorScroll, srvData, sr
                                 backdrop: true,
                                 windowClass: 'modal c4p-modal-left c4p-modal-search',
                                 controller: 'ctrlAddEvent',
-                                templateUrl: 'partials/dialog/dialogAddEvent.html',
+                                templateUrl: 'views/dialog/dialogAddEvent.html',
                                 resolve: {
                                     srvLocale: function () {
                                         return $scope.srvLocale;

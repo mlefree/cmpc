@@ -27,4 +27,7 @@ function ctrlSingleTap($scope) {
     };
 
 }
-ctrlSingleTap.$inject = ['$scope'];
+
+
+angular.module('crtl.singleTap', []).controller('ctrlSingleTap', ctrlSingleTap);
+//ctrlSingleTap.$inject = ['$scope'];

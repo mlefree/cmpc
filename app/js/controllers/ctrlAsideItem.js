@@ -66,4 +66,7 @@ function ctrlAsideItem($scope, srvLocale, srvData, srvNav, srvLink, srvConfig) {
     //     });
     // };
 }
-ctrlAsideItem.$inject = ['$scope', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig'];
+
+
+angular.module('crtl.asideItem', []).controller('ctrlAsideItem', ctrlAsideItem);
+//ctrlAsideItem.$inject = ['$scope', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig'];

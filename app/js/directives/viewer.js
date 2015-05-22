@@ -53,10 +53,10 @@ angular.module('c4p.viewer', [])
                                     domStr = '<img src="'+ value.fileUrl +'"/>';
                                     break;
                                 case 'note':
-                                    domStr = $compile('<div ng-include="\'partials/meeting/meeting_viewer_note.html\'"></div>') (scope);
+                                    domStr = $compile('<div ng-include="\'views/meeting/meeting_viewer_note.html\'"></div>') (scope);
                                     break;
                                 case 'report':
-                                    domStr = $compile('<div ng-include="\'partials/meeting/meeting_viewer_report.html\'"></div>') (scope);
+                                    domStr = $compile('<div ng-include="\'views/meeting/meeting_viewer_report.html\'"></div>') (scope);
                                     break;
                                 default:
                                 //do nothing;

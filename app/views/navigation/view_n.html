@@ -24,11 +24,11 @@
                 c4p-animateshow="detailLoadingSpinner"
                 after-hide="afterDetailSpinnerHide()"
                 after-show="afterDetailSpinnerShow()">
-                <div ng-include="'partials/spinner.html'"></div>
+                <div ng-include="'views/spinner.html'"></div>
             </div>
 
             <div ng-if="!detailLoadingSpinner">
-                <div ng-include="'partials/navigation/view_n_1.html'"></div>
+                <div ng-include="'views/navigation/view_n_1.html'"></div>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
              ng-style="{width:responsiveRelatedWidth()+'px'}"
              resize-opts="{name:'navigation_view_links'}">
 
-            <div ng-include="'partials/navigation/view_n_2.html'"></div>
+            <div ng-include="'views/navigation/view_n_2.html'"></div>
         </div>
 
 </div>

@@ -1,0 +1,709 @@
+
+
+
+{
+  "json": [
+    {
+      "a4p_type": "Contact",
+      "id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "salutation": "Mr.",
+      "first_name": "User",
+      "last_name": "mat",
+      "title": "",
+      "account_id": {},
+      "phone_work": "",
+      "phone_mobile": "",
+      "phone_fax": "",
+      "phone_house": "",
+      "phone_other": "",
+      "email": "mat@apps4pro.com",
+      "email_home": "",
+      "email_list": "",
+      "email_other": "",
+      "primary_address_street": "",
+      "primary_address_city": "",
+      "primary_address_zipcode": "",
+      "primary_address_state": "",
+      "primary_address_country": "",
+      "alt_address_street": "",
+      "alt_address_city": "",
+      "alt_address_zipcode": "",
+      "alt_address_state": "",
+      "alt_address_country": "",
+      "description": "",
+      "manager_id": {},
+      "contact_type": "User",
+      "assigned_contact_id": {},
+      "birthday": "",
+      "department": "",
+      "assistant_name": "",
+      "assistant_phone": "",
+      "lead_source": "Direct contact",
+      "created_by_id": {},
+      "created_date": "2014-07-18 12:25:19",
+      "last_modified_by_id": {},
+      "last_modified_date": "2014-07-18 12:25:19"
+    },
+    {
+      "a4p_type": "Contact",
+      "id": {
+        "dbid": "Contact-00E",
+        "c4p_id": "53c912366c7de0.02637271"
+      },
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      },
+      "salutation": "Mr.",
+      "first_name": "myfirst",
+      "last_name": "Contact",
+      "title": "",
+      "account_id": {},
+      "phone_work": "",
+      "phone_mobile": "",
+      "phone_fax": "",
+      "phone_house": "",
+      "phone_other": "",
+      "email": "myfirst.contact@test.com",
+      "email_home": "",
+      "email_list": "",
+      "email_other": "",
+      "primary_address_street": "",
+      "primary_address_city": "",
+      "primary_address_zipcode": "",
+      "primary_address_state": "",
+      "primary_address_country": "",
+      "alt_address_street": "",
+      "alt_address_city": "",
+      "alt_address_zipcode": "",
+      "alt_address_state": "",
+      "alt_address_country": "",
+      "description": "",
+      "manager_id": {},
+      "contact_type": "Contact",
+      "assigned_contact_id": {},
+      "birthday": "",
+      "department": "",
+      "assistant_name": "",
+      "assistant_phone": "",
+      "lead_source": "Direct contact",
+      "created_by_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "created_date": "2014-07-18 14:25:23",
+      "last_modified_by_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "last_modified_date": "2014-07-18 14:25:23",
+      "thumb_url": "l4p/img/default_thumb_contact.png"
+    },
+    {
+      "a4p_type": "Contact",
+      "id": {
+        "dbid": "Contact-00G",
+        "c4p_id": "53c91247a7bd66.38632705"
+      },
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      },
+      "salutation": "Mr.",
+      "first_name": "mysecond",
+      "last_name": "contact",
+      "title": "",
+      "account_id": {},
+      "phone_work": "",
+      "phone_mobile": "",
+      "phone_fax": "",
+      "phone_house": "",
+      "phone_other": "",
+      "email": "mysecond.contact@test.com",
+      "email_home": "",
+      "email_list": "",
+      "email_other": "",
+      "primary_address_street": "",
+      "primary_address_city": "",
+      "primary_address_zipcode": "",
+      "primary_address_state": "",
+      "primary_address_country": "",
+      "alt_address_street": "",
+      "alt_address_city": "",
+      "alt_address_zipcode": "",
+      "alt_address_state": "",
+      "alt_address_country": "",
+      "description": "",
+      "manager_id": {},
+      "contact_type": "Contact",
+      "assigned_contact_id": {},
+      "birthday": "",
+      "department": "",
+      "assistant_name": "",
+      "assistant_phone": "",
+      "lead_source": "Direct contact",
+      "created_by_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "created_date": "2014-07-18 14:25:41",
+      "last_modified_by_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "last_modified_date": "2014-07-18 14:25:41",
+      "thumb_url": "l4p/img/default_thumb_contact.png"
+    }
+  ]
+}
+{
+  "json": [
+    {
+      "name": "my_first_meeting_20140718_142445.png",
+      "body": "",
+      "length": "0",
+      "path": "a4p/c4p/doc",
+      "description": " ",
+      "uid": "pict_my_first_meeting_20140718_142445",
+      "url": "filesystem:http://localhost:8000/persistent/a4p/c4p/doc/my_first_meeting_20140718_142445.png",
+      "fileUrl": "filesystem:http://localhost:8000/persistent/a4p/c4p/doc/my_first_meeting_20140718_142445.png",
+      "src": "filesystem:http://localhost:8000/persistent/a4p/c4p/doc/my_first_meeting_20140718_142445.png",
+      "filePath": "a4p/c4p/doc/my_first_meeting_20140718_142445.png",
+      "a4p_type": "Document",
+      "id": {
+        "dbid": "Document-00C",
+        "c4p_id": "53c9120e565cb7.07056163"
+      },
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      },
+      "document_type": "Attachment",
+      "mimetype": "image/png",
+      "fileSize": "",
+      "extension": "png",
+      "rootname": "my_first_meeting_20140718_142445",
+      "parent_id": {
+        "dbid": "Event-005",
+        "c4p_id": "53c8fc0a625a35.45645887"
+      },
+      "owner_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "created_by_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "created_date": "2014-07-18 14:24:46",
+      "last_modified_by_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "last_modified_date": "2014-07-18 14:24:46",
+      "thumb_url": "filesystem:http://localhost:8000/persistent/a4p/c4p/doc/my_first_meeting_20140718_142445.png",
+      "type": "image/png",
+      "size": 6736,
+      "dirPath": "/var/lib/jenkins/jobs/local-c4p/workspace/c4p_server/www/a4p/c4p/doc/2a9b3f635526598f888da8a3a8d69ac5",
+      "rootName": "Document-00C",
+      "fullPath": "/var/lib/jenkins/jobs/local-c4p/workspace/c4p_server/www/a4p/c4p/doc/2a9b3f635526598f888da8a3a8d69ac5/Document-00C.png",
+      "md5": "edb1be3d9890e04ab48b12c981b63eeb"
+    },
+    {
+      "name": "my_first_meeting_20140718_142713.png",
+      "body": "",
+      "length": "0",
+      "path": "a4p/c4p/doc",
+      "description": " ",
+      "uid": "pict_my_first_meeting_20140718_142713",
+      "url": "filesystem:http://localhost:8000/persistent/a4p/c4p/doc/my_first_meeting_20140718_142713.png",
+      "fileUrl": "filesystem:http://localhost:8000/persistent/a4p/c4p/doc/my_first_meeting_20140718_142713.png",
+      "src": "filesystem:http://localhost:8000/persistent/a4p/c4p/doc/my_first_meeting_20140718_142713.png",
+      "filePath": "a4p/c4p/doc/my_first_meeting_20140718_142713.png",
+      "a4p_type": "Document",
+      "id": {
+        "dbid": "Document-00I",
+        "c4p_id": "53c912a1462980.05467835"
+      },
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 2,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      },
+      "document_type": "Attachment",
+      "mimetype": "image/png",
+      "fileSize": "",
+      "extension": "png",
+      "rootname": "my_first_meeting_20140718_142713",
+      "parent_id": {
+        "dbid": "Event-005",
+        "c4p_id": "53c8fc0a625a35.45645887"
+      },
+      "owner_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "created_by_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "created_date": "2014-07-18 14:27:13",
+      "last_modified_by_id": {
+        "dbid": "Contact-001",
+        "c4p_id": "53c8f6100825b0.98022407"
+      },
+      "last_modified_date": "2014-07-18 14:27:13",
+      "thumb_url": "filesystem:http://localhost:8000/persistent/a4p/c4p/doc/my_first_meeting_20140718_142713.png",
+      "type": "image/png",
+      "size": 6736,
+      "dirPath": "/var/lib/jenkins/jobs/local-c4p/workspace/c4p_server/www/a4p/c4p/doc/2a9b3f635526598f888da8a3a8d69ac5",
+      "rootName": "Document-00I",
+      "fullPath": "/var/lib/jenkins/jobs/local-c4p/workspace/c4p_server/www/a4p/c4p/doc/2a9b3f635526598f888da8a3a8d69ac5/Document-00I.png",
+      "md5": "edb1be3d9890e04ab48b12c981b63eeb"
+    }
+  ]
+}
+{
+  "json": [
+    {
+      "a4p_type": "Event",
+      "id": {
+        "dbid": "Event-005",
+        "c4p_id": "53c8fc0a625a35.45645887"
+      },
+      "name": "My First Meeting",
+      "location": "at home",
+      "date_start": "2014-07-18 15:50:00",
+      "date_end": "2014-07-18 16:50:00",
+      "duration_hours": 1,
+      "duration_minutes": 0,
+      "description": "",
+      "what_id": {},
+      "owner_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "assigned_contact_id": {},
+      "created_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_date": "2014-07-18 12:50:27",
+      "last_modified_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "last_modified_date": "2014-07-18 12:50:27"
+    }
+  ]
+}
+{
+  "json": [
+    {
+      "parent_id": {
+        "c4p_id": "53c8fc0a625a35.45645887",
+        "dbid": "Event-005"
+      },
+      "title": "Meeting Pad",
+      "editor_type": "Table",
+      "a4p_type": "Plan",
+      "id": {
+        "dbid": "Plan-006",
+        "c4p_id": "53c8fdbd224800.49724125"
+      },
+      "pos": "0",
+      "viewer_type": "",
+      "owner_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_date": "2014-07-18 12:55:59",
+      "last_modified_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "last_modified_date": "2014-07-18 12:55:59",
+      "thumb_url": "l4p/img/default_logo_unknown.png",
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      }
+    },
+    {
+      "parent_id": {
+        "c4p_id": "53c8fc0a625a35.45645887",
+        "dbid": "Event-005"
+      },
+      "title": "My first sample",
+      "a4p_type": "Plan",
+      "id": {
+        "dbid": "Plan-007",
+        "c4p_id": "53c8fdbde05d37.07871280"
+      },
+      "pos": "1",
+      "viewer_type": "",
+      "editor_type": "",
+      "owner_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_date": "2014-07-18 12:56:20",
+      "last_modified_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "last_modified_date": "2014-07-18 12:56:20",
+      "thumb_url": "l4p/img/default_logo_unknown.png",
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      }
+    },
+    {
+      "parent_id": {
+        "c4p_id": "53c8fc0a625a35.45645887",
+        "dbid": "Event-005"
+      },
+      "title": "To finish",
+      "a4p_type": "Plan",
+      "id": {
+        "dbid": "Plan-008",
+        "c4p_id": "53c8fdbea2b231.95070039"
+      },
+      "pos": "2",
+      "viewer_type": "",
+      "editor_type": "",
+      "owner_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_date": "2014-07-18 12:56:58",
+      "last_modified_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "last_modified_date": "2014-07-18 12:56:58",
+      "thumb_url": "l4p/img/default_logo_unknown.png",
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      }
+    }
+  ]
+}
+{
+  "json": [
+    {
+      "a4p_type": "Plannee",
+      "parent_id": {
+        "c4p_id": "53c8fdbd224800.49724125",
+        "dbid": "Plan-006"
+      },
+      "object_id": {},
+      "id": {
+        "dbid": "Plannee-009",
+        "c4p_id": "53c8fdbd6059a8.76640246"
+      },
+      "thumb_url": "l4p/img/default_logo_unknown.png",
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      }
+    },
+    {
+      "a4p_type": "Plannee",
+      "parent_id": {
+        "c4p_id": "53c8fdbde05d37.07871280",
+        "dbid": "Plan-007"
+      },
+      "object_id": {
+        "c4p_id": "53c8fd54ee5123.57451312",
+        "dbid": "Note-002"
+      },
+      "id": {
+        "dbid": "Plannee-00A",
+        "c4p_id": "53c8fdbe487533.60749641"
+      },
+      "thumb_url": "l4p/img/default_logo_unknown.png",
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      }
+    },
+    {
+      "a4p_type": "Plannee",
+      "parent_id": {
+        "c4p_id": "53c8fdbea2b231.95070039",
+        "dbid": "Plan-008"
+      },
+      "object_id": {
+        "c4p_id": "53c8fd7ac04428.03342105",
+        "dbid": "Note-003"
+      },
+      "id": {
+        "dbid": "Plannee-00B",
+        "c4p_id": "53c8fdbebaaba5.61003265"
+      },
+      "thumb_url": "l4p/img/default_logo_unknown.png",
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      }
+    },
+    {
+      "a4p_type": "Plannee",
+      "parent_id": {
+        "dbid": "Plan-007",
+        "c4p_id": "53c8fdbde05d37.07871280"
+      },
+      "object_id": {
+        "dbid": "Document-00C",
+        "c4p_id": "53c9120e565cb7.07056163"
+      },
+      "id": {
+        "dbid": "Plannee-00D"
+      },
+      "c4pSynchroStatus": {
+        "creating": 3,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 0,
+          "status": 0,
+          "hasBeenCanceled": false,
+          "log": "init"
+        }
+      },
+      "thumb_url": "l4p/img/default_logo_unknown.png"
+    },
+    {
+      "a4p_type": "Plannee",
+      "parent_id": {
+        "dbid": "Plan-008",
+        "c4p_id": "53c8fdbea2b231.95070039"
+      },
+      "object_id": {
+        "dbid": "Document-00I"
+      },
+      "id": {
+        "dbid": "Plannee-00J"
+      },
+      "c4pSynchroStatus": {
+        "creating": 3,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 0,
+          "status": 0,
+          "hasBeenCanceled": false,
+          "log": "init"
+        }
+      },
+      "thumb_url": "l4p/img/default_logo_unknown.png"
+    }
+  ]
+}
+{
+  "json": [
+    {
+      "a4p_type": "Note",
+      "title": "My First Meeting.1.My first sample",
+      "description": "Share your docs by drag & drop\nAdd a plan page\nTake notes",
+      "id": {
+        "dbid": "Note-002",
+        "c4p_id": "53c8fd54ee5123.57451312"
+      },
+      "when": "",
+      "parent_id": {
+        "c4p_id": "53c8fc0a625a35.45645887",
+        "dbid": "Event-005"
+      },
+      "owner_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_date": "2014-07-18 12:56:20",
+      "last_modified_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "last_modified_date": "2014-07-18 12:56:20",
+      "thumb_url": "l4p/img/default_thumb_document.png",
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      }
+    },
+    {
+      "a4p_type": "Note",
+      "title": "My First Meeting.2.To finish",
+      "description": "Send a final report by email with top right button\n\nCheers !",
+      "id": {
+        "dbid": "Note-003",
+        "c4p_id": "53c8fd7ac04428.03342105"
+      },
+      "when": "",
+      "parent_id": {
+        "c4p_id": "53c8fc0a625a35.45645887",
+        "dbid": "Event-005"
+      },
+      "owner_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "created_date": "2014-07-18 12:56:58",
+      "last_modified_by_id": {
+        "c4p_id": "53c8f6100825b0.98022407",
+        "dbid": "Contact-001"
+      },
+      "last_modified_date": "2014-07-18 12:56:58",
+      "thumb_url": "l4p/img/default_thumb_document.png",
+      "c4pSynchroStatus": {
+        "creating": 0,
+        "sharing": 0,
+        "writing": 0,
+        "reading": 0,
+        "deleting": 0,
+        "cloud": {
+          "progress": 100,
+          "status": 3,
+          "hasBeenCanceled": false,
+          "log": "in!"
+        }
+      }
+    }
+  ]
+}
+
+
+Presentation
+
+
+
+
+{"json":[{"a4p_type":"Plannee","id":{"dbid":"Plannee-00S","c4p_id":"df_iPL100000000000"},"parent_id":{"c4p_id":"df_iPN100000000000","dbid":"Plan-00L"},"object_id":{}},{"a4p_type":"Plannee","id":{"dbid":"Plannee-00T","c4p_id":"df_iPL200000000000"},"parent_id":{"c4p_id":"df_iPN200000000000","dbid":"Plan-00M"},"object_id":{"c4p_id":"df_iNO100000000000","dbid":"Note-00Q"}},{"a4p_type":"Plannee","id":{"dbid":"Plannee-00U","c4p_id":"df_iPL300000000000"},"parent_id":{"c4p_id":"df_iPN300000000000","dbid":"Plan-00N"},"object_id":{"c4p_id":"df_iNO200000000000","dbid":"Note-00R"}},{"a4p_type":"Plannee","id":{"dbid":"Plannee-00Y","c4p_id":"53cbf68a080475.34373339"},"parent_id":{"dbid":"Plan-00W","c4p_id":"53cbf689c60ec5.81493942"},"object_id":{"dbid":"Note-00X","c4p_id":"53cbf67faf2e66.49437549"}}]}

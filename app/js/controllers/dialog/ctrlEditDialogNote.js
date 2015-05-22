@@ -256,7 +256,7 @@ function ctrlEditDialogNote($scope, srvLocale, srvConfig, srvData, srvFacet, att
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-modal-confirm',
                 controller: 'ctrlDialogConfirm',
-                templateUrl: 'partials/dialog/confirm.html',
+                templateUrl: 'views/dialog/confirm.html',
                 resolve: {
                     text: function () {
                         return text;
@@ -341,7 +341,7 @@ function ctrlEditDialogNote($scope, srvLocale, srvConfig, srvData, srvFacet, att
                         backdrop: false,
                         windowClass: 'modal c4p-modal-full c4p-dialog',
                         controller: 'ctrlEditDialogObject',
-                        templateUrl: 'partials/dialog/edit_object.html',
+                        templateUrl: 'views/dialog/edit_object.html',
                         resolve: {
                             srvData: function () {
                                 return srvData;
@@ -377,12 +377,12 @@ function ctrlEditDialogNote($scope, srvLocale, srvConfig, srvData, srvFacet, att
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () { return srvFacet; };
             resolve.addedOrganizers = function () { return addedOrganizers; };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () { return menus; };
         }
         dialogOptions.resolve = resolve;
@@ -459,12 +459,12 @@ function ctrlEditDialogNote($scope, srvLocale, srvConfig, srvData, srvFacet, att
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () { return srvFacet; };
             resolve.addedOrganizers = function () { return []; };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () { return []; };
         }
         dialogOptions.resolve = resolve;
@@ -490,7 +490,7 @@ function ctrlEditDialogNote($scope, srvLocale, srvConfig, srvData, srvFacet, att
                 windowClass: 'modal c4p-modal-left c4p-modal-search c4p-dialog',
                 backdrop: true,
                 controller: 'ctrlAddRatings',
-                templateUrl: 'partials/dialog/dialogAddRatings.html',
+                templateUrl: 'views/dialog/dialogAddRatings.html',
                 resolve: {
                     srvLocale: function () {
                         return $scope.srvLocale;

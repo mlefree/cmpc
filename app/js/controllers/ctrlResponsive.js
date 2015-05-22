@@ -192,4 +192,5 @@ function ctrlResponsive($scope, $window, $timeout, srvConfig) {
 }
 
 
-ctrlResponsive.$inject = ['$scope', '$window','$timeout','srvConfig'];
+angular.module('crtl.responsive', []).controller('ctrlResponsive', ctrlResponsive);
+//ctrlResponsive.$inject = ['$scope', '$window','$timeout','srvConfig'];

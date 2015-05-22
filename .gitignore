@@ -1,6 +1,7 @@
 
 build/
 node_modules/
+config.apps4pro/
 
 npm-debug.log
 

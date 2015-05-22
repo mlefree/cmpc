@@ -22,7 +22,7 @@
     <meta name="author" content="Apps4Pro">-->
 
 
-    <link href="l4p/css/c4p-theme-apps4pro.min.css" rel="stylesheet" type="text/css" id="c4p-css" >
+    <link href="stylesheets/c4p-theme-apps4pro.css" rel="stylesheet" type="text/css" id="c4p-css" >
 
     <!--<link href="l4p/css/jquery.noty.css" rel="stylesheet" type="text/css">
     <link href="l4p/css/noty_theme_default.css" rel="stylesheet" type="text/css">-->
@@ -36,35 +36,35 @@
 <body ng-app="c4p">
 
 	<!-- C4P.Client App HTML-->
-    <div ng-include="'partials/main.html'"></div>
+    <div ng-include="'views/main.html'"></div>
 
 
 
     <!-- C4P.Client App JS-->
 
 	<!-- Load jQuery BEFORE Angular otherwise Angular loads its own JQuery lite version -->
-	<script type="text/javascript" src="l4p/libs/js/jquery/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 
-    <script type="text/javascript" src="l4p/libs/js/angular/angular.min.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/angular/angular-touch.min.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/angular/angular-animate.min.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/angular/angular-sanitize.min.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/angular/angular-resource.min.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/angular/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-touch/angular-touch.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
 
     <!-- <script src='textAngular/textAngular-sanitize.min.js'></script>
     <script src='textAngular/textAngular.min.js'></script> -->
 
 
-    <script type="text/javascript" src="l4p/libs/js/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/md5.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/l4p.min.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/jquery-plugins/jquery.noty.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/jquery-plugins/jquery.autosize.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-md5/angular-md5.min.js"></script>
+
+    <script type="text/javascript" src="bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+    <script type="text/javascript" src="bower_components/autosize/dist/autosize.min.js"></script>
     <!--<script type="text/javascript" src="l4p/libs/js/jquery-plugins/TimelineJS-master/compiled/js/storyjs-embed.js"></script>-->
-    <script type="text/javascript" src="l4p/libs/js/jquery-plugins/jquery.easing.1.3.js"></script>
-    <script type="text/javascript" src="l4p/libs/js/jquery-plugins/jquery.popcircle.1.0.js"></script>
+    <script type="text/javascript" src="bower_components/popcircle/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="bower_components/popcircle/js/jquery.popcircle.1.0.js"></script>
 
     <!--
     <script src="http://underscorejs.org/underscore.js" type="text/javascript"></script>
@@ -72,99 +72,149 @@
     <script type="text/javascript" src="l4p/libs/js/angular/angular-google-maps.js"></script>
     -->
 
+
+
+
+    <script type="text/javascript" src="js/src/js/a4p/a4p.all.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.aes.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.analytics.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.array.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.base64.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.bezierDrawer.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.bezierInterpolator.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.bridge.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.browser.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.feedback.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.fifo.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.file.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.fileDownloader.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.fileUploader.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.geo.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.gestureDrawer.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.gestureInterpolator.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.hex.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.json.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.log.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.moveDrawer.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.moveInterpolator.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.perf.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.pointSampler.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.resize.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.sense.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.sha1.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.storage.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.stringFormat.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.taskReceiver.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.taskSender.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.thumb.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.updateCache.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.utf8.js"></script>
+    <script type="text/javascript" src="js/src/js/a4p/a4p.xml.js"></script>
+
+    <script type="text/javascript" src="js/src/js/c4p/c4p.model.js"></script>
+
+
 	<!-- App -->
-    <script type="text/javascript" src="models/c4p_locale.js"></script>
-    <script type="text/javascript" src="models/c4p_demo.js"></script>
+    <script type="text/javascript" src="data/c4p_locale.js"></script>
+    <script type="text/javascript" src="data/c4p_demo.js"></script>
 
+<!--
     <script type="text/javascript" src="js/partial_templated/templates.js"></script>
+-->
+    <script type="text/javascript" src="js/controllers/controllers.js"></script>
 
-    <script type="text/javascript" src="js/controller/dialog/ctrlDialogConfirm.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlDialogCreateDocument.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlDialogCalendarDay.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlDialogDemoMode.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlDialogICal.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlDupMeeting.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlEditDialogEmail.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlEditDialogErrorReport.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlEditDialogFeed.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlEditDialogFeedback.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlEditDialogNote.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlEditDialogObject.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlFacetSelectedDialog.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlGoToMeetingDialog.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlGuiderDialog.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlInitDialogPinCode.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlModifyDialogPinCode.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlOpenDialogLocked.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlSelectCrmsDialog.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlSelectObjectsDialog.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlShowImage.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlTimeline.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlDupMeeting.js"></script>
-    <script type="text/javascript" src="js/controller/dialog/ctrlQuickEditDialogObject.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlAction.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlAside.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlAsideSearch.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlCalendar.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlConfig.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlDetail.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlDetailedObject.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlDetailLink.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlDetailLinkedObjects.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlDragObject.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlEditFocus.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlTrashObject.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlInlinedObject.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlMeeting.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlMeetingEmail.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlMeetingElementDrag.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlMeetingElementDrop.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlMeetingAttendeeDrag.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlMeetingAttendeeDrop.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlMeetingObjLinkDrop.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlMeetingRemoveDrop.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlNavigation.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlNavObject.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlNamedObject.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlRightToolbar.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlResponsive.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlSummarizedObject.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlSingleTap.js"></script>
-    <script type="text/javascript" src="js/controller/ctrlLinkActions.js"></script>
-	<script type="text/javascript" src="js/controller/ctrlViewer.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlDialogConfirm.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlDialogCreateDocument.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlDialogCalendarDay.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlDialogDemoMode.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlDialogICal.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlDupMeeting.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlEditDialogEmail.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlEditDialogErrorReport.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlEditDialogFeed.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlEditDialogFeedback.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlEditDialogNote.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlEditDialogObject.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlFacetSelectedDialog.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlGoToMeetingDialog.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlGuiderDialog.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlInitDialogPinCode.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlModifyDialogPinCode.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlOpenDialogLocked.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlSelectCrmsDialog.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlSelectObjectsDialog.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlShowImage.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlTimeline.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlDupMeeting.js"></script>
+    <script type="text/javascript" src="js/controllers/dialog/ctrlQuickEditDialogObject.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlAction.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlAside.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlAsideItem.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlAsideSearch.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlCalendar.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlConfig.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlDetail.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlDetailedObject.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlDetailLink.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlDetailLinkedObjects.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlDragObject.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlEditFocus.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlTrashObject.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlInlinedObject.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlMeeting.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlMeetingEmail.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlMeetingElementDrag.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlMeetingElementDrop.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlMeetingAttendeeDrag.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlMeetingAttendeeDrop.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlMeetingObjLinkDrop.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlMeetingRemoveDrop.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlNavigation.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlNavObject.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlNetworkTestRunner.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlNamedObject.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlRightToolbar.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlResponsive.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlSummarizedObject.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlSingleTap.js"></script>
+    <script type="text/javascript" src="js/controllers/ctrlLinkActions.js"></script>
+	  <script type="text/javascript" src="js/controllers/ctrlViewer.js"></script>
 
-    <script type="text/javascript" src="js/directive/accordion.js"></script>
-    <script type="text/javascript" src="js/directive/all.js"></script>
-    <script type="text/javascript" src="js/directive/carousel.js"></script>
-    <script type="text/javascript" src="js/directive/fields.js"></script>
-    <script type="text/javascript" src="js/directive/inputs.js"></script>
-    <script type="text/javascript" src="js/directive/navigation.js"></script>
-    <script type="text/javascript" src="js/directive/timeline.js"></script>
-   	<script type="text/javascript" src="js/directive/viewer.js"></script>
+    <script type="text/javascript" src="js/directives/directives.js"></script>
+    <script type="text/javascript" src="js/directives/all.js"></script>
+    <script type="text/javascript" src="js/directives/accordion.js"></script>
+    <script type="text/javascript" src="js/directives/carousel.js"></script>
+    <script type="text/javascript" src="js/directives/fields.js"></script>
+    <script type="text/javascript" src="js/directives/inputs.js"></script>
+    <script type="text/javascript" src="js/directives/navigation.js"></script>
+    <script type="text/javascript" src="js/directives/timeline.js"></script>
+   	<script type="text/javascript" src="js/directives/viewer.js"></script>
 
-    <script type="text/javascript" src="js/service/srvConfig.js"></script>
-    <script type="text/javascript" src="js/service/srvData.js"></script>
-    <script type="text/javascript" src="js/service/srvDataTransfer.js"></script>
-    <script type="text/javascript" src="js/service/srvDataStore.js"></script>
-    <script type="text/javascript" src="js/service/srvFacet.js"></script>
-    <script type="text/javascript" src="js/service/srvFileTransfer.js"></script>
-    <script type="text/javascript" src="js/service/srvGuider.js"></script>
-    <script type="text/javascript" src="js/service/srvLink.js"></script>
-    <script type="text/javascript" src="js/service/srvLoad.js"></script>
-    <script type="text/javascript" src="js/service/srvLocale.js"></script>
-    <script type="text/javascript" src="js/service/srvLog.js"></script>
-    <script type="text/javascript" src="js/service/srvModel.js"></script>
-    <script type="text/javascript" src="js/service/srvNav.js"></script>
-    <script type="text/javascript" src="js/service/srvOpenUrl.js"></script>
-    <script type="text/javascript" src="js/service/srvRunning.js"></script>
-	<script type="text/javascript" src="js/service/srvSecurity.js"></script>
-    <script type="text/javascript" src="js/service/srvSynchro.js"></script>
-    <script type="text/javascript" src="js/service/srvQueue.js"></script>
-    <script type="text/javascript" src="js/service/srvSynchroStatus.js"></script>
-    <script type="text/javascript" src="js/service/srvTime.js"></script>
+    <script type="text/javascript" src="js/services/srvConfig.js"></script>
+    <script type="text/javascript" src="js/services/srvData.js"></script>
+    <script type="text/javascript" src="js/services/srvDataTransfer.js"></script>
+    <script type="text/javascript" src="js/services/srvDataStore.js"></script>
+    <script type="text/javascript" src="js/services/srvFacet.js"></script>
+    <script type="text/javascript" src="js/services/srvFileTransfer.js"></script>
+    <script type="text/javascript" src="js/services/srvGuider.js"></script>
+    <script type="text/javascript" src="js/services/srvLink.js"></script>
+    <script type="text/javascript" src="js/services/srvLoad.js"></script>
+    <script type="text/javascript" src="js/services/srvLocale.js"></script>
+    <script type="text/javascript" src="js/services/srvLog.js"></script>
+    <script type="text/javascript" src="js/services/srvModel.js"></script>
+    <script type="text/javascript" src="js/services/srvNav.js"></script>
+    <script type="text/javascript" src="js/services/srvOpenUrl.js"></script>
+    <script type="text/javascript" src="js/services/srvRunning.js"></script>
+    <script type="text/javascript" src="js/services/srvSecurity.js"></script>
+    <script type="text/javascript" src="js/services/srvSynchro.js"></script>
+    <script type="text/javascript" src="js/services/srvQueue.js"></script>
+    <script type="text/javascript" src="js/services/srvSynchroStatus.js"></script>
+    <script type="text/javascript" src="js/services/srvTime.js"></script>
 
-	<script type="text/javascript" src="js/app.js"></script>
-	<script type="text/javascript" src="js/filters.js"></script>
+    <script type="text/javascript" src="js/filters/filters.js"></script>
+    <script type="text/javascript" src="js/filters/filtersC4p.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
 
 </body>
 </html>

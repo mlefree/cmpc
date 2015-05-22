@@ -227,4 +227,7 @@ function ctrlSummarizedObject($scope, $sce, srvLocale, srvData, srvLink, srvConf
            return html;
     };
 }
-ctrlSummarizedObject.$inject = ['$scope', '$sce', 'srvLocale', 'srvData', 'srvLink', 'srvConfig'];
+
+
+angular.module('crtl.summarizedObject', []).controller('ctrlSummarizedObject', ctrlSummarizedObject);
+//ctrlSummarizedObject.$inject = ['$scope', '$sce', 'srvLocale', 'srvData', 'srvLink', 'srvConfig'];

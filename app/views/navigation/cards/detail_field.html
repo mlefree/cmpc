@@ -31,7 +31,7 @@
 					<span ng-switch-when="TIME"><b>{{srvLocale.formatDate(item, 'shortTime')}}</b></span>
 					<span ng-switch-when="number">{{item | c4pNumber}}</span>
 					<span ng-switch-when="rating">
-						<span ng-include="'partials/navigation/cards/4_rating_ro2.html'" style="padding: 0 10px;"></span>
+						<span ng-include="'views/navigation/cards/4_rating_ro2.html'" style="padding: 0 10px;"></span>
 					</span>
 					<blockquote ng-switch-when="textarea" ng-bind-html="renderHtmlText(item)"></blockquote>
 					<address ng-switch-when="address">{{item}}</address>
@@ -55,7 +55,7 @@
 				<span ng-switch-when="TIME"><b>{{srvLocale.formatDate(field.value, 'shortTime')}}</b></span>
 				<span ng-switch-when="number">{{field.value | c4pNumber}}</span>
 				<span ng-switch-when="rating">
-					<span ng-init="item = field.value" ng-include="'partials/navigation/cards/4_rating_ro2.html'" style="padding: 0 10px;"></span>
+					<span ng-init="item = field.value" ng-include="'views/navigation/cards/4_rating_ro2.html'" style="padding: 0 10px;"></span>
 				</span>
 				<blockquote ng-switch-when="textarea" ng-bind-html="renderHtmlText(field.value)"></blockquote>
 				<address ng-switch-when="address">{{field.value}}</address>

@@ -200,4 +200,6 @@ function ctrlDragObject($scope, $modal, $timeout, srvLocale, srvData, srvNav, sr
         });
 	};
 }
-ctrlDragObject.$inject = ['$scope', '$modal', '$timeout', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig'];
+
+angular.module('crtl.dragObject', []).controller('ctrlDragObject', ctrlDragObject);
+//ctrlDragObject.$inject = ['$scope', '$modal', '$timeout', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig'];

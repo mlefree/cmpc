@@ -1,8 +1,7 @@
 
 
-/* Filters */
-
-var filterModule = angular.module('c4pFilters', ['c4pServices']);
+//var filterModule = angular.module('c4pFilters', ['c4pServices']);
+var filterModule = angular.module('filter.all',[]);
 
 filterModule.filter('interpolate', ['version', function (version) {
     'use strict';

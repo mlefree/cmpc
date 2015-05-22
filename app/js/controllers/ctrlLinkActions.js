@@ -118,4 +118,6 @@ function ctrlLinkActions($scope, $timeout, srvData, srvNav, srvLink, srvConfig, 
         });
     };
 }
-ctrlLinkActions.$inject = ['$scope', '$timeout', 'srvData', 'srvNav', 'srvLink', 'srvConfig', 'srvLog'];
+
+angular.module('crtl.linkActions', []).controller('ctrlLinkActions', ctrlLinkActions);
+//ctrlLinkActions.$inject = ['$scope', '$timeout', 'srvData', 'srvNav', 'srvLink', 'srvConfig', 'srvLog'];

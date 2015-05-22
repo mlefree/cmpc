@@ -130,7 +130,7 @@ describe('$q', function () {
 
 });
 
-describe('navigationCtrl', function () {
+describe('ctrlNavigation', function () {
 
     //beforeEach(module('ui.bootstrap'));
     //beforeEach(module('c4pServices'));
@@ -293,7 +293,7 @@ describe('navigationCtrl', function () {
                 'userId' : {'sf_id':'005i0000000I8c5AAC', 'c4p_id':'demo@apps4pro.com'},
                 'c4pToken' : 'dummC4pToken'
             };
-            httpBackend.when('GET', 'partials/dialog/guiderCarousel.html').respond('<div class="modal-body"></div>', {
+            httpBackend.when('GET', 'views/dialog/guiderCarousel.html').respond('<div class="modal-body"></div>', {
                 'A-Token':'xxx',
                 'Content-type':'text/html'
             });
@@ -316,7 +316,7 @@ describe('navigationCtrl', function () {
             // Force a reset of dbid generation
             a4p.uid = ['0', '0', '0'];
 
-            var controller = $controller(navigationCtrl, {
+            var controller = $controller(ctrlNavigation, {
                 $scope:navigationScope,
                 srvFileStorage:srvFileStorage,
                 srvConfig:srvConfig,
@@ -335,11 +335,11 @@ describe('navigationCtrl', function () {
             expect(controller).not.toBeNull();
             expect(navigationScope.page).toEqual('');
 
-            // Initialize navigationController (as ng-controller="navigationCtrl" ng-init="initNavigationCtrl()")
+            // Initialize navigationController (as ng-controller="ctrlNavigation" ng-init="initctrlNavigation()")
             ok = false;
             done = false;
             error = null;
-            navigationScope.initNavigationCtrl().then(function() {
+            navigationScope.initctrlNavigation().then(function() {
                 ok = true;
                 done = true;
             }, function(errorMsg) {
@@ -349,7 +349,7 @@ describe('navigationCtrl', function () {
             if (!$rootScope.$$phase) $rootScope.$apply();// propagate promise resolution
         });
 
-        waitsFor(function () {return done;}, "NavigationCtrl should have been initialized", 10000);
+        waitsFor(function () {return done;}, "ctrlNavigation should have been initialized", 10000);
 
         runs(function () {
             expect(ok).toBe(true);
@@ -431,8 +431,8 @@ describe('navigationCtrl', function () {
             waitsFor(function () {return ((new Date().getTime() - timeStart) > 1000);}, "wait for 1 s", 2000);
 
             runs(function () {
-                // Should get 'partials/dialog/guiderCarousel.html'
-                //httpBackend.expectGET('partials/dialog/guiderCarousel.html');
+                // Should get 'views/dialog/guiderCarousel.html'
+                //httpBackend.expectGET('views/dialog/guiderCarousel.html');
                 //httpBackend.flush();
                 timeStart = new Date().getTime();
             });
@@ -584,7 +584,7 @@ describe('navigationCtrl', function () {
                     runs(function () {
                         end = false;
                         error = null;
-                        // Pictures taken in NavigationCtrl or MeetingCtrl during controllerSpec.js tests
+                        // Pictures taken in ctrlNavigation or MeetingCtrl during controllerSpec.js tests
                         srvFileStorage.deleteFullDir('/a4p/c4p/doc', function () {
                             end = true;
                         }, function (message) {
@@ -1063,8 +1063,8 @@ describe('navigationCtrl', function () {
             waitsFor(function () {return ((new Date().getTime() - timeStart) > 1000);}, "wait for 1 s", 2000);
 
             runs(function () {
-                // Should get 'partials/dialog/guiderCarousel.html'
-                //httpBackend.expectGET('partials/dialog/guiderCarousel.html');
+                // Should get 'views/dialog/guiderCarousel.html'
+                //httpBackend.expectGET('views/dialog/guiderCarousel.html');
                 //httpBackend.flush();
                 timeStart = new Date().getTime();
             });
@@ -1270,7 +1270,7 @@ describe('navigationCtrl', function () {
                     runs(function () {
                         end = false;
                         error = null;
-                        // Pictures taken in NavigationCtrl or MeetingCtrl during controllerSpec.js tests
+                        // Pictures taken in ctrlNavigation or MeetingCtrl during controllerSpec.js tests
                         srvFileStorage.deleteFullDir('/a4p/c4p/doc', function () {
                             end = true;
                         }, function (message) {

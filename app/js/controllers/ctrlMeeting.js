@@ -66,8 +66,8 @@ function ctrlMeeting($scope, $q, $modal, $timeout, srvData, srvConfig, srvNav, s
     $scope.isPresentationOn = false;
     $scope.meetingTableIsOpen = false;
 
-    $scope.meetingAsidePanel = 'partials/meeting/meeting_plan.html';
-    $scope.meetingCurrentPanel = 'partials/meeting/meeting_plan_viewer.html';
+    $scope.meetingAsidePanel = 'views/meeting/meeting_plan.html';
+    $scope.meetingCurrentPanel = 'views/meeting/meeting_plan_viewer.html';
 
 
     // Email
@@ -77,18 +77,18 @@ function ctrlMeeting($scope, $q, $modal, $timeout, srvData, srvConfig, srvNav, s
     $scope.actionItems = {
         'plan': {
             icon: 'bars',
-            side: 'partials/meeting/meeting_plan.html',
-            main: 'partials/meeting/meeting_plan_viewer.html'
+            side: 'views/meeting/meeting_plan.html',
+            main: 'views/meeting/meeting_plan_viewer.html'
         },
         'others': {
             icon: 'link',
-            side: 'partials/meeting/meeting_linked_object.html',
-            main: 'partials/meeting/meeting_object_viewer.html'
+            side: 'views/meeting/meeting_linked_object.html',
+            main: 'views/meeting/meeting_object_viewer.html'
         },
         'select': { // Drag & Drop mode
             icon: 'link',
-            side: 'partials/meeting/meeting_linked_object.html',
-            main: 'partials/meeting/meeting_plan_viewer.html'
+            side: 'views/meeting/meeting_linked_object.html',
+            main: 'views/meeting/meeting_plan_viewer.html'
         }
     };
 
@@ -894,7 +894,7 @@ function ctrlMeeting($scope, $q, $modal, $timeout, srvData, srvConfig, srvNav, s
     // INIT
     $scope.initMeetingElements();
 
-
-
 }
-ctrlMeeting.$inject = ['$scope', '$q', '$modal', '$timeout',      'srvData', 'srvConfig', 'srvNav', 'srvLocale', 'srvAnalytics'];
+
+angular.module('crtl.meeting', []).controller('ctrlMeeting', ctrlMeeting);
+//ctrlMeeting.$inject = ['$scope', '$q', '$modal', '$timeout',      'srvData', 'srvConfig', 'srvNav', 'srvLocale', 'srvAnalytics'];

@@ -7,10 +7,11 @@ var appModule = angular.module('c4p',
                                         'ngSanitize',
                                         //,'textAngular'
                                         'ui.bootstrap',
-                                        'c4pFilters',
+                                        'c4p.filters',
                                         'c4pServices',
-                                        'c4pDirectives',
-                                        'c4pTemplates'
+                                        'c4p.directives',
+                                        //'c4pTemplates',
+                                        "c4p.controllers"
                                     ]);
 
 appModule.value('version', '14S25'); //TODO cf BUILD_DATE

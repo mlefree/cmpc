@@ -97,12 +97,12 @@ function ctrlDialogICal($scope, srvLocale, srvData, srvConfig, srvFacet, ical, a
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () { return srvFacet; };
             resolve.addedOrganizers = function () { return addedOrganizers; };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () { return menus; };
         }
         dialogOptions.resolve = resolve;

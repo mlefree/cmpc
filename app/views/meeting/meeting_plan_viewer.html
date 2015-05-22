@@ -29,12 +29,12 @@
                           ng-class="{'glyphicon-play':!isFullScreen, 'glyphicon-stop':isFullScreen}"></span>
                 </div>
             </div> -->
-            <div ng-include="'partials/meeting/meeting_object_viewer.html'"></div>
+            <div ng-include="'views/meeting/meeting_object_viewer.html'"></div>
         </div>
 
 
         <div ng-if="!isPresentationOn">
-            <div ng-include="'partials/meeting/meeting_object_editor.html'"></div>
+            <div ng-include="'views/meeting/meeting_object_editor.html'"></div>
         </div>
         <!--
         <div ng-switch-default>

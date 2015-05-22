@@ -1,0 +1,1190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="c4p_html_ang" default="build">
+
+    <!-- macro for executing a command plattform independent -->
+    <macrodef name="execute">
+        <attribute name="executable"/>
+        <attribute name="executableWindows" default="@{executable}"/>
+        <attribute name="dir" default="."/>
+        <attribute name="failonerror" default="false"/>
+        <element name="args" implicit="true" optional="true"/>
+        <sequential>
+            <exec dir="@{dir}" osfamily="windows" logError="true" failonerror="@{failonerror}" executable="cmd">
+                <arg value="/c"/>
+                <arg value="@{executableWindows}"/>
+                <args/>
+            </exec>
+            <exec dir="@{dir}" osfamily="unix" logError="true" failonerror="@{failonerror}" executable="@{executable}">
+                <args/>
+            </exec>
+        </sequential>
+    </macrodef>
+    <macrodef name="execute-and-spawn">
+        <attribute name="executable"/>
+        <attribute name="executableWindows" default="@{executable}"/>
+        <attribute name="dir" default="."/>
+        <attribute name="failonerror" default="false"/>
+        <element name="args" implicit="true" optional="true"/>
+        <sequential>
+            <!-- log is impossible when spawned -->
+            <exec dir="@{dir}" osfamily="windows" failonerror="@{failonerror}" spawn="true" executable="cmd">
+                <arg value="/c"/>
+                <arg value="@{executableWindows}"/>
+                <args/>
+            </exec>
+            <exec dir="@{dir}" osfamily="unix" failonerror="@{failonerror}" spawn="true" executable="@{executable}">
+                <args/>
+            </exec>
+        </sequential>
+    </macrodef>
+    <!--
+    Properties are immutable in ant => outputproperty MUST gives an UNDEFINED property name
+    -->
+    <macrodef name="execute-and-output">
+        <attribute name="executable"/>
+        <attribute name="outputproperty"/>
+        <attribute name="executableWindows" default="@{executable}"/>
+        <attribute name="dir" default="."/>
+        <attribute name="failonerror" default="false"/>
+        <element name="args" implicit="true" optional="true"/>
+        <sequential>
+            <exec dir="@{dir}" osfamily="windows" logError="true" outputproperty="@{outputproperty}" failonerror="@{failonerror}" executable="cmd">
+                <arg value="/c"/>
+                <arg value="@{executableWindows}"/>
+                <args/>
+            </exec>
+            <exec dir="@{dir}" osfamily="unix" logError="true" outputproperty="@{outputproperty}" failonerror="@{failonerror}" executable="@{executable}">
+                <args/>
+            </exec>
+        </sequential>
+    </macrodef>
+    <macrodef name="sudo">
+        <attribute name="executable"/>
+        <attribute name="executableWindows" default="@{executable}"/>
+        <attribute name="dir" default="."/>
+        <attribute name="failonerror" default="false"/>
+        <element name="args" implicit="true" optional="true"/>
+        <sequential>
+            <exec dir="@{dir}" osfamily="windows" logError="true" failonerror="@{failonerror}" executable="cmd">
+                <arg value="/c"/>
+                <arg value="@{executableWindows}"/>
+                <args/>
+            </exec>
+            <exec dir="@{dir}" osfamily="unix" logError="true" failonerror="@{failonerror}" executable="sudo">
+                <arg value="@{executable}"/>
+                <args/>
+            </exec>
+        </sequential>
+    </macrodef>
+    <macrodef name="sudo-and-spawn">
+        <attribute name="executable"/>
+        <attribute name="executableWindows" default="@{executable}"/>
+        <attribute name="dir" default="."/>
+        <attribute name="failonerror" default="false"/>
+        <element name="args" implicit="true" optional="true"/>
+        <sequential>
+            <!-- log is impossible when spawned -->
+            <exec dir="@{dir}" osfamily="windows" failonerror="@{failonerror}" spawn="true" executable="cmd">
+                <arg value="/c"/>
+                <arg value="@{executableWindows}"/>
+                <args/>
+            </exec>
+            <exec dir="@{dir}" osfamily="unix" failonerror="@{failonerror}" spawn="true" executable="sudo">
+                <arg value="@{executable}"/>
+                <args/>
+            </exec>
+        </sequential>
+    </macrodef>
+    <!--
+    Properties are immutable in ant => outputproperty MUST gives an UNDEFINED property name
+    -->
+    <macrodef name="sudo-and-output">
+        <attribute name="executable"/>
+        <attribute name="outputproperty"/>
+        <attribute name="executableWindows" default="@{executable}"/>
+        <attribute name="dir" default="."/>
+        <attribute name="failonerror" default="false"/>
+        <element name="args" implicit="true" optional="true"/>
+        <sequential>
+            <exec dir="@{dir}" osfamily="windows" logError="true" outputproperty="@{outputproperty}" failonerror="@{failonerror}" executable="cmd">
+                <arg value="/c"/>
+                <arg value="@{executableWindows}"/>
+                <args/>
+            </exec>
+            <exec dir="@{dir}" osfamily="unix" logError="true" outputproperty="@{outputproperty}" failonerror="@{failonerror}" executable="sudo">
+                <arg value="@{executable}"/>
+                <args/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <!-- usage of the macrodef execute -->
+    <!--
+    <execute executable="ruby" failonerror="true">
+        <arg value="-v"/>
+    </execute>
+    -->
+
+    <!-- add ant tools -->
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="${basedir}/libs/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+    <taskdef name="ftp" classname="org.apache.tools.ant.taskdefs.optional.net.FTP">
+	  	<classpath>
+            <pathelement location="${basedir}/libs/ant-commons-net.jar"/>
+            <pathelement location="${basedir}/libs/commons-net-3.3.jar"/>
+	  	</classpath>
+	</taskdef>
+
+    <!-- MAIN Target : build -->
+    <target name="build"
+            depends="build-local"/>
+
+    <!-- Different builds -->
+    <target name="build-local"
+            depends="set-properties-local, generate, grunt-build, build-mobile-local"
+            description="build for local-server and test"/>
+    <target name="build-dev"
+            depends="set-properties-dev, generate, grunt-build, build-mobile-dev"
+            description="build for dev-server and test"/>
+    <target name="build-int"
+            depends="set-properties-int, generate, grunt-build, build-mobile-int"
+            description="build for int-server and test"/>
+    <target name="build-prod"
+            depends="set-properties-prod, generate, grunt-build-prod, build-mobile-prod"
+            description="build for prod-server"/>
+
+    <!-- Should be there because of parent launch -->
+    <target name="install-local"/>
+    <target name="install-dev"/>
+    <target name="install-int"/>
+    <target name="install-prod"/>
+
+    <!-- Possible targets after a build -->
+    <target name="test"
+            depends="test-local"/>
+    <target name="test-local"
+            depends="set-properties-local, grunt-unit, grunt-e2e, grunt-check"/>
+    <target name="test-dev"
+            depends="set-properties-dev, grunt-check"/>
+    <target name="test-int"
+            depends="set-properties-int, grunt-check"/>
+    <target name="test-prod"
+            depends="set-properties-prod, grunt-check"/>
+
+
+    <!--
+    <target name="compile-local"
+            depends="set-properties-local, generate"
+            description="build for local-server"/>
+    <target name="compile-dev"
+            depends="set-properties-dev, generate"
+            description="build for dev-server"/> -->
+
+
+
+    <target name="build-mobile-local"
+            depends="set-properties-local, create-mobile"
+            description="build Mobile for local-server"/>
+
+    <!--<target name="build-mobile-local-android"
+            depends="set-properties-local, create-mobile, create-mobile-android, add-cordova-plugins, compile-mobile-android, run-mobile-android-debug"
+            description="build Mobile for Android"/>
+    <target name="build-mobile-local-ios"
+            depends="set-properties-local, create-mobile, create-mobile-ios, compile-mobile-ios"
+            description="build Mobile for iOS"/>-->
+    <target name="build-mobile-local-android"
+            depends="set-properties-local, create-mobile, add-cordova-plugins"
+            description="build Mobile for Android"/>
+    <target name="build-mobile-local-ios"
+            depends="set-properties-local, create-mobile, add-cordova-plugins"
+            description="build Mobile for iOS"/>
+
+    <target name="build-mobile-dev"
+            depends="set-properties-dev, create-mobile, add-cordova-plugins"
+            description="build Mobile for dev-server"/>
+    <target name="build-mobile-int"
+            depends="set-properties-int, create-mobile, add-cordova-plugins"
+            description="build Mobile for int-server"/>
+    <target name="build-mobile-prod"
+            depends="set-properties-prod, create-mobile, add-cordova-plugins"
+            description="build Mobile for prod-server"/>
+
+    <target name="run-mobile-android-debug">
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="true">
+            <arg value="run"/>
+            <arg value="android"/>
+        </execute>
+    </target>
+    <target name="run-mobile-android-apk">
+        <execute dir="${basedir}/../c4p_mobile" executable="adb" failonerror="true">
+            <arg value="install"/>
+            <arg value="-r"/>
+            <arg value="c4p-aligned.apk"/>
+        </execute>
+    </target>
+
+    <target name="run-mobile-ios-debug">
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="true">
+            <arg value="run"/>
+            <arg value="ios"/>
+        </execute>
+    </target>
+
+
+    <!-- #######################
+            Internal targets
+         ####################### -->
+
+
+    <target name="grunt" depends="set-grunt-server-demon-local">
+        <execute executable="grunt" failonerror="true">
+            <arg value="default"/>
+        </execute>
+    </target>
+    <target name="grunt-build">
+        <execute executable="grunt" failonerror="true">
+            <arg value="build"/>
+        </execute>
+    </target>
+    <target name="grunt-build-prod">
+        <execute executable="grunt" failonerror="true">
+            <arg value="build-prod"/>
+        </execute>
+    </target>
+    <target name="grunt-unit" depends="set-grunt-server-demon-local">
+        <execute executable="grunt" failonerror="true">
+            <arg value="unit"/>
+        </execute>
+    </target>
+    <target name="grunt-e2e" depends="set-grunt-server-demon-local">
+        <execute executable="grunt" failonerror="true">
+            <arg value="e2e"/>
+        </execute>
+    </target>
+    <target name="grunt-check" depends="set-grunt-server-demon-local">
+        <execute executable="grunt" failonerror="true">
+            <arg value="check"/>
+        </execute>
+    </target>
+
+    <target name="set-grunt-server-demon-local">
+        <execute-and-spawn executable="node" executableWindows="node.exe">
+            <arg value="scripts/web-server.js"/>
+        </execute-and-spawn>
+    </target>
+
+    <!-- check local configuration environment, specific for each developper -->
+
+    <property environment="env"/>
+
+    <condition property="os-ios.present" value="true">
+        <os family="mac"/>
+    </condition>
+
+    <!-- jstd.port -->
+    <condition property="jstd.port" value="${env.JSTD_PORT}" else="9876">
+        <isset property="env.JSTD_PORT"/>
+    </condition>
+    <fail message="JSTD_PORT environment variable is missing." unless="jstd.port"/>
+
+    <target name="set-properties-local"
+            depends="check-l4p-local, check-l4p-jenkins-local, check-l4p-jenkins-dev, check-l4p-jenkins-int, check-l4p-jenkins-prod">
+
+        <property name="c4p.env" value="LOCAL"></property>
+        <!-- c4p.urlBase -->
+        <condition property="c4p.urlBase" value="${env.C4P_URL_BASE_LOCAL}">
+            <isset property="env.C4P_URL_BASE_LOCAL"/>
+        </condition>
+        <fail message="C4P_URL_BASE_LOCAL environment variable is missing." unless="c4p.urlBase"/>
+        <!-- c4pHtml.urlBase -->
+        <condition property="c4pHtml.urlBase" value="${env.C4P_HTML_URL_BASE_LOCAL}">
+            <isset property="env.C4P_HTML_URL_BASE_LOCAL"/>
+        </condition>
+        <fail message="C4P_HTML_URL_BASE_LOCAL environment variable is missing." unless="c4pHtml.urlBase"/>
+        <!-- w4p.urlBase -->
+        <condition property="w4p.urlBase" value="${env.W4P_URL_BASE_LOCAL}">
+            <isset property="env.W4P_URL_BASE_LOCAL"/>
+        </condition>
+        <fail message="W4P_URL_BASE_LOCAL environment variable is missing." unless="w4p.urlBase"/>
+    </target>
+
+    <target name="set-properties-dev"
+         depends="check-l4p-local, check-l4p-jenkins-local, check-l4p-jenkins-dev, check-l4p-jenkins-int, check-l4p-jenkins-prod">
+
+        <property name="c4p.env" value="DEV"></property>
+        <!-- c4p.urlBase -->
+        <condition property="c4p.urlBase" value="${env.C4P_URL_BASE_DEV}">
+            <isset property="env.C4P_URL_BASE_DEV"/>
+        </condition>
+        <fail message="C4P_URL_BASE_DEV environment variable is missing." unless="c4p.urlBase"/>
+        <!-- c4pHtml.urlBase -->
+        <condition property="c4pHtml.urlBase" value="${env.C4P_HTML_URL_BASE_DEV}">
+            <isset property="env.C4P_HTML_URL_BASE_DEV"/>
+        </condition>
+        <fail message="C4P_HTML_URL_BASE_DEV environment variable is missing." unless="c4pHtml.urlBase"/>
+        <!-- w4p.urlBase -->
+        <condition property="w4p.urlBase" value="${env.W4P_URL_BASE_DEV}">
+            <isset property="env.W4P_URL_BASE_DEV"/>
+        </condition>
+        <fail message="W4P_URL_BASE_DEV environment variable is missing." unless="w4p.urlBase"/>
+    </target>
+
+    <target name="set-properties-int"
+            depends="check-l4p-local, check-l4p-jenkins-local, check-l4p-jenkins-dev, check-l4p-jenkins-int, check-l4p-jenkins-prod">
+
+        <property name="c4p.env" value="INT"></property>
+        <!-- c4p.urlBase -->
+        <condition property="c4p.urlBase" value="${env.C4P_URL_BASE_INT}">
+            <isset property="env.C4P_URL_BASE_INT"/>
+        </condition>
+        <fail message="C4P_URL_BASE_INT environment variable is missing." unless="c4p.urlBase"/>
+        <!-- c4pHtml.urlBase -->
+        <condition property="c4pHtml.urlBase" value="${env.C4P_HTML_URL_BASE_INT}">
+            <isset property="env.C4P_HTML_URL_BASE_INT"/>
+        </condition>
+        <fail message="C4P_HTML_URL_BASE_INT environment variable is missing." unless="c4pHtml.urlBase"/>
+        <!-- w4p.urlBase -->
+        <condition property="w4p.urlBase" value="${env.W4P_URL_BASE_INT}">
+            <isset property="env.W4P_URL_BASE_INT"/>
+        </condition>
+        <fail message="W4P_URL_BASE_INT environment variable is missing." unless="w4p.urlBase"/>
+    </target>
+
+    <target name="set-properties-prod"
+            depends="check-l4p-local, check-l4p-jenkins-local, check-l4p-jenkins-dev, check-l4p-jenkins-int, check-l4p-jenkins-prod">
+
+        <property name="c4p.env" value="PROD"></property>
+        <!-- c4p.urlBase -->
+        <condition property="c4p.urlBase" value="${env.C4P_URL_BASE_PROD}">
+            <isset property="env.C4P_URL_BASE_PROD"/>
+        </condition>
+        <fail message="C4P_URL_BASE_PROD environment variable is missing." unless="c4p.urlBase"/>
+        <!-- c4pHtml.urlBase -->
+        <condition property="c4pHtml.urlBase" value="${env.C4P_HTML_URL_BASE_PROD}">
+            <isset property="env.C4P_HTML_URL_BASE_PROD"/>
+        </condition>
+        <fail message="C4P_HTML_URL_BASE_PROD environment variable is missing." unless="c4pHtml.urlBase"/>
+        <!-- w4p.urlBase -->
+        <condition property="w4p.urlBase" value="${env.W4P_URL_BASE_PROD}">
+            <isset property="env.W4P_URL_BASE_PROD"/>
+        </condition>
+        <fail message="W4P_URL_BASE_PROD environment variable is missing." unless="w4p.urlBase"/>
+    </target>
+
+    <!-- set local configuration files, specific for each developper -->
+
+    <tstamp>
+    	<format property="TODAY_FR" pattern="yy.MMdd.HH" locale="fr,FR"/>
+  	</tstamp>
+
+    <target name="edit-conf"
+            depends="prepare"
+            description="Edit c4p_conf.json configuration file">
+        <loadfile property="c4p.conf.old" srcFile="${basedir}/www/models/template-c4p_conf.json"/>
+        <propertyregex property="c4p.conf.url"
+                       input="${c4p.conf.old}"
+                       regexp="C4P_URL_BASE"
+                       replace="${c4p.urlBase}"
+                       casesensitive="true"
+                       defaultValue="${c4p.conf.old}"/>
+        <propertyregex property="c4p.conf"
+                       input="${c4p.conf.url}"
+                       regexp="C4P_BUILD_DATE"
+                       replace="${TODAY_FR}"
+                       casesensitive="true"
+                       defaultValue="${c4p.conf.url}"/>
+        <echo file="${basedir}/www/models/c4p_conf.json">${c4p.conf}</echo>
+        <!-- todo ?
+
+        <loadfile property="c4p.conf" srcFile="${basedir}/www/models/template-c4p_conf.json">
+            <filterchain>
+                <tokenfilter>
+                    <containsregex pattern=".*C4P_URL_BASE([^\.]*).*" replace="${c4p.urlBase}"/>
+                    <containsregex pattern=".*C4P_BUILD_DATE([^\.]*).*" replace="${TODAY_FR}"/>
+                </tokenfilter>
+            </filterchain>
+        </loadfile>
+    -->
+    </target>
+
+    <target name="locale-conf"
+            depends="prepare"
+            description="Copy local_*.json locale files in javascript source code">
+        <loadfile property="locale.en" srcFile="${basedir}/www/models/local_en.json"/>
+        <loadfile property="locale.fr" srcFile="${basedir}/www/models/local_fr.json"/>
+        <echo file="${basedir}/www/models/c4p_locale.js">'use strict';
+var c4p;
+if (!c4p) c4p = {};
+c4p.Locale = {
+    en : ${locale.en},
+    fr : ${locale.fr}
+};
+</echo>
+    </target>
+
+    <target name="demo-conf"
+            depends="prepare"
+            description="Copy data.json demo files in javascript source code">
+        <loadfile property="data.demo" srcFile="${basedir}/www/models/data.json"/>
+        <echo file="${basedir}/www/models/c4p_demo.js">'use strict';
+var c4p;
+if (!c4p) c4p = {};
+c4p.Demo = ${data.demo};
+</echo>
+    </target>
+
+    <target name="jstd-conf"
+            depends="prepare"
+            description="Edit jsTestDriver configuration files">
+        <loadfile property="jstd.conf.old" srcFile="${basedir}/tests/template-jsTestDriver.conf"/>
+        <propertyregex property="jstd.conf"
+                       input="${jstd.conf.old}"
+                       regexp="JSTD_PORT"
+                       replace="${jstd.port}"
+                       casesensitive="true"
+                       defaultValue="${jstd.conf.old}"/>
+        <echo file="${basedir}/tests/jsTestDriver.conf">${jstd.conf}</echo>
+        <loadfile property="jstd-scenario.conf.old" srcFile="${basedir}/tests/template-jsTestDriver-scenario.conf"/>
+        <propertyregex property="jstd-scenario.conf"
+                       input="${jstd-scenario.conf.old}"
+                       regexp="JSTD_PORT"
+                       replace="${jstd.port}"
+                       casesensitive="true"
+                       defaultValue="${jstd-scenario.conf.old}"/>
+        <echo file="${basedir}/tests/jsTestDriver-scenario.conf">${jstd-scenario.conf}</echo>
+    </target>
+
+    <!-- create tests/e2e/e2e_helpers.js -->
+    <target name="e2e-runner"
+            depends="prepare"
+            description="Edit tests/e2e/e2e_helpers.js file">
+        <loadfile property="e2e_helpers.old" srcFile="${basedir}/tests/e2e/template-e2e_helpers.js"/>
+        <propertyregex property="e2e_helpers.bis"
+                       input="${e2e_helpers.old}"
+                       regexp="C4P_HTML_URL_BASE"
+                       replace="${c4pHtml.urlBase}"
+                       casesensitive="true"
+                       defaultValue="${e2e_helpers.old}"/>
+        <propertyregex property="e2e_helpers"
+                       input="${e2e_helpers.bis}"
+                       regexp="W4P_URL_BASE"
+                       replace="${w4p.urlBase}"
+                       casesensitive="true"
+                       defaultValue="${e2e_helpers.bis}"/>
+        <echo file="${basedir}/tests/e2e/e2e_helpers.js">${e2e_helpers}</echo>
+    </target>
+
+    <!-- create tests/unit/runner.html from www/index.html -->
+    <target name="unit-runner"
+            depends="prepare"
+            description="Edit tests/unit/runner.html file">
+        <copy file="${basedir}/www/index.html" tofile="${basedir}/tests/unit/runner.html" overwrite="true" failonerror="true"/>
+        <!-- change title, add base ref (to point on js scripts from test files), add jasmine files -->
+        <replaceregexp file="${basedir}/tests/unit/runner.html"
+                       match="&lt;title&gt;(.*)&lt;/title&gt;"
+                       replace="&lt;!-- DO NOT EDIT this file : it is generated by build.xml from www/index.html file --&gt;${line.separator}
+    &lt;title&gt;\1 jasmine UNIT runner&lt;/title&gt;${line.separator}
+    &lt;!-- Add base ref to point on JS scripts from tests/unit dir --&gt;${line.separator}
+    &lt;base href='../../www/' /&gt;${line.separator}
+    &lt;!-- Add jasmine CSS --&gt;${line.separator}
+    &lt;link rel='shortcut icon' type='image/png' href='../tests/lib/jasmine/jasmine_favicon.png' /&gt;${line.separator}
+    &lt;link rel='stylesheet' type='text/css' href='../tests/lib/jasmine/jasmine.css' /&gt;${line.separator}
+    &lt;script type='text/javascript' src='../tests/lib/jasmine/jasmine.js'&gt;&lt;/script&gt;${line.separator}
+    &lt;script type='text/javascript' src='../tests/lib/jasmine/jasmine-html.js'&gt;&lt;/script&gt;${line.separator}
+    &lt;script type='text/javascript' src='../tests/lib/blanket/blanket.min.js'&gt;&lt;/script&gt;${line.separator}
+    &lt;script type='text/javascript' src='../tests/lib/blanket/jasmine-blanket.js'&gt;&lt;/script&gt;${line.separator}">
+        </replaceregexp>
+        <!-- remove application noMove code -->
+        <replaceregexp file="${basedir}/tests/unit/runner.html"
+                       match="&lt;body(.*)&gt;"
+                       replace="&lt;!-- Remove ng-app and noMove codes from body attributes --&gt;${line.separator}&lt;body&gt;">
+        </replaceregexp>
+        <!-- remove application starting code, as we need to test each component alone -->
+        <!-- need flags='s' because we search for a multi-lines '<div>...</div>' pattern -->
+        <replaceregexp file="${basedir}/tests/unit/runner.html"
+                       match="&lt;div(.*)&lt;/div&gt;"
+                       replace="&lt;!-- Remove app code from body tag as we need to test each component alone --&gt;"
+                       flags="s">
+        </replaceregexp>
+        <!-- add jasmine runner -->
+        <replaceregexp file="${basedir}/tests/unit/runner.html"
+                       match="&lt;/body&gt;"
+                       replace="    &lt;!-- Add jasmine runner --&gt;${line.separator}
+    &lt;script src='../tests/lib/angular/angular-mocks.js'&gt;&lt;/script&gt;${line.separator}
+    &lt;script src='../tests/lib/jasmine-jquery/jasmine-jquery.js'&gt;&lt;/script&gt;${line.separator}
+    &lt;script src='../tests/unit/jasmineReporter.js'&gt;&lt;/script&gt;${line.separator}
+    &lt;!-- Add all test libs --&gt;${line.separator}
+    SPEC_LIB_FILES${line.separator}
+    &lt;!-- Add all test scripts --&gt;${line.separator}
+    SPEC_FILES${line.separator}
+    &lt;!-- Launch jasmine runner --&gt;${line.separator}
+    &lt;script type='text/javascript'&gt;${line.separator}
+    var jasmineEnv = jasmine.getEnv();${line.separator}
+    jasmineEnv.updateInterval = 1000;${line.separator}
+    /* Use the HTML as reporter but this interferes with IHM */${line.separator}
+    var htmlReporter = new jasmine.HtmlReporter(); jasmineEnv.addReporter(htmlReporter); jasmineEnv.specFilter = function (spec) {return htmlReporter.specFilter(spec);};${line.separator}
+    /* Use the console.log as reporter to not interfere with IHM */${line.separator}
+    var logReporter = new a4p.LogReporter(); jasmineEnv.addReporter(logReporter);${line.separator}
+    var currentWindowOnload = window.onload;${line.separator}
+    window.onload = function () {${line.separator}
+        if (currentWindowOnload) {${line.separator}
+            currentWindowOnload();${line.separator}
+        }${line.separator}
+        execJasmine();${line.separator}
+    };${line.separator}
+    function execJasmine() {${line.separator}
+        console.log('jasmineEnv.execute()');${line.separator}
+        jasmineEnv.execute();${line.separator}
+        //setTimeout(function(){${line.separator}
+		//		$('#c4p-css').attr({href : 'l4p/css/c4p-theme-cosmo.css'});${line.separator}
+        // },1000);${line.separator}
+    }${line.separator}
+    &lt;/script&gt;${line.separator}
+&lt;/body&gt;">
+        </replaceregexp>
+        <!-- remove css theme -->
+        <replaceregexp file="${basedir}/tests/unit/runner.html"
+                       match='&lt;link href="l4p/css/c4p-theme-apps4pro.css" rel="stylesheet" type="text/css" id="c4p-css" &gt;'
+                       replace="${line.separator}">
+        </replaceregexp>
+        <!-- add all test libraries -->
+        <fileset id="unitTestLibFileSet" dir="${basedir}/tests/unit">
+            <include name="*Mocks.js"/>
+        </fileset>
+        <pathconvert pathsep="'&gt;&lt;/script&gt;${line.separator}    &lt;script src='../tests/unit/" property="unitTestLibFiles" refid="unitTestLibFileSet">
+            <mapper type="flatten" />
+        </pathconvert>
+        <replaceregexp file="${basedir}/tests/unit/runner.html"
+                       match="SPEC_LIB_FILES"
+                       replace="&lt;script src='../tests/unit/${unitTestLibFiles}'&gt;&lt;/script&gt;">
+        </replaceregexp>
+        <!-- add all test scripts -->
+        <fileset id="unitTestFileSet" dir="${basedir}/tests/unit">
+            <include name="*Spec.js"/>
+        </fileset>
+        <pathconvert pathsep="'&gt;&lt;/script&gt;${line.separator}    &lt;script src='../tests/unit/" property="unitTestFiles" refid="unitTestFileSet">
+            <mapper type="flatten" />
+        </pathconvert>
+        <replaceregexp file="${basedir}/tests/unit/runner.html"
+                       match="SPEC_FILES"
+                       replace="&lt;script src='../tests/unit/${unitTestFiles}'&gt;&lt;/script&gt;">
+        </replaceregexp>
+        <!-- add data-cover on app js -->
+        <replaceregexp  file="${basedir}/tests/unit/runner.html"
+                        flags="g"
+                        match='text/javascript" src="js/'
+                        replace='text/javascript" data-cover src="js/'>
+        </replaceregexp>
+        <replaceregexp  file="${basedir}/tests/unit/runner.html"
+                        flags="g"
+                        match='&lt;script type="text/javascript" charset="utf-8" src="cordova.js"&gt;&lt;/script&gt;'
+                        replace=' '>
+        </replaceregexp>
+    </target>
+
+    <target name="appcache">
+        <tstamp>
+            <format property="timecache" pattern="yyyy-MM-dd HH:mm:ss"/>
+        </tstamp>
+        <fileset id="cachedFileSet" dir="${basedir}/www">
+            <include name="*.html"/>
+            <include name="js/**/*.js"/>
+            <include name="www/**/*.*"/>
+            <include name="img/**/*.*"/>
+            <include name="l4p/css/**/*.css"/>
+            <include name="l4p/img/**/*.png"/>
+            <include name="l4p/img/**/*.gif"/>
+            <include name="l4p/libs/**/*.js"/>
+            <include name="partials/**/*.html"/>
+        </fileset>
+
+        <pathconvert targetos="unix" pathsep="${line.separator}" property="cachedFiles" refid="cachedFileSet">
+            <map from="${basedir}/www/" to=""/>
+            <!--<mapper type="flatten" />-->
+        </pathconvert>
+
+        <echo file="www/cache.appcache">CACHE
+MANIFEST${line.separator}#${timecache}${line.separator}${line.separator}${cachedFiles}${line.separator}http://www.apps4pro.com/samples/c4pGuider1.gif${line.separator}http://www.apps4pro.com/samples/c4pGuider2.gif${line.separator}http://www.apps4pro.com/samples/c4pGuider3.gif${line.separator}http://www.apps4pro.com/samples/c4pGuider4.gif${line.separator}http://www.apps4pro.com/samples/c4pGuider5.gif${line.separator}${line.separator}NETWORK:${line.separator}*${line.separator}
+</echo>
+    </target>
+
+
+<!-- //todo if local .. later ?
+    <target name="mobile-config">
+        <property name="c4p.ios.config1" value='
+            <array>
+                <dict>
+                    <key>CFBundleTypeIconFiles</key>
+                    <array>
+                        <string>icon.png</string>
+                        <string>icon@2x.png</string>
+                        <string>icon-72.png</string>
+                        <string>icon-72@2x.png</string>
+                    </array>
+                    <key>CFBundleTypeName</key>
+                    <string>MyAppName File</string>
+                    <key>CFBundleTypeRole</key>
+                    <string>Viewer</string>
+                    <key>LSHandlerRank</key>
+                    <string>Owner</string>
+                    <key>LSItemContentTypes</key>
+                    <array>
+                        <string>com.apps4pro.c4p.file</string>
+                        <string>public.comma-separated-values-text</string>
+                        <string>public.item</string>
+                        <string>public.content</string>
+                    </array>
+                </dict>
+            </array>'></property>
+        <property name="c4p.ios.config2" value='
+            <array>
+                <dict>
+                    <key>UTTypeConformsTo</key>
+                    <array>
+                        <string>public.data</string>
+                    </array>
+                    <key>UTTypeDescription</key>
+                    <string>MyAppName File</string>
+                    <key>UTTypeIdentifier</key>
+                    <string>com.apps4pro.c4p.file</string>
+                    <key>UTTypeTagSpecification</key>
+                    <dict>
+                        <key>public.filename-extension</key>
+                        <string>mye</string>
+                        <key>public.mime-type</key>
+                        <string>application/octet-stream</string>
+                    </dict>
+                </dict>
+            </array>' ></property>
+        <property name="c4p.ios.config.xml" value='
+            <gap:config-file platform="ios" parent="CFBundleDocumentTypes" overwrite="true">'.${c4p.ios.config1}.'</gap:config-file>
+            <gap:config-file platform="ios" parent="UTExportedTypeDeclarations" overwrite="true">'.${c4p.ios.config2}.'</gap:config-file>'
+        </property>
+        <property name="c4p.ios.plist.xml" value='
+            <key>CFBundleDocumentTypes</key>'.${c4p.ios.config1}.'
+            <key>UTExportedTypeDeclarations</key>'.${c4p.ios.config2}
+        </property>
+    </target> -->
+
+    <!-- Intermediate phases -->
+
+    <target name="generate"
+            depends="clean, prepare, copy-l4p-local, copy-l4p-jenkins-local, copy-l4p-jenkins-dev,copy-l4p-jenkins-int,copy-l4p-jenkins-prod, locale-conf, demo-conf, edit-conf, jstd-conf, unit-runner, e2e-runner, appcache"/>
+
+    <!-- CLEANUP -->
+
+    <target name="clean" description="Delete built objects">
+        <delete file="${basedir}/www/models/c4p_conf.json" quiet="true"/>
+        <delete file="${basedir}/www/models/c4p_locale.js" quiet="true"/>
+        <delete file="${basedir}/www/models/c4p_demo.js" quiet="true"/>
+        <delete file="${basedir}/tests/jsTestDriver.conf" quiet="true"/>
+        <delete file="${basedir}/tests/jsTestDriver-scenario.conf" quiet="true"/>
+        <delete file="${basedir}/tests/e2e/e2e_helpers.js" quiet="true"/>
+        <delete file="${basedir}/tests/unit/runner.html" quiet="true"/>
+        <delete file="${basedir}/www/cache.appcache" quiet="true"/>
+
+        <delete dir="${basedir}/build" quiet="true"/>
+        <delete dir="${basedir}/www/l4p" quiet="true"/>
+        <delete dir="${basedir}/tests/lib" quiet="true"/>
+        <delete dir="${basedir}/../c4p_mobile" quiet="true"/>
+    </target>
+
+    <target name="prepare" depends="clean" description="Create built directories with right permissions">
+        <mkdir dir="${basedir}/build/tests"/>
+        <mkdir dir="${basedir}/www/l4p"/>
+        <mkdir dir="${basedir}/tests/lib"/>
+    </target>
+
+    <!-- BUILD -->
+
+    <target name="check-l4p-local">
+        <available file="${basedir}/../../l4p/build.xml" property="l4p-local.present"/>
+    </target>
+    <target name="check-l4p-jenkins-local">
+        <available file="${basedir}/../../../local-l4p/workspace/build.xml" property="l4p-jenkins-local.present"/>
+    </target>
+    <target name="check-l4p-jenkins-dev">
+        <available file="${basedir}/../../../dev-l4p/workspace/build.xml" property="l4p-jenkins-dev.present"/>
+        <echo message="DEV build ..."/>
+    </target>
+    <target name="check-l4p-jenkins-int">
+        <available file="${basedir}/../../../int-l4p/workspace/build.xml" property="l4p-jenkins-int.present"/>
+        <echo message="INT build ..."/>
+    </target>
+    <target name="check-l4p-jenkins-prod">
+        <available file="${basedir}/../../prod-l4p/build.xml" property="l4p-jenkins-prod.present"/>
+        <echo message="PROD build ..."/>
+    </target>
+
+    <target name="copy-l4p-local" if="l4p-local.present">
+        <echo message="LOCAL build ..."/>
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../l4p/build/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../l4p/libs/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/css" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../l4p/build/css">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/font" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../l4p/font">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/img" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../l4p/img">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/tests/lib" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../l4p/tests/js/lib">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="copy-l4p-jenkins-local" if="l4p-jenkins-local.present">
+        <echo message="LOCAL Jenkins build ..."/>
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../local-l4p/workspace/build/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../local-l4p/workspace/libs/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/css" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../local-l4p/workspace/build/css">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/font" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../local-l4p/workspace/font">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/img" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../local-l4p/workspace/img">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/tests/lib" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../local-l4p/workspace/tests/js/lib">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="copy-l4p-jenkins-dev" if="l4p-jenkins-dev.present">
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../dev-l4p/workspace/build/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../dev-l4p/workspace/libs/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/css" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../dev-l4p/workspace/build/css">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/font" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../dev-l4p/workspace/font">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/img" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../dev-l4p/workspace/img">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/tests/lib" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../dev-l4p/workspace/tests/js/lib">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="copy-l4p-jenkins-int" if="l4p-jenkins-int.present">
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../int-l4p/workspace/build/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../int-l4p/workspace/libs/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/css" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../int-l4p/workspace/build/css">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/font" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../int-l4p/workspace/font">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/img" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../int-l4p/workspace/img">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/tests/lib" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../../int-l4p/workspace/tests/js/lib">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="copy-l4p-jenkins-prod" if="l4p-jenkins-prod.present">
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../prod-l4p/build/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/libs/js" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../prod-l4p/libs/js">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/css" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../prod-l4p/build/css">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/font" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../prod-l4p/font">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/www/l4p/img" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../prod-l4p/img">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/tests/lib" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/../../prod-l4p/tests/js/lib">
+                <exclude name="**/_*/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="check-cordova">
+        <execute-and-output executable="npm" failonerror="false" outputproperty="cordovaList">
+            <arg value="list"/>
+            <arg value="-gp"/>
+            <arg value="cordova"/>
+        </execute-and-output>
+        <condition property="cordova.absent" value="${cordovaList}">
+            <not>
+                <contains casesensitive="true" string="${cordovaList}" substring="cordova"/>
+            </not>
+        </condition>
+    </target>
+
+    <target name="install-cordova" depends="check-cordova" if="cordova.absent">
+        <echo message="cordova is not installed => install it"/>
+        <sudo executable="npm" dir="${basedir}/.." failonerror="true">
+            <arg value="install"/>
+            <arg value="-g"/>
+            <arg value="cordova"/>
+        </sudo>
+    </target>
+
+    <target name="update-cordova" depends="install-cordova">
+        <sudo executable="npm" dir="${basedir}/.." failonerror="true">
+            <arg value="update"/>
+            <arg value="-g"/>
+            <arg value="cordova"/>
+        </sudo>
+    </target>
+
+    <target name="create-mobile" depends="check-cordova" unless="cordova.absent">
+        <!--<delete dir="${basedir}/../c4p_mobile" quiet="true"/>-->
+
+        <execute dir="${basedir}/.." executable="cordova" failonerror="false">
+            <arg value="create"/>
+            <arg value="c4p_mobile"/>
+            <arg value="com.apps4pro.c4p"/>
+            <arg value="c4p"/>
+        </execute>
+
+        <delete dir="${basedir}/../c4p_mobile/www" quiet="true"/>
+        <copy todir="${basedir}/../c4p_mobile/www" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/mobile">
+            </fileset>
+        </copy>
+        <copy file="${basedir}/mobile_config/config_${c4p.env}.xml" tofile="${basedir}/../c4p_mobile/www/config.xml" overwrite="true" failonerror="true"/>
+        <replaceregexp file="${basedir}/../c4p_mobile/www/config.xml"
+                       match="C4P_BUILD_DATE"
+                       replace="${TODAY_FR}">
+        </replaceregexp>
+        <copy file="${basedir}/../c4p_mobile/www/config.xml" tofile="${basedir}/../c4p_mobile/config.xml" overwrite="true" failonerror="true"/>
+        <copy todir="${basedir}/../c4p_mobile/www/mobile_res" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/mobile_res/Resources"/>
+        </copy>
+
+    </target>
+
+    <target name="create-mobile-android">
+
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="false">
+            <arg value="platform"/>
+            <arg value="add"/>
+            <arg value="android"/>
+        </execute>
+        <copy file="${basedir}/../c4p_mobile/www/config.xml" tofile="${basedir}/../c4p_mobile/platforms/android/res/xml/config.xml" overwrite="true" failonerror="true"/>
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="false">
+            <arg value="platform"/>
+            <arg value="update"/>
+            <arg value="android"/>
+        </execute>
+
+        <!--<copy todir="${basedir}/../c4p_mobile/platforms/android/res/values" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/mobile_res/android/values"/>
+        </copy>-->
+        <!--<copy file="${basedir}/mobile_res/icon-96.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable/icon.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-36.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable-ldpi/icon.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-48.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable-mdpi/icon.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-72.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable-hdpi/icon.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-96.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable-xhdpi/icon.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-1024-768.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable/splash.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-1024-768.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable-ldpi/splash.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-1024-768.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable-mdpi/splash.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-1024-768.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable-hdpi/splash.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-1024-768.png" tofile="${basedir}/../c4p_mobile/platforms/android/res/drawable-xhdpi/splash.png" overwrite="true" failonerror="true"/>
+      -->
+    </target>
+
+    <target name="create-mobile-ios" if="os-ios.present">
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="false">
+            <arg value="platform"/>
+            <arg value="add"/>
+            <arg value="ios"/>
+        </execute>
+        <copy file="${basedir}/../c4p_mobile/www/config.xml" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/config.xml" overwrite="true" failonerror="true"/>
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="false">
+            <arg value="platform"/>
+            <arg value="update"/>
+            <arg value="ios"/>
+        </execute>
+
+
+        <!--<copy todir="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/mobile_res/ios"/>
+        </copy>-->
+        <!--<copy file="${basedir}/mobile_res/icon-57.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-114.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon@2x.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-40.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-40.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-80.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-40@2x.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-50.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-50.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-100.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-50@2x.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-60.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-60.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-120.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-60@2x.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-72.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-72.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-144.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-72@2x.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-76.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-76.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-152.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-76@2x.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-29.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-small.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/icon-58.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/icons/icon-small@2x.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-320-480.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/splash/Default~iphone.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-640-960.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/splash/Default@2x~iphone.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-640-1136.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/splash/Default-568@2x~iphone.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-768-1004.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/splash/Default-Portrait~ipad.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-1536-2008.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/splash/Default-Portrait@2x~ipad.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-1024-748.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/splash/Default-Landscape~ipad.png" overwrite="true" failonerror="true"/>
+        <copy file="${basedir}/mobile_res/splash-2048-1496.png" tofile="${basedir}/../c4p_mobile/platforms/ios/c4p/Resources/splash/Default-Landscape@2x~ipad.png" overwrite="true" failonerror="true"/>-->
+    </target>
+
+    <!-- Add Cordova 3.* plugins -->
+    <target name="add-cordova-plugins">
+       <!-- <property   name="c4p.cordova.plugins" value="">-->
+        <property   name="c4p.cordova.plugins"
+                    value="org.apache.cordova.device,org.apache.cordova.network-information,org.apache.cordova.battery-status,org.apache.cordova.device-motion,org.apache.cordova.device-orientation,org.apache.cordova.geolocation,org.apache.cordova.camera,org.apache.cordova.media,org.apache.cordova.media-capture,org.apache.cordova.file,org.apache.cordova.file-transfer,org.apache.cordova.dialogs,org.apache.cordova.vibration,org.apache.cordova.contacts,org.apache.cordova.globalization,org.apache.cordova.splashscreen,org.apache.cordova.inappbrowser,org.apache.cordova.console">
+        </property>
+        <property   name="c4p.cordova.plugins-X-name"
+                    value="com.adobe.plugins.gaplugin,com.phonegap.plugin.statusbar,com.badrit.contactpicker,com.ionic.keyboard">
+        </property>
+        <property   name="c4p.cordova.plugins-X-github"
+                    value="https://github.com/phonegap-build/GAPlugin.git,https://github.com/phonegap-build/StatusBarPlugin.git,https://github.com/hazemhagrass/ContactPicker.git,https://github.com/driftyco/ionic-plugins-keyboard.git">
+        </property>
+        <for param="plugin" list="${c4p.cordova.plugins},${c4p.cordova.plugins-X-name}">
+            <sequential>
+                <replaceregexp file="${basedir}/../c4p_mobile/www/config.xml"
+                               match="&lt;!-- C4P_BUILD_PLUGINS --&gt;"
+                               replace="&lt;!-- C4P_BUILD_PLUGINS --&gt;${line.separator}&lt;gap:plugin name=&quot;@{plugin}&quot; /&gt;">
+                </replaceregexp>
+               <!-- <replaceregexp file="${basedir}/../c4p_mobile/www/config.xml"
+                               match="&lt;gap:plugin name=&quot;nl.x-services.plugins.launchmyapp&quot; /&gt;"
+                               replace="&lt;gap:plugin name=&quot;nl.x-services.plugins.launchmyapp&quot; &gt;${line.separator}&lt;param name=&quot;URL_SCHEME&quot; value=&quot;comapps4proc4p&quot; /&gt;${line.separator}&lt;/gap:plugin&gt;">
+                </replaceregexp> -->
+            </sequential>
+        </for>
+        <for param="plugin" list="${c4p.cordova.plugins},${c4p.cordova.plugins-X-github}">
+            <sequential>
+                <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="true">
+                    <arg value="plugin"/>
+                    <arg value="add"/>
+                    <arg line='@{plugin}'/>
+                </execute>
+            </sequential>
+        </for>
+    </target>
+
+    <target name="compile-mobile-android">
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="true">
+            <arg value="prepare"/>
+            <arg value="android"/>
+        </execute>
+        <!--<copy todir="${basedir}/../c4p_mobile/platforms/android/src" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/mobile_src/android"/>
+        </copy>-->
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="true">
+            <arg value="compile"/>
+            <arg value="android"/>
+        </execute>
+        <!-- Update AndroidManifest.xml -->
+        <!-- need flags='g' because we search for a multi occurence pattern -->
+        <!-- Activate SingleTask launchMode
+        <replaceregexp file="${basedir}/../c4p_mobile/platforms/android/AndroidManifest.xml"
+                       match="name=.MeetingPad. android:theme"
+                       replace="name=&quot;MeetingPad&quot; android:launchMode=&quot;singleTask&quot; android:theme">
+        </replaceregexp> -->
+        <!-- Activate BROADCAST_STICKY permission
+        <replaceregexp file="${basedir}/../c4p_mobile/platforms/android/AndroidManifest.xml"
+                       match="uses-permission android:name=.android.permission.GET_ACCOUNTS."
+                       replace="uses-permission android:name=&quot;android.permission.GET_ACCOUNTS&quot; /&gt;${line.separator}
+    &lt;uses-permission android:name=&quot;android.permission.BROADCAST_STICKY&quot;">
+        </replaceregexp>-->
+        <!-- Require minSdkVersion 15
+        <replaceregexp file="${basedir}/../c4p_mobile/platforms/android/AndroidManifest.xml"
+                       match="android:minSdkVersion=.10."
+                       replace="android:minSdkVersion=&quot;15&quot;">
+        </replaceregexp> -->
+        <!-- Enable document import -->
+        <!-- <data android:mimeType=\"image/*\" />
+        <replaceregexp file="${basedir}/../c4p_mobile/platforms/android/AndroidManifest.xml"
+                       match="&lt;/intent-filter&gt;"
+                       replace="&lt;/intent-filter&gt;${line.separator}
+            &lt;intent-filter&gt;${line.separator}
+                &lt;action android:name=&quot;android.intent.action.VIEW&quot; /&gt;${line.separator}
+                &lt;action android:name=&quot;android.intent.action.EDIT&quot; /&gt;${line.separator}
+                &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;${line.separator}
+                &lt;data android:scheme=&quot;file&quot; android:mimeType=&quot;*/*&quot; /&gt;${line.separator}
+                &lt;data android:scheme=&quot;http&quot; android:mimeType=&quot;*/*&quot; /&gt;${line.separator}
+                &lt;data android:scheme=&quot;content&quot; android:mimeType=&quot;*/*&quot; /&gt;${line.separator}
+            &lt;/intent-filter&gt;">
+        </replaceregexp> -->
+        <execute dir="${basedir}/../c4p_mobile/platforms/android" executable="ant" failonerror="true">
+            <arg value="release"/>
+        </execute>
+        <first id="c4p.apk-file">
+            <fileset dir="${basedir}/../c4p_mobile/platforms/android/bin" includes="*-release-unsigned.apk" />
+        </first>
+        <echo message="${toString:c4p.apk-file}" />
+        <execute dir="${basedir}/../c4p_mobile/platforms/android" executable="jarsigner" failonerror="true">
+            <arg value="-keystore"/>
+            <arg value="${basedir}/mobile_res/android_key/apps4pro-key.keystore"/>
+            <arg value="-storepass"/>
+            <arg value="apps4pro"/>
+            <arg value="-digestalg"/>
+            <arg value="SHA1"/>
+            <arg value="-sigalg"/>
+            <arg value="MD5withRSA"/>
+            <arg value="${toString:c4p.apk-file}"/>
+            <arg value="mykey"/>
+        </execute>
+        <copy file="${toString:c4p.apk-file}" tofile="${basedir}/../c4p_mobile/c4p.apk" overwrite="true" failonerror="true"/>
+        <execute dir="${basedir}/../c4p_mobile" executable="jarsigner" failonerror="true">
+            <arg value="-verify"/>
+            <arg value="${basedir}/../c4p_mobile/c4p.apk"/>
+        </execute>
+        <execute dir="${basedir}/../c4p_mobile" executable="zipalign" failonerror="true">
+            <arg value="-f"/>
+            <arg value="4"/>
+            <arg value="${basedir}/../c4p_mobile/c4p.apk"/>
+            <arg value="${basedir}/../c4p_mobile/c4p-aligned.apk"/>
+        </execute>
+    </target>
+
+    <target name="compile-mobile-ios" if="os-ios.present">
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="true">
+            <arg value="prepare"/>
+            <arg value="ios"/>
+        </execute>
+        <!--<copy todir="${basedir}/../c4p_mobile/platforms/ios/c4p/Classes" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/mobile_src/ios/Classes"/>
+        </copy>
+        <copy todir="${basedir}/../c4p_mobile/platforms/ios/c4p/Plugins" preservelastmodified="true" overwrite="true" failonerror="true">
+            <fileset dir="${basedir}/mobile_src/ios/Plugins"/>
+        </copy>-->
+        <execute dir="${basedir}/../c4p_mobile" executable="cordova" failonerror="true">
+            <arg value="compile"/>
+            <arg value="ios"/>
+        </execute>
+        <!-- Update iOS config.xml -->
+        <!-- need flags='g' because we search for a multi occurence pattern -->
+        <!-- Deactivate StatusBar
+        <replaceregexp file="${basedir}/../c4p_mobile/platforms/ios/c4p/config.xml"
+                       match="name=.StatusBarOverlaysWebView. value=.true."
+                       replace="name=&quot;StatusBarOverlaysWebView&quot; value=&quot;false&quot;"
+                       flags="g">
+        </replaceregexp>
+        -->
+    </target>
+
+    <!-- TEST -->
+
+    <target name="jstest" description="Test Javascript with JsTestDriver">
+        <!-- execute option 'failonerror="true"' and arg line option 'raiseOnFailure true' do not work : wait endlessly if runnerMode QUIET -->
+        <!-- e2e tests -->
+        <!-- ... jsTestDriver-scenario.conf" -->
+        <!-- unit tests -->
+        <execute executable="java" failonerror="true">
+            <arg value="-jar"/>
+            <arg value="${basedir}/tests/lib/jstestdriver/JsTestDriver-1.3.5.jar"/>
+            <arg value="--config"/>
+            <arg value="${basedir}/tests/jsTestDriver.conf"/>
+            <arg value="--browserTimeout"/>
+            <arg value="20000"/>
+            <arg value="--runnerMode"/>
+            <arg value="DEBUG"/>
+            <arg value="--raiseOnFailure"/>
+            <arg value="true"/>
+            <arg value="--tests"/>
+            <arg value="all"/>
+            <arg value="--testOutput"/>
+            <arg value="${basedir}/build/tests/"/>
+            <arg value="--reset"/>
+            <arg value="--verbose"/>
+        </execute>
+    </target>
+
+
+    <target name="e2etest" description="Test End To End with JsTestDriver">
+        <execute dir="${basedir}/scripts" executable="e2e-test.sh" failonerror="true"
+              osfamily="unix">
+        </execute>
+        <execute dir="${basedir}/scripts" executable="cmd" failonerror="true"
+              osfamily="windows">
+            <arg value="/c"/>
+            <arg value="e2e-test.bat"/>
+        </execute>
+    </target>
+</project>

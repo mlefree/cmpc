@@ -3,15 +3,15 @@
  */
 @font-face {
   font-family: 'a4pHelveticaNeue';
-  src: url('../font/hn/18925_helveticaneuelt-webfont.eot');
-  src: url('../font/hn/18925_helveticaneuelt-webfont.eot?#iefix') format('embedded-opentype'), url('../font/hn/18925_helveticaneuelt-webfont.woff') format('woff'), url('../font/hn/18925_helveticaneuelt-webfont.ttf') format('truetype'), url('../font/hn/18925_helveticaneuelt-webfont.svg#helveticaneuelight') format('svg');
+  src: url('../fonts/hn/18925_helveticaneuelt-webfont.eot');
+  src: url('../fonts/hn/18925_helveticaneuelt-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/hn/18925_helveticaneuelt-webfont.woff') format('woff'), url('../fonts/hn/18925_helveticaneuelt-webfont.ttf') format('truetype'), url('../fonts/hn/18925_helveticaneuelt-webfont.svg#helveticaneuelight') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'a4pHelveticaNeueLight';
-  src: url('../font/hn/18921_helveticaneue-webfont.eot');
-  src: url('../font/hn/18921_helveticaneue-webfont.eot?#iefix') format('embedded-opentype'), url('../font/hn/18921_helveticaneue-webfont.woff') format('woff'), url('../font/hn/18921_helveticaneue-webfont.ttf') format('truetype'), url('../font/hn/18921_helveticaneue-webfont.svg#helveticaneueregular') format('svg');
+  src: url('../fonts/hn/18921_helveticaneue-webfont.eot');
+  src: url('../fonts/hn/18921_helveticaneue-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/hn/18921_helveticaneue-webfont.woff') format('woff'), url('../fonts/hn/18921_helveticaneue-webfont.ttf') format('truetype'), url('../fonts/hn/18921_helveticaneue-webfont.svg#helveticaneueregular') format('svg');
   font-weight: 600;
   font-style: normal;
 }
@@ -6810,8 +6810,8 @@ button.close {
  * -------------------------- */
 @font-face {
   font-family: 'fa-a4p';
-  src: url('../font/fa/fontawesome-webfont.eot?v=4.0.3');
-  src: url('../font/fa/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('../font/fa/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('../font/fa/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('../font/fa/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+  src: url('../fonts/fa/fontawesome-webfont.eot?v=4.0.3');
+  src: url('../fonts/fa/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('../fonts/fa/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('../fonts/fa/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('../fonts/fa/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }

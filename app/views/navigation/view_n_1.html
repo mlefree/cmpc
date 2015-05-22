@@ -5,7 +5,7 @@
 		<!-- Header -->
 		<div class="col-xxs-12 c4p-header-std c4p-header-details c4p-color-gradient0"
 			resize-opts="{name:'navigation_detail_title'}"
-			ng-include="'partials/navigation/view_n_1_header.html'"></div>
+			ng-include="'views/navigation/view_n_1_header.html'"></div>
 
 
 		<!-- Details -->
@@ -22,7 +22,7 @@
 					class="c4p-color-a-gradient{{$index}} c4p-card row"
 					ng-class="{'c4p-card-thumb': $first, 'c4p-card-synchronized' : $first && (srvNav.item.c4pSynchroStatus.cloud.progress == 100), 'c4p-card-synchronized-not' : $first && (srvNav.item.c4pSynchroStatus.cloud.progress < 100), 'c4p-card-synchronized-pb' : $first && (srvNav.item.c4pSynchroStatus.cloud.status == 1)}"
 					ng-init="cardItem = srvNav.item; cardGroups = card.groups; cardHasThumb = ($first == true); cardItemName = itemName; cardIsAboutVideo = isVideo; cardIsAboutFile = isFile; cardItemColor = 'c4p-color-'+itemColor"
-					ng-include ="'partials/navigation/cards/detail_card.html'"></div>
+					ng-include ="'views/navigation/cards/detail_card.html'"></div>
 			</div>
 
 			<!-- OUTSIDE the scroller zone : Modal droppable zone to activate Link actions -->
@@ -63,7 +63,7 @@
 			<div class="row" style="margin:0;"
 			     ng-style="{width:getDetailWidth()+'px'}"
 			     resize-opts="{watchRefresh:['srvNav.item', 'srvNav.history.length']}">
-			    <footer ng-include="'partials/navigation/footer_detail.html'"></footer>
+			    <footer ng-include="'views/navigation/footer_detail.html'"></footer>
 			</div>
 
 			-->

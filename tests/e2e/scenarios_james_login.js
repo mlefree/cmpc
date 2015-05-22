@@ -40,7 +40,7 @@ describe('James Login', function() {
 		});
 
 		it('Go to event list ', function() {
-			element('footer[ng-include="\'partials/navigation/footer.html\'"] .container ul:eq(2) li:eq(2) a').click();
+			element('footer[ng-include="\'views/navigation/footer.html\'"] .container ul:eq(2) li:eq(2) a').click();
 			sleep(1);
 		});
 
@@ -59,8 +59,8 @@ describe('James Login', function() {
 
 			expect(element('span[ng-model="srvNav.item.name"]:eq(0)').text()).toBe('Pr\u00E9sentation');
 			expect(element('span[ng-model="srvNav.item.location"]:eq(0)').text()).toBe('Tours');
-			expect(element('div[ng-include="\'partials/navigation/view_n_event.html\'"] div[class="col-xs-12 well well-small c4p-well-a ng-scope"] span[class="ng-binding"]:eq(0)').text()).toMatch(/4\/28\/13(\t|\r|\n|\s)*2:00 PM/);
-			expect(element('div[ng-include="\'partials/navigation/view_n_event.html\'"] div[class="col-xs-12 well well-small c4p-well-a ng-scope"] span[class="ng-binding"]:eq(1)').text()).toMatch(/4\/28\/13(\t|\r|\n|\s)*3:00 PM/);
+			expect(element('div[ng-include="\'views/navigation/view_n_event.html\'"] div[class="col-xs-12 well well-small c4p-well-a ng-scope"] span[class="ng-binding"]:eq(0)').text()).toMatch(/4\/28\/13(\t|\r|\n|\s)*2:00 PM/);
+			expect(element('div[ng-include="\'views/navigation/view_n_event.html\'"] div[class="col-xs-12 well well-small c4p-well-a ng-scope"] span[class="ng-binding"]:eq(1)').text()).toMatch(/4\/28\/13(\t|\r|\n|\s)*3:00 PM/);
 
 			sleep(1);
 		});

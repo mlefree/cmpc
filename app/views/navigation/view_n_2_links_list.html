@@ -17,7 +17,7 @@
       c4p-animateshow="detailLinkedObjectsLoadingSpinner"
       after-hide="afterDetailLinkedObjectsSpinnerHide()"
       after-show="afterDetailLinkedObjectsSpinnerShow()">
-      <div ng-include="'partials/spinner.html'"></div>
+      <div ng-include="'views/spinner.html'"></div>
   </div>
 
   <div ng-if="!detailLinkedObjectsLoadingSpinner">
@@ -41,7 +41,7 @@
                       <!-- Cards -->
                       <div class="c4p-related-card-holder" ng-class="{'col-xxs-11' : linkItemsActionIsPossible, 'col-xxs-12' : !linkItemsActionIsPossible}">
                           <div ng-if="isDraggable">
-                            <span ng-include="'partials/navigation/cards/summarized_card.html'"
+                            <span ng-include="'views/navigation/cards/summarized_card.html'"
                                   ng-controller="ctrlDragObject"
                                   ng-init="item = link.item; cardItemColor = 'c4p-color-'+group.colorType; init(item);"
                                   sense-longdragoverenter="dragOverEnter($event,$element)"
@@ -52,7 +52,7 @@
                                   sense-longdragcancel="dragCancel($event,$element)"></span>
                           </div>
                           <div ng-if="!isDraggable">
-                            <span ng-include="'partials/navigation/cards/summarized_card.html'"
+                            <span ng-include="'views/navigation/cards/summarized_card.html'"
                                   ng-init="item = link.item; cardItemColor = 'c4p-color-'+group.colorType;"></span>
                           </div>
 

@@ -9,7 +9,7 @@ function ctrlNamedObject($scope, srvConfig) {
    	};
 
 }
-ctrlNamedObject.$inject = ['$scope', 'srvConfig'];
 
 
-
+angular.module('crtl.namedObject', []).controller('ctrlNamedObject', ctrlNamedObject);
+//ctrlNamedObject.$inject = ['$scope', 'srvConfig'];

@@ -20,7 +20,7 @@ function ctrlMeetingAttendeeDrag($scope, $modal, srvLocale, srvData, srvNav, srv
         event.dataTransfer = $scope.meetingElem;
     };
 
-
-
 }
-ctrlMeetingAttendeeDrag.$inject = ['$scope', '$modal', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig'];
+
+angular.module('crtl.meetingAttendeeDrag', []).controller('ctrlMeetingAttendeeDrag', ctrlMeetingAttendeeDrag);
+//ctrlMeetingAttendeeDrag.$inject = ['$scope', '$modal', 'srvLocale', 'srvData', 'srvNav', 'srvLink', 'srvConfig'];

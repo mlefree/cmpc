@@ -245,7 +245,7 @@ function ctrlAction($scope, $q, $modal, srvData, srvNav, srvFacet, srvConfig, sr
                 backdrop: false,
                 windowClass: 'modal c4p-modal-full c4p-dialog',
                 controller: 'ctrlTimeline',
-                templateUrl: 'partials/dialog/timeline.html',
+                templateUrl: 'views/dialog/timeline.html',
                 resolve: {
                     srvData: function () {
                         return srvData;
@@ -340,12 +340,12 @@ function ctrlAction($scope, $q, $modal, srvData, srvNav, srvFacet, srvConfig, sr
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () { return srvFacet; };
             resolve.addedOrganizers = function () { return []; };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () { return []; };
         }
         dialogOptions.resolve = resolve;
@@ -473,7 +473,7 @@ function ctrlAction($scope, $q, $modal, srvData, srvNav, srvFacet, srvConfig, sr
                         backdrop: false,
                         windowClass: 'modal c4p-modal-large',
                         controller: 'ctrlQuickEditDialogObject',
-                        templateUrl: 'partials/dialog/dialogQuickEditObject.html',
+                        templateUrl: 'views/dialog/dialogQuickEditObject.html',
                         resolve: {
                             srvData: function () {
                                 return srvData;
@@ -509,7 +509,7 @@ function ctrlAction($scope, $q, $modal, srvData, srvNav, srvFacet, srvConfig, sr
                     //     backdrop: false,
                     //     windowClass: 'modal c4p-modal-small',
                     //     controller: 'ctrlEditDialogObject',
-                    //     templateUrl: 'partials/dialog/edit_object.html',
+                    //     templateUrl: 'views/dialog/edit_object.html',
                     //     resolve: {
                     //         srvData: function () {
                     //             return srvData;
@@ -548,12 +548,12 @@ function ctrlAction($scope, $q, $modal, srvData, srvNav, srvFacet, srvConfig, sr
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () { return srvFacet; };
             resolve.addedOrganizers = function () { return addedOrganizers; };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () { return menus; };
         }
         dialogOptions.resolve = resolve;
@@ -628,7 +628,7 @@ function ctrlAction($scope, $q, $modal, srvData, srvNav, srvFacet, srvConfig, sr
               {
                   windowClass: 'modal c4p-modal-full c4p-modal-mail c4p-dialog',
                   controller: 'ctrlEditDialogEmail',
-                  templateUrl: 'partials/dialog/dialogEmail.html',
+                  templateUrl: 'views/dialog/dialogEmail.html',
                   resolve: {
                       srvLocale: function () {
                           return srvLocale;
@@ -701,7 +701,7 @@ function ctrlAction($scope, $q, $modal, srvData, srvNav, srvFacet, srvConfig, sr
             {
                 windowClass: 'modal c4p-modal-full c4p-modal-mail c4p-dialog',
                 controller: 'ctrlDialogICal',
-                templateUrl: 'partials/dialog/dialogICal.html',
+                templateUrl: 'views/dialog/dialogICal.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -805,7 +805,7 @@ function ctrlAction($scope, $q, $modal, srvData, srvNav, srvFacet, srvConfig, sr
             {
                 windowClass: 'modal c4p-modal-left c4p-modal-search c4p-dialog',
                 controller: 'ctrlDupMeeting',
-                templateUrl: 'partials/dialog/dialogDupMeeting.html',
+                templateUrl: 'views/dialog/dialogDupMeeting.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -864,4 +864,7 @@ function ctrlAction($scope, $q, $modal, srvData, srvNav, srvFacet, srvConfig, sr
 
 
 }
-ctrlAction.$inject = ['$scope', '$q', '$modal', 'srvData', 'srvNav', 'srvFacet', 'srvConfig', 'srvLocale', 'srvAnalytics'];
+
+
+angular.module('crtl.action', []).controller('ctrlAction', ctrlAction);
+//ctrlAction.$inject = ['$scope', '$q', '$modal', 'srvData', 'srvNav', 'srvFacet', 'srvConfig', 'srvLocale', 'srvAnalytics'];

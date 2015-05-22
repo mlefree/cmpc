@@ -246,7 +246,7 @@ describe('Demo actif', function () {
                     // action
                     element(c4p.E2e.np1PageItemList + ':eq(1) ' + c4p.E2e.inNp1PageItemBodyDetailCard).click();
                     // checks
-                    expect(element('#a4pPage div[ng-include="\'partials/navigation/cards/1_contact.html\'"] h1').text()).toMatch(new RegExp('^\\s*Mr\\.\\s+Abel\\s+Decadiz\\s*$'));
+                    expect(element('#a4pPage div[ng-include="\'views/navigation/cards/1_contact.html\'"] h1').text()).toMatch(new RegExp('^\\s*Mr\\.\\s+Abel\\s+Decadiz\\s*$'));
                     expect(element(c4p.E2e.np1PageItemList).count()).toBe(2);
                     expect(element(c4p.E2e.np1PageItemList + ':eq(1) ' + c4p.E2e.inNp1PageItemBodyTitle).text()).toBe('Event');
                     expect(element(c4p.E2e.np1PageItemList + ':eq(1) ' + c4p.E2e.inNp1PageItemBodyDetailCard).text()).toMatch(new RegExp('^\\s*presentation\\s*'));
@@ -319,13 +319,13 @@ describe('Demo actif', function () {
                     element(c4p.E2e.np1PageItemList + ':eq(2) ' + c4p.E2e.inNp1PageItemBodyDetailCard).click();
                     // checks
                     expect(element(c4p.E2e.np1PageItemList).count()).toBe(1);
-                    expect(element('#a4pPage div[ng-include="\'partials/navigation/cards/1_document.html\'"] h1').text()).toMatch(new RegExp('^\\s*copy_demo_pict1.jpg\\s*$'));
+                    expect(element('#a4pPage div[ng-include="\'views/navigation/cards/1_document.html\'"] h1').text()).toMatch(new RegExp('^\\s*copy_demo_pict1.jpg\\s*$'));
 
                     // Click on ShareByDocument
                     element('a[ng-click="shareDocumentByChatter(srvNav.item)"]').click();
                     // checks
                     checkNbModal(1);
-                    expect(element('.modal-body div[ng-include="\'partials/navigation/cards/draggable_inlined_item.html\'"] span').text()).toMatch(new RegExp('^\\s*copy_demo_pict1.jpg\\s*$'));
+                    expect(element('.modal-body div[ng-include="\'views/navigation/cards/draggable_inlined_item.html\'"] span').text()).toMatch(new RegExp('^\\s*copy_demo_pict1.jpg\\s*$'));
 
                     // and Post it
                     element('button[ng-click="createFeed()"]').click();
@@ -334,11 +334,11 @@ describe('Demo actif', function () {
 
                 it('should go back to contact', function () {
                     // action
-                	expect(element('#a4pPage div[ng-include="\'partials/navigation/cards/1_document.html\'"] h1').text()).toMatch(new RegExp('^\\s*copy_demo_pict1.jpg\\s*$'));
+                	expect(element('#a4pPage div[ng-include="\'views/navigation/cards/1_document.html\'"] h1').text()).toMatch(new RegExp('^\\s*copy_demo_pict1.jpg\\s*$'));
                     element(c4p.E2e.np1PageItemList + ':eq(0) ' + c4p.E2e.inNp1PageItemBodyDetailCard).click();
 
                     // checks
-                    expect(element('#a4pPage div[ng-include="\'partials/navigation/cards/1_contact.html\'"] h1').text()).toMatch(new RegExp('^\\s*Mr\\.\\s+Abel\\s+Decadiz\\s*$'));
+                    expect(element('#a4pPage div[ng-include="\'views/navigation/cards/1_contact.html\'"] h1').text()).toMatch(new RegExp('^\\s*Mr\\.\\s+Abel\\s+Decadiz\\s*$'));
 
                 });
 
@@ -351,7 +351,7 @@ describe('Demo actif', function () {
                     // action
                     element(c4p.E2e.np1PageItemList + ':eq(1) ' + c4p.E2e.inNp1PageItemBodyDetailCard).click();
                     // checks
-                    expect(element('#a4pPage div[ng-include="\'partials/navigation/cards/1_contact.html\'"] h1').text()).toMatch(new RegExp('^\\s*Mr\\.\\s+Ad\u00e8le\\s+Krouvmedjian\\s*$'));
+                    expect(element('#a4pPage div[ng-include="\'views/navigation/cards/1_contact.html\'"] h1').text()).toMatch(new RegExp('^\\s*Mr\\.\\s+Ad\u00e8le\\s+Krouvmedjian\\s*$'));
                     expect(element(c4p.E2e.np1PageItemList).count()).toBe(2);
                     expect(element(c4p.E2e.np1PageItemList + ':eq(1) ' + c4p.E2e.inNp1PageItemBodyTitle).text()).toBe('Team');
                     expect(element(c4p.E2e.np1PageItemList + ':eq(1) ' + c4p.E2e.inNp1PageItemBodyDetailCard).text()).toMatch(new RegExp('^\\s*Mr\\.\\s+Abel\\s+Decadiz\\s*'));
@@ -459,7 +459,7 @@ describe('Demo actif', function () {
                     element(c4p.E2e.asidePageItemList + ':eq(17)' + c4p.E2e.inAsidePageItemButton).click();
                     // checks
                     expect(element(c4p.E2e.detailPageItemName).text()).toBe('Rephraser');
-                    expect(element('#a4pPage div[ng-include="\'partials/navigation/cards/1_opportunity.html\'"] h1').text()).toMatch(new RegExp('^\\s*Rephraser\\s*$'));
+                    expect(element('#a4pPage div[ng-include="\'views/navigation/cards/1_opportunity.html\'"] h1').text()).toMatch(new RegExp('^\\s*Rephraser\\s*$'));
                     expect(element(c4p.E2e.detailPageItemAmount).text()).toBe('�15,000.00');
                     expect(element(c4p.E2e.detailPageItemDescription).text()).toBe('');
                     expect(element(c4p.E2e.np1PageItemList).count()).toBe(1);
@@ -719,7 +719,7 @@ describe('Demo actif', function () {
                 // Submit & check exist
                 element(c4p.E2e.linkModalSubmit).click();
                 // checks
-                expect(element('div[ng-include="\'partials/meeting/index.html\'"]').count()).toBe(1);
+                expect(element('div[ng-include="\'views/meeting/index.html\'"]').count()).toBe(1);
                 expect(element('.c4p-n-title').text()).toMatch('TestAddEvent');
 
 

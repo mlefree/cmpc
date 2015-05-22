@@ -137,5 +137,5 @@ function ctrlEditFocus($scope, $window) {
     $scope.initEditFocus();
 }
 
-
-ctrlEditFocus.$inject = ['$scope', '$window'];
+angular.module('crtl.editFocus', []).controller('ctrlEditFocus', ctrlEditFocus);
+//ctrlEditFocus.$inject = ['$scope', '$window'];

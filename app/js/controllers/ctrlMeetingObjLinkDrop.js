@@ -77,4 +77,5 @@ function ctrlMeetingObjLinkDrop($scope,  srvData, srvConfig) {
 }
 
 
-ctrlMeetingObjLinkDrop.$inject = ['$scope', 'srvData', 'srvConfig'];
+angular.module('crtl.meetingObjLinkDrop', []).controller('ctrlMeetingObjLinkDrop', ctrlMeetingObjLinkDrop);
+//ctrlMeetingObjLinkDrop.$inject = ['$scope', 'srvData', 'srvConfig'];

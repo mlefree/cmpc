@@ -133,7 +133,7 @@ function ctrlConfig($scope, srvConfig, srvLog, srvLocale, srvSecurity, srvDataTr
                 backdrop: true,
                 windowClass: 'modal c4p-modal-left c4p-modal-search c4p-dialog',
                 controller: 'ctrlSelectCrmsDialog',
-                templateUrl: 'partials/dialog/dialogSelectCrms.html',
+                templateUrl: 'views/dialog/dialogSelectCrms.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -362,7 +362,7 @@ function ctrlConfig($scope, srvConfig, srvLog, srvLocale, srvSecurity, srvDataTr
             {
                 windowClass: 'modal c4p-modal-full c4p-dialog',
                 controller: 'ctrlEditDialogErrorReport',
-                templateUrl: 'partials/dialog/dialogErrorReport.html',
+                templateUrl: 'views/dialog/dialogErrorReport.html',
                 resolve: {
                     srvLocale: function () {
                         return srvLocale;
@@ -520,4 +520,6 @@ function ctrlConfig($scope, srvConfig, srvLog, srvLocale, srvSecurity, srvDataTr
 
 
 }
-ctrlConfig.$inject = [ '$scope', 'srvConfig', 'srvLog', 'srvLocale', 'srvSecurity', 'srvDataTransfer', '$modal', 'srvAnalytics', 'version'];
+
+angular.module('crtl.config', []).controller('ctrlConfig', ctrlConfig);
+//ctrlConfig.$inject = [ '$scope', 'srvConfig', 'srvLog', 'srvLocale', 'srvSecurity', 'srvDataTransfer', '$modal', 'srvAnalytics', 'version'];

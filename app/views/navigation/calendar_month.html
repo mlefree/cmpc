@@ -144,7 +144,7 @@
                 ng-init="item = calendarNextEvent" ng-if="calendarNextEvent">
 
                 <div  style="position: relative;  width: 100%;height: 100%;"
-                      ng-include="'partials/navigation/cards/summarized_card.html'"></div>
+                      ng-include="'views/navigation/cards/summarized_card.html'"></div>
             </td>
 
             <td style="position:relative;">
@@ -162,6 +162,6 @@
 <div class="row" style="margin:0;"
      ng-style="{width:(getMainWidth() + getAsideWidth())+'px'}"
      resize-opts="{watchRefresh:['srvNav.item', 'srvNav.history']}">
-    <footer ng-include="'partials/navigation/footer_detail.html'"></footer>
+    <footer ng-include="'views/navigation/footer_detail.html'"></footer>
 </div>
 -->

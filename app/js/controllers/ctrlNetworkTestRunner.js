@@ -1140,8 +1140,10 @@ function networkTestRunnerCtrl($scope, $q, $location, $http, $modal, version, sr
         //srvRunning.setOnline(true);
     }});
 }
-networkTestRunnerCtrl.$inject = ['$scope', '$q', '$location', '$http', '$modal', 'version',
-    'srvLoad', 'srvLocalStorage', 'srvFileStorage', 'srvAnalytics', 'srvConfig',
-    'srvLog', 'srvLocale', 'srvData', 'srvRunning', 'srvSecurity',
-    'srvSynchro', 'cordovaReady', 'srvLink', 'srvNav', 'srvGuider', 'srvFacet'];
 
+
+angular.module('crtl.networkTestRunner', []).controller('networkTestRunnerCtrl', networkTestRunnerCtrl);
+//networkTestRunnerCtrl.$inject = ['$scope', '$q', '$location', '$http', '$modal', 'version',
+//    'srvLoad', 'srvLocalStorage', 'srvFileStorage', 'srvAnalytics', 'srvConfig',
+//    'srvLog', 'srvLocale', 'srvData', 'srvRunning', 'srvSecurity',
+//    'srvSynchro', 'cordovaReady', 'srvLink', 'srvNav', 'srvGuider', 'srvFacet'];

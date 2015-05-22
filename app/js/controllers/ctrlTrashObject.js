@@ -55,8 +55,6 @@ function ctrlTrashObject($scope) {
     };
 }
 
-ctrlTrashObject.$inject = ['$scope'];
 
-
-
-
+angular.module('crtl.trashObject', []).controller('ctrlTrashObject', ctrlTrashObject);
+//ctrlTrashObject.$inject = ['$scope'];

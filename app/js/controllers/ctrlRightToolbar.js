@@ -43,7 +43,7 @@ function ctrlRightToolbar($scope, $timeout, srvFacet, srvLocale, srvData, srvNav
     });
 
 
-
-
 }
-ctrlRightToolbar.$inject = ['$scope', '$timeout', 'srvFacet', 'srvLocale', 'srvData', 'srvNav', 'version'];
+
+angular.module('crtl.rightToolbar', []).controller('ctrlRightToolbar', ctrlRightToolbar);
+//ctrlRightToolbar.$inject = ['$scope', '$timeout', 'srvFacet', 'srvLocale', 'srvData', 'srvNav', 'version'];

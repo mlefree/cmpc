@@ -394,10 +394,10 @@ a4p.FileStorage = (function () {
                 } else {
                     requestFs(grantBytes);
                 }
-            } else if (a4p.isDefined(window.webkitStorageInfo)) {
+            } else if (a4p.isDefined(navigator.webkitPersistentStorage)){//MLE deprecated ? (a4p.isDefined(window.webkitStorageInfo)) {
                 // In Chrome 13
-                if (a4p.isDefined(window.webkitStorageInfo.requestQuota)) {
-                    window.webkitStorageInfo.requestQuota(self.storageType, grantBytes, function (grantedBytes) {
+                if (a4p.isDefined(navigator.webkitPersistentStorage.requestQuota)) {
+                    navigator.webkitPersistentStorage.requestQuota(self.storageType, grantBytes, function (grantedBytes) {
                         self.grantedBytes = grantedBytes;
                         requestFs(grantedBytes);
                     }, function (fileError) {
@@ -479,9 +479,9 @@ a4p.FileStorage = (function () {
                     storageType = LocalFileSystem.PERSISTENT;
                 }
             }
-     if (a4p.isUndefined(window.webkitStorageInfo)) {
-     if (a4p.isUndefined(window.webkitStorageInfo.queryUsageAndQuota)) {
-     window.webkitStorageInfo.queryUsageAndQuota(storageType,
+     if (a4p.isUndefined(navigator.webkitPersistentStorage)) {
+     if (a4p.isUndefined(navigator.webkitPersistentStorage.queryUsageAndQuota)) {
+     navigator.webkitPersistentStorage.queryUsageAndQuota(storageType,
      function (currentUsageInBytes) {
      },
      function (grantedQuotaInBytes) {
@@ -512,9 +512,9 @@ a4p.FileStorage = (function () {
                     storageType = LocalFileSystem.PERSISTENT;
                 }
             }
-     if (a4p.isDefined(window.webkitStorageInfo)) {
-     if (a4p.isDefined(window.webkitStorageInfo.queryUsageAndQuota)) {
-     window.webkitStorageInfo.queryUsageAndQuota(storageType,
+     if (a4p.isDefined(navigator.webkitPersistentStorage)) {
+     if (a4p.isDefined(navigator.webkitPersistentStorage.queryUsageAndQuota)) {
+     navigator.webkitPersistentStorage.queryUsageAndQuota(storageType,
      function (currentUsageInBytes) {
      onSuccess(currentUsageInBytes);
      },

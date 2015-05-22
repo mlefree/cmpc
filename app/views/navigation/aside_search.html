@@ -17,7 +17,7 @@
         c4p-animateshow="asideSearchSpinner"
         after-hide="afterAsideSpinnerHide()"
         after-show="afterAsideSpinnerShow()">
-        <div ng-include="'partials/spinner.html'"></div>
+        <div ng-include="'views/spinner.html'"></div>
     </div>
 
     <div ng-if="!asideSearchSpinner">
@@ -234,7 +234,7 @@ sense-opts="{name:'aside_search_result_wrapper', axeY:'scroll', watchRefresh:['s
 
                             <li class="list-group-item  c4p-list-item-aside"
                                 ng-repeat="listItem in srvFacet.items.lists[groupKey.value]">
-                                <div ng-include="'partials/navigation/aside_search_list.html'"></div>
+                                <div ng-include="'views/navigation/aside_search_list.html'"></div>
                             </li>
                         </ul>
 
@@ -244,7 +244,7 @@ sense-opts="{name:'aside_search_result_wrapper', axeY:'scroll', watchRefresh:['s
 
                             <li class="list-group-item  c4p-list-item-aside"
                                 ng-repeat="listItem in srvFacet.items.others">
-                                <div ng-include="'partials/navigation/aside_search_list.html'"></div>
+                                <div ng-include="'views/navigation/aside_search_list.html'"></div>
                             </li>
                         </ul>
 

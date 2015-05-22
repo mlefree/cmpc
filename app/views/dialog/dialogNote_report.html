@@ -41,16 +41,16 @@
         <div class="col-xxs-12 c4p-form-group" >
             <span class="c4p-form-group-title">{{srvLocale.translations.htmlDialogNoteReportObservation}}</span>
             <ul class="nav nav-pills" ng-repeat="item in toolboxRatings">
-                <span ng-show="modeEdit" ng-include="'partials/navigation/cards/4_rating.html'" style="padding:0 10px;"></span>
-                <span ng-hide="modeEdit" ng-include="'partials/navigation/cards/4_rating_ro2.html'" style="padding:0 10px;"></span>
+                <span ng-show="modeEdit" ng-include="'views/navigation/cards/4_rating.html'" style="padding:0 10px;"></span>
+                <span ng-hide="modeEdit" ng-include="'views/navigation/cards/4_rating_ro2.html'" style="padding:0 10px;"></span>
                 <span class="glyphicon glyphicon-remove c4p-well-c-tool-bar" ng-show="modeEdit" ng-click="removeRating($index)"></span>
             </ul>
             <!--
             <span class="well well-small c4p-well-c pull-left"
                  ng-class="{'c4p-edit': modeEdit, 'c4p-noedit': !modeEdit}"
                  ng-repeat="item in toolboxRatings">
-                <span ng-show="modeEdit"	ng-include="'partials/navigation/cards/4_rating.html'" style="padding:0 10px;"></span>
-                <span ng-hide="modeEdit"	ng-include="'partials/navigation/cards/4_rating_ro2.html'" style="padding:0 10px;"></span>
+                <span ng-show="modeEdit"	ng-include="'views/navigation/cards/4_rating.html'" style="padding:0 10px;"></span>
+                <span ng-hide="modeEdit"	ng-include="'views/navigation/cards/4_rating_ro2.html'" style="padding:0 10px;"></span>
                 <span class="c4p-well-c-tool-bar" ng-show="modeEdit">
                     <a class="close" ng-click="removeRating($index)"><span class="glyphicon glyphicon-remove"></span></a>
                 </span>
@@ -124,7 +124,7 @@
                                             <span ng-switch-when="time"><span>{{srvLocale.formatDate(item, 'shortTime')}}</span></span>
                                             <span ng-switch-when="number"><span>{{item | c4pNumber}}</span></span>
                                             <span ng-switch-when="rating"><span
-                                                    ng-include="'partials/navigation/cards/4_rating_ro2.html'"
+                                                    ng-include="'views/navigation/cards/4_rating_ro2.html'"
                                                     style="padding:0 10px;"></span></span>
                                             <span ng-switch-default><span>{{item}}</span></span>
                                         </span>
@@ -148,7 +148,7 @@
                                         <span ng-switch-when="time"><span>{{srvLocale.formatDate(field.value, 'shortTime')}}</span></span>
                                         <span ng-switch-when="number"><span>{{field.value | c4pNumber}}</span></span>
                                         <span ng-switch-when="rating"><span ng-init="item = field.value"
-                                                                            ng-include="'partials/navigation/cards/4_rating_ro2.html'"
+                                                                            ng-include="'views/navigation/cards/4_rating_ro2.html'"
                                                                             style="padding:0 10px;"></span></span>
                                         <span ng-switch-default><span>{{field.value}}</span></span>
                                     </span>

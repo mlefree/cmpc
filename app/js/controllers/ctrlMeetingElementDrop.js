@@ -58,4 +58,6 @@ function ctrlMeetingElementDrop($scope) {
         });
     };
 }
-ctrlMeetingElementDrop.$inject = ['$scope'];
+
+angular.module('crtl.meetingElementDrop', []).controller('ctrlMeetingElementDrop', ctrlMeetingElementDrop);
+//ctrlMeetingElementDrop.$inject = ['$scope'];

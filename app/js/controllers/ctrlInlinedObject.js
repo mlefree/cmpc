@@ -62,4 +62,6 @@ function ctrlInlinedObject($scope, srvData, srvConfig, srvLocale) {
     };
 
 }
-ctrlInlinedObject.$inject = ['$scope', 'srvData', 'srvConfig', 'srvLocale'];
+
+angular.module('crtl.inlinedObject', []).controller('ctrlInlinedObject', ctrlInlinedObject);
+//ctrlInlinedObject.$inject = ['$scope', 'srvData', 'srvConfig', 'srvLocale'];

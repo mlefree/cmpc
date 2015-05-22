@@ -192,7 +192,7 @@
 <!-- Need to take into account border size of body to keep it inside viewscreen -->
 <body ng-app="c4p"
       ng-style="{height:(getResizeHeight() - 4)+'px', width:(getResizeWidth() - 4)+'px'}"
-      ng-controller="navigationCtrl"
+      ng-controller="ctrlNavigation"
       resize-opts="{name:'e2eLayoutTest_body'}">
 <div id="entetePage"
      resize-opts="{name:'e2eLayoutTest_entetePage'}">
@@ -275,13 +275,13 @@
     a4p.Sense.declareDirectives(directiveModule);
     a4p.Resize.declareDirectives(directiveModule);
 
-    function navigationCtrl($scope) {
+    function ctrlNavigation($scope) {
         $scope.viewType = 'year';
         $scope.setViewType = function (viewType) {
             $scope.viewType = viewType;
         };
     }
-    navigationCtrl.$inject = ['$scope'];
+    ctrlNavigation.$inject = ['$scope'];
 
     function yearCtrl($scope) {
         var monthIdx=0;

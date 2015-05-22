@@ -73,7 +73,7 @@ var SrvLocale = (function() {
             };
             var onFailure2 = function (response) {
                 //response.data, response.status, response.headers
-                self.http.get(self.localeDir + 'models/local_' + self.lang1 + '.json').then(onSuccess1, onFailure1);
+                self.http.get(self.localeDir + 'data/local_' + self.lang1 + '.json').then(onSuccess1, onFailure1);
             };
             if (self.lang3 != self.lang2) {
                 var onSuccess3 = function (response) {
@@ -87,14 +87,14 @@ var SrvLocale = (function() {
                 };
                 var onFailure3 = function (response) {
                     //response.data, response.status, response.headers
-                    self.http.get(self.localeDir + 'models/local_' + self.lang2 + '.json').then(onSuccess2, onFailure2);
+                    self.http.get(self.localeDir + 'data/local_' + self.lang2 + '.json').then(onSuccess2, onFailure2);
                 };
-                this.http.get(self.localeDir + 'models/local_' + self.lang3 + '.json').then(onSuccess3, onFailure3);
+                this.http.get(self.localeDir + 'data/local_' + self.lang3 + '.json').then(onSuccess3, onFailure3);
             } else {
-                self.http.get(self.localeDir + 'models/local_' + self.lang2 + '.json').then(onSuccess2, onFailure2);
+                self.http.get(self.localeDir + 'data/local_' + self.lang2 + '.json').then(onSuccess2, onFailure2);
             }
         } else {
-            self.http.get(self.localeDir + 'models/local_' + self.lang1 + '.json').then(onSuccess1, onFailure1);
+            self.http.get(self.localeDir + 'data/local_' + self.lang1 + '.json').then(onSuccess1, onFailure1);
         }
     };
 

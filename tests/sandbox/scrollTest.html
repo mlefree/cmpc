@@ -133,7 +133,7 @@
 <!-- Need to take into account border size of body to keep it inside viewscreen -->
 <body ng-app="c4p"
       ng-style="{height:(getResizeHeight() - 4)+'px', width:(getResizeWidth() - 4)+'px'}"
-      ng-controller="navigationCtrl"
+      ng-controller="ctrlNavigation"
       resize-opts="{name:'e2eLayoutTest_body'}">
 <div id="entetePage"
      resize-opts="{name:'e2eLayoutTest_entetePage'}">
@@ -145,8 +145,8 @@
             </a>
         </li>
         <li>
-            <a href="presentation.php" id="presentation" title="Présentation">
-                <span>Présentation</span>
+            <a href="presentation.php" id="presentation" title="Prï¿½sentation">
+                <span>Prï¿½sentation</span>
             </a>
         </li>
         <li>
@@ -171,16 +171,16 @@
         <div id="leftSideScroller">
             <blockquote class="citationscelebres">
                 Ce n'est pas parce qu'en hiver on dit
-                « fermez la porte, il fait froid dehors »,
-                qu'il fait moins froid dehors quand la porte est fermée.
+                ï¿½ fermez la porte, il fait froid dehors ï¿½,
+                qu'il fait moins froid dehors quand la porte est fermï¿½e.
             </blockquote>
             <blockquote class="poemes">
                 Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
             </blockquote>
             <blockquote class="citationscelebres">
-                Une heure assis à côté d'une jolie femme semble durer une minute.
-                Une minute assis sur un four brûlant semble durer une heure.
-                C'est ça la relativité.
+                Une heure assis ï¿½ cï¿½tï¿½ d'une jolie femme semble durer une minute.
+                Une minute assis sur un four brï¿½lant semble durer une heure.
+                C'est ï¿½a la relativitï¿½.
             </blockquote>
         </div>
     </div>
@@ -191,24 +191,24 @@
         <div id="rightSideScroller">
             <blockquote class="citationscelebres">
                 Ce n'est pas parce qu'en hiver on dit
-                « fermez la porte, il fait froid dehors »,
-                qu'il fait moins froid dehors quand la porte est fermée.
+                ï¿½ fermez la porte, il fait froid dehors ï¿½,
+                qu'il fait moins froid dehors quand la porte est fermï¿½e.
             </blockquote>
             <blockquote class="poemes">
                 Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
             </blockquote>
             <blockquote class="citationscelebres">
-                Une heure assis à côté d'une jolie femme semble durer une minute.
-                Une minute assis sur un four brûlant semble durer une heure.
-                C'est ça la relativité.
+                Une heure assis ï¿½ cï¿½tï¿½ d'une jolie femme semble durer une minute.
+                Une minute assis sur un four brï¿½lant semble durer une heure.
+                C'est ï¿½a la relativitï¿½.
             </blockquote>
             <blockquote class="poemes">
                 Vienne la nuit sonne l'heure. Les jours s'en vont je demeure.
             </blockquote>
             <blockquote class="citationscelebres">
                 Ce n'est pas parce qu'en hiver on dit
-                « fermez la porte, il fait froid dehors »,
-                qu'il fait moins froid dehors quand la porte est fermée.
+                ï¿½ fermez la porte, il fait froid dehors ï¿½,
+                qu'il fait moins froid dehors quand la porte est fermï¿½e.
             </blockquote>
         </div>
     </div>
@@ -227,9 +227,9 @@
     a4p.Sense.declareDirectives(directiveModule);
     a4p.Resize.declareDirectives(directiveModule);
 
-    function navigationCtrl($scope) {
+    function ctrlNavigation($scope) {
     }
-    navigationCtrl.$inject = ['$scope'];
+    ctrlNavigation.$inject = ['$scope'];
 
 </script>
 </body>

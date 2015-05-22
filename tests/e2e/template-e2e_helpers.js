@@ -239,25 +239,25 @@ c4p.E2e = (function () {
 
 	//Footer
 	E2e.footer = [];
-	E2e.footer.buttonConnect = 'footer[ng-include="\'partials/guider/footer.html\'"] a[ng-click="gotoLogin()"]';
-	E2e.footer.buttonRegister = 'footer[ng-include="\'partials/guider/footer.html\'"] a[ng-click="gotoRegister()"]';
-	E2e.footer.buttonForSalesforce = 'footer[ng-include="\'partials/guider/footer.html\'"] a small:eq(0)';
-	E2e.footer.buttonNeedHelp = 'footer[ng-include="\'partials/guider/footer.html\'"] a[ng-click="openDialogSendFeedbackReport(srvLocale.translations.htmlTextNeedHelpDetail)"]';
+	E2e.footer.buttonConnect = 'footer[ng-include="\'views/guider/footer.html\'"] a[ng-click="gotoLogin()"]';
+	E2e.footer.buttonRegister = 'footer[ng-include="\'views/guider/footer.html\'"] a[ng-click="gotoRegister()"]';
+	E2e.footer.buttonForSalesforce = 'footer[ng-include="\'views/guider/footer.html\'"] a small:eq(0)';
+	E2e.footer.buttonNeedHelp = 'footer[ng-include="\'views/guider/footer.html\'"] a[ng-click="openDialogSendFeedbackReport(srvLocale.translations.htmlTextNeedHelpDetail)"]';
 
 	// Calendar page
 	E2e.calendar = [];
-	E2e.calendar.pageTitle = 'div[ng-controller="ctrlCalendar"] div[ng-include="\'partials/navigation/calendar_header.html\'"] span.ng-binding:eq(0)';
-	E2e.calendar.timeRangeMenu = 'div[ng-controller="ctrlCalendar"] div[ng-include="\'partials/navigation/calendar_header.html\'"] a.dropdown-toggle span.ng-binding:eq(0)';
+	E2e.calendar.pageTitle = 'div[ng-controller="ctrlCalendar"] div[ng-include="\'views/navigation/calendar_header.html\'"] span.ng-binding:eq(0)';
+	E2e.calendar.timeRangeMenu = 'div[ng-controller="ctrlCalendar"] div[ng-include="\'views/navigation/calendar_header.html\'"] a.dropdown-toggle span.ng-binding:eq(0)';
 	E2e.calendar.pageDayEventList = 'li[ng-repeat="item in calendarSelectedDay.events"] ';
 	E2e.calendar.pageDayEventAction = E2e.calendar.pageDayEventList + 'div[sense-tap="selectItem()"] ';
 	E2e.calendar.pageDayFirstEventTitle = E2e.calendar.pageDayEventAction + ' div.row:eq(0) div[ng-repeat="group in groups"]:eq(0) span[ng-show="group.name"] b.ng-binding';
 	E2e.calendar.labelDefaultEventTitle = E2e.calendar.pageDayEventAction + 'span.item-name b.ng-binding:eq(0)';
-	E2e.calendarPageDay = 'div[ng-include="\'partials/navigation/calendar_day.html\'"] div[sense-opts="{axeY:\'scroll\', watchRefresh:\'calendarSelectedDay\'}"]:eq(0)';
+	E2e.calendarPageDay = 'div[ng-include="\'views/navigation/calendar_day.html\'"] div[sense-opts="{axeY:\'scroll\', watchRefresh:\'calendarSelectedDay\'}"]:eq(0)';
     E2e.calendarPageDayEventList = E2e.calendarPageDay + ' div[ng-repeat="event in calendarSelectedDay.events"]';
 
 	//Event page
 	E2e.event = [];
-	E2e.event.pageTitle = 'div[ng-controller="ctrlDetail"] div[ng-include="\'partials/navigation/cards/detailed_item.html\'"] span.ng-binding:eq(0)';
+	E2e.event.pageTitle = 'div[ng-controller="ctrlDetail"] div[ng-include="\'views/navigation/cards/detailed_item.html\'"] span.ng-binding:eq(0)';
 	E2e.event.eventList = 'span[ng-repeat="group in card.groups"]';
 	E2e.event.labelTitle = E2e.event.eventList + ' span[ng-show="group.name"]:eq(0)';
 	E2e.event.labelLocation = E2e.event.eventList + ' span[ng-repeat="field in group.fields"]:eq(2) span[ng-switch="field.type"] span.ng-binding';
@@ -275,7 +275,7 @@ c4p.E2e = (function () {
 	E2e.contact = [];
 	E2e.contact.pageTitle = 'li.c4p-search-header-aside	span.c4p-search-header-txt-aside';
 	E2e.contact.contactsCount = 'li.c4p-search-header-aside	span.ng-binding:eq(2)';
-	E2e.contact.contactList = 'div[ng-include="\'partials/navigation/aside_search.html\'"] ul.c4p-list-aside li[ng-repeat="facetItem in srvFacet.items.others"]';
+	E2e.contact.contactList = 'div[ng-include="\'views/navigation/aside_search.html\'"] ul.c4p-list-aside li[ng-repeat="facetItem in srvFacet.items.others"]';
 	E2e.contact.firstContact = E2e.contact.contactList + ':eq(0) span.ng-binding';
 	E2e.contact.buttonAddContact = 'li.c4p-search-header-aside	span[ng-click="addItemDialog(filterFacet.value)"]';
 	E2e.contact.searchArea = 'li[ng-hide="activeSearch"]';
@@ -333,10 +333,10 @@ c4p.E2e = (function () {
 
 
     E2e.linkLogin = '#a4pPage a[ng-click="gotoLogin()"]';
-    E2e.footerLoginLink = 'footer[ng-include="\'partials/guider/footer.html\'"] a[ng-click="gotoLogin()"]';
+    E2e.footerLoginLink = 'footer[ng-include="\'views/guider/footer.html\'"] a[ng-click="gotoLogin()"]';
     E2e.linkRegister = '#a4pPage a[ng-click="gotoRegister()"]';
 
-    E2e.footerRegisterLink = 'footer[ng-include="\'partials/guider/footer.html\'"] a[ng-click="gotoRegister()"]';
+    E2e.footerRegisterLink = 'footer[ng-include="\'views/guider/footer.html\'"] a[ng-click="gotoRegister()"]';
     E2e.linkPasswordForgotten = 'a[ng-click="gotoSlide(pageGuider, slideGuiderRequestPassword)"]';
 
     E2e.buttonLogin = 'button[ng-click="gotoLogin()"][style!="display: none;"]';
@@ -367,14 +367,14 @@ c4p.E2e = (function () {
     E2e.linkGuiderClose = '#c4p-guider-close-link';
 
     // Calendar Page : on left side (day view)
-    E2e.calendarPageDay = 'div[ng-include="\'partials/navigation/calendar_day.html\'"] div[sense-opts="{axeY:\'scroll\', watchRefresh:\'calendarSelectedDay\'}"]:eq(0)';
+    E2e.calendarPageDay = 'div[ng-include="\'views/navigation/calendar_day.html\'"] div[sense-opts="{axeY:\'scroll\', watchRefresh:\'calendarSelectedDay\'}"]:eq(0)';
     E2e.calendarPageDayEventList = E2e.calendarPageDay + ' div[ng-repeat="event in calendarSelectedDay.events"]';
     E2e.inCalendarPageDayEventButton = ' div[ng-click="onEventClick(event)"]';
     E2e.inCalendarPageDayEventSubtext = E2e.inCalendarPageDayEventButton;
 
     // on left side (list page)
-    E2e.calendarPageNexts = 'div[ng-include="\'partials/navigation/calendar_events.html\'"]';
-    E2e.calendarPageNextsDayList = 'div[ng-include="\'partials/navigation/calendar_events.html\'"] ul[ng-repeat="group in calendarEventsGroupsByDay | c4pFilterEventDateMoreThan:calendarNow"]';
+    E2e.calendarPageNexts = 'div[ng-include="\'views/navigation/calendar_events.html\'"]';
+    E2e.calendarPageNextsDayList = 'div[ng-include="\'views/navigation/calendar_events.html\'"] ul[ng-repeat="group in calendarEventsGroupsByDay | c4pFilterEventDateMoreThan:calendarNow"]';
     E2e.inCalendarPageNextsDayEventList = ' li[ng-repeat="item in group.events"]';
     E2e.inCalendarPageNextsDayEventButton = ' a[ng-click="setItemAndGoDetail(item)"]';
 
@@ -433,9 +433,9 @@ c4p.E2e = (function () {
     //E2e.inNp1PageItemBodyDetailShareByChatterButton = E2e.inNp1PageItemBodyDetailCard + ' > a[ng-click="shareDocumentByChatter(link.item)"]';
 
     E2e.liModalContact = '.modal:last .modal-body div[ng-repeat="item in contacts"]';
-    E2e.cardContact = 'div[ng-include="\'partials/navigation/cards/draggable_inlined_item.html\'"] div span';
+    E2e.cardContact = 'div[ng-include="\'views/navigation/cards/draggable_inlined_item.html\'"] div span';
     E2e.liModalDocument = '.modal:last .modal-body div[ng-repeat="item in documents"]';
-    E2e.cardDocument = 'div[ng-include="\'partials/navigation/cards/draggable_inlined_item.html\'"] div span';
+    E2e.cardDocument = 'div[ng-include="\'views/navigation/cards/draggable_inlined_item.html\'"] div span';
 
     E2e.selectorGroupModal = '.modal:last .modal-header button.dropdown-toggle';
     E2e.selectorGroupNameModal = '.modal:last .modal-header button.dropdown-toggle > span';
@@ -462,7 +462,7 @@ c4p.E2e = (function () {
     E2e.linkModalSubmit = '.modal:last .modal-toolbox ul li[style!="display: none;"] a[ng-click="submit()"]';
 
     E2e.reportDialogRating = 'div[ng-repeat="item in toolboxRatings"]';
-    E2e.cardRating = 'div[ng-include="\'partials/navigation/cards/4_rating.html\'"]';
+    E2e.cardRating = 'div[ng-include="\'views/navigation/cards/4_rating.html\'"]';
 
     E2e.meetingPageAttendeeAttendee = 'li[ng-repeat="attendee in srvNav.links.attendee.Attendee.objects"]';
     E2e.meetingPageAccountedDocument = 'li[ng-repeat="document in srvNav.links.child.Document.objects"]';
@@ -476,7 +476,7 @@ c4p.E2e = (function () {
 
     E2e.linkAsidePage = 'a[ng-click="setNavAside(true)"]';
 
-    E2e.asidePageSearch = 'header[ng-include="\'partials/navigation/aside_header.html\'"]';
+    E2e.asidePageSearch = 'header[ng-include="\'views/navigation/aside_header.html\'"]';
     E2e.asidePageSearchBackLink = E2e.asidePageSearch + ' span[ng-click="removeGlobalSearch()"]';
 
     E2e.asidePageList = '#a4pAside';
@@ -487,9 +487,9 @@ c4p.E2e = (function () {
     //E2e.asidePageItemList = E2e.asidePageList + ' .c4p-accordion-group[ng-repeat="groupKey in srvFacet.items.keyes"] .c4p-accordion-item ul li[ng-repeat="item in srvFacet.items.lists[groupKey.value]"]';
     //E2e.inAsidePageItemButton = ' a[ng-click="selectItem(item.object)"]';
     // WITHOUT beta
-    E2e.asidePageGroupList = E2e.asidePageList + ' div[ng-include="\'partials/navigation/aside_search.html\'"] nav[sense-opts="{axeY:\'scroll\', watchRefresh:\'inputs.itemSearchQuery\'}"] ul li[class="nav-header"]';
+    E2e.asidePageGroupList = E2e.asidePageList + ' div[ng-include="\'views/navigation/aside_search.html\'"] nav[sense-opts="{axeY:\'scroll\', watchRefresh:\'inputs.itemSearchQuery\'}"] ul li[class="nav-header"]';
     E2e.inAsidePageGroupAddButton = ' a[ng-click="addItemDialog(type)"]';
-    E2e.asidePageItemList = E2e.asidePageList + ' div[ng-include="\'partials/navigation/aside_search.html\'"] nav[sense-opts="{axeY:\'scroll\', watchRefresh:\'inputs.itemSearchQuery\'}"] ul li[class!="nav-header"]';
+    E2e.asidePageItemList = E2e.asidePageList + ' div[ng-include="\'views/navigation/aside_search.html\'"] nav[sense-opts="{axeY:\'scroll\', watchRefresh:\'inputs.itemSearchQuery\'}"] ul li[class!="nav-header"]';
     E2e.inAsidePageItemButton = ' a[ng-click="selectItem(item)"]';
 
     E2e.asidePageCalendarLink = E2e.asidePageList + ' ul li[ng-click="gotoSlideWithSearchReset(pageNavigation, slideNavigationCalendar)"]';

@@ -151,4 +151,6 @@ function ctrlAsideSearch($scope, $timeout, srvFacet, srvLocale, srvData, srvNav,
     //init();
 
 }
-ctrlAsideSearch.$inject = ['$scope', '$timeout', 'srvFacet', 'srvLocale', 'srvData', 'srvNav', 'version'];
+
+angular.module('crtl.asideSearch', []).controller('ctrlAsideSearch', ctrlAsideSearch);
+//ctrlAsideSearch.$inject = ['$scope', '$timeout', 'srvFacet', 'srvLocale', 'srvData', 'srvNav', 'version'];

@@ -9,20 +9,10 @@
   "devDependencies": {
     "angular": "^1.3.x",
     "angular-mocks": "^1.3.x",
-    "bower": "^1.3.x",
-    "bootstrap" : "^3.3.x",
+    "bootstrap": "^3.3.x",
+    "browserify": "^2.35.x",
+    "catw": "^0.0.x",
     "es5-shim": "^4.0.x",
-    "grunt": "^0.4.x",
-    "grunt-angular-templates": "^0.5.x",
-    "grunt-cli": "^0.1.x",
-    "grunt-contrib-clean": "^0.5.x",
-    "grunt-contrib-concat": "^0.4.x",
-    "grunt-contrib-copy": "^0.5.x",
-    "grunt-contrib-cssmin": "^0.9.x",
-    "grunt-contrib-less": "^0.11.x",
-    "grunt-contrib-uglify": "^0.2.x",
-    "grunt-replace": "^0.7.x",
-    "grunt-text-replace": "^0.3.x",
     "http-server": "^0.6.x",
     "jasmine": "^2.0.x",
     "jasmine-as-promised": "^0.0.x",
@@ -36,9 +26,13 @@
     "karma-ng-scenario": "^0.1.x",
     "protractor": "^0.20.x",
     "q": "^1.0.x",
-    "shelljs": "^0.2.x"
+    "shelljs": "^0.2.x",
+    "tap": "^0.4.x",
+    "uglifyjs": "^2.3.x",
+    "watchify": "~0.1.0"
   },
   "scripts": {
+    "test-node": "node scripts/build.js",
     "postinstall": "bower install",
     "prestart": "npm install",
     "start": "http-server -a localhost -p 8051",
@@ -49,6 +43,19 @@
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor test/protractor-conf.js",
-    "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + cat('app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
+    "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + cat('app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\"",
+    "xbuild-js": "browserify browser/main.js | uglifyjs -mc > static/bundle.js",
+    "xbuild-css": "cat static/pages/*.css tabs/*/*.css",
+    "xbuild": "npm run build-js && npm run build-css",
+    "xwatch-js": "watchify browser/main.js -o static/bundle.js -dv",
+    "xwatch-css": "catw static/pages/*.css tabs/*/*.css -o static/bundle.css -v",
+    "xwatch": "npm run watch-js & npm run watch-css",
+    "xstart": "node server.js",
+    "xtest": "tap test/*.js"
+  },
+  "dependencies": {
+    "bower": "^1.4.1",
+    "phantomjs": "^1.9.17",
+    "shelljs": "^0.5.0"
   }
 }

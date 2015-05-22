@@ -129,12 +129,12 @@ function ctrlEditDialogEmail($scope, $sce, srvLocale, srvData, srvConfig, srvFac
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () { return srvFacet; };
             resolve.addedOrganizers = function () { return addedOrganizers; };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () { return menus; };
         }
         dialogOptions.resolve = resolve;
@@ -211,12 +211,12 @@ function ctrlEditDialogEmail($scope, $sce, srvLocale, srvData, srvConfig, srvFac
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () { return srvFacet; };
             resolve.addedDocuments = function () { return []; };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () { return []; };
         }
         dialogOptions.resolve = resolve;
@@ -369,12 +369,12 @@ function ctrlEditDialogEmail($scope, $sce, srvLocale, srvData, srvConfig, srvFac
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () { return srvFacet; };
             resolve.toPasteDoc = function () { return []; };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () { return []; };
         }
         dialogOptions.resolve = resolve;
@@ -448,7 +448,7 @@ function ctrlEditDialogEmail($scope, $sce, srvLocale, srvData, srvConfig, srvFac
         };
         if (srvConfig.c4pConfig.exposeFacetDialog) {
             dialogOptions.controller = 'ctrlFacetSelectedDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogFacetSelected.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogFacetSelected.html';
             resolve.srvFacet = function () {
                 return srvFacet;
             };
@@ -457,7 +457,7 @@ function ctrlEditDialogEmail($scope, $sce, srvLocale, srvData, srvConfig, srvFac
             };
         } else {
             dialogOptions.controller = 'ctrlSelectObjectsDialog';
-            dialogOptions.templateUrl = 'partials/dialog/dialogSelectObjects.html';
+            dialogOptions.templateUrl = 'views/dialog/dialogSelectObjects.html';
             resolve.suggestedMenus = function () {
                 return [];
             };

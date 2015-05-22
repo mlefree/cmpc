@@ -3653,7 +3653,7 @@ describe('ctrlCalendar', function () {
                 'userLanguage' : 'en'
             };
 
-            httpBackend.when('GET', 'partials/dialog/guiderCarousel.html').respond('<div class="modal-body"></div>', {
+            httpBackend.when('GET', 'views/dialog/guiderCarousel.html').respond('<div class="modal-body"></div>', {
                 'A-Token':'xxx',
                 'Content-type':'text/html'
             });
@@ -3679,7 +3679,7 @@ describe('ctrlCalendar', function () {
             });
             httpBackend.when('GET', 'models/local_en.json').respond(c4p.Locale.en);
 
-            var controller = $controller(navigationCtrl, {
+            var controller = $controller(ctrlNavigation, {
                 $scope:navigationScope
             });
 
@@ -3687,7 +3687,7 @@ describe('ctrlCalendar', function () {
 
             httpBackend.expectGET('models/c4p_conf.json');
             httpBackend.expectGET('models/local_en.json');
-            navigationScope.initNavigationCtrl().then(function(okData) {
+            navigationScope.initctrlNavigation().then(function(okData) {
                 initialized = true;
             }, function(errorMsg) {
                 initialized = true;
@@ -3700,7 +3700,7 @@ describe('ctrlCalendar', function () {
         }
         );
 
-        waitsFor(function () {return initialized;}, "NavigationCtrl should have been initialized", 10000);
+        waitsFor(function () {return initialized;}, "ctrlNavigation should have been initialized", 10000);
 
         runs(function () {
             expect(errorDiag).toBeNull();
@@ -3708,7 +3708,7 @@ describe('ctrlCalendar', function () {
             expect(navigationScope.slide).toEqual('register');
 
             httpBackend.expectGET('models/data.json');
-            //httpBackend.expectGET('partials/dialog/guiderCarousel.html');
+            //httpBackend.expectGET('views/dialog/guiderCarousel.html');
             navigationScope.setDemo(true).then(function () {
                 refreshed = true;
             }, function (errorMsg) {
@@ -3720,7 +3720,7 @@ describe('ctrlCalendar', function () {
             if (!navigationScope.$$phase) navigationScope.$apply();// propagate promise resolution
         });
 
-        waitsFor(function () {return refreshed;}, "NavigationCtrl should have been refreshed", 10000);
+        waitsFor(function () {return refreshed;}, "ctrlNavigation should have been refreshed", 10000);
 
         runs(function () {
             expect(refreshDiag).toBeNull();
