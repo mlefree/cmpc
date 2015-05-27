@@ -1,10 +1,16 @@
+angular.module('srvSecurity', [])
+
+.factory('srvSecurity', function (srvLocalStorage,md5) {
+    return new SrvSecurity(srvLocalStorage,md5);
+});
 
 
 var SrvSecurity = (function() {
     'use strict';
 
-    function Service(srvLocalStorage) {
+    function Service(srvLocalStorage, md5) {
         this.srvLocalStorage = srvLocalStorage;
+        this.md5 = md5;
         this.secured = false;// Implies PinCode required
         // TODO : encryption of data in secure mode (file storage and local storage) and hashing of passwords
 
@@ -107,7 +113,9 @@ var SrvSecurity = (function() {
 
     Service.prototype.getHttpRequestToken = function () {
         var time = Math.floor(new Date().getTime()/1000);// seconds since 1/1/1970
-        var md5 = calcMD5(time.toString() + '|' + this.login + '|' + this.password);
+        //MLE var md5 = calcMD5(time.toString() + '|' + this.login + '|' + this.password);
+        var md5Str = time.toString() + '|' + this.login + '|' + this.password;
+        var md5 = this.md5.createHash(md5Str);
         return time + '|' + md5 + '|' + this.serverToken;
     };
 

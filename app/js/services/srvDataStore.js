@@ -1,11 +1,19 @@
 
+angular.module('srvDataStore', [])
+
+.factory('srvDataStore', function ($q, srvLocalStorage, srvFileStorage, md5, $rootScope) {
+  return new SrvDataStore($q, srvLocalStorage, srvFileStorage , md5, $rootScope);
+});
+
+
 var SrvDataStore = (function() {
   'use strict';
-  function Service(   qService, srvLocalStorage, srvFileStorage, $rootScope) {
+  function Service(   qService, srvLocalStorage, srvFileStorage, md5, $rootScope) {
 
       this.q = qService;
       this.srvLocalStorage = srvLocalStorage;
       this.srvFileStorage = srvFileStorage;
+      this.md5 = md5;
       this.rootScope = $rootScope;
       this.initDone = false;
 
@@ -37,7 +45,7 @@ var SrvDataStore = (function() {
 
       // Check storage as mandatory
       var itemsAsString = a4p.Json.object2String(items);//items.toString()
-      var fullItemsMd5 = calcMD5(itemsAsString);
+      var fullItemsMd5 = this.md5.createHash(itemsAsString);//MLE calcMD5(itemsAsString);
       var fullPreviousItemsMd5 = this.md5Items[itemsListName];
       if (typeof fullPreviousItemsMd5 != 'undefined' && fullItemsMd5 == fullPreviousItemsMd5) {
           a4p.InternalLog.log('srvDataStorage','setItems : same md5 do not need to store');

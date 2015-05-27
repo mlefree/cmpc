@@ -126,10 +126,10 @@ describe('SrvData', function () {
     var done = false;
     var documentUrl;
 
-    //beforeEach(module(''c4pServices''));
+    //beforeEach(module(''c4p.services''));
 
     beforeEach(function () {
-        module('c4pServices');
+        module('c4p.services');
         module(function ($provide) {
             var LocalStorage = a4p.LocalStorageFactory(new a4p.MemoryStorage());
             srvLocalStorage = new LocalStorage();

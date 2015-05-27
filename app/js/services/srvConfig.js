@@ -1,4 +1,10 @@
 
+angular.module('srvConfig', [])
+
+.factory('srvConfig', function (srvDataTransfer, srvLoad, srvLocalStorage, srvAnalytics) {
+  return new SrvConfig(srvDataTransfer, srvLoad, srvLocalStorage, srvAnalytics);
+});
+
 
 var SrvConfig = (function() {
     'use strict';

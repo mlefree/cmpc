@@ -5,7 +5,7 @@ describe('SrvLoad', function () {
 
     var srvLoad;
 
-    beforeEach(module('c4pServices'));
+    beforeEach(module('c4p.services'));
 
     beforeEach(function () {
 

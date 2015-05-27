@@ -376,10 +376,10 @@ a4p.FileStorage = (function () {
                 }
             };
 
-            if (a4p.isDefined(window.webkitPersistentStorage)) {
+            if (a4p.isDefined(navigator.webkitPersistentStorage)) { //MLE window.webkitPersistentStorage
                 // In Chrome 27+
-                if (a4p.isDefined(window.webkitPersistentStorage.requestQuota)) {
-                    window.webkitPersistentStorage.requestQuota(grantBytes, function (grantedBytes) {
+                if (a4p.isDefined(navigator.webkitPersistentStorage.requestQuota)) {
+                  navigator.webkitPersistentStorage.requestQuota(grantBytes, function (grantedBytes) {
                         self.grantedBytes = grantedBytes;
                         requestFs(grantedBytes);
                     }, function (fileError) {
@@ -394,10 +394,12 @@ a4p.FileStorage = (function () {
                 } else {
                     requestFs(grantBytes);
                 }
-            } else if (a4p.isDefined(navigator.webkitPersistentStorage)){//MLE deprecated ? (a4p.isDefined(window.webkitStorageInfo)) {
+            }
+            //MLE deprecated ?
+            else if (a4p.isDefined(window.webkitStorageInfo)){//MLE deprecated ? (a4p.isDefined(window.webkitStorageInfo)) {
                 // In Chrome 13
-                if (a4p.isDefined(navigator.webkitPersistentStorage.requestQuota)) {
-                    navigator.webkitPersistentStorage.requestQuota(self.storageType, grantBytes, function (grantedBytes) {
+                if (a4p.isDefined(window.webkitStorageInfo.requestQuota)) {
+                window.webkitStorageInfo.requestQuota(self.storageType, grantBytes, function (grantedBytes) {
                         self.grantedBytes = grantedBytes;
                         requestFs(grantedBytes);
                     }, function (fileError) {
@@ -417,6 +419,7 @@ a4p.FileStorage = (function () {
             }
         } catch (e) {
             var message = e.message;
+            console.log('storage pb : '+message);
             self.initTrigger = function(deferred) { deferred.reject(message); };
             launchEnd(self);
         }

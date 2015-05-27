@@ -1,4 +1,10 @@
 
+angular.module('srvLink', [])
+
+.factory('srvLink',  function (srvData, srvNav, srvLocale) {
+  return new SrvLink(srvData, srvNav, srvLocale);
+});
+
 
 var SrvLink = (function() {
     'use strict';

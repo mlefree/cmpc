@@ -4,7 +4,7 @@ describe('SrvTime', function () {
 
     var timeoutService, exceptionHandlerService, srvTime;
 
-    beforeEach(module('c4pServices'));
+    beforeEach(module('c4p.services'));
 
     beforeEach(inject(function ($injector) {
         exceptionHandlerService = $injector.get('$exceptionHandler');

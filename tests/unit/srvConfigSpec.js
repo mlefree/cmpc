@@ -6,7 +6,7 @@ describe('SrvConfig', function () {
     var srvConfig, srvDataTransfer, deferService, srvLoad, srvLocalStorage, srvAnalytics;
 
     beforeEach(function () {
-        module('c4pServices');
+        module('c4p.services');
         module(function ($provide) {
             var LocalStorage = a4p.LocalStorageFactory(new a4p.MemoryStorage());
             srvLocalStorage = new LocalStorage();

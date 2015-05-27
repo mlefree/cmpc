@@ -1,5 +1,12 @@
 'use strict';
 
+angular.module('srvGuider', [])
+
+.factory('srvGuider',  function (srvLocalStorage, srvLocale) {
+  return new SrvGuider(srvLocalStorage, srvLocale);
+});
+
+
 var SrvGuider = (function() {
     function Service(srvLocalStorage,srvLocale) {
     	this.srvLocalStorage = srvLocalStorage;

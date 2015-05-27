@@ -5,7 +5,7 @@ describe('SrvSecurity', function () {
 
     var srvSecurity, srvLocalStorage;
 
-    beforeEach(module('c4pServices'));
+    beforeEach(module('c4p.services'));
 
     beforeEach(inject(function ($injector) {
 

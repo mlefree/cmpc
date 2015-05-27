@@ -1,4 +1,9 @@
 
+angular.module('srvNav', [])
+
+.factory('srvNav',  function ($exceptionHandler, srvData, srvLocale, srvConfig) {
+  return new SrvNav($exceptionHandler, srvData, srvLocale, srvConfig);
+});
 
 var SrvNav = (function() {
     'use strict';

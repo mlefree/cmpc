@@ -1,4 +1,11 @@
 
+angular.module('srvData', [])
+
+.factory('srvData', function ($exceptionHandler, $q, srvLocalStorage, srvConfig, srvLog, srvLocale, srvSecurity, srvDataTransfer, srvDataStore, srvRunning, srvSynchro, srvSynchroStatus, srvQueue, srvFileStorage, $rootScope) {
+  return new SrvData($exceptionHandler, $q, srvLocalStorage, srvConfig, srvLog, srvLocale, srvSecurity, srvDataTransfer, srvDataStore, srvRunning, srvSynchro, srvSynchroStatus, srvQueue, srvFileStorage, $rootScope);
+});
+
+
 
 var SrvData = (function() {
     'use strict';
@@ -2633,7 +2640,7 @@ var SrvData = (function() {
             addFullMap(this, {'sf_id':'005i0000000I8c5AAC', 'c4p_id':'demo@apps4pro.com'}, angular.copy(c4p.Demo), requestTimestamp);
             deferred.resolve(data);
             */
-            this.dataTransfer.recvData('models/data.json')
+            this.dataTransfer.recvData('data/data.json')
                 .then(fctOnHttpSuccess, fctOnHttpError);
         } else {
             var params = {

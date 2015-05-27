@@ -1,9 +1,25 @@
 
-
 // Namespace c4p
 var c4p;
 if (!c4p) c4p = {};
 if (!c4p.Organizer) c4p.Organizer = {};
+
+angular.module('srvFacet', [])
+
+.factory('srvFacet',  function (srvData, srvLocale, srvConfig) {
+  var srvFacet = new SrvFacet(srvData, srvLocale, srvConfig);
+  srvFacet.addPossibleOrganizerFacet(c4p.Organizer.objects);
+  //srvFacet.addPossibleOrganizerFacet(c4p.Organizer.recents);
+  srvFacet.addPossibleOrganizerFacet(c4p.Organizer.top20);
+  srvFacet.addPossibleOrganizerFacet(c4p.Organizer.mine);
+  srvFacet.addPossibleOrganizerFacet(c4p.Organizer.favorites);
+  srvFacet.addPossibleOrganizerFacet(c4p.Organizer.biblio);
+  srvFacet.addPossibleOrganizerFacet(c4p.Organizer.month);
+  srvFacet.addPossibleOrganizerFacet(c4p.Organizer.week);
+  srvFacet.addPossibleOrganizerFacet(c4p.Organizer.fileDir);
+  return srvFacet;
+});
+
 
 // Helper functions to populate item lists of the type {keyes: [], lists: {}, others: []}
 

@@ -4285,7 +4285,7 @@ describe('a4p', function () {
 
                 // backend definition common for all tests
                 // BUG : passThrough() does not exists, contrary to doc :-(
-                // $httpBackend.when('GET', 'models/data.json').passThrough();
+                // $httpBackend.when('GET', 'data/data.json').passThrough();
                 httpBackend.when('POST', 'synchro/client.php').respond(
                     [
                         {'id':'id1', 'action':'fct1', 'data':{'a':0, 'b':1}},
@@ -4495,7 +4495,7 @@ describe('a4p', function () {
 
                 // backend definition common for all tests
                 // BUG : passThrough() does not exists, contrary to doc :-(
-                // $httpBackend.when('GET', 'models/data.json').passThrough();
+                // $httpBackend.when('GET', 'data/data.json').passThrough();
                 httpBackend.when('POST', 'synchro/client.php').respond(
                     [
                         {'id':'id1', 'action':'fct1', 'data':{'a':0, 'b':1}},
@@ -4723,7 +4723,7 @@ describe('a4p', function () {
 
                 // backend definition common for all tests
                 // BUG : passThrough() does not exists, contrary to doc :-(
-                // $httpBackend.when('GET', 'models/data.json').passThrough();
+                // $httpBackend.when('GET', 'data/data.json').passThrough();
                 httpBackend.when('POST', 'synchro/client3.php').respond(
                     []
                 );

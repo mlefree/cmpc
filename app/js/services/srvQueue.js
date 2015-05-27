@@ -1,4 +1,11 @@
 
+angular.module('srvQueue', [])
+
+.factory('srvQueue',  function ($q, $exceptionHandler, srvDataStore, srvSecurity) {
+  return new SrvQueue($q, $exceptionHandler, srvDataStore, srvSecurity);
+});
+
+
 
 //--------------------------------------
 // Queue Service

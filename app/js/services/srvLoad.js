@@ -1,5 +1,11 @@
 'use strict';
 
+angular.module('srvLoad', [])
+
+.factory('srvLoad',  function () {
+  return new SrvLoad();
+});
+
 var SrvLoad = (function() {
     function Service() {
         this.status = '';

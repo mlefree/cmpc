@@ -5,7 +5,7 @@ describe('SrvLocale', function () {
 
     var srvLocale, httpBackend, httpService, srvLoad, srvLocalStorage;
 
-    beforeEach(module('c4pServices'));
+    beforeEach(module('c4p.services'));
 
     beforeEach(inject(function ($injector) {
         var LocalStorage = a4p.LocalStorageFactory(new a4p.MemoryStorage());

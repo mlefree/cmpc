@@ -8,7 +8,7 @@ describe('filter', function () {
 
     beforeEach(function () {
         module('ui.bootstrap');
-        module('c4pServices');
+        module('c4p.services');
         module('c4p.filters');
         module(function ($provide) {
             var LocalStorage = a4p.LocalStorageFactory(new a4p.MemoryStorage());

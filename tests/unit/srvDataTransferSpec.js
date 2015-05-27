@@ -9,7 +9,7 @@ describe('SrvDataTransfer', function () {
     var error = null;
     var done = false;
 
-    beforeEach(module('c4pServices'));
+    beforeEach(module('c4p.services'));
 
     beforeEach(function () {
         module(function ($provide) {

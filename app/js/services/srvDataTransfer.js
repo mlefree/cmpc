@@ -1,4 +1,12 @@
 
+
+angular.module('srvDataTransfer', [])
+
+.factory('srvDataTransfer', function ($q, $http, $rootScope) {
+  return new SrvDataTransfer($q, $http, $rootScope);
+});
+
+
 /**
  * Data Transfer Service, which send data via HTTP requests.
  */

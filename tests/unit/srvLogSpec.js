@@ -4,7 +4,7 @@ describe('SrvLog', function () {
 'use strict';
     var srvLog, srvConfig, srvLocalStorage, srvAnalytics;
 
-    beforeEach(module('c4pServices'));
+    beforeEach(module('c4p.services'));
 
     beforeEach(function () {
 

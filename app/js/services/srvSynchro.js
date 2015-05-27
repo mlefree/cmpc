@@ -1,4 +1,11 @@
 
+angular.module('srvSynchro', [])
+
+.factory('srvSynchro',  function ($q, srvDataTransfer, srvFileTransfer, $exceptionHandler, srvRunning, srvLocalStorage, srvSecurity) {
+  return new SrvSynchro($q, srvDataTransfer, srvFileTransfer, $exceptionHandler, srvRunning, srvLocalStorage, srvSecurity);
+});
+
+
 
 /**
  * Synchronization Service, which send HTTP requests or files as soon as possible,
