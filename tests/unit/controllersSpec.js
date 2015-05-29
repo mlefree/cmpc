@@ -421,9 +421,9 @@ describe('ctrlNavigation', function () {
                 });
                 if (!navigationScope.$$phase) navigationScope.$apply();// propagate promise resolution
 
-                // Should get 'models/data.json'
+                // Should get 'data/data.json'
                 expect(srvDataTransfer.pendingRecvs.length).toBe(1);
-                expect(srvDataTransfer.pendingRecvs[0].url).toMatch('models/data.json');
+                expect(srvDataTransfer.pendingRecvs[0].url).toMatch('data/data.json');
                 srvDataTransfer.ackRecv(angular.copy(c4p.Demo));
                 timeStart = new Date().getTime();
             });

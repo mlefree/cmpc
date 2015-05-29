@@ -173,3 +173,5 @@ function ctrlDupMeeting($scope, srvLocale, srvData, mEvent, mEventSrc, dialog) {
     }
 
 }
+
+angular.module('crtl.modal.dupMeeting', []).controller('ctrlDupMeeting', ctrlDupMeeting);

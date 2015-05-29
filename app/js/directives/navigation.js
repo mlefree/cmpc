@@ -415,10 +415,10 @@ directiveModule.directive('c4pAnimateshow', function($animate) {
     link: function(scope, element) {
       scope.$watch('c4pAnimateshow', function(show, oldShow) {
         if (show) {
-          $animate.removeClass(element, 'ng-hide', scope.afterShow);
+          $animate.removeClass(element, 'ng-hide').then(scope.afterShow);
         }
         if (!show) {
-          $animate.addClass(element, 'ng-hide', scope.afterHide);
+          $animate.addClass(element, 'ng-hide').then(scope.afterHide);
         }
       });
     }

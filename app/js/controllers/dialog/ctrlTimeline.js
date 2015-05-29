@@ -66,3 +66,5 @@ function ctrlTimeline($scope, srvData, srvLocale, srvConfig, srvNav, objectItem,
         return dataObject;
     };
 }
+
+angular.module('crtl.modal.timeline', []).controller('ctrlTimeline', ctrlTimeline);

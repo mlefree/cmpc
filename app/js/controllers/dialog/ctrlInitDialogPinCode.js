@@ -41,3 +41,5 @@ function ctrlInitDialogPinCode($scope, srvLocale, $modalInstance) {
      */
     $scope.init(srvLocale);
 }
+
+angular.module('crtl.modal.initPinCode', []).controller('ctrlInitDialogPinCode', ctrlInitDialogPinCode);

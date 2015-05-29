@@ -35,3 +35,5 @@ function ctrlDialogConfirm($scope, text, textArray, srvLocale, $modalInstance) {
      */
     $scope.init(text, textArray, srvLocale);
 }
+
+angular.module('crtl.modal.confirm', []).controller('ctrlDialogConfirm', ctrlDialogConfirm);

@@ -52,7 +52,7 @@ describe('SrvDataTransfer', function () {
         error = null;
         done = false;
 
-        httpBackend.when('GET', 'models/c4p_conf.json').respond(200, {
+        httpBackend.when('GET', 'data/c4p_conf.json').respond(200, {
             "buildDate" : "130911",
             "urlBase" : "https://127.0.0.1/c4ph5/www",
             "trustAllHosts" : false,
@@ -62,8 +62,8 @@ describe('SrvDataTransfer', function () {
                 "exposeBetaFunctionalities" : false
             }
         }, {});
-        httpBackend.expectGET('models/c4p_conf.json');
-        srvDataTransfer.recvData('models/c4p_conf.json', 5000)
+        httpBackend.expectGET('data/c4p_conf.json');
+        srvDataTransfer.recvData('data/c4p_conf.json', 5000)
             .then(function (dataRep) {
                 done = true;
                 data = dataRep;
@@ -87,9 +87,9 @@ describe('SrvDataTransfer', function () {
         error = null;
         done = false;
 
-        httpBackend.when('GET', 'models/c4p_conf.json').respond(404, 'Error : c4p_conf.json unknown', {});
-        httpBackend.expectGET('models/c4p_conf.json');
-        srvDataTransfer.recvData('models/c4p_conf.json', 5000)
+        httpBackend.when('GET', 'data/c4p_conf.json').respond(404, 'Error : c4p_conf.json unknown', {});
+        httpBackend.expectGET('data/c4p_conf.json');
+        srvDataTransfer.recvData('data/c4p_conf.json', 5000)
             .then(function (dataRep) {
                 done = true;
                 data = dataRep;

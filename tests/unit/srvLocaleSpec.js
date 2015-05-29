@@ -94,11 +94,11 @@ describe('SrvLocale', function () {
 
         srvLocale.init();
 
-        httpBackend.when('GET', 'models/local_fr.json').respond(200, {
+        httpBackend.when('GET', 'data/local_fr.json').respond(200, {
             "htmlTitleConfigYourAccount":"Votre compte2",
             "htmlTitleConfigSystemStatus":"Etat systeme2"
         }, {});
-        httpBackend.expectGET('models/local_fr.json');
+        httpBackend.expectGET('data/local_fr.json');
         srvLocale.startLoading(function() {
             done = true;
         });
@@ -155,8 +155,8 @@ describe('SrvLocale', function () {
 
         srvLocale.init();
 
-        httpBackend.when('GET', 'models/local_fr.json').respond(404, '', {});
-        httpBackend.expectGET('models/local_fr.json');
+        httpBackend.when('GET', 'data/local_fr.json').respond(404, '', {});
+        httpBackend.expectGET('data/local_fr.json');
         srvLocale.startLoading(function() {
             done = true;
         });
@@ -211,11 +211,11 @@ describe('SrvLocale', function () {
 
         srvLocale.init();
 
-        httpBackend.when('GET', 'models/local_fr_fr.json').respond(200, {
+        httpBackend.when('GET', 'data/local_fr_fr.json').respond(200, {
             "htmlTitleConfigYourAccount":"Votre compte3",
             "htmlTitleConfigSystemStatus":"Etat systeme3"
         }, {});
-        httpBackend.expectGET('models/local_fr_fr.json');
+        httpBackend.expectGET('data/local_fr_fr.json');
         srvLocale.setLang({code:'fr_FR', title:"French"});
         httpBackend.flush();
         expect(srvLocale.lang1).toEqual('fr');
@@ -271,11 +271,11 @@ describe('SrvLocale', function () {
 
         srvLocale.init();
 
-        httpBackend.when('GET', 'models/local_fr_fr_euro.json').respond(200, {
+        httpBackend.when('GET', 'data/local_fr_fr_euro.json').respond(200, {
             "htmlTitleConfigYourAccount":"Votre compte4",
             "htmlTitleConfigSystemStatus":"Etat systeme4"
         }, {});
-        httpBackend.expectGET('models/local_fr_fr_euro.json');
+        httpBackend.expectGET('data/local_fr_fr_euro.json');
         srvLocale.setLang({code:'fr_FR_EURO', title:"French"});
         httpBackend.flush();
         srvLocale.setCurrency("\xe2\x82\xac");
@@ -332,11 +332,11 @@ describe('SrvLocale', function () {
 
         srvLocale.init();
 
-        httpBackend.when('GET', 'models/local_en_us_usd.json').respond(200, {
+        httpBackend.when('GET', 'data/local_en_us_usd.json').respond(200, {
             "htmlTitleConfigYourAccount":"Votre compte5",
             "htmlTitleConfigSystemStatus":"Etat systeme5"
         }, {});
-        httpBackend.expectGET('models/local_en_us_usd.json');
+        httpBackend.expectGET('data/local_en_us_usd.json');
         srvLocale.setLang({code:'en_US_USD', title:"English"});
         httpBackend.flush();
         srvLocale.setCurrency("\x24");

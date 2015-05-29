@@ -224,3 +224,5 @@ function ctrlSelectObjectsDialog($scope, $q, $modalInstance, srvLocale, srvData,
         });
     };
 }
+
+angular.module('crtl.modal.selectObjects', []).controller('ctrlSelectObjectsDialog', ctrlSelectObjectsDialog);

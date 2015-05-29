@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0"
     xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.apps4pro.c4p" version="15.05.22">
+    id="com.apps4pro.cmp" version="15.05.22">
 
     <name>MeetingPaDo</name>
     <description>CRM Meeting Pad (open)</description>
@@ -10,7 +10,7 @@
     <access origin="file:///" subdomains="true" />
     <access origin="*"/>
 
-    <gap:url-scheme name="com.apps4pro.c4p" role="Editor">
+    <gap:url-scheme name="com.apps4pro.cmp" role="Editor">
       <scheme>file</scheme>
       <scheme>http</scheme>
     </gap:url-scheme>
@@ -95,7 +95,7 @@
                 <string>Owner</string>
                 <key>LSItemContentTypes</key>
                 <array>
-                    <string>com.apps4pro.c4p.file</string>
+                    <string>com.apps4pro.cmp.file</string>
                     <string>public.comma-separated-values-text</string>
                     <string>public.item</string>
                     <string>public.content</string>
@@ -113,7 +113,7 @@
                 <key>UTTypeDescription</key>
                 <string>MyAppName File</string>
                 <key>UTTypeIdentifier</key>
-                <string>com.apps4pro.c4p.file</string>
+                <string>com.apps4pro.cmp.file</string>
                 <key>UTTypeTagSpecification</key>
                 <dict>
                     <key>public.filename-extension</key>

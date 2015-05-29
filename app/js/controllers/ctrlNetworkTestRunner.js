@@ -134,7 +134,7 @@ function networkTestRunnerCtrl($scope, $q, $location, $http, $modal, version, sr
     }
     function initConfig(scope, deferred) {
         a4p.InternalLog.log('testCtrl', 'srvConfig.startLoading');
-        srvConfig.setC4pUrlConf('../../www/models/c4p_conf.json');
+        srvConfig.setC4pUrlConf('../../app/data/c4p_conf.json');
         srvConfig.startLoading(function() {
             a4p.safeApply(scope, function() {
                 initLocale(scope, deferred);

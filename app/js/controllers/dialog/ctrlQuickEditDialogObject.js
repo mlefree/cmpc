@@ -1,5 +1,4 @@
 
-
 function ctrlQuickEditDialogObject($scope, $location, $anchorScroll, srvData, srvLocale, srvConfig,  objectItem, removeFct, startSpinner, stopSpinner, openDialogFct, $modalInstance) {
     'use strict';
 
@@ -922,3 +921,5 @@ function ctrlQuickEditDialogObject($scope, $location, $anchorScroll, srvData, sr
      */
     initFields($scope);
 }
+
+angular.module('crtl.modal.quickEditObject', []).controller('ctrlQuickEditDialogObject', ctrlQuickEditDialogObject);

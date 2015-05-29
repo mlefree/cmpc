@@ -58,3 +58,5 @@ function ctrlEditDialogFeed($scope, srvLocale, srvData, title, feed, editable, m
     	$scope.modeEdit = modeEdit;
     };
 }
+
+angular.module('crtl.modal.editFeed', []).controller('ctrlEditDialogFeed', ctrlEditDialogFeed);

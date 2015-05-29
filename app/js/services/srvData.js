@@ -2527,7 +2527,7 @@ var SrvData = (function() {
             deferred.reject({error:'htmlMsgSynchronizationClientPb', log:response.data});
         };
 
-        this.dataTransfer.recvData('models/dataFirst.json')
+        this.dataTransfer.recvData('data/dataFirst.json')
             .then(fctOnHttpSuccess, fctOnHttpError);
     };
 

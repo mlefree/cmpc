@@ -14,7 +14,7 @@
     "catw": "^0.0.x",
     "es5-shim": "^4.0.x",
     "express": "^4.12.x",
-    "http-server": "^0.6.x",
+    "http-server": "^0.6.1",
     "jasmine": "^2.0.x",
     "jasmine-as-promised": "^0.0.x",
     "jasmine-html-runner": "^0.3.x",
@@ -39,7 +39,8 @@
     "test-node": "node scripts/build.js",
     "postinstall": "bower install",
     "prestart": "npm install",
-    "start": "parallelshell \"npm start startmock2\" \"npm start starthttp\"",
+    "start": "npm run startparallel",
+    "startparallel": "parallelshell \"npm run startmock2\" \"npm run starthttp\"",
     "starthttp": "http-server -a localhost -p 8051",
     "startmock": "node scripts/mock-server.js 8052",
     "startmock2": "supervisor node \"scripts/mock-server.js\"",
@@ -63,6 +64,7 @@
   "dependencies": {
     "bower": "^1.4.1",
     "phantomjs": "^1.9.17",
-    "shelljs": "^0.5.0"
+    "shelljs": "^0.5.0",
+    "http-server": "^0.6.x"
   }
 }

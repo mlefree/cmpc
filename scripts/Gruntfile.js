@@ -27,8 +27,8 @@ module.exports = function(grunt) {
 							'www/l4p/libs/js/jquery-plugins/jquery.easing.1.3.js',
 							'www/l4p/libs/js/jquery-plugins/jquery.popcircle.1.0.js',
 							//'www/l4p/libs/js/jquery-plugins/TimelineJS-master/compiled/js/storyjs-embed.js',
-							'www/models/c4p_locale.js',
-							'www/models/c4p_demo.js',
+							'app/data/c4p_locale.js',
+							'app/data/c4p_demo.js',
 							'www/js/a4p/*.js',
 							'www/js/controllers/*.js',
 							'www/js/controllers/dialog/*.js',
@@ -105,9 +105,9 @@ module.exports = function(grunt) {
 					{expand: true, cwd: 'www/l4p/img/', src: ['**'], dest: 'mobile/l4p/img/'},
 					{expand: true, cwd: 'www/l4p/font/', src: ['**'], dest: 'mobile/l4p/font/'},
 					{expand: true, cwd: 'www/l4p/css/', src: ['c4p-*.min.css'], dest: 'mobile/l4p/css/'},
-					{expand: true, cwd: 'www/models/', src: ['c4p_*.json'], dest: 'mobile/models/'},
-					{expand: true, cwd: 'www/models/', src: ['local_*.json'], dest: 'mobile/models/'},
-					{expand: true, cwd: 'www/models/', src: ['data*.json'], dest: 'mobile/models/'},
+					{expand: true, cwd: 'app/data/', src: ['c4p_*.json'], dest: 'mobile/data/'},
+					{expand: true, cwd: 'app/data/', src: ['local_*.json'], dest: 'mobile/data/'},
+					{expand: true, cwd: 'app/data/', src: ['data*.json'], dest: 'mobile/data/'},
 					{expand: true, cwd: 'www/', src: 'mobile.html', dest: 'mobile/'}
 				]
 			},

@@ -34,3 +34,5 @@ function ctrlDialogDemoMode($scope, textFunc, srvLocale, $modalInstance) {
      */
     $scope.init(textFunc, srvLocale);
 }
+
+angular.module('crtl.modal.demoMode', []).controller('ctrlDialogDemoMode', ctrlDialogDemoMode);

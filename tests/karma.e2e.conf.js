@@ -15,7 +15,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
         'e2e/e2e_helpers.js'
-        ,'../www/models/c4p_locale.js'
+        ,'../app/data/c4p_locale.js'
         //,'e2e/scenarios_inscription_e2e.js'
         ,'e2e/scenarios_demo_visitor_e2e.js'
     ],

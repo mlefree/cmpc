@@ -1,5 +1,6 @@
 'use strict';
 
+
 /**
  *
  * @param $scope
@@ -477,3 +478,5 @@ function ctrlFacetSelectedDialog($scope, $modalInstance, srvData, srvFacet, srvL
         $scope.addFacet('objects', srvLocale.translations.htmlTitleType[type], type);
     }
 }
+
+angular.module('crtl.modal.facetSelected', []).controller('ctrlFacetSelectedDialog', ctrlFacetSelectedDialog);

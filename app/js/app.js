@@ -2,7 +2,7 @@
 // Declare app level module which depends on filters, and services
 var appModule = angular.module('c4p',
                                     [
-                                        //'ngAnimate',
+                                        'ngAnimate',
                                         'ngTouch',
                                         'ngSanitize',
                                         'ngResource',
