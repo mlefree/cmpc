@@ -1512,4 +1512,3 @@ var MockSrvFileTransfer = (function() {
 
 checkMocking('MockSrvFileTransfer', MockSrvFileTransfer, 'SrvFileTransfer', SrvFileTransfer,
     ['ackSend', 'errSend', 'ackRecv', 'errRecv'], []);
-
