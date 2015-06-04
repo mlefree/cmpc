@@ -26,3 +26,6 @@ function ctrlDialogCreateDocument($scope, srvLocale, $modalInstance) {
      */
     $scope.constructor(srvLocale);
 }
+
+
+angular.module('crtl.modal.createDocument', []).controller('ctrlDialogCreateDocument', ctrlDialogCreateDocument);

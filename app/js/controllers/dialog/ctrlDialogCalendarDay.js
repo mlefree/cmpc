@@ -39,3 +39,6 @@ function ctrlDialogCalendarDay($scope, calendarDayCasualName, calendarDayFullNam
      */
     $scope.constructor( calendarDayCasualName, calendarDayFullName, calendarSelectedDay, srvLocale);
 }
+
+
+angular.module('crtl.modal.calendarDay', []).controller('ctrlDialogCalendarDay', ctrlDialogCalendarDay);

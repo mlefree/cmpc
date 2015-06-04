@@ -10,7 +10,7 @@ describe('SrvSynchroStatus', function () {
     var done = false;
     var answers = [];
 
-    beforeEach(module('c4pServices'));
+    beforeEach(module('c4p.services'));
 
     beforeEach(function () {
         module(function ($provide) {
@@ -503,7 +503,7 @@ describe('SrvSynchro2', function () {
         srvRunning, srvLocalStorage, srvAnalytics, srvDataTransfer, srvFileTransfer;
     var answers = [];
 
-    beforeEach(module('c4pServices'));
+    beforeEach(module('c4p.services'));
 
     beforeEach(function () {
         module(function ($provide) {

@@ -922,3 +922,5 @@ function ctrlEditDialogObject($scope, $location, $anchorScroll, srvData, srvLoca
      */
     initFields($scope);
 }
+
+angular.module('crtl.modal.editObject', []).controller('ctrlEditDialogObject', ctrlEditDialogObject);

@@ -1,4 +1,10 @@
 
+angular.module('srvSynchroStatus', [])
+
+.factory('srvSynchroStatus',  function ($q) {
+  return new SrvSynchroStatus($q);
+});
+
 
 var SrvSynchroStatus = (function (qService) {
     'use strict';

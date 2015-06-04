@@ -5,7 +5,7 @@ describe('SrvRunning', function () {
 
     var srvRunning;
 
-    beforeEach(module('c4pServices'));
+    beforeEach(module('c4p.services'));
 
     beforeEach(inject(function ($injector) {
         var exceptionHandlerService = $injector.get('$exceptionHandler');

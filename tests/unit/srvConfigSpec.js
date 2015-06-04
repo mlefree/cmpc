@@ -6,7 +6,7 @@ describe('SrvConfig', function () {
     var srvConfig, srvDataTransfer, deferService, srvLoad, srvLocalStorage, srvAnalytics;
 
     beforeEach(function () {
-        module('c4pServices');
+        module('c4p.services');
         module(function ($provide) {
             var LocalStorage = a4p.LocalStorageFactory(new a4p.MemoryStorage());
             srvLocalStorage = new LocalStorage();
@@ -77,7 +77,7 @@ describe('SrvConfig', function () {
             });
             // SrvDataTransfer should have received a dataRequest
             expect(srvDataTransfer.pendingRecvs.length).toBe(1);
-            expect(srvDataTransfer.pendingRecvs[0].url).toBe('models/c4p_conf.json');
+            expect(srvDataTransfer.pendingRecvs[0].url).toBe('data/c4p_conf.json');
             // Send response
             srvDataTransfer.ackRecv(
                 {
@@ -110,7 +110,7 @@ describe('SrvConfig', function () {
             });
             // SrvDataTransfer should have received a dataRequest
             expect(srvDataTransfer.pendingRecvs.length).toBe(1);
-            expect(srvDataTransfer.pendingRecvs[0].url).toBe('models/c4p_conf.json');
+            expect(srvDataTransfer.pendingRecvs[0].url).toBe('data/c4p_conf.json');
             // Send response
             srvDataTransfer.errRecv('Error : c4p_conf.json unknown', 404, function () {
                 return undefined;
@@ -146,7 +146,7 @@ describe('SrvConfig', function () {
             });
             // SrvDataTransfer should have received a dataRequest
             expect(srvDataTransfer.pendingRecvs.length).toBe(1);
-            expect(srvDataTransfer.pendingRecvs[0].url).toBe('models/c4p_conf.json');
+            expect(srvDataTransfer.pendingRecvs[0].url).toBe('data/c4p_conf.json');
             // Send response
             srvDataTransfer.ackRecv(
                 {

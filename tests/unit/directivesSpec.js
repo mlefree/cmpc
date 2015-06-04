@@ -54,7 +54,7 @@ describe('directives', function () {
 
     beforeEach(function () {
         module('ui.bootstrap');
-        module('c4pServices');
+        module('c4p.services');
         module('c4p.directives');
         module(function ($provide) {
             var LocalStorage = a4p.LocalStorageFactory(new a4p.MemoryStorage());
@@ -76,7 +76,7 @@ describe('directives', function () {
 
     beforeEach(inject(function ($rootScope, $controller, $injector) {
         httpBackend = $injector.get('$httpBackend');
-        httpBackend.when('GET', 'models/c4p_conf.json').respond({
+        httpBackend.when('GET', 'data/c4p_conf.json').respond({
             "buildDate" : "130911",
             "urlBase" : "https://127.0.0.1/c4ph5/www",
             "trustAllHosts" : false,
@@ -86,8 +86,8 @@ describe('directives', function () {
                 "exposeBetaFunctionalities" : false
             }
         });
-        httpBackend.when('GET', 'models/local_en.json').respond(c4p.Locale.en);
-        httpBackend.when('GET', 'models/local_fr.json').respond(c4p.Locale.fr);
+        httpBackend.when('GET', 'data/local_en.json').respond(c4p.Locale.en);
+        httpBackend.when('GET', 'data/local_fr.json').respond(c4p.Locale.fr);
         httpBackend = $injector.get('$httpBackend');
         srvLocale = $injector.get('srvLocale');
         srvLocale.resetLocale();// english by default
@@ -546,7 +546,7 @@ describe('directives', function () {
 
                 // Change locale (format change)
 
-                $httpBackend.expectGET('models/local_fr.json');
+                $httpBackend.expectGET('data/local_fr.json');
                 srvLocale.setLanguage('fr');
                 $httpBackend.flush();
 
@@ -604,7 +604,7 @@ describe('directives', function () {
 
                 // Change locale (format change)
 
-                $httpBackend.expectGET('models/local_fr.json');
+                $httpBackend.expectGET('data/local_fr.json');
                 srvLocale.setLanguage('fr');
                 $httpBackend.flush();
 

@@ -46,3 +46,5 @@ function ctrlEditDialogFeedback($scope, srvLocale, title, message, onlyFeedback,
     // Init
     $scope.init();
 }
+
+angular.module('crtl.modal.editFeedback', []).controller('ctrlEditDialogFeedback', ctrlEditDialogFeedback);

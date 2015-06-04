@@ -1,5 +1,11 @@
 'use strict';
 
+angular.module('srvLog', [])
+
+.factory('srvLog', function (srvLocalStorage) {
+  return new SrvLog(srvLocalStorage);
+});
+
 var SrvLog = (function() {
     var nbErrorMax = 1000;
     var nbInternalMax = 1000;

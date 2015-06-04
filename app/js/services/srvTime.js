@@ -1,4 +1,9 @@
 
+angular.module('srvTime', [])
+
+.factory('srvTime',  function ($exceptionHandler) {
+  return new SrvTime($exceptionHandler);
+});
 
 var SrvTime = (function() {
 'use strict';

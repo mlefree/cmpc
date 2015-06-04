@@ -9,7 +9,7 @@ function ctrlOpenDialogLocked($scope, srvLocale, srvSecurity, $modalInstance) {
     $scope.srvSecurity = srvSecurity;
     $scope.pinCode = "";
     $scope.oldPinCodeError = false;
-    
+
     /**
      * Functions
      */
@@ -29,16 +29,18 @@ function ctrlOpenDialogLocked($scope, srvLocale, srvSecurity, $modalInstance) {
             }
         });
     };
-    
+
     $scope.oldPinIncorrect = function() {
         $scope.oldPinCodeError = false;
-        
+
     	if(a4p.isDefined($scope.pinCode) && $scope.pinCode != "") {
     		if(!srvSecurity.verify($scope.pinCode)) {
                 $scope.oldPinCodeError = true;
     		}
     	}
-    	
+
     	return $scope.oldPinCodeError;
     };
 }
+
+angular.module('crtl.modal.openLocked', []).controller('ctrlOpenDialogLocked', ctrlOpenDialogLocked);

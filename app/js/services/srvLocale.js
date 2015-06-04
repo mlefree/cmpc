@@ -1,4 +1,11 @@
 
+angular.module('srvLocale', [])
+
+.factory('srvLocale',  function ($http, srvLoad, srvLocalStorage) {
+  return new SrvLocale($http, srvLoad, srvLocalStorage);
+});
+
+
 
 var SrvLocale = (function() {
     'use strict';

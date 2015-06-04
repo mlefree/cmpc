@@ -1,4 +1,11 @@
 
+angular.module('srvOpenUrl', [])
+
+.factory('srvOpenUrl', function ($exceptionHandler) {
+  srvOpenUrlSingleton = new SrvOpenUrl($exceptionHandler);
+  return srvOpenUrlSingleton;
+});
+
 
 var SrvOpenUrl = (function() {
     'use strict';

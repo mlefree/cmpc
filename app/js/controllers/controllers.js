@@ -1,7 +1,8 @@
 
 // Controllers
 
-angular.module('c4p.controllers', [
+angular.module('c4p.controllers', [,
+'c4p.controllers.dialog',
 'crtl.responsive',
 'crtl.navigation',
 'crtl.action',

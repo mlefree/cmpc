@@ -76,3 +76,5 @@ function ctrlShowImage($scope, imageData, $modalInstance) {
      */
     $scope.init(imageData);
 }
+
+angular.module('crtl.modal.showImage', []).controller('ctrlShowImage', ctrlShowImage);

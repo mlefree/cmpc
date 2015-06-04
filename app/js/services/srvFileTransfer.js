@@ -1,4 +1,10 @@
 
+angular.module('srvFileTransfer', [])
+
+.factory('srvFileTransfer', function ($q, $http, srvFileStorage, md5, $rootScope) {
+  return new SrvFileTransfer($q, $http, srvFileStorage, md5, $rootScope);
+});
+
 
 /**
  * File Transfer Service, which send files via HTTP requests (Chrome) or File Transfer (PhoneGap).
@@ -6,10 +12,11 @@
 var SrvFileTransfer = (function() {
     'use strict';
 
-    function Service(deferService, httpService, srvFileStorage, $rootScope) {
+    function Service(deferService, httpService, srvFileStorage, md5, $rootScope) {
         this.defer = deferService;
         this.http = httpService;
         this.srvFileStorage = srvFileStorage;
+        this.md5 = md5;
        // this.srvData = srvData;
         this.rootScope = $rootScope;
     }
@@ -163,7 +170,7 @@ var SrvFileTransfer = (function() {
             // BEWARE it is not always possible to send BIG files => we split them in smaller files (< 100 ko)
             // ReadFile callbacks
             var onReadFileSuccessFct = function (data) {
-                var fullMd5 = calcMD5(data);
+                var fullMd5 = this.md5.createHash(data);//MLE calcMD5(data);
                 var sendPartFile = function (params, idx, nb, nbTry) {
                     params.idx = idx;
                     params.nb = nb;
@@ -175,7 +182,7 @@ var SrvFileTransfer = (function() {
                         trunkSize = data.length - begOffset;
                     }
                     var partData = data.substr(begOffset, trunkSize);
-                    var partMd5 = calcMD5(partData);
+                    var partMd5 = this.md5.createHash(partData);//MLE calcMD5(partData);
                     var n = 1;
                     var boundary = '----srvPartFileTransferBoundary';
                     while (partData.indexOf(boundary + n) >= 0) n++;

@@ -1,5 +1,8 @@
 
 
+//ctrlGuiderDialog.$inject = ['$scope','$sce', 'srvLocale'];
+//$scope, item, version, srvData, srvNav, srvLink, srvLocale, srvConfig, srvAnalytics, $modalInstance
+
 function ctrlGuiderDialog($scope, $sce, srvLocale) {
     'use strict';
     //, srvLocale, screens, height, width, dialog) {
@@ -109,4 +112,7 @@ function ctrlGuiderDialog($scope, $sce, srvLocale) {
 }
 
 
-ctrlGuiderDialog.$inject = ['$scope','$sce', 'srvLocale'];
+//ctrlGuiderDialog.$inject = ['$scope','$sce', 'srvLocale'];
+//$scope, item, version, srvData, srvNav, srvLink, srvLocale, srvConfig, srvAnalytics, $modalInstance
+
+angular.module('crtl.modal.guider', []).controller('ctrlGuiderDialog', ctrlGuiderDialog);

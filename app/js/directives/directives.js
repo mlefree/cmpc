@@ -4,8 +4,10 @@
 var directiveModule = angular.module('c4p.directives', [
 //'c4p.filters', 'ui.bootstrap',
 'a4p.bootstrap.carousel', 'a4p.bootstrap.accordion',
-'c4p.input','c4p.ratings', 'c4p.viewer']
-).config(function($compileProvider)  {
+'c4p.input','c4p.ratings', 'c4p.viewer']);
+
+
+directiveModule.config(function($compileProvider)  {
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 });
 

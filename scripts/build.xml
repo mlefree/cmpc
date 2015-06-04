@@ -384,7 +384,7 @@
     <target name="edit-conf"
             depends="prepare"
             description="Edit c4p_conf.json configuration file">
-        <loadfile property="c4p.conf.old" srcFile="${basedir}/www/models/template-c4p_conf.json"/>
+        <loadfile property="c4p.conf.old" srcFile="${basedir}/app/data/template-c4p_conf.json"/>
         <propertyregex property="c4p.conf.url"
                        input="${c4p.conf.old}"
                        regexp="C4P_URL_BASE"
@@ -397,10 +397,10 @@
                        replace="${TODAY_FR}"
                        casesensitive="true"
                        defaultValue="${c4p.conf.url}"/>
-        <echo file="${basedir}/www/models/c4p_conf.json">${c4p.conf}</echo>
+        <echo file="${basedir}/app/data/c4p_conf.json">${c4p.conf}</echo>
         <!-- todo ?
 
-        <loadfile property="c4p.conf" srcFile="${basedir}/www/models/template-c4p_conf.json">
+        <loadfile property="c4p.conf" srcFile="${basedir}/app/data/template-c4p_conf.json">
             <filterchain>
                 <tokenfilter>
                     <containsregex pattern=".*C4P_URL_BASE([^\.]*).*" replace="${c4p.urlBase}"/>
@@ -414,9 +414,9 @@
     <target name="locale-conf"
             depends="prepare"
             description="Copy local_*.json locale files in javascript source code">
-        <loadfile property="locale.en" srcFile="${basedir}/www/models/local_en.json"/>
-        <loadfile property="locale.fr" srcFile="${basedir}/www/models/local_fr.json"/>
-        <echo file="${basedir}/www/models/c4p_locale.js">'use strict';
+        <loadfile property="locale.en" srcFile="${basedir}/app/data/local_en.json"/>
+        <loadfile property="locale.fr" srcFile="${basedir}/app/data/local_fr.json"/>
+        <echo file="${basedir}/app/data/c4p_locale.js">'use strict';
 var c4p;
 if (!c4p) c4p = {};
 c4p.Locale = {
@@ -429,8 +429,8 @@ c4p.Locale = {
     <target name="demo-conf"
             depends="prepare"
             description="Copy data.json demo files in javascript source code">
-        <loadfile property="data.demo" srcFile="${basedir}/www/models/data.json"/>
-        <echo file="${basedir}/www/models/c4p_demo.js">'use strict';
+        <loadfile property="data.demo" srcFile="${basedir}/app/data/data.json"/>
+        <echo file="${basedir}/app/data/c4p_demo.js">'use strict';
 var c4p;
 if (!c4p) c4p = {};
 c4p.Demo = ${data.demo};
@@ -678,9 +678,9 @@ MANIFEST${line.separator}#${timecache}${line.separator}${line.separator}${cached
     <!-- CLEANUP -->
 
     <target name="clean" description="Delete built objects">
-        <delete file="${basedir}/www/models/c4p_conf.json" quiet="true"/>
-        <delete file="${basedir}/www/models/c4p_locale.js" quiet="true"/>
-        <delete file="${basedir}/www/models/c4p_demo.js" quiet="true"/>
+        <delete file="${basedir}/app/data/c4p_conf.json" quiet="true"/>
+        <delete file="${basedir}/app/data/c4p_locale.js" quiet="true"/>
+        <delete file="${basedir}/app/data/c4p_demo.js" quiet="true"/>
         <delete file="${basedir}/tests/jsTestDriver.conf" quiet="true"/>
         <delete file="${basedir}/tests/jsTestDriver-scenario.conf" quiet="true"/>
         <delete file="${basedir}/tests/e2e/e2e_helpers.js" quiet="true"/>

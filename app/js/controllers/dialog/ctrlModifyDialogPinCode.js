@@ -37,29 +37,31 @@ function ctrlModifyDialogPinCode($scope, srvLocale, srvSecurity, $modalInstance)
             }
         });
     };
-    
+
     $scope.oldPinIncorrect = function() {
         $scope.oldPinCodeError = false;
-        
+
     	if(a4p.isDefined($scope.oldPinCode) && $scope.oldPinCode != "") {
     		if(!srvSecurity.verify($scope.oldPinCode)) {
                 $scope.oldPinCodeError = true;
     		}
     	}
-    	
+
     	return $scope.oldPinCodeError;
     };
-    
+
     $scope.sameAsOldPin = function() {
         $scope.newPinCodeError = false;
-        
+
         if(a4p.isDefined($scope.oldPinCode) && $scope.oldPinCode != ""
         	&& a4p.isDefined($scope.newPinCode) && $scope.newPinCode != "") {
 	        if($scope.newPinCode == $scope.oldPinCode) {
 	            $scope.newPinCodeError = true;
 	        }
         }
-        
+
         return $scope.newPinCodeError;
     };
 }
+
+angular.module('crtl.modal.modifyPinCode', []).controller('ctrlModifyDialogPinCode', ctrlModifyDialogPinCode);

@@ -58,3 +58,5 @@ function ctrlGoToMeetingDialog($scope, item, version, srvData, srvNav, srvLink, 
      */
     $scope.init();
 }
+
+angular.module('crtl.modal.goToMeeting', []).controller('ctrlGoToMeetingDialog', ctrlGoToMeetingDialog);

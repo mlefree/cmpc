@@ -1,5 +1,11 @@
 'use strict';
 
+angular.module('srvModel', [])
+
+.factory('srvModel',  function () {
+  return new SrvModel();
+});
+
 var SrvModel = (function () {
 
 

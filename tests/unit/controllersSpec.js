@@ -133,7 +133,7 @@ describe('$q', function () {
 describe('ctrlNavigation', function () {
 
     //beforeEach(module('ui.bootstrap'));
-    //beforeEach(module('c4pServices'));
+    //beforeEach(module('c4p.services'));
 
     var navigationScope, meetingScope, actionScope;
     var httpBackend, srvSynchro, deferService, timeoutService, exceptionHandlerService,
@@ -153,7 +153,7 @@ describe('ctrlNavigation', function () {
 
     beforeEach(function () {
         module('ui.bootstrap');
-        module('c4pServices');
+        module('c4p.services');
         module(function ($provide) {
             var LocalStorage = a4p.LocalStorageFactory(new a4p.MemoryStorage());
             srvLocalStorage = new LocalStorage();
@@ -421,9 +421,9 @@ describe('ctrlNavigation', function () {
                 });
                 if (!navigationScope.$$phase) navigationScope.$apply();// propagate promise resolution
 
-                // Should get 'models/data.json'
+                // Should get 'data/data.json'
                 expect(srvDataTransfer.pendingRecvs.length).toBe(1);
-                expect(srvDataTransfer.pendingRecvs[0].url).toMatch('models/data.json');
+                expect(srvDataTransfer.pendingRecvs[0].url).toMatch('data/data.json');
                 srvDataTransfer.ackRecv(angular.copy(c4p.Demo));
                 timeStart = new Date().getTime();
             });

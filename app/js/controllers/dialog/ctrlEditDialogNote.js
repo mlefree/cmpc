@@ -1,5 +1,4 @@
 
-
 function ctrlEditDialogNote($scope, srvLocale, srvConfig, srvData, srvFacet, attendees, attachments,
     noteParentObject, note, editable, modeEdit, spinner, openDialogFct, $modalInstance) {
 
@@ -599,3 +598,5 @@ function ctrlEditDialogNote($scope, srvLocale, srvConfig, srvData, srvFacet, att
     $scope.initEditDialogNoteCtrl();
     initFields();
 }
+
+angular.module('crtl.modal.editNote', []).controller('ctrlEditDialogNote', ctrlEditDialogNote);

@@ -114,7 +114,7 @@ var MockConfig = (function() {
 
     function Service(srvAnalytics) {
         this.srvAnalytics = srvAnalytics;
-        this.c4pUrlConf = 'models/c4p_conf.json';
+        this.c4pUrlConf = 'data/c4p_conf.json';
         this.c4pUrlBase = '';
         this.c4pUrlForget = this.c4pUrlBase + "/c4p_forget.php";
         this.c4pUrlCreateAccount = this.c4pUrlBase + "/c4p_createAccount.php";

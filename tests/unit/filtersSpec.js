@@ -8,7 +8,7 @@ describe('filter', function () {
 
     beforeEach(function () {
         module('ui.bootstrap');
-        module('c4pServices');
+        module('c4p.services');
         module('c4p.filters');
         module(function ($provide) {
             var LocalStorage = a4p.LocalStorageFactory(new a4p.MemoryStorage());
@@ -30,7 +30,7 @@ describe('filter', function () {
 
     beforeEach(inject(function ($rootScope, $controller, $injector) {
         httpBackend = $injector.get('$httpBackend');
-        httpBackend.when('GET', 'models/c4p_conf.json').respond({
+        httpBackend.when('GET', 'data/c4p_conf.json').respond({
             "buildDate" : "130911",
             "urlBase" : "https://127.0.0.1/c4ph5/www",
             "trustAllHosts" : false,
@@ -40,8 +40,8 @@ describe('filter', function () {
                 "exposeBetaFunctionalities" : false
             }
         });
-        httpBackend.when('GET', 'models/local_en.json').respond(c4p.Locale.en);
-        httpBackend.when('GET', 'models/local_fr.json').respond(c4p.Locale.fr);
+        httpBackend.when('GET', 'data/local_en.json').respond(c4p.Locale.en);
+        httpBackend.when('GET', 'data/local_fr.json').respond(c4p.Locale.fr);
         httpBackend = $injector.get('$httpBackend');
         srvLocale = $injector.get('srvLocale');
         srvLocale.resetLocale();// english by default
@@ -79,21 +79,21 @@ describe('filter', function () {
         }));
 
         it('should format a null french Euro amount', inject(function (c4pCurrencyFilter) {
-            httpBackend.expectGET('models/local_fr.json');
+            httpBackend.expectGET('data/local_fr.json');
             srvLocale.setLanguage('fr');
             httpBackend.flush();
             expect(c4pCurrencyFilter(0)).toEqual('0,00 '+a4p.Utf8.decode('\xe2\x82\xac'));
         }));
 
         it('should format a non null french Euro amount', inject(function (c4pCurrencyFilter) {
-            httpBackend.expectGET('models/local_fr.json');
+            httpBackend.expectGET('data/local_fr.json');
             srvLocale.setLanguage('fr');
             httpBackend.flush();
             expect(c4pCurrencyFilter(1000)).toEqual('1 000,00 '+a4p.Utf8.decode('\xe2\x82\xac'));
         }));
 
         it('should format a non null french Dollar amount', inject(function (c4pCurrencyFilter) {
-            httpBackend.expectGET('models/local_fr.json');
+            httpBackend.expectGET('data/local_fr.json');
             srvLocale.setLanguage('fr');
             httpBackend.flush();
             expect(c4pCurrencyFilter(1000, '\x24')).toEqual('1 000,00 $');

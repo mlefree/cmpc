@@ -1,9 +1,15 @@
 
+angular.module('srvConfig', [])
+
+.factory('srvConfig', function (srvDataTransfer, srvLoad, srvLocalStorage, srvAnalytics) {
+  return new SrvConfig(srvDataTransfer, srvLoad, srvLocalStorage, srvAnalytics);
+});
+
 
 var SrvConfig = (function() {
     'use strict';
 
-    // Update synchronously this array with l4p/src/php/c4p/common/Model.php and c4p_html_ang/www/models/local_*.json
+    // Update synchronously this array with l4p/src/php/c4p/common/Model.php and c4p_html_ang/app/data/local_*.json
     var betaOptions = [
         "exposeCreateAccount",
         "exposeRequestPassword",

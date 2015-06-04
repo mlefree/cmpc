@@ -65,3 +65,5 @@ function ctrlSelectCrmsDialog($scope, srvLocale, possibleCrms, activeCrms, multi
         }
     };
 }
+
+angular.module('crtl.modal.selectCrms', []).controller('ctrlSelectCrmsDialog', ctrlSelectCrmsDialog);

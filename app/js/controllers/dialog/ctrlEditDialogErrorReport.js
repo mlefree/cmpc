@@ -21,3 +21,5 @@ function ctrlEditDialogErrorReport($scope, srvLocale, $modalInstance) {
     $modalInstance.dismiss(undefined);
   };
 }
+
+angular.module('crtl.modal.editErrorReport', []).controller('ctrlEditDialogErrorReport', ctrlEditDialogErrorReport);

@@ -7,7 +7,7 @@ describe('ctrlCalendar', function () {
 
     beforeEach(function () {
         module('ui.bootstrap');
-        module('c4pServices');
+        module('c4p.services');
         module(function ($provide) {
             var LocalStorage = a4p.LocalStorageFactory(new a4p.MemoryStorage());
             var srvLocalStorage = new LocalStorage();
@@ -3657,7 +3657,7 @@ describe('ctrlCalendar', function () {
                 'A-Token':'xxx',
                 'Content-type':'text/html'
             });
-            httpBackend.when('GET', 'models/data.json').respond(angular.copy(dataJson), {
+            httpBackend.when('GET', 'data/data.json').respond(angular.copy(dataJson), {
                 'A-Token':'xxx',
                 'Content-type':'image/png'
             });
@@ -3667,7 +3667,7 @@ describe('ctrlCalendar', function () {
             // httpBackend.when('POST', 'https://127.0.0.1/c4ph5/www/c4p_fill.php').respond(c4ph5FillJson, {
             //     'A-Token':'xxx'
             // });
-            httpBackend.when('GET', 'models/c4p_conf.json').respond({
+            httpBackend.when('GET', 'data/c4p_conf.json').respond({
                 "buildDate" : "130911",
                 "urlBase" : "https://127.0.0.1/c4ph5/www",
                 "trustAllHosts" : false,
@@ -3677,7 +3677,7 @@ describe('ctrlCalendar', function () {
                     "exposeBetaFunctionalities" : false,
                 }
             });
-            httpBackend.when('GET', 'models/local_en.json').respond(c4p.Locale.en);
+            httpBackend.when('GET', 'data/local_en.json').respond(c4p.Locale.en);
 
             var controller = $controller(ctrlNavigation, {
                 $scope:navigationScope
@@ -3685,8 +3685,8 @@ describe('ctrlCalendar', function () {
 
             expect(navigationScope.page).toEqual('');
 
-            httpBackend.expectGET('models/c4p_conf.json');
-            httpBackend.expectGET('models/local_en.json');
+            httpBackend.expectGET('data/c4p_conf.json');
+            httpBackend.expectGET('data/local_en.json');
             navigationScope.initctrlNavigation().then(function(okData) {
                 initialized = true;
             }, function(errorMsg) {
@@ -3707,7 +3707,7 @@ describe('ctrlCalendar', function () {
             expect(navigationScope.page).toEqual('guider');
             expect(navigationScope.slide).toEqual('register');
 
-            httpBackend.expectGET('models/data.json');
+            httpBackend.expectGET('data/data.json');
             //httpBackend.expectGET('views/dialog/guiderCarousel.html');
             navigationScope.setDemo(true).then(function () {
                 refreshed = true;
